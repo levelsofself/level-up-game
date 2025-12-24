@@ -2,35 +2,33 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Level Up - 7 Levels of Self</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Level Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0d0a1a;--card:rgba(30,26,46,0.95);--border:#3d3655;--text:#f5f0ff;--muted:#b8b0cc;--pink:#FF3CAC;--orange:#FF6B35;--purple:#784BA0;--blue:#2F80ED;--green:#00D26A;--yellow:#F7C948;--silver:#C0C0C0;--red:#FF4757;--gold:#FFD700}
-html,body{height:100%;overflow-x:hidden;-webkit-overflow-scrolling:touch}
-body{font-family:'Inter',system-ui,sans-serif;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);min-height:100%;color:var(--text);touch-action:manipulation}
-.app{max-width:500px;margin:0 auto;padding:16px 16px 40px;min-height:100%}
-button,a{touch-action:manipulation;cursor:pointer;-webkit-user-select:none;user-select:none}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);min-height:100vh;min-height:100dvh;color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.app{max-width:500px;margin:0 auto;padding:16px;padding-bottom:40px}
 .hook{position:fixed;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);display:flex;align-items:center;justify-content:center;z-index:300;text-align:center;padding:24px}
 .hook.hidden{display:none}
-.hook-line{font-size:clamp(28px,8vw,38px);font-weight:800;margin-bottom:16px;opacity:0;transform:translateY(20px);background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hook-line{font-size:38px;font-weight:800;margin-bottom:16px;opacity:0;transform:translateY(20px);background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hook-line.show{animation:fadeUp 0.8s forwards}
-.hook-sub{font-size:clamp(14px,4vw,18px);color:var(--muted);line-height:1.6;margin:24px 0;opacity:0}
+.hook-sub{font-size:18px;color:var(--muted);line-height:1.6;margin:24px 0;opacity:0}
 .hook-sub.show{animation:fadeUp 0.8s forwards}
-.hook-btn{padding:18px 48px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:16px;color:#fff;font-size:18px;font-weight:700;cursor:pointer;opacity:0;-webkit-appearance:none}
+.hook-btn{padding:18px 48px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:16px;color:#fff;font-size:18px;font-weight:700;cursor:pointer;opacity:0;transform:translateY(20px)}
 .hook-btn.show{animation:fadeUp 0.6s forwards}
-.hook-btn:active{transform:scale(0.97);opacity:0.9}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-.onboard{position:fixed;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);display:none;flex-direction:column;z-index:200;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.onboard{position:fixed;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);display:none;flex-direction:column;z-index:200;overflow:hidden}
 .onboard.active{display:flex}
-.onboard-screen{display:none;flex-direction:column;min-height:100%;padding:24px 24px 100px;overflow-y:auto}
+.onboard-screen{display:none;flex-direction:column;height:100%;padding:24px;padding-bottom:100px;overflow-y:auto}
 .onboard-screen.active{display:flex}
-.onboard-title{font-size:clamp(22px,6vw,28px);font-weight:800;text-align:center;margin:32px 0 20px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.onboard-title{font-size:28px;font-weight:800;text-align:center;margin:32px 0 20px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .onboard-sub{text-align:center;color:var(--muted);font-size:15px;margin-bottom:20px}
-.onboard-text{text-align:center;color:var(--muted);font-size:clamp(14px,4vw,16px);line-height:1.7;margin-bottom:8px}
+.onboard-text{text-align:center;color:var(--muted);font-size:16px;line-height:1.7;margin-bottom:8px}
 .onboard-text2{text-align:center;color:var(--text);font-size:15px;margin-bottom:8px}
-.onboard-highlight{text-align:center;color:var(--text);font-size:clamp(15px,4vw,17px);font-weight:600}
+.onboard-highlight{text-align:center;color:var(--text);font-size:17px;font-weight:600}
 .onboard-highlight strong{color:var(--pink)}
 .onboard-spacer{height:24px}
 .onboard-levels{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
@@ -42,98 +40,93 @@ button,a{touch-action:manipulation;cursor:pointer;-webkit-user-select:none;user-
 .onboard-dots{display:flex;justify-content:center;gap:8px;margin:20px 0}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--border)}
 .dot.active{background:var(--pink)}
-.onboard-btns{display:flex;gap:12px;margin-top:auto;padding:20px 0}
+.onboard-btns{display:flex;gap:12px;margin-top:auto;padding-top:20px}
 .onboard-skip{padding:16px 24px;background:transparent;border:none;color:var(--muted);font-size:15px;cursor:pointer}
-.onboard-next,.onboard-start{flex:1;padding:16px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;-webkit-appearance:none}
-.onboard-next:active,.onboard-start:active{transform:scale(0.97)}
+.onboard-next,.onboard-start{flex:1;padding:16px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
 .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
-.logo{font-size:clamp(20px,6vw,24px);font-weight:800;background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.logo{font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .controls{display:flex;gap:8px}
-.ctrl-btn{width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:20px;cursor:pointer;-webkit-appearance:none}
+.ctrl-btn{width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .ctrl-btn.on{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;border:none}
 .hero{text-align:center;margin-bottom:24px}
-.hero h1{font-size:clamp(24px,7vw,30px);font-weight:800;margin-bottom:10px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{color:var(--muted);font-size:clamp(13px,3.5vw,15px)}
-.challenge{background:var(--card);border:2px solid var(--pink);border-radius:16px;padding:20px;margin-bottom:20px;cursor:pointer;transition:transform 0.2s}
-.challenge:active{transform:scale(0.98)}
+.hero h1{font-size:30px;font-weight:800;margin-bottom:10px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--muted);font-size:15px}
+.challenge{background:var(--card);border:2px solid var(--pink);border-radius:16px;padding:20px;margin-bottom:20px;cursor:pointer}
 .badge{display:inline-flex;align-items:center;gap:6px;background:var(--pink);color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px;margin-bottom:12px}
 .badge-dot{width:8px;height:8px;background:#fff;border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-.challenge h2{font-size:clamp(18px,5vw,22px);font-weight:700;margin-bottom:8px}
-.challenge p{color:var(--muted);font-size:clamp(12px,3.5vw,14px);margin-bottom:14px}
-.challenge-footer{display:flex;justify-content:space-between;font-size:clamp(11px,3vw,13px);color:var(--muted);flex-wrap:wrap;gap:8px}
-.challenge.done{opacity:0.6}
+.challenge h2{font-size:22px;font-weight:700;margin-bottom:8px}
+.challenge p{color:var(--muted);font-size:14px;margin-bottom:14px}
+.challenge-footer{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.challenge.done{opacity:0.6;border-color:var(--green)}
 .challenge.done .badge{background:var(--green)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
-.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 6px;text-align:center}
-.stat-val{font-size:clamp(20px,5vw,26px);font-weight:700;background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-label{font-size:clamp(8px,2.5vw,10px);font-weight:600;color:var(--muted);text-transform:uppercase;margin-top:6px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 8px;text-align:center}
+.stat-val{font-size:26px;font-weight:700;background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;margin-top:6px}
 .modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
-.mode{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all 0.2s}
-.mode:active{transform:scale(0.97);border-color:var(--pink)}
-.mode-icon{font-size:clamp(28px,8vw,36px);margin-bottom:10px}
-.mode-name{font-size:clamp(14px,4vw,16px);font-weight:700;margin-bottom:6px}
-.mode-desc{font-size:clamp(11px,3vw,13px);color:var(--muted)}
+.mode{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:20px 16px;text-align:center;cursor:pointer}
+.mode:active{border-color:var(--pink)}
+.mode-icon{font-size:36px;margin-bottom:12px}
+.mode-name{font-size:16px;font-weight:700;margin-bottom:6px}
+.mode-desc{font-size:13px;color:var(--muted)}
 .action-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
-.action-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:14px 12px;cursor:pointer;transition:all 0.2s;text-decoration:none;color:var(--text)}
-.action-btn:active{transform:scale(0.97)}
+.action-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;text-decoration:none;color:var(--text)}
 .action-btn-icon{font-size:20px}
-.action-btn-text{font-size:clamp(12px,3.5vw,14px);font-weight:600}
+.action-btn-text{font-size:14px;font-weight:600}
 .action-btn.assess{border-color:var(--blue)}
 .action-btn.share{border-color:var(--green)}
 .section-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
 .levels{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
-.level{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:all 0.2s}
+.level{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer}
 .level:active{border-color:var(--pink)}
 .level.locked{opacity:0.4;cursor:not-allowed}
 .level-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#000;flex-shrink:0}
 .level-info{flex:1}
 .level-name{font-size:15px;font-weight:600}
 .level-desc{font-size:13px;color:var(--muted)}
-.footer{text-align:center;padding:20px}
-.footer a{color:var(--pink);text-decoration:none;font-size:14px;font-weight:600;display:inline-block;padding:10px}
-.footer p{font-size:12px;color:var(--muted);margin-top:6px}
+.footer{text-align:center;padding:20px 0}
+.footer a{color:var(--pink);text-decoration:none;font-size:14px;font-weight:600}
+.footer p{font-size:12px;color:var(--muted);margin-top:8px}
 .game{display:none}
 .game.active{display:block}
 .home.hidden{display:none}
 .game-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
 .game-info{font-size:15px}
 .game-mode{color:var(--muted);font-size:12px;text-transform:uppercase}
-.quit{width:44px;height:44px;border-radius:50%;background:rgba(255,71,87,0.2);border:2px solid var(--red);color:var(--red);font-size:20px;cursor:pointer;-webkit-appearance:none}
+.quit{width:44px;height:44px;border-radius:50%;background:rgba(255,71,87,0.15);border:2px solid var(--red);color:var(--red);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .timer{height:8px;background:var(--border);border-radius:4px;margin-bottom:20px;overflow:hidden}
 .timer.hidden{display:none}
-.timer-fill{height:100%;background:var(--green);transition:width 0.1s}
+.timer-fill{height:100%;width:100%;background:var(--green);transition:width 0.1s linear}
 .timer-fill.warn{background:var(--gold)}
 .timer-fill.danger{background:var(--red)}
 .scenario{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
 .scenario-cat{display:inline-block;background:var(--border);padding:6px 12px;border-radius:20px;font-size:11px;text-transform:uppercase;margin-bottom:14px}
-.scenario-text{font-size:clamp(15px,4vw,17px);line-height:1.7}
+.scenario-text{font-size:17px;line-height:1.7}
 .choices{display:flex;flex-direction:column;gap:10px}
-.choice{width:100%;padding:14px 16px;background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-size:clamp(13px,3.5vw,15px);text-align:left;cursor:pointer;line-height:1.5;transition:all 0.2s;-webkit-appearance:none}
-.choice:active:not(:disabled){border-color:var(--pink);transform:scale(0.98)}
+.choice{width:100%;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;text-align:left;cursor:pointer;line-height:1.5}
+.choice:active{border-color:var(--pink)}
 .choice:disabled{cursor:default}
 .choice.selected{border-color:var(--pink);background:rgba(255,60,172,0.1)}
 .choice.correct{border-color:var(--green);background:rgba(0,210,106,0.15)}
 .choice.wrong{border-color:var(--red);background:rgba(255,71,87,0.15)}
 .choice.dim{opacity:0.3}
-.results{display:none;text-align:center;padding-top:40px}
+.results{display:none;text-align:center;padding-top:60px}
 .results.active{display:block}
-.results h2{font-size:24px;margin-bottom:20px}
-.score{font-size:clamp(48px,15vw,72px);font-weight:900;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:20px 0}
-.result-msg{font-size:clamp(14px,4vw,18px);color:var(--muted);margin-bottom:32px}
-.results-btn{width:100%;padding:18px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;-webkit-appearance:none}
-.results-btn:active{transform:scale(0.97)}
+.results h2{font-size:28px;margin-bottom:24px}
+.score{font-size:72px;font-weight:900;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:20px 0}
+.result-msg{font-size:18px;color:var(--muted);margin-bottom:32px}
+.results-btn{width:100%;padding:18px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,0.9);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
 .modal.active{display:flex}
-.modal-content{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;max-width:400px;width:100%;max-height:90vh;overflow-y:auto}
+.modal-content{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;max-width:400px;width:100%}
 .modal-icon{font-size:48px;text-align:center;margin-bottom:12px}
-.modal-title{font-size:clamp(20px,6vw,26px);font-weight:700;text-align:center;margin-bottom:20px}
+.modal-title{font-size:26px;font-weight:700;text-align:center;margin-bottom:20px}
 .feedback-box{background:rgba(0,0,0,0.3);border-radius:12px;padding:16px;margin-bottom:20px}
 .feedback-label{font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
-.feedback-text{font-size:clamp(13px,3.5vw,15px);line-height:1.6}
-.modal-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;-webkit-appearance:none}
-.modal-btn:active{transform:scale(0.97)}
-.share-toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:12px 24px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:opacity 0.3s;z-index:500}
+.feedback-text{font-size:15px;line-height:1.6}
+.modal-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+.share-toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:12px 24px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:opacity 0.3s;z-index:500;pointer-events:none}
 .share-toast.show{opacity:1}
 </style>
 </head>
@@ -151,15 +144,15 @@ button,a{touch-action:manipulation;cursor:pointer;-webkit-user-select:none;user-
 <script src="mirror-level5-society.js"></script>
 <script src="mirror-level6-world.js"></script>
 <script src="mirror-level7-generations.js"></script>
-<script src="agreement-game.js"></script>
-<script src="worldwide-challenge.js"></script>
+<script src="agreement_game.js"></script>
+<script src="worldwide_challenge.js"></script>
 <script>
 const MIRROR_SCENARIOS=[...(typeof LEVEL_1_INDIVIDUAL!=='undefined'?LEVEL_1_INDIVIDUAL:[]),...(typeof LEVEL_2_FAMILY!=='undefined'?LEVEL_2_FAMILY:[]),...(typeof LEVEL_3_GROUPS!=='undefined'?LEVEL_3_GROUPS:[]),...(typeof LEVEL_4_COMMUNITY!=='undefined'?LEVEL_4_COMMUNITY:[]),...(typeof LEVEL_5_SOCIETY!=='undefined'?LEVEL_5_SOCIETY:[]),...(typeof LEVEL_6_WORLD!=='undefined'?LEVEL_6_WORLD:[]),...(typeof LEVEL_7_GENERATIONS!=='undefined'?LEVEL_7_GENERATIONS:[])];
 const LEVELS=[{id:1,name:'Individual',color:'#FF6B35',desc:'Your relationship with yourself'},{id:2,name:'Family',color:'#FF3CAC',desc:'Your closest relationships'},{id:3,name:'Groups',color:'#784BA0',desc:'Teams, friends, communities'},{id:4,name:'Community',color:'#2F80ED',desc:'Your role in the larger whole'},{id:5,name:'Society',color:'#00D26A',desc:'Systems, culture, nation'},{id:6,name:'World',color:'#F7C948',desc:'Global connection'},{id:7,name:'Generations',color:'#C0C0C0',desc:'Legacy that outlasts you'}];
 let music=document.getElementById('music');music.volume=0.4;let musicOn=false,soundOn=true;
-let data=JSON.parse(localStorage.getItem('levelup_v3'))||{games:0,mirrorRecognized:0,mirrorTotal:0,agreementAccepted:0,agreementTotal:0,streak:0,lastDaily:null,unlocked:[1,2,3,4,5,6,7],seenIntro:false};
+let data=JSON.parse(localStorage.getItem('levelup_v4'))||{games:0,mirrorRecognized:0,mirrorTotal:0,agreementAccepted:0,agreementTotal:0,streak:0,lastDaily:null,unlocked:[1,2,3,4,5,6,7],seenIntro:false};
 let game={mode:null,scenarios:[],idx:0,answers:[],timer:null,timeLeft:15,useTimer:true};
-function save(){localStorage.setItem('levelup_v3',JSON.stringify(data))}
+function save(){localStorage.setItem('levelup_v4',JSON.stringify(data))}
 function playSound(f,d){if(!soundOn)return;try{let c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.frequency.value=f;o.connect(g);g.connect(c.destination);g.gain.setValueAtTime(0.1,c.currentTime);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+d);o.start();o.stop(c.currentTime+d)}catch(e){}}
 function positiveSound(){[523,659,784].forEach((f,i)=>setTimeout(()=>playSound(f,0.15),i*80))}
 function neutralSound(){playSound(440,0.2)}
@@ -167,40 +160,40 @@ function shuffle(a){let arr=[...a];for(let i=arr.length-1;i>0;i--){let j=Math.fl
 function hashDate(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h=h&h}return Math.abs(h)}
 function shareGame(){const u=window.location.href;if(navigator.share){navigator.share({title:'Level Up',text:'Discover your level!',url:u}).catch(()=>{})}else{navigator.clipboard.writeText(u).then(()=>{document.getElementById('shareToast').classList.add('show');setTimeout(()=>document.getElementById('shareToast').classList.remove('show'),2000)}).catch(()=>{prompt('Copy:',u)})}}
 function showHook(){setTimeout(()=>document.getElementById('line1').classList.add('show'),400);setTimeout(()=>document.getElementById('line2').classList.add('show'),1400);setTimeout(()=>document.getElementById('hookSub').classList.add('show'),2600);setTimeout(()=>document.getElementById('hookBtn').classList.add('show'),3400)}
-document.getElementById('hookBtn').addEventListener('click',function(e){e.preventDefault();document.getElementById('hook').classList.add('hidden');document.getElementById('onboard').classList.add('active');music.play().then(()=>{musicOn=true;document.getElementById('musicBtn').classList.add('on')}).catch(()=>{})});
-document.getElementById('skipBtn').addEventListener('click',function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()});
-document.getElementById('skipBtn2').addEventListener('click',function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()});
-document.getElementById('nextBtn1').addEventListener('click',function(){document.getElementById('onboard1').classList.remove('active');document.getElementById('onboard2').classList.add('active')});
-document.getElementById('goBtn').addEventListener('click',function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()});
-function updateHome(){document.getElementById('statPlayed').textContent=data.games;document.getElementById('statMirror').textContent=data.mirrorRecognized;document.getElementById('statAccept').textContent=data.agreementAccepted;document.getElementById('statStreak').textContent=data.streak;let today=new Date().toDateString(),daily=document.getElementById('dailyCard');if(data.lastDaily===today){daily.classList.add('done');document.getElementById('dailyCta').textContent="✓ Completed today"}else{daily.classList.remove('done');document.getElementById('dailyCta').textContent='Tap to join the global movement'}let map=document.getElementById('levelMap');map.innerHTML='';LEVELS.forEach(lv=>{let unlocked=data.unlocked.includes(lv.id),div=document.createElement('div');div.className='level'+(unlocked?'':' locked');div.innerHTML='<div class="level-num" style="background:'+lv.color+'">'+lv.id+'</div><div class="level-info"><div class="level-name">'+lv.name+(unlocked?'':' 🔒')+'</div><div class="level-desc">'+lv.desc+'</div></div>';if(unlocked)div.addEventListener('click',()=>startLevelPlay(lv.id));map.appendChild(div)});updateTimer()}
+document.getElementById('hookBtn').onclick=function(){document.getElementById('hook').classList.add('hidden');document.getElementById('onboard').classList.add('active');music.play().then(()=>{musicOn=true;document.getElementById('musicBtn').classList.add('on')}).catch(()=>{})};
+document.getElementById('skipBtn').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
+document.getElementById('skipBtn2').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
+document.getElementById('nextBtn1').onclick=function(){document.getElementById('onboard1').classList.remove('active');document.getElementById('onboard2').classList.add('active')};
+document.getElementById('goBtn').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
+function updateHome(){document.getElementById('statPlayed').textContent=data.games;document.getElementById('statMirror').textContent=data.mirrorRecognized;document.getElementById('statAccept').textContent=data.agreementAccepted;document.getElementById('statStreak').textContent=data.streak;let today=new Date().toDateString(),daily=document.getElementById('dailyCard');if(data.lastDaily===today){daily.classList.add('done');document.getElementById('dailyCta').textContent="✓ Completed today"}else{daily.classList.remove('done');document.getElementById('dailyCta').textContent='Tap to join the global movement'}let map=document.getElementById('levelMap');map.innerHTML='';LEVELS.forEach(lv=>{let unlocked=data.unlocked.includes(lv.id),div=document.createElement('div');div.className='level'+(unlocked?'':' locked');div.innerHTML='<div class="level-num" style="background:'+lv.color+'">'+lv.id+'</div><div class="level-info"><div class="level-name">'+lv.name+(unlocked?'':' 🔒')+'</div><div class="level-desc">'+lv.desc+'</div></div>';if(unlocked)div.onclick=()=>startLevelPlay(lv.id);map.appendChild(div)});updateTimer()}
 function updateTimer(){let now=new Date(),tom=new Date(now);tom.setDate(tom.getDate()+1);tom.setHours(0,0,0,0);let d=tom-now,h=String(Math.floor(d/3600000)).padStart(2,'0'),m=String(Math.floor((d%3600000)/60000)).padStart(2,'0'),s=String(Math.floor((d%60000)/1000)).padStart(2,'0');document.getElementById('dailyTimer').textContent='Resets in '+h+':'+m+':'+s}
-function startMirrorGame(lf=null){game.mode='mirror';game.idx=0;game.answers=[];game.useTimer=false;let pool=MIRROR_SCENARIOS.filter(s=>lf?s.level===lf:data.unlocked.includes(s.level));if(pool.length===0){alert('No scenarios');return}game.scenarios=shuffle(pool).slice(0,10);document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');document.getElementById('gameMode').textContent='Mirror Game';document.getElementById('timerBar').classList.add('hidden');showMirrorScenario()}
-function startAgreementGame(lf=null){game.mode='agreement';game.idx=0;game.answers=[];game.useTimer=true;if(typeof DECISION_SCENARIOS==='undefined'||DECISION_SCENARIOS.length===0){alert('Agreement Game loading... Please refresh.');return}let pool=DECISION_SCENARIOS.filter(s=>lf?s.level===lf:data.unlocked.includes(s.level));if(pool.length===0){alert('No scenarios for unlocked levels');return}game.scenarios=shuffle(pool).slice(0,10);document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');document.getElementById('gameMode').textContent='Agreement Game';document.getElementById('timerBar').classList.remove('hidden');showAgreementScenario()}
+function startMirrorGame(lf){game.mode='mirror';game.idx=0;game.answers=[];game.useTimer=false;let pool=MIRROR_SCENARIOS.filter(s=>lf?s.level===lf:data.unlocked.includes(s.level));if(pool.length===0){alert('No scenarios');return}game.scenarios=shuffle(pool).slice(0,10);document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');document.getElementById('gameMode').textContent='Mirror Game';document.getElementById('timerBar').classList.add('hidden');showMirrorScenario()}
+function startAgreementGame(lf){game.mode='agreement';game.idx=0;game.answers=[];game.useTimer=true;if(typeof DECISION_SCENARIOS==='undefined'||DECISION_SCENARIOS.length===0){alert('Agreement Game loading... Please refresh.');return}let pool=DECISION_SCENARIOS.filter(s=>lf?s.level===lf:data.unlocked.includes(s.level));if(pool.length===0){alert('No scenarios for unlocked levels');return}game.scenarios=shuffle(pool).slice(0,10);document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');document.getElementById('gameMode').textContent='Agreement Game';document.getElementById('timerBar').classList.remove('hidden');showAgreementScenario()}
 function startDecisionGame(){let today=new Date().toDateString();if(data.lastDaily===today)return;game.mode='decision';game.idx=0;game.answers=[];game.useTimer=true;game.scenarios=[];if(typeof window.SCENARIOS==='undefined'){alert('Worldwide Challenge loading... Please refresh.');return}let seed=hashDate(today),num=3,all=[];for(let l=1;l<=7;l++){if(window.SCENARIOS[l])all=all.concat(window.SCENARIOS[l].map(s=>({...s,level:l})))}for(let i=0;i<num&&i<all.length;i++){let idx=(seed+i*31337)%all.length;game.scenarios.push(all[idx]);seed=(seed*31337)&0xFFFFFF}if(game.scenarios.length===0){alert('No scenarios');return}document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');document.getElementById('gameMode').textContent='Worldwide Challenge';document.getElementById('timerBar').classList.remove('hidden');showDecisionScenario()}
 function startLevelPlay(id){startMirrorGame(id)}
-function showMirrorScenario(){let s=game.scenarios[game.idx];if(!s){endGame();return}document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');document.getElementById('scenarioText').textContent=s.text;let c=document.getElementById('choices');c.innerHTML='';[{text:"That's Me",value:true},{text:"That's Not Me",value:false}].forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.addEventListener('click',()=>selectMirrorChoice(ch,b,s));c.appendChild(b)})}
+function showMirrorScenario(){let s=game.scenarios[game.idx];if(!s){endGame();return}document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');document.getElementById('scenarioText').textContent=s.text;let c=document.getElementById('choices');c.innerHTML='';[{text:"That's Me",value:true},{text:"That's Not Me",value:false}].forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectMirrorChoice(ch,b,s);c.appendChild(b)})}
 function selectMirrorChoice(ch,btn,sc){document.querySelectorAll('.choice').forEach(b=>b.disabled=true);btn.classList.add('selected');game.answers.push({recognized:ch.value,insight:sc.insight});if(ch.value)data.mirrorRecognized++;data.mirrorTotal++;positiveSound();setTimeout(()=>showMirrorFeedback(sc.insight,ch.value),400)}
 function showMirrorFeedback(ins,rec){document.getElementById('fbIcon').textContent='💡';document.getElementById('fbIcon').style.color='var(--pink)';document.getElementById('fbTitle').textContent=rec?'Recognized':'Noted';document.getElementById('fbLabel').textContent='Insight';document.getElementById('fbText').textContent=ins;document.getElementById('feedbackModal').classList.add('active')}
-function showAgreementScenario(){let s=game.scenarios[game.idx];if(!s){endGame();return}document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');document.getElementById('scenarioText').textContent=s.scenario;let c=document.getElementById('choices');c.innerHTML='';shuffle(s.choices).forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.addEventListener('click',()=>selectAgreementChoice(ch,b,s));c.appendChild(b)});if(game.useTimer)startTimer()}
+function showAgreementScenario(){let s=game.scenarios[game.idx];if(!s){endGame();return}document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');document.getElementById('scenarioText').textContent=s.scenario;let c=document.getElementById('choices');c.innerHTML='';shuffle(s.choices).forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectAgreementChoice(ch,b,s);c.appendChild(b)});if(game.useTimer)startTimer()}
 function selectAgreementChoice(ch,btn,sc){if(game.timer)clearInterval(game.timer);document.querySelectorAll('.choice').forEach(b=>b.disabled=true);let isAcc=ch.type==='acceptance';game.answers.push({type:ch.type,isAcceptance:isAcc,insight:ch.insight});if(isAcc){btn.classList.add('correct');data.agreementAccepted++;positiveSound()}else{btn.classList.add('wrong');let acc=sc.choices.find(c=>c.type==='acceptance');document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound()}data.agreementTotal++;setTimeout(()=>showAgreementFeedback(ch,isAcc),500)}
 function showAgreementFeedback(ch,isAcc){document.getElementById('fbIcon').textContent=isAcc?'✓':'⚖️';document.getElementById('fbIcon').style.color=isAcc?'var(--green)':'var(--yellow)';document.getElementById('fbTitle').textContent=isAcc?'Acceptance':'Judgment';document.getElementById('fbLabel').textContent=isAcc?'Why this works':'Learning opportunity';document.getElementById('fbText').textContent=ch.insight;document.getElementById('feedbackModal').classList.add('active')}
-function showDecisionScenario(){let s=game.scenarios[game.idx];if(!s){endGame();return}document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');document.getElementById('scenarioText').textContent=s.text;let c=document.getElementById('choices');c.innerHTML='';s.choices.forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.addEventListener('click',()=>selectDecisionChoice(ch,b,s));c.appendChild(b)});if(game.useTimer)startTimer()}
+function showDecisionScenario(){let s=game.scenarios[game.idx];if(!s){endGame();return}document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');document.getElementById('scenarioText').textContent=s.text;let c=document.getElementById('choices');c.innerHTML='';s.choices.forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectDecisionChoice(ch,b,s);c.appendChild(b)});if(game.useTimer)startTimer()}
 function selectDecisionChoice(ch,btn,sc){if(game.timer)clearInterval(game.timer);document.querySelectorAll('.choice').forEach(b=>b.disabled=true);let isCorr=ch.correct===true;game.answers.push({correct:isCorr,feedback:ch.fb});if(isCorr){btn.classList.add('correct');positiveSound()}else{btn.classList.add('wrong');let corr=sc.choices.find(c=>c.correct===true);document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===corr.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound()}setTimeout(()=>showDecisionFeedback(ch,isCorr),500)}
 function showDecisionFeedback(ch,isCorr){document.getElementById('fbIcon').textContent=isCorr?'✓':'💡';document.getElementById('fbIcon').style.color=isCorr?'var(--green)':'var(--yellow)';document.getElementById('fbTitle').textContent=isCorr?'Correct!':'Not Quite';document.getElementById('fbLabel').textContent='Insight';document.getElementById('fbText').textContent=ch.fb;document.getElementById('feedbackModal').classList.add('active')}
 function startTimer(){game.timeLeft=15;if(game.timer)clearInterval(game.timer);game.timer=setInterval(()=>{game.timeLeft-=0.1;let pct=(game.timeLeft/15)*100,fill=document.getElementById('timerFill');fill.style.width=pct+'%';fill.classList.remove('warn','danger');if(game.timeLeft<=5)fill.classList.add('danger');else if(game.timeLeft<=10)fill.classList.add('warn');if(game.timeLeft<=0){clearInterval(game.timer);timeUp()}},100)}
 function timeUp(){let s=game.scenarios[game.idx];document.querySelectorAll('.choice').forEach(b=>b.disabled=true);if(game.mode==='agreement'){let acc=s.choices.find(c=>c.type==='acceptance');game.answers.push({type:'timeout',isAcceptance:false});data.agreementTotal++;document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else b.classList.add('dim')});neutralSound();setTimeout(()=>{document.getElementById('fbIcon').textContent='⏰';document.getElementById('fbTitle').textContent="Time's Up";document.getElementById('fbLabel').textContent='The accepting response';document.getElementById('fbText').textContent=acc.insight;document.getElementById('feedbackModal').classList.add('active')},500)}else if(game.mode==='decision'){let corr=s.choices.find(c=>c.correct===true);game.answers.push({correct:false});document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===corr.text)b.classList.add('correct');else b.classList.add('dim')});neutralSound();setTimeout(()=>{document.getElementById('fbIcon').textContent='⏰';document.getElementById('fbTitle').textContent="Time's Up";document.getElementById('fbLabel').textContent='The right response';document.getElementById('fbText').textContent=corr.fb;document.getElementById('feedbackModal').classList.add('active')},500)}}
-document.getElementById('nextBtn').addEventListener('click',function(){document.getElementById('feedbackModal').classList.remove('active');game.idx++;if(game.idx>=game.scenarios.length){endGame()}else{if(game.mode==='mirror')showMirrorScenario();else if(game.mode==='agreement')showAgreementScenario();else if(game.mode==='decision')showDecisionScenario()}});
+document.getElementById('nextBtn').onclick=function(){document.getElementById('feedbackModal').classList.remove('active');game.idx++;if(game.idx>=game.scenarios.length){endGame()}else{if(game.mode==='mirror')showMirrorScenario();else if(game.mode==='agreement')showAgreementScenario();else if(game.mode==='decision')showDecisionScenario()}};
 function endGame(){if(game.timer)clearInterval(game.timer);data.games++;if(game.mode==='decision'){let today=new Date().toDateString(),yesterday=new Date(Date.now()-86400000).toDateString();if(data.lastDaily===yesterday)data.streak++;else if(data.lastDaily!==today)data.streak=1;data.lastDaily=today}save();document.getElementById('game').classList.remove('active');document.getElementById('results').classList.add('active');if(game.mode==='mirror'){let rec=game.answers.filter(a=>a.recognized).length;document.getElementById('resultsTitle').textContent='Mirror Complete';document.getElementById('finalScore').textContent=rec+'/'+game.answers.length;document.getElementById('resultMsg').textContent='Patterns recognized.'}else if(game.mode==='agreement'){let acc=game.answers.filter(a=>a.isAcceptance).length;document.getElementById('resultsTitle').textContent='Agreement Complete';document.getElementById('finalScore').textContent=acc+'/'+game.answers.length;document.getElementById('resultMsg').textContent=acc>=8?'Strong acceptance!':acc>=5?'Growing.':'Keep practicing.'}else if(game.mode==='decision'){let corr=game.answers.filter(a=>a.correct).length;document.getElementById('resultsTitle').textContent='Challenge Complete';document.getElementById('finalScore').textContent='🔥 '+data.streak;document.getElementById('resultMsg').textContent=corr+'/'+game.answers.length+' correct!'}}
-document.getElementById('homeBtn').addEventListener('click',function(){document.getElementById('results').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()});
-document.getElementById('quitBtn').addEventListener('click',function(){if(game.timer)clearInterval(game.timer);document.getElementById('game').classList.remove('active');document.getElementById('feedbackModal').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()});
-document.getElementById('musicBtn').addEventListener('click',function(){if(musicOn){music.pause();musicOn=false;this.classList.remove('on')}else{music.play().then(()=>{musicOn=true;this.classList.add('on')}).catch(()=>{})}});
-document.getElementById('soundBtn').addEventListener('click',function(){soundOn=!soundOn;this.classList.toggle('on',soundOn);if(soundOn)playSound(600,0.1)});
-document.getElementById('dailyCard').addEventListener('click',function(){if(!this.classList.contains('done'))startDecisionGame()});
-document.getElementById('mirrorMode').addEventListener('click',()=>startMirrorGame());
-document.getElementById('agreementMode').addEventListener('click',()=>startAgreementGame());
-document.getElementById('shareBtn').addEventListener('click',shareGame);
+document.getElementById('homeBtn').onclick=function(){document.getElementById('results').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
+document.getElementById('quitBtn').onclick=function(){if(game.timer)clearInterval(game.timer);document.getElementById('game').classList.remove('active');document.getElementById('feedbackModal').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
+document.getElementById('musicBtn').onclick=function(){if(musicOn){music.pause();musicOn=false;this.classList.remove('on')}else{music.play().then(()=>{musicOn=true;this.classList.add('on')}).catch(()=>{})}};
+document.getElementById('soundBtn').onclick=function(){soundOn=!soundOn;this.classList.toggle('on',soundOn);if(soundOn)playSound(600,0.1)};
+document.getElementById('dailyCard').onclick=function(){if(!this.classList.contains('done'))startDecisionGame()};
+document.getElementById('mirrorMode').onclick=()=>startMirrorGame();
+document.getElementById('agreementMode').onclick=()=>startAgreementGame();
+document.getElementById('shareBtn').onclick=shareGame;
 if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
 setInterval(updateTimer,1000);
-console.log('Mirror:',MIRROR_SCENARIOS.length,'Agreement:',typeof DECISION_SCENARIOS!=='undefined'?DECISION_SCENARIOS.length:0,'Decision:',typeof window.SCENARIOS!=='undefined'?Object.values(window.SCENARIOS).flat().length:0);
 </script>
-</body></html>
+</body>
+</html>
