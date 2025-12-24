@@ -293,165 +293,18 @@ button{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:tra
 </div>
 </div>
 <script>
-// ========== ALL SCENARIOS COMBINED ==========
-// COMBINED FROM ALL YOUR JAVASCRIPT FILES
+// ========== LOAD ALL SCENARIO FILES ==========
+<!-- Load all 7 Mirror Game files -->
+<script src="mirror-level1-individual.js"></script>
+<script src="mirror-level2-family.js"></script>
+<script src="mirror-level3-groups.js"></script>
+<script src="mirror-level4-community.js"></script>
+<script src="mirror-level5-society.js"></script>
+<script src="mirror-level6-world.js"></script>
+<script src="mirror-level7-generations.js"></script>
 
-const MIRROR_SCENARIOS = [
-  // LEVEL 1: INDIVIDUAL (300 scenarios - first 50 shown)
-  { text: "You say you're fine when you're falling apart", level: 1, insight: "The truth doesn't need your protection. You do." },
-  { text: "You know what you actually feel, not just what's acceptable to feel", level: 1, insight: "Emotional honesty is the first freedom." },
-  { text: "You lie to yourself and believe it", level: 1, insight: "The stories we tell ourselves become the lives we live." },
-  { text: "You admit when you're wrong without making it a crisis", level: 1, insight: "Being wrong is an event. How you handle it is a pattern." },
-  { text: "You pretend not to want things so rejection won't hurt", level: 1, insight: "Pretending not to want doesn't stop the wanting." },
-  { text: "You tell yourself the truth even when it's ugly", level: 1, insight: "The truth will set you free, but first it will piss you off." },
-  { text: "You make excuses you stopped believing years ago", level: 1, insight: "Old excuses are just comfortable cages." },
-  { text: "You know the difference between a reason and an excuse", level: 1, insight: "Reasons explain. Excuses protect. Know which one you're using." },
-  { text: "You hide from your own reflection", level: 1, insight: "What you won't face will keep facing you." },
-  { text: "You can look at your patterns without flinching", level: 1, insight: "Awareness without judgment is the beginning of change." },
-  { text: "You pretend you don't care about things eating you alive", level: 1, insight: "Indifference is often pain in disguise." },
-  { text: "You admit when you're jealous instead of dressing it up as something else", level: 1, insight: "Jealousy is just unmet desire pointing at itself." },
-  { text: "You convince yourself you have no choice when you always do", level: 1, insight: "No choice is still a choice." },
-  { text: "You see the games you play with yourself", level: 1, insight: "You can't stop a game you won't admit you're playing." },
-  { text: "You keep secrets from yourself", level: 1, insight: "The things we hide from ourselves run our lives from the shadows." },
-  
-  // LEVEL 2: FAMILY (300 scenarios - first 50 shown)
-  { text: "You're in the same room but a million miles apart", level: 2, insight: "Proximity isn't presence." },
-  { text: "You still choose each other every single day", level: 2, insight: "Love is a daily decision, not a one-time event." },
-  { text: "You've stopped trying to impress them", level: 2, insight: "Comfort shouldn't mean complacency." },
-  { text: "You never stop dating the person you're with", level: 2, insight: "What you stop watering stops growing." },
-  { text: "You keep score of everything they do wrong", level: 2, insight: "Scorekeeping kills connection." },
-  { text: "You forgive because you want to, not because you should", level: 2, insight: "Real forgiveness sets both of you free." },
-  { text: "You fight to win instead of to understand", level: 2, insight: "Winning an argument can mean losing the relationship." },
-  { text: "You fight fair even when you're furious", level: 2, insight: "How you fight matters more than what you fight about." },
-  { text: "You bring up old wounds every argument", level: 2, insight: "The past is a weapon that wounds both of you." },
-  { text: "You leave the past where it belongs", level: 2, insight: "Every argument deserves a clean slate." },
-  { text: "You assume the worst about their intentions", level: 2, insight: "Assumptions poison intimacy." },
-  { text: "You give them the benefit of the doubt", level: 2, insight: "Trust is choosing the generous interpretation." },
-  { text: "You've stopped being curious about who they're becoming", level: 2, insight: "People change. Stay interested." },
-  { text: "You ask questions like you just met them", level: 2, insight: "Curiosity keeps love alive." },
-  { text: "You talk at them, not with them", level: 2, insight: "Monologue isn't connection." },
-  
-  // LEVEL 3: GROUPS (300 scenarios - first 50 shown)
-  { text: "You have a hundred acquaintances and zero real friends", level: 3, insight: "Depth beats width every time." },
-  { text: "You have people who really know you", level: 3, insight: "Being known is being loved." },
-  { text: "You cancel plans more than you keep them", level: 3, insight: "Flakiness kills friendships slowly." },
-  { text: "You show up when you say you will", level: 3, insight: "Reliability is rare. Be rare." },
-  { text: "You only call friends when you need something", level: 3, insight: "They notice the pattern." },
-  { text: "You reach out just to check in", level: 3, insight: "No-agenda calls mean the most." },
-  { text: "You disappear when life gets hard", level: 3, insight: "Hard times reveal real friends. Be one." },
-  { text: "You show up when friends are struggling", level: 3, insight: "Presence during pain is priceless." },
-  { text: "You're jealous when friends succeed", level: 3, insight: "Their success isn't your failure." },
-  { text: "You celebrate friends' wins like your own", level: 3, insight: "Celebration multiplies joy." },
-  { text: "You talk about friends behind their backs", level: 3, insight: "What you say about them says everything about you." },
-  { text: "You speak well of friends when they're not there", level: 3, insight: "This is loyalty in action." },
-  { text: "You keep friends at arm's length", level: 3, insight: "Arm's length is lonely distance." },
-  { text: "You let people actually get close", level: 3, insight: "Closeness requires risk. Take it." },
-  { text: "You're the friend who always takes", level: 3, insight: "One-way friendships expire." },
-  
-  // LEVEL 4: COMMUNITY (300 scenarios - first 50 shown)
-  { text: "You don't know your neighbors' names", level: 4, insight: "Strangers next door are a choice." },
-  { text: "You know the people who live around you", level: 4, insight: "Knowing names builds community." },
-  { text: "You've never offered to help a neighbor", level: 4, insight: "Unoffered help is invisible." },
-  { text: "You check on people nearby when things are hard", level: 4, insight: "Checking in is community care." },
-  { text: "You call the police before trying to talk", level: 4, insight: "Conversation solves more than conflict." },
-  { text: "You try conversation first", level: 4, insight: "Neighbors who talk, stay neighbors." },
-  { text: "You complain about your neighborhood but do nothing", level: 4, insight: "Complaining isn't contributing." },
-  { text: "You work to improve where you live", level: 4, insight: "Improvement starts with one person." },
-  { text: "You'd never lend something to a neighbor", level: 4, insight: "Closed hands close communities." },
-  { text: "You share what you have with those nearby", level: 4, insight: "Sharing builds trust." },
-  { text: "You only care about your property line", level: 4, insight: "Property lines aren't care lines." },
-  { text: "You care about the whole block", level: 4, insight: "Wider care builds better places." },
-  { text: "You avoid community events completely", level: 4, insight: "Avoidance is invisible withdrawal." },
-  { text: "You show up to community events", level: 4, insight: "Showing up is participation." },
-  { text: "You park however you want regardless of others", level: 4, insight: "Small inconsiderations add up." },
-  
-  // Note: For full implementation, add ALL 300 scenarios from each level
-  // This is a sample showing the structure
-];
-
-// DECISION GAME SCENARIOS (Judgment vs Acceptance)
-const DECISION_SCENARIOS = [
-  {
-    level: 1,
-    scenario: "Someone is consistently late to meetings with you.",
-    choices: [
-      { 
-        text: "Think 'They're so disrespectful and don't value my time'", 
-        type: "judgment",
-        insight: "Judgment assumes intent. It closes connection and keeps you angry."
-      },
-      { 
-        text: "Ask 'Is everything okay? I've noticed you're having trouble being on time'", 
-        type: "acceptance",
-        insight: "Acceptance seeks understanding. It opens dialogue and solves problems."
-      }
-    ]
-  },
-  {
-    level: 1,
-    scenario: "You make a mistake at work that causes problems.",
-    choices: [
-      { 
-        text: "Beat yourself up: 'I'm so incompetent, I always mess things up'", 
-        type: "judgment",
-        insight: "Self-judgment creates shame, which prevents learning and growth."
-      },
-      { 
-        text: "Acknowledge: 'I made a mistake. What can I learn from this?'", 
-        type: "acceptance",
-        insight: "Self-acceptance creates space for learning and improvement."
-      }
-    ]
-  },
-  {
-    level: 2,
-    scenario: "Your partner forgets something important to you.",
-    choices: [
-      { 
-        text: "Think 'They don't really care about me or what matters to me'", 
-        type: "judgment",
-        insight: "Judgment creates distance and assumes the worst about someone you love."
-      },
-      { 
-        text: "Say 'That thing was important to me. Can we talk about what happened?'", 
-        type: "acceptance",
-        insight: "Acceptance communicates your truth while leaving room for theirs."
-      }
-    ]
-  },
-  {
-    level: 3,
-    scenario: "A coworker takes credit for your idea.",
-    choices: [
-      { 
-        text: "Think 'What a selfish, dishonest person. They'll get what's coming to them'", 
-        type: "judgment",
-        insight: "Judgment focuses on their character, not solving the problem."
-      },
-      { 
-        text: "Approach them: 'I noticed my idea was presented as yours. Can we clarify attribution?'", 
-        type: "acceptance",
-        insight: "Acceptance addresses the behavior directly while staying connected."
-      }
-    ]
-  },
-  {
-    level: 4,
-    scenario: "Your neighbor's yard is messy and affecting property values.",
-    choices: [
-      { 
-        text: "Complain to other neighbors: 'They're so lazy and inconsiderate'", 
-        type: "judgment",
-        insight: "Judgment creates sides and damages community relationships."
-      },
-      { 
-        text: "Ask directly: 'Is everything okay? I noticed your yard could use some help'", 
-        type: "acceptance",
-        insight: "Acceptance assumes good intent and offers connection over criticism."
-      }
-    ]
-  }
-];
+<!-- Load Decision Game scenarios -->
+<script src="deepseek_javascript_20251224_ffaa3e.js"></script>
 
 const LEVELS = [
   {id:1,name:'Individual',color:'#FF6B35',desc:'Know yourself'},
