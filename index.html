@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Level Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d0a1a;--card:rgba(30,26,46,0.95);--border:#3d3655;--text:#f5f0ff;--muted:#b8b0cc;--pink:#FF3CAC;--orange:#FF6B35;--purple:#784BA0;--blue:#2F80ED;--green:#00D26A;--yellow:#F7C948;--silver:#C0C0C0;--red:#FF4757;--gold:#FFD700}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);min-height:100vh;min-height:100dvh;color:var(--text);-webkit-font-smoothing:antialiased;letter-spacing:-0.01em;overflow-x:hidden}
+.app{max-width:500px;margin:0 auto;padding:16px;padding-bottom:40px}
+.hook{position:fixed;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);display:flex;align-items:center;justify-content:center;z-index:300;text-align:center;padding:24px}
+.hook.hidden{display:none}
+.hook-line{font-size:38px;font-weight:800;margin-bottom:16px;opacity:0;transform:translateY(20px);background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.02em}
+.hook-line.show{animation:fadeUp 0.8s forwards}
+.hook-sub{font-size:18px;color:var(--muted);line-height:1.6;margin:24px 0;opacity:0}
+.hook-sub.show{animation:fadeUp 0.8s forwards}
+.hook-btn{padding:18px 48px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:16px;color:#fff;font-size:18px;font-weight:700;cursor:pointer;opacity:0;transform:translateY(20px)}
+.hook-btn.show{animation:fadeUp 0.6s forwards}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.onboard{position:fixed;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);display:none;flex-direction:column;z-index:200;overflow:hidden}
+.onboard.active{display:flex}
+.onboard-screen{display:none;flex-direction:column;height:100%;padding:24px;padding-bottom:100px;overflow-y:auto}
+.onboard-screen.active{display:flex}
+.onboard-title{font-size:28px;font-weight:800;text-align:center;margin:32px 0 20px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.02em}
+.onboard-sub{text-align:center;color:var(--muted);font-size:15px;font-weight:500;margin-bottom:20px;line-height:1.6}
+.onboard-text{text-align:center;color:var(--muted);font-size:16px;font-weight:500;line-height:1.7;margin-bottom:8px}
+.onboard-text2{text-align:center;color:var(--text);font-size:15px;font-weight:500;line-height:1.7;margin-bottom:8px}
+.onboard-highlight{text-align:center;color:var(--text);font-size:17px;font-weight:600;line-height:1.7}
+.onboard-highlight strong{color:var(--pink);font-weight:700}
+.onboard-spacer{height:24px}
+.onboard-levels{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.onboard-level{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+.onboard-num{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#000;flex-shrink:0}
+.onboard-info{flex:1}
+.onboard-name{font-size:15px;font-weight:600;letter-spacing:-0.01em}
+.onboard-desc{font-size:13px;font-weight:500;color:var(--muted)}
+.onboard-dots{display:flex;justify-content:center;gap:8px;margin:20px 0}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--border)}
+.dot.active{background:var(--pink)}
+.onboard-btns{display:flex;gap:12px;margin-top:auto;padding:20px 0}
+.onboard-skip{flex:0;padding:16px 24px;background:transparent;border:none;color:var(--muted);font-size:15px;font-weight:500;cursor:pointer}
+.onboard-next,.onboard-start{flex:1;padding:16px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;letter-spacing:-0.01em}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.logo{font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.02em}
+.controls{display:flex;gap:8px}
+.ctrl-btn{width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:20px;cursor:pointer}
+.ctrl-btn.on{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;border:none}
+.hero{text-align:center;margin-bottom:24px}
+.hero h1{font-size:30px;font-weight:800;margin-bottom:10px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.02em}
+.hero p{color:var(--muted);font-size:15px;font-weight:500}
+.challenge{background:var(--card);border:2px solid var(--pink);border-radius:16px;padding:20px;margin-bottom:20px;cursor:pointer;transition:transform 0.2s}
+.challenge:hover{transform:translateY(-3px)}
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--pink);color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px;margin-bottom:12px}
+.badge-dot{width:8px;height:8px;background:#fff;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.challenge h2{font-size:22px;font-weight:700;margin-bottom:8px;letter-spacing:-0.01em}
+.challenge p{color:var(--muted);font-size:14px;font-weight:500;margin-bottom:14px;line-height:1.5}
+.challenge-footer{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.challenge.done{opacity:0.6}
+.challenge.done .badge{background:var(--green)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 8px;text-align:center}
+.stat-val{font-size:26px;font-weight:700;background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:6px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.mode{background:var(--card);border:2px solid var(--pink);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:transform 0.2s}
+.mode:hover{transform:translateY(-3px)}
+.mode-icon{font-size:36px;margin-bottom:10px}
+.mode-name{font-size:16px;font-weight:700;margin-bottom:6px;letter-spacing:-0.01em}
+.mode-desc{font-size:13px;font-weight:500;color:var(--muted)}
+.section-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
+.levels{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.level{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px}
+.level.locked{opacity:0.4}
+.level.current{border-color:var(--pink)}
+.level-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#000;flex-shrink:0}
+.level-info{flex:1}
+.level-name{font-size:15px;font-weight:600;letter-spacing:-0.01em}
+.level-desc{font-size:13px;font-weight:500;color:var(--muted)}
+.footer{text-align:center;padding:20px}
+.footer a{color:var(--pink);text-decoration:none;font-size:14px;font-weight:600}
+.footer p{font-size:12px;color:var(--muted);margin-top:6px}
+.game{display:none}
+.game.active{display:block}
+.home.hidden{display:none}
+.game-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.game-info{font-size:15px}
+.game-mode{color:var(--muted);font-size:12px;text-transform:uppercase}
+.quit{width:44px;height:44px;border-radius:50%;background:rgba(255,71,87,0.2);border:2px solid var(--red);color:var(--red);font-size:20px;cursor:pointer}
+.timer{height:8px;background:var(--border);border-radius:4px;margin-bottom:20px;overflow:hidden}
+.timer-fill{height:100%;background:var(--green);transition:width 0.1s}
+.timer-fill.warn{background:var(--gold)}
+.timer-fill.danger{background:var(--red)}
+.scenario{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px}
+.scenario-cat{display:inline-block;background:var(--border);padding:6px 12px;border-radius:20px;font-size:11px;text-transform:uppercase;margin-bottom:14px}
+.scenario-text{font-size:17px;line-height:1.7}
+.choices{display:flex;flex-direction:column;gap:10px}
+.choice{width:100%;padding:16px 20px;background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;text-align:left;cursor:pointer;line-height:1.5}
+.choice:hover{border-color:var(--pink)}
+.choice.correct{border-color:var(--green);background:rgba(0,210,106,0.15)}
+.choice.wrong{border-color:var(--red);background:rgba(255,71,87,0.15)}
+.choice.dim{opacity:0.3}
+.results{display:none;text-align:center;padding-top:40px}
+.results.active{display:block}
+.results h2{font-size:24px;margin-bottom:20px}
+.score{font-size:72px;font-weight:900;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:20px 0}
+.result-msg{font-size:18px;color:var(--muted);margin-bottom:32px}
+.results-btn{width:100%;padding:18px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.9);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
+.modal.active{display:flex}
+.modal-content{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;max-width:400px;width:100%}
+.modal-icon{font-size:56px;text-align:center;margin-bottom:12px}
+.modal-title{font-size:26px;font-weight:700;text-align:center;margin-bottom:20px}
+.feedback-box{background:rgba(0,0,0,0.3);border-radius:12px;padding:18px;margin-bottom:20px}
+.feedback-label{font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+.feedback-text{font-size:15px;line-height:1.6}
+.modal-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+
+/* Mobile optimizations */
+@media(max-width:400px){
+.hook-line{font-size:32px}
+.hook-sub{font-size:16px}
+.hook-btn{padding:16px 40px;font-size:16px}
+.onboard-title{font-size:24px;margin-top:20px}
+.onboard-text{font-size:15px}
+.onboard-text2{font-size:14px}
+.onboard-highlight{font-size:15px}
+.onboard-level{padding:10px 12px}
+.onboard-num{width:34px;height:34px;font-size:14px}
+.onboard-name{font-size:14px}
+.onboard-desc{font-size:12px}
+.hero h1{font-size:26px}
+.hero p{font-size:14px}
+.challenge{padding:16px}
+.challenge h2{font-size:20px}
+.challenge p{font-size:13px}
+.badge{font-size:10px;padding:5px 10px}
+.stats{gap:8px}
+.stat{padding:12px 6px}
+.stat-val{font-size:22px}
+.stat-label{font-size:9px}
+.modes{gap:10px}
+.mode{padding:16px}
+.mode-icon{font-size:30px}
+.mode-name{font-size:15px}
+.mode-desc{font-size:11px}
+.level{padding:12px}
+.level-num{width:32px;height:32px;font-size:14px}
+.level-name{font-size:14px}
+.level-desc{font-size:11px}
+.scenario{padding:18px}
+.scenario-text{font-size:16px}
+.choice{padding:14px 16px;font-size:14px}
+.score{font-size:60px}
+}
+
+/* Safe areas for notched phones */
+@supports(padding:max(0px)){
+.app{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));padding-bottom:max(40px,env(safe-area-inset-bottom))}
+.onboard-screen{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right));padding-bottom:max(100px,env(safe-area-inset-bottom))}
+.onboard-btns{padding-bottom:max(20px,env(safe-area-inset-bottom))}
+.hook{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}
+}
+
+/* Prevent zoom on input focus iOS */
+input,select,textarea{font-size:16px}
+
+/* Smooth scrolling */
+.onboard-screen,.app{-webkit-overflow-scrolling:touch}
+
+/* Touch feedback */
+.mode:active,.challenge:active,.choice:active,.onboard-next:active,.onboard-start:active,.hook-btn:active,.modal-btn:active,.results-btn:active{transform:scale(0.98);opacity:0.9}
+
+/* Disable text selection on buttons */
+button{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+</style>
+</head>
+<body>
+<audio id="music" loop><source src="level-up.mp3" type="audio/mpeg"></audio>
+<div class="hook" id="hook">
+<div>
+<div class="hook-line" id="line1">Something's off.</div>
+<div class="hook-line" id="line2">You can feel it.</div>
+<div class="hook-sub" id="hookSub">This game shows you exactly where<br>— and what to do about it.</div>
+<button class="hook-btn" id="hookBtn">Show Me</button>
+</div>
+</div>
+<div class="onboard" id="onboard">
+<div class="onboard-screen active" id="onboard1">
+<div class="onboard-title">There Are Levels To This</div>
+<div class="onboard-text">Most people are stuck — not because they lack knowledge, but because they're working on the wrong level.</div>
+<div class="onboard-text">You can't build a roof before the foundation.</div>
+<div class="onboard-spacer"></div>
+<div class="onboard-text2">Real scenarios. Real pressure. 15 seconds to choose.</div>
+<div class="onboard-text2">Each one reveals where you're operating from — and where you should be.</div>
+<div class="onboard-spacer"></div>
+<div class="onboard-highlight">The goal isn't the "highest" level.<br>It's the <strong>right</strong> level.</div>
+<div class="onboard-dots"><span class="dot active"></span><span class="dot"></span></div>
+<div class="onboard-btns">
+<button class="onboard-skip" id="skipBtn">Skip</button>
+<button class="onboard-next" id="nextBtn1">Next</button>
+</div>
+</div>
+<div class="onboard-screen" id="onboard2">
+<div class="onboard-title">The 7 Levels of Self</div>
+<div class="onboard-sub">You can't skip levels. Master each one before you climb.</div>
+<div class="onboard-levels">
+<div class="onboard-level"><div class="onboard-num" style="background:#FF6B35">1</div><div class="onboard-info"><div class="onboard-name">Individual</div><div class="onboard-desc">Your relationship with yourself</div></div></div>
+<div class="onboard-level"><div class="onboard-num" style="background:#FF3CAC">2</div><div class="onboard-info"><div class="onboard-name">Family</div><div class="onboard-desc">Your closest relationships</div></div></div>
+<div class="onboard-level"><div class="onboard-num" style="background:#784BA0">3</div><div class="onboard-info"><div class="onboard-name">Groups</div><div class="onboard-desc">Teams, friends, communities</div></div></div>
+<div class="onboard-level"><div class="onboard-num" style="background:#2F80ED">4</div><div class="onboard-info"><div class="onboard-name">Community</div><div class="onboard-desc">Your role in the larger whole</div></div></div>
+<div class="onboard-level"><div class="onboard-num" style="background:#00D26A">5</div><div class="onboard-info"><div class="onboard-name">Society</div><div class="onboard-desc">Systems, culture, nation</div></div></div>
+<div class="onboard-level"><div class="onboard-num" style="background:#F7C948">6</div><div class="onboard-info"><div class="onboard-name">World</div><div class="onboard-desc">Global connection</div></div></div>
+<div class="onboard-level"><div class="onboard-num" style="background:#C0C0C0">7</div><div class="onboard-info"><div class="onboard-name">Generations</div><div class="onboard-desc">Legacy that outlasts you</div></div></div>
+</div>
+<div class="onboard-dots"><span class="dot"></span><span class="dot active"></span></div>
+<div class="onboard-btns">
+<button class="onboard-skip" id="skipBtn2">Skip</button>
+<button class="onboard-start" id="goBtn">Let's Go</button>
+</div>
+</div>
+</div>
+<div class="app">
+<div class="home" id="home">
+<div class="header">
+<div class="logo">LEVEL UP</div>
+<div class="controls">
+<button class="ctrl-btn" id="musicBtn">🎵</button>
+<button class="ctrl-btn on" id="soundBtn">🔊</button>
+</div>
+</div>
+<div class="hero">
+<h1>Discover Your Level</h1>
+<p>The viral game transforming lives worldwide</p>
+</div>
+<div class="challenge" id="dailyCard">
+<div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div>
+<h2>Worldwide Challenge</h2>
+<p>Same 3 scenarios for everyone on Earth. One chance daily.</p>
+<div class="challenge-footer">
+<span id="dailyCta">Tap to join the global movement</span>
+<span id="dailyTimer">Resets in --:--:--</span>
+</div>
+</div>
+<div class="stats">
+<div class="stat"><div class="stat-val" id="statPlayed">0</div><div class="stat-label">Played</div></div>
+<div class="stat"><div class="stat-val" id="statClarity">0%</div><div class="stat-label">Clarity</div></div>
+<div class="stat"><div class="stat-val" id="statBest">0</div><div class="stat-label">Best Run</div></div>
+<div class="stat"><div class="stat-val" id="statStreak">0</div><div class="stat-label">Day Streak</div></div>
+</div>
+<div class="modes">
+<div class="mode" id="quickMode"><div class="mode-icon">⚡</div><div class="mode-name">Quick Game</div><div class="mode-desc">5 scenarios</div></div>
+<div class="mode" id="endlessMode"><div class="mode-icon">∞</div><div class="mode-name">Endless Journey</div><div class="mode-desc">Until 3 misses</div></div>
+</div>
+<div class="section-title">Your Journey</div>
+<div class="levels" id="levelMap"></div>
+<div class="footer">
+<a href="https://levelsofself.com" target="_blank">Learn the Full Framework →</a>
+<p>LevelsOfSelf.com</p>
+</div>
+</div>
+<div class="game" id="game">
+<div class="game-header">
+<div class="game-info"><div class="game-mode" id="gameMode">Quick</div><div id="gameProgress">1/5</div></div>
+<button class="quit" id="quitBtn">✕</button>
+</div>
+<div class="timer"><div class="timer-fill" id="timerFill"></div></div>
+<div class="scenario">
+<div class="scenario-cat" id="scenarioCat">self-awareness</div>
+<div class="scenario-text" id="scenarioText">Loading...</div>
+</div>
+<div class="choices" id="choices"></div>
+</div>
+<div class="results" id="results">
+<h2>Game Complete</h2>
+<div class="score" id="finalScore">0%</div>
+<p class="result-msg" id="resultMsg">Keep going!</p>
+<button class="results-btn" id="homeBtn">Continue</button>
+</div>
+</div>
+<div class="modal" id="feedbackModal">
+<div class="modal-content">
+<div class="modal-icon" id="fbIcon">✓</div>
+<div class="modal-title" id="fbTitle">Aligned!</div>
+<div class="feedback-box">
+<div class="feedback-label" id="fbLabel">Why this works</div>
+<div class="feedback-text" id="fbText">...</div>
+</div>
+<button class="modal-btn" id="nextBtn">Next</button>
+</div>
+</div>
+<script>
+const LEVELS=[{id:1,name:'Individual',color:'#FF6B35',desc:'Know yourself'},{id:2,name:'Family',color:'#FF3CAC',desc:'Your closest relationships'},{id:3,name:'Groups',color:'#784BA0',desc:'Teams and communities'},{id:4,name:'Community',color:'#2F80ED',desc:'Your role in the whole'},{id:5,name:'Society',color:'#00D26A',desc:'Systems and culture'},{id:6,name:'World',color:'#F7C948',desc:'Global connection'},{id:7,name:'Generations',color:'#C0C0C0',desc:'Your legacy'}];
+const SCENARIOS=[{level:1,cat:'self-awareness',txt:'You wake up exhausted after weeks of poor sleep. Your calendar is packed.',choices:[{text:'Push through - people are counting on you',correct:false,fb:'Self-abandonment disguised as reliability.'},{text:'Cancel everything without explanation',correct:false,fb:'Withdrawal is not self-care.'},{text:'Identify what is essential, protect tonight\'s sleep',correct:true,fb:'Honoring your needs while maintaining responsibility.'}]},{level:1,cat:'boundaries',txt:'Someone asks for help you do not have time for.',choices:[{text:'Say yes - easier than explaining',correct:false,fb:'Every yes when you mean no is a no to yourself.'},{text:'Make up an excuse',correct:false,fb:'Lying erodes integrity.'},{text:'Decline honestly and kindly',correct:true,fb:'A clear no protects your capacity.'}]},{level:1,cat:'honesty',txt:'You catch yourself doing something that conflicts with who you say you are.',choices:[{text:'Rationalize it - this situation is different',correct:false,fb:'Exceptions erode integrity.'},{text:'Shame spiral - you are a fraud',correct:false,fb:'Shame prevents change.'},{text:'Acknowledge the gap, realign',correct:true,fb:'Acceptance without agreement.'}]},{level:2,cat:'partnership',txt:'Your partner criticizes how you handled something.',choices:[{text:'Defend your approach',correct:false,fb:'Protecting ego, not the relationship.'},{text:'Shut down - not worth the fight',correct:false,fb:'Walls isolate.'},{text:'Get curious about their concern',correct:true,fb:'Family mastery: we before me.'}]},{level:2,cat:'presence',txt:'Work has consumed you. Your family feels distant.',choices:[{text:'They will understand - you are providing',correct:false,fb:'Provision without presence is incomplete.'},{text:'Plan a big vacation to make up',correct:false,fb:'Grand gestures cannot replace consistency.'},{text:'Create protected time starting this week',correct:true,fb:'Consistent moments beat rare big ones.'}]},{level:3,cat:'authenticity',txt:'Everyone agrees with a decision you think is wrong.',choices:[{text:'Stay quiet - do not be difficult',correct:false,fb:'Hiding robs the group of your value.'},{text:'Aggressively challenge everyone',correct:false,fb:'Aggression shuts down dialogue.'},{text:'Share your concern respectfully',correct:true,fb:'Dissent with care strengthens teams.'}]},{level:4,cat:'community',txt:'Your community needs volunteers for something that does not interest you.',choices:[{text:'Only volunteer for things you are passionate about',correct:false,fb:'Service only when convenient is not service.'},{text:'Volunteer but resent it',correct:false,fb:'Martyrdom poisons everyone.'},{text:'Commit fully or decline honestly',correct:true,fb:'Honest yeses and honest nos. Both are service.'}]},{level:5,cat:'systems',txt:'A policy decision angers you. The system seems broken.',choices:[{text:'Rage on social media',correct:false,fb:'Outrage without strategy changes nothing.'},{text:'Disengage completely',correct:false,fb:'Withdrawal enables what you oppose.'},{text:'Accept how it works so you can effectively change it',correct:true,fb:'Acceptance does not equal agreement.'}]},{level:6,cat:'connection',txt:'Disaster strikes a country far from yours.',choices:[{text:'Not your problem',correct:false,fb:'Complete disconnection shrinks your humanity.'},{text:'Post about it, move on',correct:false,fb:'Performative grief without action.'},{text:'Let it touch you, ask what response makes sense',correct:true,fb:'World connection: feeling beyond borders.'}]},{level:7,cat:'legacy',txt:'Someone asks what you want to leave behind when you are gone.',choices:[{text:'I do not think about death',correct:false,fb:'Avoiding legacy guarantees an accidental one.'},{text:'I want to be famous',correct:false,fb:'Ego-based legacy is about you, not what endures.'},{text:'Sit with the question seriously',correct:true,fb:'Generational thinking requires confronting mortality.'}]}];
+let music=document.getElementById('music');music.volume=0.4;let musicOn=false;let soundOn=true;
+let data=JSON.parse(localStorage.getItem('lvlup5'))||{xp:0,games:0,correct:0,total:0,best:0,streak:0,lastDaily:null,unlocked:[1],seenIntro:false};
+let game={mode:null,scenarios:[],idx:0,answers:[],timer:null,timeLeft:15};
+function save(){localStorage.setItem('lvlup5',JSON.stringify(data))}
+function playSound(freq,dur){if(!soundOn)return;try{let ctx=new(window.AudioContext||window.webkitAudioContext)();let osc=ctx.createOscillator();let gain=ctx.createGain();osc.frequency.value=freq;osc.connect(gain);gain.connect(ctx.destination);gain.gain.setValueAtTime(0.1,ctx.currentTime);gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);osc.start();osc.stop(ctx.currentTime+dur)}catch(e){}}
+function correctSound(){[523,659,784].forEach((f,i)=>setTimeout(()=>playSound(f,0.15),i*80))}
+function wrongSound(){playSound(200,0.25)}
+function shuffle(arr){let a=[...arr];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function showHook(){setTimeout(()=>document.getElementById('line1').classList.add('show'),400);setTimeout(()=>document.getElementById('line2').classList.add('show'),1400);setTimeout(()=>document.getElementById('hookSub').classList.add('show'),2600);setTimeout(()=>document.getElementById('hookBtn').classList.add('show'),3400)}
+function updateHome(){document.getElementById('statPlayed').textContent=data.games;document.getElementById('statClarity').textContent=data.total?Math.round(data.correct/data.total*100)+'%':'0%';document.getElementById('statBest').textContent=data.best;document.getElementById('statStreak').textContent=data.streak;let today=new Date().toDateString();let daily=document.getElementById('dailyCard');if(data.lastDaily===today){daily.classList.add('done');document.getElementById('dailyCta').textContent='You\'re in. Come back tomorrow.'}else{daily.classList.remove('done');document.getElementById('dailyCta').textContent='Tap to join the global movement'}let map=document.getElementById('levelMap');map.innerHTML='';LEVELS.forEach((lv,i)=>{let unlocked=data.unlocked.includes(lv.id);let isCurrent=unlocked&&lv.id===Math.max(...data.unlocked);let div=document.createElement('div');div.className='level'+(unlocked?'':' locked')+(isCurrent?' current':'');div.innerHTML='<div class="level-num" style="background:'+lv.color+'">'+lv.id+'</div><div class="level-info"><div class="level-name">'+lv.name+(unlocked?'':' 🔒')+'</div><div class="level-desc">'+lv.desc+'</div></div>';map.appendChild(div)});updateTimer()}
+function updateTimer(){let now=new Date();let tom=new Date(now);tom.setDate(tom.getDate()+1);tom.setHours(0,0,0,0);let d=tom-now;let h=String(Math.floor(d/3600000)).padStart(2,'0');let m=String(Math.floor((d%3600000)/60000)).padStart(2,'0');let s=String(Math.floor((d%60000)/1000)).padStart(2,'0');document.getElementById('dailyTimer').textContent='Resets in '+h+':'+m+':'+s}
+function startGame(mode){let today=new Date().toDateString();if(mode==='daily'&&data.lastDaily===today)return;game.mode=mode;game.idx=0;game.answers=[];let pool=SCENARIOS.filter(s=>mode==='daily'||data.unlocked.includes(s.level));pool=shuffle(pool);game.scenarios=mode==='daily'?pool.slice(0,3):mode==='quick'?pool.slice(0,5):pool;document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');document.getElementById('gameMode').textContent=mode==='daily'?'Worldwide Challenge':mode==='quick'?'Quick Game':'Endless Journey';showScenario()}
+function showScenario(){let s=game.scenarios[game.idx];if(!s){endGame();return}document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+(game.mode==='endless'?'∞':game.scenarios.length);document.getElementById('scenarioCat').textContent=s.cat;document.getElementById('scenarioText').textContent=s.txt;let container=document.getElementById('choices');container.innerHTML='';shuffle(s.choices).forEach(c=>{let btn=document.createElement('button');btn.className='choice';btn.textContent=c.text;btn.onclick=()=>selectChoice(c,btn,s);container.appendChild(btn)});startTimer()}
+function startTimer(){game.timeLeft=15;if(game.timer)clearInterval(game.timer);game.timer=setInterval(()=>{game.timeLeft-=0.1;let pct=(game.timeLeft/15)*100;let fill=document.getElementById('timerFill');fill.style.width=pct+'%';fill.classList.remove('warn','danger');if(game.timeLeft<=5)fill.classList.add('danger');else if(game.timeLeft<=10)fill.classList.add('warn');if(game.timeLeft<=0){clearInterval(game.timer);timeUp()}},100)}
+function timeUp(){let s=game.scenarios[game.idx];let correct=s.choices.find(c=>c.correct);game.answers.push(false);data.total++;wrongSound();showFeedback(false,correct.fb,correct.text)}
+function selectChoice(choice,btn,scenario){clearInterval(game.timer);document.querySelectorAll('.choice').forEach(b=>b.disabled=true);let correct=choice.correct;let correctChoice=scenario.choices.find(c=>c.correct);btn.classList.add(correct?'correct':'wrong');if(!correct){document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===correctChoice.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')})}game.answers.push(correct);data.total++;if(correct){data.correct++;correctSound()}else{wrongSound();if(game.mode==='endless'&&game.answers.filter(a=>!a).length>=3){setTimeout(()=>showFeedback(correct,correctChoice.fb,correctChoice.text),600);return}}setTimeout(()=>showFeedback(correct,choice.correct?choice.fb:correctChoice.fb,correctChoice.text),600)}
+function showFeedback(correct,feedback,correctText){document.getElementById('fbIcon').textContent=correct?'✓':'✗';document.getElementById('fbIcon').style.color=correct?'var(--green)':'var(--red)';document.getElementById('fbTitle').textContent=correct?'Aligned!':'Misaligned';document.getElementById('fbLabel').textContent=correct?'Why this works':'The aligned response';document.getElementById('fbText').textContent=(correct?'':'"'+correctText+'"\n\n')+feedback;document.getElementById('feedbackModal').classList.add('active')}
+document.getElementById('nextBtn').onclick=function(){document.getElementById('feedbackModal').classList.remove('active');if(game.mode==='endless'&&game.answers.filter(a=>!a).length>=3){endGame();return}game.idx++;if(game.idx>=game.scenarios.length&&game.mode!=='endless')endGame();else showScenario()};
+function endGame(){clearInterval(game.timer);let correct=game.answers.filter(a=>a).length;let total=game.answers.length;let pct=total?Math.round(correct/total*100):0;data.games++;if(correct>data.best)data.best=correct;if(game.mode==='daily'){let today=new Date().toDateString();let yest=new Date(Date.now()-86400000).toDateString();if(data.lastDaily===yest)data.streak++;else if(data.lastDaily!==today)data.streak=1;data.lastDaily=today}save();document.getElementById('game').classList.remove('active');document.getElementById('results').classList.add('active');document.getElementById('finalScore').textContent=pct+'%';document.getElementById('resultMsg').textContent=pct>=70?'Great alignment!':pct>=50?'Keep practicing!':'Every master started here.'}
+document.getElementById('homeBtn').onclick=function(){document.getElementById('results').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
+document.getElementById('quitBtn').onclick=function(){clearInterval(game.timer);document.getElementById('game').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
+document.getElementById('hookBtn').onclick=function(){document.getElementById('hook').classList.add('hidden');document.getElementById('onboard').classList.add('active');let m=document.getElementById('music');m.play().then(()=>{musicOn=true;document.getElementById('musicBtn').classList.add('on')}).catch(e=>console.log('Music blocked:',e))};
+document.getElementById('skipBtn').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
+document.getElementById('skipBtn2').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
+document.getElementById('nextBtn1').onclick=function(){document.getElementById('onboard1').classList.remove('active');document.getElementById('onboard2').classList.add('active')};
+document.getElementById('goBtn').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
+document.getElementById('musicBtn').onclick=function(){let m=document.getElementById('music');if(musicOn){m.pause();musicOn=false;this.classList.remove('on')}else{m.play().then(()=>{musicOn=true;this.classList.add('on')}).catch(e=>console.log('Music error:',e))}};
+document.getElementById('soundBtn').onclick=function(){soundOn=!soundOn;this.classList.toggle('on',soundOn);if(soundOn)playSound(600,0.1)};
+document.getElementById('dailyCard').onclick=function(){if(!this.classList.contains('done'))startGame('daily')};
+document.getElementById('quickMode').onclick=()=>startGame('quick');
+document.getElementById('endlessMode').onclick=()=>startGame('endless');
+if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
+setInterval(updateTimer,1000);
+// To reset and see intro again, uncomment next line:
+// localStorage.removeItem('lvlup5');
+</script>
+</body>
+</html>
