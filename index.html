@@ -71,6 +71,15 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:linear-gr
 .mode-icon{font-size:36px;margin-bottom:10px}
 .mode-name{font-size:16px;font-weight:700;margin-bottom:6px;letter-spacing:-0.01em}
 .mode-desc{font-size:13px;font-weight:500;color:var(--muted)}
+.action-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.action-btn{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:all 0.2s;text-decoration:none;color:var(--text)}
+.action-btn:hover{transform:translateY(-2px);border-color:var(--purple)}
+.action-btn-icon{font-size:24px}
+.action-btn-text{font-size:14px;font-weight:600}
+.action-btn.assess{border-color:var(--blue)}
+.action-btn.assess:hover{border-color:var(--blue);background:rgba(47,128,237,0.1)}
+.action-btn.share{border-color:var(--green)}
+.action-btn.share:hover{border-color:var(--green);background:rgba(0,210,106,0.1)}
 .section-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
 .levels{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
 .level{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:all 0.2s}
@@ -122,16 +131,20 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:linear-gr
 .feedback-label{font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
 .feedback-text{font-size:15px;line-height:1.6}
 .modal-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
-@media(max-width:400px){.hook-line{font-size:32px}.hook-sub{font-size:16px}.hook-btn{padding:16px 40px;font-size:16px}.onboard-title{font-size:24px;margin-top:20px}.onboard-text{font-size:15px}.onboard-text2{font-size:14px}.onboard-highlight{font-size:15px}.onboard-level{padding:10px 12px}.onboard-num{width:34px;height:34px;font-size:14px}.onboard-name{font-size:14px}.onboard-desc{font-size:12px}.hero h1{font-size:26px}.hero p{font-size:14px}.challenge{padding:16px}.challenge h2{font-size:20px}.challenge p{font-size:13px}.badge{font-size:10px;padding:5px 10px}.stats{gap:8px}.stat{padding:12px 6px}.stat-val{font-size:22px}.stat-label{font-size:9px}.modes{gap:10px}.mode{padding:16px}.mode-icon{font-size:30px}.mode-name{font-size:15px}.mode-desc{font-size:11px}.level{padding:12px}.level-num{width:32px;height:32px;font-size:14px}.level-name{font-size:14px}.level-desc{font-size:11px}.scenario{padding:18px}.scenario-text{font-size:16px}.choice{padding:14px 16px;font-size:14px}.score{font-size:60px}}
+.share-toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:12px 24px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:opacity 0.3s;z-index:500;pointer-events:none}
+.share-toast.show{opacity:1}
+@media(max-width:400px){.hook-line{font-size:32px}.hook-sub{font-size:16px}.hook-btn{padding:16px 40px;font-size:16px}.onboard-title{font-size:24px;margin-top:20px}.onboard-text{font-size:15px}.onboard-text2{font-size:14px}.onboard-highlight{font-size:15px}.onboard-level{padding:10px 12px}.onboard-num{width:34px;height:34px;font-size:14px}.onboard-name{font-size:14px}.onboard-desc{font-size:12px}.hero h1{font-size:26px}.hero p{font-size:14px}.challenge{padding:16px}.challenge h2{font-size:20px}.challenge p{font-size:13px}.badge{font-size:10px;padding:5px 10px}.stats{gap:8px}.stat{padding:12px 6px}.stat-val{font-size:22px}.stat-label{font-size:9px}.modes{gap:10px}.mode{padding:16px}.mode-icon{font-size:30px}.mode-name{font-size:15px}.mode-desc{font-size:11px}.action-btns{gap:10px}.action-btn{padding:14px}.action-btn-icon{font-size:20px}.action-btn-text{font-size:13px}.level{padding:12px}.level-num{width:32px;height:32px;font-size:14px}.level-name{font-size:14px}.level-desc{font-size:11px}.scenario{padding:18px}.scenario-text{font-size:16px}.choice{padding:14px 16px;font-size:14px}.score{font-size:60px}}
 @supports(padding:max(0px)){.app{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));padding-bottom:max(40px,env(safe-area-inset-bottom))}.onboard-screen{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right));padding-bottom:max(100px,env(safe-area-inset-bottom))}.onboard-btns{padding-bottom:max(20px,env(safe-area-inset-bottom))}.hook{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right))}}
 input,select,textarea{font-size:16px}
 .onboard-screen,.app{-webkit-overflow-scrolling:touch}
-.mode:active,.challenge:active,.choice:active,.onboard-next:active,.onboard-start:active,.hook-btn:active,.modal-btn:active,.results-btn:active{transform:scale(0.98);opacity:0.9}
+.mode:active,.challenge:active,.choice:active,.onboard-next:active,.onboard-start:active,.hook-btn:active,.modal-btn:active,.results-btn:active,.action-btn:active{transform:scale(0.98);opacity:0.9}
 button{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 </style>
 </head>
 <body>
 <audio id="music" loop><source src="level-up.mp3" type="audio/mpeg"></audio>
+
+<div class="share-toast" id="shareToast">Link copied!</div>
 
 <div class="hook" id="hook">
 <div>
@@ -193,7 +206,7 @@ button{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:tra
 </div>
 <div class="challenge" id="dailyCard">
 <div class="badge"><span class="badge-dot"></span>DAILY CHALLENGE</div>
-<h2>7-Level Journey</h2>
+<h2>Worldwide Challenge</h2>
 <p>One scenario from each level. Same for everyone worldwide.</p>
 <div class="challenge-footer">
 <span id="dailyCta">Tap to begin today's challenge</span>
@@ -209,6 +222,16 @@ button{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:tra
 <div class="modes">
 <div class="mode" id="mirrorMode"><div class="mode-icon">🪞</div><div class="mode-name">Mirror Game</div><div class="mode-desc">See yourself honestly</div></div>
 <div class="mode" id="decisionMode"><div class="mode-icon">⚖️</div><div class="mode-name">Decision Game</div><div class="mode-desc">Acceptance vs Judgment</div></div>
+</div>
+<div class="action-btns">
+<a class="action-btn assess" id="assessBtn" href="https://www.levelsofself.com/selfassessment" target="_blank">
+<span class="action-btn-icon">📋</span>
+<span class="action-btn-text">Take Assessment</span>
+</a>
+<button class="action-btn share" id="shareBtn">
+<span class="action-btn-icon">🔗</span>
+<span class="action-btn-text">Share Game</span>
+</button>
 </div>
 <div class="section-title">Your Journey</div>
 <div class="levels" id="levelMap"></div>
@@ -328,6 +351,27 @@ function hashDate(dateStr) {
   let hash = 0;
   for (let i = 0; i < dateStr.length; i++) { hash = ((hash << 5) - hash) + dateStr.charCodeAt(i); hash = hash & hash; }
   return Math.abs(hash);
+}
+
+// ========== SHARE FUNCTIONALITY ==========
+function shareGame() {
+  const shareUrl = window.location.href;
+  const shareText = "I'm playing Level Up - discover which of the 7 Levels of Self you're operating from! 🎮";
+  
+  if (navigator.share) {
+    navigator.share({
+      title: 'Level Up - 7 Levels of Self',
+      text: shareText,
+      url: shareUrl
+    }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      document.getElementById('shareToast').classList.add('show');
+      setTimeout(() => document.getElementById('shareToast').classList.remove('show'), 2000);
+    }).catch(() => {
+      prompt('Copy this link:', shareUrl);
+    });
+  }
 }
 
 // ========== HOOK & ONBOARDING ==========
@@ -452,7 +496,7 @@ function startDailyChallenge() {
   document.getElementById('home').classList.add('hidden');
   document.getElementById('results').classList.remove('active');
   document.getElementById('game').classList.add('active');
-  document.getElementById('gameMode').textContent = 'Daily Challenge';
+  document.getElementById('gameMode').textContent = 'Worldwide Challenge';
   showDailyScenario();
 }
 
@@ -681,7 +725,7 @@ function endGame() {
     document.getElementById('finalScore').textContent = accepted + '/' + game.answers.length;
     document.getElementById('resultMsg').textContent = accepted >= 8 ? 'Strong acceptance practice!' : accepted >= 5 ? 'Growing in acceptance.' : 'Judgment is a habit. Acceptance is a skill.';
   } else if (game.mode === 'daily') {
-    document.getElementById('resultsTitle').textContent = 'Daily Complete';
+    document.getElementById('resultsTitle').textContent = 'Worldwide Challenge Complete';
     document.getElementById('finalScore').textContent = '🔥 ' + data.streak;
     document.getElementById('resultMsg').textContent = 'Day streak! Come back tomorrow.';
   }
@@ -716,6 +760,7 @@ document.getElementById('soundBtn').onclick = function() {
 document.getElementById('dailyCard').onclick = function() { if (!this.classList.contains('done')) startDailyChallenge(); };
 document.getElementById('mirrorMode').onclick = () => startMirrorGame();
 document.getElementById('decisionMode').onclick = () => startDecisionGame();
+document.getElementById('shareBtn').onclick = shareGame;
 
 // ========== INITIALIZE ==========
 if (data.seenIntro) { document.getElementById('hook').classList.add('hidden'); updateHome(); }
@@ -725,5 +770,4 @@ setInterval(updateTimer, 1000);
 console.log('Mirror scenarios loaded:', MIRROR_SCENARIOS.length);
 console.log('Decision scenarios loaded:', typeof DECISION_SCENARIOS !== 'undefined' ? DECISION_SCENARIOS.length : 0);
 </script>
-</body>
-</html>
+</body></html>
