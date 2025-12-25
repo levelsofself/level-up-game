@@ -248,6 +248,13 @@ body::-webkit-scrollbar{display:none}
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:600;opacity:0;transition:opacity 0.3s;z-index:500;pointer-events:none}
 .toast.show{opacity:1}
 
+/* Q&A Items */
+.qa-item{border-bottom:1px solid var(--border);padding:12px 0}
+.qa-item:last-of-type{border:none}
+.qa-question{font-size:14px;font-weight:600;cursor:pointer;padding:4px 0}
+.qa-answer{font-size:13px;color:var(--muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s ease}
+.qa-item.open .qa-answer{max-height:500px;padding-top:10px}
+
 /* Confetti Canvas */
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:1000}
 
@@ -351,19 +358,10 @@ body::-webkit-scrollbar{display:none}
 <div class="header">
 <div class="logo">LEVEL UP</div>
 <div class="controls">
+<button class="ctrl-btn" id="qaBtn">❓</button>
 <button class="ctrl-btn" id="musicBtn">🎵</button>
 <button class="ctrl-btn on" id="soundBtn">🔊</button>
 </div>
-</div>
-
-<!-- XP Bar -->
-<div class="xp-container">
-<div class="xp-header">
-<div class="xp-level" id="playerLevel">Level 1</div>
-<div class="xp-coins">🪙 <span id="coinCount">0</span></div>
-</div>
-<div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
-<div class="xp-text"><span id="xpCurrent">0</span> / <span id="xpNeeded">100</span> XP</div>
 </div>
 
 <!-- Daily Login Bonus -->
@@ -391,6 +389,16 @@ body::-webkit-scrollbar{display:none}
 <span id="dailyCta">Tap to join the global movement</span>
 <span id="dailyTimer">Resets in --:--:--</span>
 </div>
+</div>
+
+<!-- XP Bar -->
+<div class="xp-container">
+<div class="xp-header">
+<div class="xp-level" id="playerLevel">Level 1</div>
+<div class="xp-coins">🪙 <span id="coinCount">0</span></div>
+</div>
+<div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
+<div class="xp-text"><span id="xpCurrent">0</span> / <span id="xpNeeded">100</span> XP</div>
 </div>
 
 <!-- Stats -->
@@ -494,6 +502,55 @@ body::-webkit-scrollbar{display:none}
 <p class="result-msg" id="resultMsg">Keep going!</p>
 <div class="insights-list" id="insightsList"></div>
 <button class="results-btn" id="homeBtn">Continue</button>
+</div>
+</div>
+
+<!-- Q&A Modal -->
+<div class="modal" id="qaModal">
+<div class="modal-content" style="max-height:80vh;overflow-y:auto">
+<div class="modal-title">❓ Questions & Answers</div>
+
+<div class="qa-item">
+<div class="qa-question">What is the 7 Levels framework?</div>
+<div class="qa-answer">The 7 Levels of Self maps human growth across 7 dimensions: Individual (self), Family (close relationships), Groups (teams/friends), Community (local impact), Society (systems/culture), World (global connection), and Generations (legacy). You can't skip levels - each must be mastered before climbing higher.</div>
+</div>
+
+<div class="qa-item">
+<div class="qa-question">How does the scoring work?</div>
+<div class="qa-answer">You earn XP for every answer. Correct/accepting answers earn more XP. As you accumulate XP, you level up and unlock new content. Streaks multiply your progress - play daily to maximize growth!</div>
+</div>
+
+<div class="qa-item">
+<div class="qa-question">What's the difference between the 3 games?</div>
+<div class="qa-answer"><strong>Mirror Game:</strong> Self-reflection. See patterns honestly. No right/wrong.<br><br><strong>Agreement Game:</strong> Train yourself to choose acceptance over judgment. Timed.<br><br><strong>Worldwide Challenge:</strong> Same 3 scenarios for everyone globally. One chance daily.</div>
+</div>
+
+<div class="qa-item">
+<div class="qa-question">What does "Acceptance ≠ Agreement" mean?</div>
+<div class="qa-answer">Acceptance means acknowledging reality as it is - not fighting what exists. Agreement means endorsing or approving. You can accept that something IS without agreeing that it SHOULD BE. Acceptance is the first step to change; resistance keeps you stuck.</div>
+</div>
+
+<div class="qa-item">
+<div class="qa-question">How do I unlock new levels?</div>
+<div class="qa-answer">Play games to earn XP. Each player level unlocks new content:<br>• Level 2: Agreement Game + Level 2 scenarios<br>• Level 3: Level 3 scenarios<br>• Level 5+: Higher levels<br>The Worldwide Challenge always includes all levels.</div>
+</div>
+
+<div class="qa-item">
+<div class="qa-question">Can I use this with my therapist/coach?</div>
+<div class="qa-answer">Yes! Your Insights Collection saves every insight you recognize. Share your profile with your therapist, coach, or accountability partner. The patterns reveal where your growth edges are.</div>
+</div>
+
+<div class="qa-item">
+<div class="qa-question">Is there a full assessment?</div>
+<div class="qa-answer">Yes! For a comprehensive analysis, take the full 7 Levels Self-Assessment at levelsofself.com/selfassessment. It provides personalized guidance on your strongest and growth-edge levels.</div>
+</div>
+
+<div class="qa-item">
+<div class="qa-question">Can couples/teams play together?</div>
+<div class="qa-answer">Yes! Compare answers on the same scenarios to spark conversation. The Worldwide Challenge is perfect - everyone gets the same questions daily.</div>
+</div>
+
+<button class="modal-btn" id="qaClose">Close</button>
 </div>
 </div>
 
@@ -1330,6 +1387,387 @@ document.getElementById('shareBtn').onclick=shareGame;
 // Initialize
 if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
 setInterval(updateTimer,1000);
+</script>
+</body>
+</html>
+ = function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
+document.getElementById('skipBtn2').onclick = function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
+document.getElementById('nextBtn1').onclick = function(){document.getElementById('onboard1').classList.remove('active');document.getElementById('onboard2').classList.add('active')};
+document.getElementById('goBtn').onclick = function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
+
+// ============ GAME FUNCTIONS ============
+function startMirrorGame(lf){
+  game.mode='mirror';game.idx=0;game.answers=[];game.useTimer=false;currentCombo=0;
+  let pool = MIRROR_SCENARIOS.filter(s=>lf?s.level===lf:data.unlockedLevels.includes(s.level));
+  if(pool.length===0){showToast('No scenarios available');return}
+  game.scenarios = shuffle(pool).slice(0,10);
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('results').classList.remove('active');
+  document.getElementById('game').classList.add('active');
+  document.getElementById('gameMode').textContent = 'Mirror Game';
+  document.getElementById('gameCombo').textContent = '';
+  document.getElementById('timerBar').classList.add('hidden');
+  showMirrorScenario();
+}
+
+function startAgreementGame(lf){
+  if(!data.unlockedAgreement){showToast('🔒 Reach Level 2 to unlock!');return}
+  game.mode='agreement';game.idx=0;game.answers=[];game.useTimer=true;currentCombo=0;
+  if(typeof DECISION_SCENARIOS==='undefined'||DECISION_SCENARIOS.length===0){showToast('Loading... Please refresh.');return}
+  let pool = DECISION_SCENARIOS.filter(s=>lf?s.level===lf:data.unlockedLevels.includes(s.level));
+  if(pool.length===0){showToast('No scenarios for unlocked levels');return}
+  game.scenarios = shuffle(pool).slice(0,10);
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('results').classList.remove('active');
+  document.getElementById('game').classList.add('active');
+  document.getElementById('gameMode').textContent = 'Agreement Game';
+  document.getElementById('gameCombo').textContent = '';
+  document.getElementById('timerBar').classList.remove('hidden');
+  showAgreementScenario();
+}
+
+function startDecisionGame(){
+  let today = new Date().toDateString();
+  if(data.lastDaily===today){showToast('Already completed today!');return}
+  game.mode='decision';game.idx=0;game.answers=[];game.useTimer=true;game.scenarios=[];currentCombo=0;
+  if(typeof window.SCENARIOS==='undefined'){showToast('Loading... Please refresh.');return}
+  let seed = hashDate(today), num = 3, all = [];
+  for(let l=1;l<=7;l++){if(window.SCENARIOS[l])all=all.concat(window.SCENARIOS[l].map(s=>({...s,level:l})))}
+  for(let i=0;i<num&&i<all.length;i++){let idx=(seed+i*31337)%all.length;game.scenarios.push(all[idx]);seed=(seed*31337)&0xFFFFFF}
+  if(game.scenarios.length===0){showToast('No scenarios');return}
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('results').classList.remove('active');
+  document.getElementById('game').classList.add('active');
+  document.getElementById('gameMode').textContent = 'Worldwide Challenge';
+  document.getElementById('gameCombo').textContent = '';
+  document.getElementById('timerBar').classList.remove('hidden');
+  showDecisionScenario();
+}
+
+function startLevelPlay(id){startMirrorGame(id)}
+
+// Mirror Game
+function showMirrorScenario(){
+  let s = game.scenarios[game.idx];
+  if(!s){endGame();return}
+  document.getElementById('gameProgress').textContent = (game.idx+1)+'/'+game.scenarios.length;
+  let lv = LEVELS.find(l=>l.id===s.level);
+  document.getElementById('scenarioCat').textContent = 'Level '+s.level+': '+(lv?lv.name:'');
+  document.getElementById('scenarioText').textContent = s.text;
+  let c = document.getElementById('choices');c.innerHTML='';
+  [{text:"That's Me",value:true},{text:"That's Not Me",value:false}].forEach(ch=>{
+    let b = document.createElement('button');b.className='choice';b.textContent=ch.text;
+    b.onclick = ()=>selectMirrorChoice(ch,b,s);c.appendChild(b);
+  });
+}
+
+function selectMirrorChoice(ch,btn,sc){
+  document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  btn.classList.add('selected');
+  game.answers.push({recognized:ch.value,insight:sc.insight,level:sc.level});
+  if(ch.value){
+    data.mirrorRecognized++;
+    addInsight(sc.insight, sc.level);
+    addCombo();
+  } else {
+    resetCombo();
+  }
+  data.mirrorTotal++;
+  positiveSound();
+  coinSound();
+  addXP(10);
+  maybeBonus();
+  setTimeout(()=>showMirrorFeedback(sc.insight,ch.value),400);
+}
+
+function showMirrorFeedback(ins,rec){
+  document.getElementById('fbIcon').textContent = '💡';
+  document.getElementById('fbIcon').style.color = 'var(--pink)';
+  document.getElementById('fbTitle').textContent = rec ? 'Recognized' : 'Noted';
+  document.getElementById('fbLabel').textContent = 'Insight';
+  document.getElementById('fbText').textContent = ins;
+  document.getElementById('feedbackModal').classList.add('active');
+}
+
+// Agreement Game
+function showAgreementScenario(){
+  let s = game.scenarios[game.idx];
+  if(!s){endGame();return}
+  document.getElementById('gameProgress').textContent = (game.idx+1)+'/'+game.scenarios.length;
+  let lv = LEVELS.find(l=>l.id===s.level);
+  document.getElementById('scenarioCat').textContent = 'Level '+s.level+': '+(lv?lv.name:'');
+  document.getElementById('scenarioText').textContent = s.scenario;
+  let c = document.getElementById('choices');c.innerHTML='';
+  shuffle(s.choices).forEach(ch=>{
+    let b = document.createElement('button');b.className='choice';b.textContent=ch.text;
+    b.onclick = ()=>selectAgreementChoice(ch,b,s);c.appendChild(b);
+  });
+  if(game.useTimer) startTimer();
+}
+
+function selectAgreementChoice(ch,btn,sc){
+  if(game.timer) clearInterval(game.timer);
+  document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  let isAcc = ch.type==='acceptance';
+  game.answers.push({type:ch.type,isAcceptance:isAcc,insight:ch.insight,level:sc.level});
+  if(isAcc){
+    btn.classList.add('correct');
+    data.agreementAccepted++;
+    positiveSound();
+    multiCoinSound(2);
+    addXP(15);
+    addInsight(ch.insight, sc.level);
+    addCombo();
+  } else {
+    btn.classList.add('wrong');
+    let acc = sc.choices.find(c=>c.type==='acceptance');
+    document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});
+    neutralSound();
+    addXP(5);
+    resetCombo();
+  }
+  data.agreementTotal++;
+  maybeBonus();
+  setTimeout(()=>showAgreementFeedback(ch,isAcc),500);
+}
+
+function showAgreementFeedback(ch,isAcc){
+  document.getElementById('fbIcon').textContent = isAcc ? '✓' : '⚖️';
+  document.getElementById('fbIcon').style.color = isAcc ? 'var(--green)' : 'var(--yellow)';
+  document.getElementById('fbTitle').textContent = isAcc ? 'Acceptance' : 'Judgment';
+  document.getElementById('fbLabel').textContent = isAcc ? 'Why this works' : 'Learning opportunity';
+  document.getElementById('fbText').textContent = ch.insight;
+  document.getElementById('feedbackModal').classList.add('active');
+}
+
+// Decision Game
+function showDecisionScenario(){
+  let s = game.scenarios[game.idx];
+  if(!s){endGame();return}
+  document.getElementById('gameProgress').textContent = (game.idx+1)+'/'+game.scenarios.length;
+  let lv = LEVELS.find(l=>l.id===s.level);
+  document.getElementById('scenarioCat').textContent = 'Level '+s.level+': '+(lv?lv.name:'');
+  document.getElementById('scenarioText').textContent = s.text;
+  let c = document.getElementById('choices');c.innerHTML='';
+  s.choices.forEach(ch=>{
+    let b = document.createElement('button');b.className='choice';b.textContent=ch.text;
+    b.onclick = ()=>selectDecisionChoice(ch,b,s);c.appendChild(b);
+  });
+  if(game.useTimer) startTimer();
+}
+
+function selectDecisionChoice(ch,btn,sc){
+  if(game.timer) clearInterval(game.timer);
+  document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  let isCorr = ch.correct===true;
+  game.answers.push({correct:isCorr,feedback:ch.fb,level:sc.level});
+  if(isCorr){
+    btn.classList.add('correct');
+    positiveSound();
+    multiCoinSound(3);
+    addXP(20);
+    addInsight(ch.fb, sc.level);
+    addCombo();
+  } else {
+    btn.classList.add('wrong');
+    let corr = sc.choices.find(c=>c.correct===true);
+    document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===corr.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});
+    neutralSound();
+    addXP(5);
+    resetCombo();
+  }
+  maybeBonus();
+  setTimeout(()=>showDecisionFeedback(ch,isCorr),500);
+}
+
+function showDecisionFeedback(ch,isCorr){
+  document.getElementById('fbIcon').textContent = isCorr ? '✓' : '💡';
+  document.getElementById('fbIcon').style.color = isCorr ? 'var(--green)' : 'var(--yellow)';
+  document.getElementById('fbTitle').textContent = isCorr ? 'Correct!' : 'Not Quite';
+  document.getElementById('fbLabel').textContent = 'Insight';
+  document.getElementById('fbText').textContent = ch.fb;
+  document.getElementById('feedbackModal').classList.add('active');
+}
+
+// Timer
+function startTimer(){
+  game.timeLeft = 15;
+  if(game.timer) clearInterval(game.timer);
+  game.timer = setInterval(()=>{
+    game.timeLeft -= 0.1;
+    let pct = (game.timeLeft/15)*100;
+    let fill = document.getElementById('timerFill');
+    fill.style.width = pct + '%';
+    fill.classList.remove('warn','danger');
+    if(game.timeLeft <= 5) fill.classList.add('danger');
+    else if(game.timeLeft <= 10) fill.classList.add('warn');
+    if(game.timeLeft <= 0){clearInterval(game.timer);timeUp()}
+  },100);
+}
+
+function timeUp(){
+  let s = game.scenarios[game.idx];
+  document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  resetCombo();
+  if(game.mode==='agreement'){
+    let acc = s.choices.find(c=>c.type==='acceptance');
+    game.answers.push({type:'timeout',isAcceptance:false});
+    data.agreementTotal++;
+    document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else b.classList.add('dim')});
+    neutralSound();
+    setTimeout(()=>{
+      document.getElementById('fbIcon').textContent = '⏰';
+      document.getElementById('fbTitle').textContent = "Time's Up";
+      document.getElementById('fbLabel').textContent = 'The accepting response';
+      document.getElementById('fbText').textContent = acc.insight;
+      document.getElementById('feedbackModal').classList.add('active');
+    },500);
+  } else if(game.mode==='decision'){
+    let corr = s.choices.find(c=>c.correct===true);
+    game.answers.push({correct:false});
+    document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===corr.text)b.classList.add('correct');else b.classList.add('dim')});
+    neutralSound();
+    setTimeout(()=>{
+      document.getElementById('fbIcon').textContent = '⏰';
+      document.getElementById('fbTitle').textContent = "Time's Up";
+      document.getElementById('fbLabel').textContent = 'The right response';
+      document.getElementById('fbText').textContent = corr.fb;
+      document.getElementById('feedbackModal').classList.add('active');
+    },500);
+  }
+}
+
+// Next
+document.getElementById('nextBtn').onclick = function(){
+  document.getElementById('feedbackModal').classList.remove('active');
+  game.idx++;
+  if(game.idx >= game.scenarios.length) endGame();
+  else {
+    if(game.mode==='mirror') showMirrorScenario();
+    else if(game.mode==='agreement') showAgreementScenario();
+    else if(game.mode==='decision') showDecisionScenario();
+  }
+};
+
+// End Game
+function endGame(){
+  if(game.timer) clearInterval(game.timer);
+  data.games++;
+  
+  let score = 0, total = game.answers.length;
+  
+  if(game.mode==='mirror'){
+    score = game.answers.filter(a=>a.recognized).length;
+    lastGameScore = {score:score,total:total,mode:'Mirror Game',level:data.level,streak:data.streak};
+    if(score === 10) checkAchievementById('perfect_mirror', true);
+  } else if(game.mode==='agreement'){
+    score = game.answers.filter(a=>a.isAcceptance).length;
+    lastGameScore = {score:score,total:total,mode:'Agreement Game',level:data.level,streak:data.streak};
+    if(score === 10) checkAchievementById('perfect_agree', true);
+  } else if(game.mode==='decision'){
+    score = game.answers.filter(a=>a.correct).length;
+    let today = new Date().toDateString();
+    let yesterday = new Date(Date.now()-86400000).toDateString();
+    if(data.lastDaily === yesterday) data.streak++;
+    else if(data.lastDaily !== today) data.streak = 1;
+    if(data.streak > data.bestStreak) data.bestStreak = data.streak;
+    data.lastDaily = today;
+    lastGameScore = {score:score,total:total,mode:'Worldwide Challenge',level:data.level,streak:data.streak};
+    maybeStreakBonus();
+  }
+  
+  save();
+  checkAllAchievements();
+  
+  document.getElementById('game').classList.remove('active');
+  document.getElementById('results').classList.add('active');
+  
+  let insights = document.getElementById('insightsList');
+  
+  if(game.mode==='mirror'){
+    document.getElementById('resultsTitle').textContent = 'Mirror Complete';
+    document.getElementById('finalScore').textContent = score + '/' + total;
+    document.getElementById('resultMsg').textContent = score >= 8 ? 'Deep self-awareness!' : score >= 5 ? 'Growing recognition.' : 'Keep exploring.';
+    insights.innerHTML = '';
+    game.answers.filter(a=>a.recognized).slice(0,5).forEach(a=>{
+      let div = document.createElement('div');div.className='insight-item';
+      div.textContent = '💡 ' + a.insight;insights.appendChild(div);
+    });
+    if(score === 0) insights.innerHTML = '<div class="insight-item">No patterns recognized. That\'s okay - self-awareness takes time.</div>';
+    if(score === 10){triggerConfetti();showToast('🎉 Perfect game! +25 XP');addXP(25);}
+  } else if(game.mode==='agreement'){
+    document.getElementById('resultsTitle').textContent = 'Agreement Complete';
+    document.getElementById('finalScore').textContent = score + '/' + total;
+    document.getElementById('resultMsg').textContent = score >= 8 ? 'Strong acceptance!' : score >= 5 ? 'Growing awareness.' : 'Keep practicing acceptance.';
+    insights.innerHTML = '';
+    game.answers.slice(0,5).forEach(a=>{
+      let div = document.createElement('div');div.className='insight-item';
+      div.textContent = (a.isAcceptance ? '✓ ' : '⚖️ ') + a.insight;insights.appendChild(div);
+    });
+    if(score === 10){triggerConfetti();showToast('🎉 Perfect game! +25 XP');addXP(25);}
+  } else if(game.mode==='decision'){
+    document.getElementById('resultsTitle').textContent = 'Challenge Complete';
+    document.getElementById('finalScore').textContent = '🔥 ' + data.streak;
+    document.getElementById('resultMsg').textContent = score + '/' + total + ' correct!';
+    insights.innerHTML = '';
+    game.answers.forEach(a=>{
+      let div = document.createElement('div');div.className='insight-item';
+      div.textContent = (a.correct ? '✓ ' : '💡 ') + a.feedback;insights.appendChild(div);
+    });
+    if(score === 3){triggerConfetti();showToast('🎉 Perfect! +30 XP');addXP(30);}
+  }
+}
+
+// Return home
+document.getElementById('homeBtn').onclick = function(){
+  document.getElementById('results').classList.remove('active');
+  document.getElementById('home').classList.remove('hidden');
+  updateHome();
+};
+
+// Quit game
+document.getElementById('quitBtn').onclick = function(){
+  if(game.timer) clearInterval(game.timer);
+  document.getElementById('game').classList.remove('active');
+  document.getElementById('feedbackModal').classList.remove('active');
+  document.getElementById('home').classList.remove('hidden');
+  updateHome();
+};
+
+// Music & Sound
+document.getElementById('musicBtn').onclick = function(){
+  if(musicOn){music.pause();musicOn=false;this.classList.remove('on')}
+  else{music.play().then(()=>{musicOn=true;this.classList.add('on')}).catch(()=>{})}
+};
+document.getElementById('soundBtn').onclick = function(){
+  soundOn = !soundOn;
+  this.classList.toggle('on', soundOn);
+  if(soundOn) coinSound();
+};
+
+// Q&A Modal
+document.getElementById('qaBtn').onclick = function(){
+  document.getElementById('qaModal').classList.add('active');
+};
+document.getElementById('qaClose').onclick = function(){
+  document.getElementById('qaModal').classList.remove('active');
+};
+document.querySelectorAll('.qa-question').forEach(q=>{
+  q.onclick = function(){
+    this.parentElement.classList.toggle('open');
+  };
+});
+
+// Click handlers
+document.getElementById('dailyCard').onclick = function(){if(!this.classList.contains('done')) startDecisionGame()};
+document.getElementById('mirrorMode').onclick = ()=>startMirrorGame();
+document.getElementById('agreementMode').onclick = ()=>startAgreementGame();
+document.getElementById('shareBtn').onclick = shareGame;
+
+// Initialize
+if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
+setInterval(updateTimer, 1000);
+setInterval(updatePlayerCount, 30000);
 </script>
 </body>
 </html>
