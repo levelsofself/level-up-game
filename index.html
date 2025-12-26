@@ -233,6 +233,15 @@ body::-webkit-scrollbar{display:none}
 .collection-item-level span{width:8px;height:8px;border-radius:50%;display:inline-block}
 .collection-item-text{color:var(--text)}
 .collection-empty{text-align:center;color:var(--muted);padding:40px 20px;font-size:14px}
+.reflection-box{background:linear-gradient(135deg,rgba(120,75,160,0.15),rgba(255,60,172,0.1));border:1px solid var(--purple);border-radius:16px;padding:20px;margin-bottom:20px}
+.reflection-title{font-size:18px;font-weight:700;margin-bottom:16px;color:var(--text)}
+.reflection-content{font-size:14px;line-height:1.7;color:var(--text)}
+.reflection-content p{margin:0 0 12px 0}
+.reflection-content strong{color:var(--pink)}
+.reflection-quote{font-style:italic;color:var(--muted);padding-left:12px;border-left:3px solid var(--purple);margin:12px 0}
+.reflection-closing{font-size:12px;color:var(--muted);margin-top:16px;padding-top:12px;border-top:1px solid var(--border)}
+.answers-list{margin-top:16px}
+.answers-title{font-size:14px;font-weight:600;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
 .level-hub-header{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
 .level-hub-num{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#000;flex-shrink:0}
 .level-hub-info{flex:1}
@@ -589,7 +598,7 @@ function selectShuffleWorldwide(ch,btn,sc){
 
 function selectShuffleMirror(ch,btn,sc){
   document.querySelectorAll('.choice').forEach(b=>b.disabled=true);btn.classList.add('selected');
-  game.answers.push({recognized:ch.value,insight:sc.insight,level:sc.level,gameType:'mirror'});
+  game.answers.push({recognized:ch.value,insight:sc.insight,level:sc.level,gameType:'mirror',text:sc.text});
   data.mirrorTotal++;addInsight(sc.insight,sc.level);addCombo();
   positiveSound();coinSound();addXP(10);maybeBonus();
   setTimeout(()=>{document.getElementById('fbIcon').textContent='💡';document.getElementById('fbIcon').style.color='var(--pink)';document.getElementById('fbTitle').textContent='Reflection';document.getElementById('fbLabel').textContent=ch.value?'You recognized this':'You noted this';document.getElementById('fbText').textContent=sc.insight;document.getElementById('feedbackModal').classList.add('active')},400);
@@ -726,9 +735,95 @@ function endGame(){
     insights.innerHTML='';game.answers.slice(0,5).forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.textContent=(a.isAcceptance?'✓ ':'⚖️ ')+a.insight;insights.appendChild(div)});
     if(score===10){triggerConfetti();showToast('🎉 Perfect! +25 XP');addXP(25)}
   }else if(game.mode==='shuffle'){
-    document.getElementById('resultsTitle').textContent='Shuffle Complete';document.getElementById('finalScore').textContent=total+' Mixed';
-    document.getElementById('resultMsg').textContent='Deep dive into this level complete.';
-    insights.innerHTML='';game.answers.forEach(a=>{let div=document.createElement('div');div.className='insight-item';if(a.gameType==='mirror'){div.innerHTML=(a.recognized?'<span style="color:var(--green)">🪞 That\'s Me</span>':'<span style="color:var(--muted)">🪞 Not Me</span>')+'<br><span style="font-size:13px;color:var(--text)">'+a.insight+'</span>'}else if(a.gameType==='agreement'){div.innerHTML=(a.isAcceptance?'<span style="color:var(--green)">⚖️ Accepted</span>':'<span style="color:var(--yellow)">⚖️ Judged</span>')+'<br><span style="font-size:13px;color:var(--text)">'+a.insight+'</span>'}else if(a.gameType==='worldwide'){div.innerHTML=(a.correct?'<span style="color:var(--green)">🌍 Correct</span>':'<span style="color:var(--yellow)">🌍 Learning</span>')+'<br><span style="font-size:13px;color:var(--text)">'+a.feedback+'</span>'}insights.appendChild(div)});
+    // Build personalized reflection
+    let mirrorAnswers = game.answers.filter(a => a.gameType === 'mirror');
+    let agreementAnswers = game.answers.filter(a => a.gameType === 'agreement');
+    let worldwideAnswers = game.answers.filter(a => a.gameType === 'worldwide');
+    
+    let recognized = mirrorAnswers.filter(a => a.recognized);
+    let notRecognized = mirrorAnswers.filter(a => !a.recognized);
+    let accepted = agreementAnswers.filter(a => a.isAcceptance);
+    let judged = agreementAnswers.filter(a => !a.isAcceptance);
+    let correct = worldwideAnswers.filter(a => a.correct);
+    
+    // Build summary
+    document.getElementById('resultsTitle').textContent='Shuffle Complete';
+    let summaryParts = [];
+    if(mirrorAnswers.length > 0) summaryParts.push('🪞 ' + mirrorAnswers.length + ' Reflections');
+    if(agreementAnswers.length > 0) summaryParts.push('⚖️ ' + accepted.length + '/' + agreementAnswers.length + ' Accepted');
+    if(worldwideAnswers.length > 0) summaryParts.push('🌍 ' + correct.length + '/' + worldwideAnswers.length + ' Correct');
+    document.getElementById('finalScore').textContent = summaryParts.join(' • ');
+    document.getElementById('resultMsg').textContent = '';
+    
+    // Build personalized reflection
+    insights.innerHTML = '';
+    
+    // Reflection header
+    let reflectionDiv = document.createElement('div');
+    reflectionDiv.className = 'reflection-box';
+    reflectionDiv.innerHTML = '<div class="reflection-title">💭 What This Session Revealed</div>';
+    
+    let reflectionText = '';
+    
+    // Analyze mirror patterns
+    if(recognized.length > 0) {
+      reflectionText += '<p>You recognized <strong>' + recognized.length + '</strong> pattern' + (recognized.length > 1 ? 's' : '') + ' in yourself.</p>';
+      
+      // Pick specific recognized insights to reference
+      if(recognized.length >= 2) {
+        reflectionText += '<p class="reflection-quote">"' + recognized[0].text + '"</p>';
+        reflectionText += '<p class="reflection-quote">"' + recognized[1].text + '"</p>';
+        reflectionText += '<p>These aren\'t random. They\'re connected to where your awareness is right now.</p>';
+      } else if(recognized.length === 1) {
+        reflectionText += '<p class="reflection-quote">"' + recognized[0].text + '"</p>';
+        reflectionText += '<p>You saw this clearly. That clarity is the beginning of choice.</p>';
+      }
+    }
+    
+    if(notRecognized.length > 0 && recognized.length > 0) {
+      reflectionText += '<p>You said "not me" to <strong>' + notRecognized.length + '</strong> scenario' + (notRecognized.length > 1 ? 's' : '') + '. That\'s honest too—not everything applies.</p>';
+    }
+    
+    // Analyze agreement patterns
+    if(agreementAnswers.length > 0) {
+      if(judged.length > accepted.length) {
+        reflectionText += '<p>In the acceptance scenarios, <strong>judgment came up more than acceptance</strong>. ';
+        if(judged.length > 0 && judged[0].insight) {
+          reflectionText += 'When you chose judgment: "' + judged[0].insight.substring(0, 80) + '..."</p>';
+        }
+        reflectionText += '<p>Notice what triggered the judgment. The trigger is the teacher.</p>';
+      } else if(accepted.length >= agreementAnswers.length * 0.8) {
+        reflectionText += '<p>You chose <strong>acceptance consistently</strong>. You understand that accepting reality doesn\'t mean approving of it.</p>';
+      }
+    }
+    
+    // Analyze worldwide patterns
+    if(worldwideAnswers.length > 0 && correct.length < worldwideAnswers.length) {
+      let wrongOnes = worldwideAnswers.filter(a => !a.correct);
+      if(wrongOnes.length > 0 && wrongOnes[0].feedback) {
+        reflectionText += '<p>One decision insight: <em>"' + wrongOnes[0].feedback + '"</em></p>';
+      }
+    }
+    
+    // Closing
+    reflectionText += '<p class="reflection-closing"><em>This reflection is based on your specific answers—not a template. What you recognized reveals where you are. Where you hesitated reveals where you\'re growing.</em></p>';
+    
+    reflectionDiv.innerHTML += '<div class="reflection-content">' + reflectionText + '</div>';
+    insights.appendChild(reflectionDiv);
+    
+    // Add individual answers below
+    let answersDiv = document.createElement('div');
+    answersDiv.className = 'answers-list';
+    answersDiv.innerHTML = '<div class="answers-title">Your Responses</div>';
+    game.answers.forEach(a=>{
+      let div=document.createElement('div');div.className='insight-item';
+      if(a.gameType==='mirror'){div.innerHTML=(a.recognized?'<span style="color:var(--green)">🪞 That\'s Me</span>':'<span style="color:var(--muted)">🪞 Not Me</span>')+'<br><span style="font-size:13px;color:var(--text)">'+a.insight+'</span>'}
+      else if(a.gameType==='agreement'){div.innerHTML=(a.isAcceptance?'<span style="color:var(--green)">⚖️ Accepted</span>':'<span style="color:var(--yellow)">⚖️ Judged</span>')+'<br><span style="font-size:13px;color:var(--text)">'+a.insight+'</span>'}
+      else if(a.gameType==='worldwide'){div.innerHTML=(a.correct?'<span style="color:var(--green)">🌍 Correct</span>':'<span style="color:var(--yellow)">🌍 Learning</span>')+'<br><span style="font-size:13px;color:var(--text)">'+(a.feedback||a.insight)+'</span>'}
+      answersDiv.appendChild(div);
+    });
+    insights.appendChild(answersDiv);
+    
     if(total>=10){triggerConfetti();showToast('🎉 Level Mastery! +30 XP');addXP(30)}
   }else if(game.mode==='decision'){
     document.getElementById('resultsTitle').textContent='Challenge Complete';document.getElementById('finalScore').textContent='🔥 '+data.streak;
