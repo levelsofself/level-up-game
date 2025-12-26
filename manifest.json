@@ -1,0 +1,18 @@
+{
+  "name": "Level Up - 7 Levels of Self",
+  "short_name": "Level Up",
+  "description": "Discover your level. Mirror reveals. Agreement trains. Decision challenges.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0a1a",
+  "theme_color": "#0d0a1a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%230d0a1a' width='512' height='512' rx='100'/><text x='256' y='320' font-size='256' text-anchor='middle' fill='white'>🎮</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
