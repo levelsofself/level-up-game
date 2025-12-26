@@ -68,8 +68,6 @@ body::-webkit-scrollbar{display:none}
 @keyframes btnFadeUp{to{opacity:1;transform:translateY(0)}}
 .hook-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 36px rgba(255,60,172,0.5)}
 .hook-btn:active{transform:translateY(-1px) scale(0.98)}
-.hook-time{font-size:14px;color:var(--muted);margin-top:20px;opacity:0}
-.hook-time.show{animation:lineFadeUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
 .hook-progress{display:flex;gap:10px;margin-bottom:36px;justify-content:center}
 .h-dot{width:10px;height:10px;border-radius:10px;background:var(--border);transition:all 0.4s cubic-bezier(0.16,1,0.3,1)}
 .h-dot.active{background:linear-gradient(135deg,var(--pink),var(--purple));width:28px;box-shadow:0 0 16px rgba(255,60,172,0.5)}
@@ -430,11 +428,10 @@ body::-webkit-scrollbar{display:none}
 <div class="hook-container">
 <!-- Screen 1: The Hook -->
 <div class="hook-screen active" id="hookScreen1">
-<div class="hook-line" id="line1">Everyone sees your pattern</div>
-<div class="hook-line" id="line2">except you.</div>
-<div class="hook-sub" id="hookSub">This changes that.</div>
-<button class="hook-btn" id="hookBtn">See My Pattern</button>
-<div class="hook-time">Takes 60 seconds</div>
+<div class="hook-line" id="line1">See the patterns</div>
+<div class="hook-line" id="line2">that quietly run your life.</div>
+<div class="hook-sub" id="hookSub">Discover why you keep repeating the same mistakes.</div>
+<button class="hook-btn" id="hookBtn">Prove it</button>
 </div>
 <!-- Screen 2: Recognition -->
 <div class="hook-screen" id="hookScreen2">
@@ -448,7 +445,7 @@ body::-webkit-scrollbar{display:none}
 <div class="recognition-item" data-pattern="more" onclick="toggleRecognition(this)">There has to be more to life than this?</div>
 <div class="recognition-item" data-pattern="dying-inside" onclick="toggleRecognition(this)">Everyone thinks you're doing great... but you're dying inside?</div>
 </div>
-<button class="hook-btn" onclick="showHookScreen(3)">Continue</button>
+<button class="hook-btn show" onclick="showHookScreen(3)">Continue</button>
 </div>
 <!-- Screen 3: Inner Voice -->
 <div class="hook-screen" id="hookScreen3">
@@ -475,7 +472,7 @@ body::-webkit-scrollbar{display:none}
 <div class="reveal-stat"><div class="reveal-stat-value" id="othersPercent">23%</div><div class="reveal-stat-label">Share This</div></div>
 </div>
 <div class="reveal-cta">The game reveals why this pattern keeps showing up — and what to do about it.</div>
-<button class="hook-btn" id="startGameBtn">Go Deeper</button>
+<button class="hook-btn show" id="startGameBtn">Let's Go</button>
 </div>
 </div>
 </div>
@@ -514,7 +511,7 @@ body::-webkit-scrollbar{display:none}
 <div class="bridge-dismiss"><a href="#" onclick="dismissCoachingBridge();return false;">Remind me later</a></div>
 </div>
 
-<div class="hero"><h1>See Your Patterns</h1><p>You're not broken. You're just working on the wrong level.</p></div>
+<div class="hero"><h1>See Your Patterns</h1><p>The game that reveals what's really running your life.</p></div>
 
 <div class="challenge" id="dailyCard"><div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div><h2>Worldwide Challenge</h2><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer">Resets in --:--:--</span></div></div>
 
