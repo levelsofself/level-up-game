@@ -586,12 +586,12 @@ function showMirrorScenario(){
 }
 function selectMirrorChoice(ch,btn,sc){
   document.querySelectorAll('.choice').forEach(b=>b.disabled=true);btn.classList.add('selected');
-  game.answers.push({recognized:ch.value,insight:sc.insight,level:sc.level});
+  game.answers.push({recognized:ch.value,insight:sc.insight,text:sc.text,level:sc.level});
   addInsight(sc.insight,sc.level);addCombo();
   data.mirrorTotal++;positiveSound();coinSound();addXP(10);maybeBonus();
-  setTimeout(()=>showMirrorFeedback(sc.insight,ch.value),400);
+  setTimeout(()=>showMirrorFeedback(sc.text,sc.insight,ch.value),400);
 }
-function showMirrorFeedback(ins,rec){document.getElementById('fbIcon').textContent='💡';document.getElementById('fbIcon').style.color='var(--pink)';document.getElementById('fbTitle').textContent='Reflection';document.getElementById('fbLabel').textContent=rec?'✓ That\'s Me':'✗ Not Me';document.getElementById('fbText').textContent=ins;document.getElementById('feedbackModal').classList.add('active')}
+function showMirrorFeedback(txt,ins,rec){document.getElementById('fbIcon').textContent='💡';document.getElementById('fbIcon').style.color='var(--pink)';document.getElementById('fbTitle').textContent='Reflection';document.getElementById('fbLabel').textContent=rec?'✓ That\'s Me':'✗ Not Me';document.getElementById('fbText').innerHTML='<div style="font-size:14px;margin-bottom:10px;color:var(--text);">"'+txt+'"</div><div style="font-size:13px;color:var(--muted);font-style:italic;">'+ins+'</div>';document.getElementById('feedbackModal').classList.add('active')}
 
 function showAgreementScenario(){
   let s=game.scenarios[game.idx];if(!s){endGame();return}
@@ -655,7 +655,7 @@ function endGame(){
   if(game.mode==='mirror'){
     document.getElementById('resultsTitle').textContent='Mirror Complete';document.getElementById('finalScore').textContent=total+' Reflections';
     document.getElementById('resultMsg').textContent='Honest self-reflection is the first step.';
-    insights.innerHTML='';game.answers.slice(0,10).forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.innerHTML='<span style="color:'+(a.recognized?'var(--green)':'var(--muted)')+';">'+(a.recognized?'✓':'✗')+'</span> '+a.insight;insights.appendChild(div)});
+    insights.innerHTML='';game.answers.slice(0,10).forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.innerHTML='<span style="color:'+(a.recognized?'var(--green)':'var(--muted)')+';">'+(a.recognized?'✓ That\'s Me':'✗ Not Me')+'</span><div style="margin-top:4px;">"'+a.text+'"</div>';insights.appendChild(div)});
   }else if(game.mode==='agreement'){
     document.getElementById('resultsTitle').textContent='Agreement Complete';document.getElementById('finalScore').textContent=score+'/'+total;
     document.getElementById('resultMsg').textContent=score>=8?'Strong acceptance!':score>=5?'Growing awareness.':'Keep practicing.';
@@ -747,7 +747,7 @@ function endGame(){
     
     // Show all responses
     insights.innerHTML='<div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Your Responses</div>';
-    game.answers.forEach(a=>{let div=document.createElement('div');div.className='insight-item';if(a.recognized!==undefined){div.innerHTML='<span style="color:'+(a.recognized?'var(--green)':'var(--muted)')+';">🪞 '+(a.recognized?'That\'s Me':'Not Me')+'</span> — '+a.insight}else{div.innerHTML='<span style="color:'+(a.isAcceptance?'var(--green)':'var(--yellow)')+';">⚖️ '+(a.isAcceptance?'Accepted':'Judgment')+'</span> — '+a.insight}insights.appendChild(div)});
+    game.answers.forEach(a=>{let div=document.createElement('div');div.className='insight-item';if(a.recognized!==undefined){div.innerHTML='<span style="color:'+(a.recognized?'var(--green)':'var(--muted)')+';">🪞 '+(a.recognized?'That\'s Me':'Not Me')+'</span><div style="margin-top:4px;">"'+(a.text||a.insight)+'"</div>'}else{div.innerHTML='<span style="color:'+(a.isAcceptance?'var(--green)':'var(--yellow)')+';">⚖️ '+(a.isAcceptance?'Accepted':'Judgment')+'</span> — '+a.insight}insights.appendChild(div)});
   }else if(game.mode==='decision'){
     document.getElementById('resultsTitle').textContent='Challenge Complete';document.getElementById('finalScore').textContent='🔥 '+data.streak;
     document.getElementById('resultMsg').textContent=score+'/'+total+' correct!';
@@ -810,10 +810,10 @@ function showMixedScenario(){
 
 function selectMixedMirror(ch,btn,sc){
   document.querySelectorAll('.choice').forEach(b=>b.disabled=true);btn.classList.add('selected');
-  game.answers.push({recognized:ch.value,insight:sc.insight,level:sc.level});
+  game.answers.push({recognized:ch.value,insight:sc.insight,text:sc.text,level:sc.level});
   addInsight(sc.insight,sc.level);addCombo();
   data.mirrorTotal++;positiveSound();coinSound();addXP(10);maybeBonus();
-  setTimeout(()=>{document.getElementById('fbIcon').textContent='💡';document.getElementById('fbIcon').style.color='var(--pink)';document.getElementById('fbTitle').textContent='Reflection';document.getElementById('fbLabel').textContent=ch.value?'✓ That\'s Me':'✗ Not Me';document.getElementById('fbText').textContent=sc.insight;document.getElementById('feedbackModal').classList.add('active')},400);
+  setTimeout(()=>{document.getElementById('fbIcon').textContent='💡';document.getElementById('fbIcon').style.color='var(--pink)';document.getElementById('fbTitle').textContent='Reflection';document.getElementById('fbLabel').textContent=ch.value?'✓ That\'s Me':'✗ Not Me';document.getElementById('fbText').innerHTML='<div style="font-size:14px;margin-bottom:10px;color:var(--text);">"'+sc.text+'"</div><div style="font-size:13px;color:var(--muted);font-style:italic;">'+sc.insight+'</div>';document.getElementById('feedbackModal').classList.add('active')},400);
 }
 
 function selectMixedAgreement(ch,btn,sc){
