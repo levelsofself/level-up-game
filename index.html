@@ -358,6 +358,9 @@ body::-webkit-scrollbar{display:none}
 <button onclick="if(navigator.share){navigator.share({title:'Level Up - 7 Levels of Self',text:'Rewire your brain through play!',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');alert('Link copied!')}" style="padding:14px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:600;cursor:pointer;">📤 Share This Game</button>
 <a href="https://wa.me/qr/OFPFUYXQFBMIF1" target="_blank" style="display:block;padding:14px;background:linear-gradient(135deg,var(--green),#00B85D);border-radius:12px;color:#fff;font-size:15px;font-weight:600;text-decoration:none;text-align:center;">💬 Book a Coaching Session</a>
 </div>
+<div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border);">
+<button id="resetBtn" style="width:100%;padding:14px;background:transparent;border:2px solid var(--red);border-radius:12px;color:var(--red);font-size:14px;font-weight:600;cursor:pointer;">🔄 Reset All Progress</button>
+</div>
 <button class="modal-btn" id="qaClose" style="margin-top:16px;background:var(--card);border:1px solid var(--border);color:var(--muted);">Close</button></div></div>
 
 <div class="modal" id="feedbackModal"><div class="modal-content"><div class="modal-icon" id="fbIcon">💡</div><div class="modal-title" id="fbTitle">Insight</div><div class="feedback-box"><div class="feedback-label" id="fbLabel">Reflection</div><div class="feedback-text" id="fbText">...</div></div><button class="modal-btn" id="nextBtn">Next</button></div></div>
@@ -382,6 +385,16 @@ body::-webkit-scrollbar{display:none}
 <div class="modal-title">Your Growth Profile</div>
 <div id="patternProfile"></div>
 <button class="modal-btn" id="patternClose" style="margin-top:16px;">Close</button>
+</div></div>
+
+<div class="modal" id="resetModal"><div class="modal-content" style="text-align:center;">
+<div style="font-size:48px;margin-bottom:12px;">⚠️</div>
+<div class="modal-title" style="color:var(--red);">Reset All Progress?</div>
+<div style="color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:20px;">This will permanently delete:<br>• All XP and levels<br>• Your streak<br>• All collected insights<br>• Your pattern profile<br><br><strong style="color:var(--text);">This cannot be undone.</strong></div>
+<div style="display:flex;gap:12px;">
+<button id="resetCancel" style="flex:1;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;color:var(--muted);font-size:15px;font-weight:600;cursor:pointer;">Cancel</button>
+<button id="resetConfirm" style="flex:1;padding:14px;background:var(--red);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;">Reset</button>
+</div>
 </div></div>
 
 <script src="mirror-level1-individual.js"></script>
@@ -925,6 +938,9 @@ document.getElementById('musicBtn').onclick=function(){if(musicOn){music.pause()
 document.getElementById('soundBtn').onclick=function(){soundOn=!soundOn;this.classList.toggle('on',soundOn);if(soundOn)coinSound()};
 document.getElementById('qaBtn').onclick=function(){document.getElementById('qaModal').classList.add('active')};
 document.getElementById('qaClose').onclick=function(){document.getElementById('qaModal').classList.remove('active')};
+document.getElementById('resetBtn').onclick=function(){document.getElementById('qaModal').classList.remove('active');document.getElementById('resetModal').classList.add('active')};
+document.getElementById('resetCancel').onclick=function(){document.getElementById('resetModal').classList.remove('active')};
+document.getElementById('resetConfirm').onclick=function(){localStorage.removeItem('levelup_v7');localStorage.removeItem('installDismissed');data={xp:0,level:1,coins:0,games:0,mirrorRecognized:0,mirrorTotal:0,agreementAccepted:0,agreementTotal:0,streak:0,lastDaily:null,lastLogin:null,loginDay:0,unlockedLevels:[1],unlockedAgreement:false,seenIntro:false,insightsCollection:[],newlyUnlockedLevels:[],seenAgreementUnlock:false};save();document.getElementById('resetModal').classList.remove('active');showToast('Progress reset');updateHome()};
 document.querySelectorAll('.qa-question').forEach(q=>{q.onclick=function(){this.parentElement.classList.toggle('open')}});
 document.getElementById('dailyCard').onclick=function(){if(!this.classList.contains('done'))startDecisionGame()};
 document.getElementById('mirrorMode').onclick=()=>startMirrorGame();
