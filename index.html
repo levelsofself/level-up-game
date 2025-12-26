@@ -7,27 +7,27 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Level Up">
 <meta name="theme-color" content="#0d0a1a">
-<meta name="description" content="Rewire your brain through play. 3 games that reveal your patterns and train new ones.">
+<meta name="description" content="See the patterns that quietly run your life. A game that reveals why you keep repeating the same mistakes.">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://100levelup.com/">
-<meta property="og:title" content="Play Level Up - Rewire Your Brain">
-<meta property="og:description" content="Rewire your brain through play. 3 games that reveal your patterns and train new ones.">
+<meta property="og:title" content="Level Up - See Your Patterns">
+<meta property="og:description" content="See the patterns that quietly run your life. The game that reveals why you keep repeating the same mistakes.">
 <meta property="og:image" content="https://100levelup.com/og-game.png">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://100levelup.com/">
-<meta name="twitter:title" content="Play Level Up - Rewire Your Brain">
-<meta name="twitter:description" content="Rewire your brain through play. 3 games that reveal your patterns and train new ones.">
+<meta name="twitter:title" content="Level Up - See Your Patterns">
+<meta name="twitter:description" content="See the patterns that quietly run your life. The game that reveals why you keep repeating the same mistakes.">
 <meta name="twitter:image" content="https://100levelup.com/og-game.png">
 
 <link rel="icon" type="image/png" sizes="32x32" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="apple-touch-icon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
-<title>Play Level Up - Rewire Your Brain</title>
+<title>Level Up - See Your Patterns | 7 Levels of Self</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -90,6 +90,7 @@ body::-webkit-scrollbar{display:none}
 .ctrl-btn.on{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;border:none}
 .ctrl-btn.qa-btn{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:none;box-shadow:0 2px 8px rgba(120,75,160,0.4)}
 .ctrl-btn.heart-btn{background:linear-gradient(135deg,#FF4757,#FF6B81);color:#fff;border:none;box-shadow:0 2px 8px rgba(255,71,87,0.4)}
+.ctrl-btn.founder-btn{background:linear-gradient(135deg,var(--gold),var(--orange));color:#fff;border:none;box-shadow:0 2px 8px rgba(255,215,0,0.4)}
 .login-bonus{background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.15));border:2px solid var(--gold);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center;cursor:pointer;display:none}
 .login-bonus.show{display:block;animation:glow 2s ease-in-out infinite}
 @keyframes glow{0%,100%{box-shadow:0 0 5px var(--gold)}50%{box-shadow:0 0 20px var(--gold)}}
@@ -336,7 +337,7 @@ body::-webkit-scrollbar{display:none}
 <div class="bonus-popup" id="bonusPopup"><div class="bonus-icon">🎁</div><div class="bonus-title">BONUS!</div><div class="bonus-sub" id="bonusText">+25 XP</div></div>
 <div class="levelup-popup" id="levelupPopup"><div class="levelup-content"><div class="levelup-icon" id="levelupIcon">⭐</div><div class="levelup-title">LEVEL UP!</div><div class="levelup-sub" id="levelupText">You're now Level 2</div><div class="levelup-unlock" id="levelupUnlock"></div><button class="levelup-btn" id="levelupBtn">Amazing!</button></div></div>
 
-<div class="hook" id="hook"><div><div class="hook-line" id="line1">Something's off.</div><div class="hook-line" id="line2">You can feel it.</div><div class="hook-sub" id="hookSub">Play your way to better patterns.</div><button class="hook-btn" id="hookBtn">Show Me</button></div></div>
+<div class="hook" id="hook"><div><div class="hook-line" id="line1">See the patterns</div><div class="hook-line" id="line2">that quietly run your life.</div><div class="hook-sub" id="hookSub">Discover why you keep repeating the same mistakes.</div><button class="hook-btn" id="hookBtn">Show Me</button></div></div>
 
 <div class="onboard" id="onboard">
 <div class="onboard-screen active" id="onboard1"><div class="onboard-title">There Are Levels To This</div><div class="onboard-text">Most people are stuck — not because they lack knowledge, but because they're working on the wrong level.</div><div class="onboard-spacer"></div><div class="onboard-text2">Rewire your brain through play.</div><div class="onboard-text2">Mirror reveals. Agreement trains. Decision challenges.</div><div class="onboard-spacer"></div><div class="onboard-highlight">The goal isn't the "highest" level.<br>It's the <strong>right</strong> level.</div><div class="onboard-dots"><span class="dot active"></span><span class="dot"></span></div><div class="onboard-btns"><button class="onboard-skip" id="skipBtn">Skip</button><button class="onboard-next" id="nextBtn1">Next</button></div></div>
@@ -345,12 +346,12 @@ body::-webkit-scrollbar{display:none}
 
 <div class="app">
 <div class="home" id="home">
-<div class="header"><div class="logo">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="musicBtn">🎵</button><button class="ctrl-btn on" id="soundBtn">🔊</button><button class="ctrl-btn heart-btn" id="aiBtn">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn">❓</button></div></div>
+<div class="header"><div class="logo">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="musicBtn">🎵</button><button class="ctrl-btn on" id="soundBtn">🔊</button><button class="ctrl-btn heart-btn" id="aiBtn">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn">❓</button><button class="ctrl-btn founder-btn" id="founderBtn">👤</button></div></div>
 
 <div class="login-bonus" id="loginBonus"><div class="login-title">🎁 Daily Login Bonus!</div><div class="login-sub">Tap to claim <span id="loginReward">+20 XP</span></div></div>
 <div class="streak-warning" id="streakWarning"><div class="streak-warning-text">⚠️ Play today or lose your <span id="streakCount">0</span>-day streak!</div></div>
 
-<div class="hero"><h1>Discover Your Level</h1><p>Rewire your brain through play.</p></div>
+<div class="hero"><h1>See Your Patterns</h1><p>The game that reveals what's really running your life.</p></div>
 
 <div class="challenge" id="dailyCard"><div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div><h2>Worldwide Challenge</h2><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer">Resets in --:--:--</span></div></div>
 
@@ -381,6 +382,9 @@ body::-webkit-scrollbar{display:none}
 <a class="footer-btn primary" href="https://www.levelsofself.com/post/the-7-levels-of-self-explained" target="_blank" rel="noopener">Learn the Full Framework</a>
 <a class="footer-btn" href="https://www.levelsofself.com" target="_blank" rel="noopener">LevelsOfSelf.com</a>
 </div>
+<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);text-align:center;">
+<p style="font-size:12px;color:var(--muted);line-height:1.6;">Built by <span style="color:var(--gold);font-weight:600;cursor:pointer;" onclick="document.getElementById('founderModal').classList.add('active')">Arthur Palyan</span> on the framework he uses with founders, leaders, and clients worldwide.</p>
+</div>
 </div>
 </div>
 
@@ -405,12 +409,12 @@ body::-webkit-scrollbar{display:none}
 <div class="qa-item"><div class="qa-question">What is Mixed Mode?</div><div class="qa-answer">When you tap a level on the Journey map, you can choose <strong>Mixed Mode</strong> which combines Mirror Game and Agreement Game questions in a shuffled order.<br><br>This is great for:<br>• Variety in gameplay<br>• Testing both recognition AND acceptance skills<br>• Focused practice on a specific level</div></div>
 <div class="qa-item"><div class="qa-question">How do streaks and bonuses work?</div><div class="qa-answer"><strong>Daily Login Bonus:</strong> Log in each day to claim increasing XP rewards (up to 100 XP on day 7).<br><br><strong>Streak:</strong> Complete the Worldwide Challenge daily to build your streak. Miss a day and it resets!<br><br><strong>Combos:</strong> Get multiple correct answers in a row for bonus XP (5x combo = +15 XP, 10x = +40 XP).</div></div>
 <div class="qa-item"><div class="qa-question">Can I use this with my therapist or coach?</div><div class="qa-answer">Absolutely! Your insights reveal growth patterns that can deepen therapeutic or coaching work.<br><br>Ways to use it:<br>• Share your Insights collection<br>• Discuss your archetype and growth edge<br>• Track progress between sessions<br>• Use scenarios as conversation starters</div></div>
+<div class="qa-item"><div class="qa-question">Is this a substitute for therapy?</div><div class="qa-answer"><strong style="color:var(--yellow);">No.</strong> This game is for self-reflection and personal growth—it is not therapy, diagnosis, or treatment.<br><br>If you're experiencing a mental health crisis, please reach out for professional support:<br><br><strong style="color:var(--green);">🆘 Crisis Resources:</strong><br>• <strong>988 Suicide & Crisis Lifeline:</strong> Call or text 988 (US)<br>• <strong>Crisis Text Line:</strong> Text HOME to 741741<br>• <strong>International:</strong> <a href="https://findahelpline.com" target="_blank" style="color:var(--blue);">findahelpline.com</a><br><br><em style="color:var(--muted);">You are not alone. Help is available.</em></div></div>
 <div id="qaActions" style="display:flex;flex-direction:column;gap:12px;margin-top:12px;padding-top:12px;">
 <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;text-align:center;">Quick Actions</div>
 <a href="https://selfcheck.100levelup.com/assessment.html" target="_blank" style="display:block;padding:14px;background:linear-gradient(135deg,var(--orange),var(--pink));border-radius:12px;color:#fff;font-size:15px;font-weight:700;text-decoration:none;text-align:center;">📋 Take Full Assessment</a>
-<a href="https://levelsofself.com" target="_blank" style="display:block;padding:14px;background:linear-gradient(135deg,var(--purple),var(--blue));border-radius:12px;color:#fff;font-size:15px;font-weight:600;text-decoration:none;text-align:center;">🌐 Visit LevelsOfSelf.com</a>
-<button onclick="if(navigator.share){navigator.share({title:'Level Up - 7 Levels of Self',text:'Rewire your brain through play!',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:14px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:600;cursor:pointer;">📤 Share This Game</button>
-<a href="https://wa.me/qr/OFPFUYXQFBMIF1" target="_blank" style="display:block;padding:14px;background:linear-gradient(135deg,var(--green),#00B85D);border-radius:12px;color:#fff;font-size:15px;font-weight:600;text-decoration:none;text-align:center;">💬 Book a Coaching Session</a>
+<button onclick="if(navigator.share){navigator.share({title:'Level Up - 7 Levels of Self',text:'See the patterns that quietly run your life.',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:14px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:600;cursor:pointer;">📤 Share This Game</button>
+<button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('founderModal').classList.add('active');" style="padding:14px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:600;cursor:pointer;">👤 Meet the Founder</button>
 <button id="resetBtn" style="padding:14px;background:transparent;border:2px solid var(--red);border-radius:12px;color:var(--red);font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;">🔄 Reset All Progress</button>
 </div>
 <div id="qaBottom"></div>
@@ -447,6 +451,42 @@ body::-webkit-scrollbar{display:none}
 <p style="color:var(--muted);text-align:center;">Play more games to generate personalized analysis!</p>
 </div>
 <button class="modal-btn" id="aiClose" style="background:linear-gradient(135deg,#FF4757,#FF6B81);">Close</button>
+</div></div>
+
+<div class="modal" id="founderModal"><div class="modal-content" style="max-height:85vh;overflow-y:auto">
+<div style="text-align:center;margin-bottom:20px;">
+<img src="arthur.jpg" alt="Arthur Palyan" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 4px 20px rgba(255,215,0,0.4);margin-bottom:16px;">
+<div style="font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Meet Arthur Palyan</div>
+<div style="font-size:13px;color:var(--muted);margin-top:4px;">Creator of the 7 Levels of Self</div>
+</div>
+
+<div style="background:rgba(0,0,0,0.3);border-radius:12px;padding:16px;margin-bottom:16px;border-left:3px solid var(--gold);">
+<div style="font-size:14px;color:var(--text);line-height:1.7;font-style:italic;">"For 20 years, I helped people transform their financial lives while I was dying inside. No matter how much I achieved, I was never enough. The problem wasn't my circumstances—it was my foundation: me."</div>
+</div>
+
+<div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;">
+After 10 years of deep transformational work—Landmark, MITT, Insight Seminars, Ancestral Medicine—Arthur discovered the 7 Levels of Self framework that finally made sense of the journey from broken to whole.
+</div>
+
+<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);font-weight:700;margin-bottom:10px;">Training & Experience</div>
+<div style="font-size:12px;color:var(--muted);line-height:1.8;">
+• 20+ years transforming relationships with money<br>
+• Landmark Worldwide<br>
+• MITT (Mastery in Transformational Training)<br>
+• Insight Seminars<br>
+• Ancestral Medicine<br>
+• Creator of 20+ subconscious exercises
+</div>
+</div>
+
+<div style="background:linear-gradient(135deg,rgba(0,210,106,0.1),rgba(47,128,237,0.1));border:1px solid var(--green);border-radius:12px;padding:16px;margin-bottom:16px;">
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--green);font-weight:700;margin-bottom:8px;">Work With Arthur</div>
+<div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:12px;">Ready to stop performing and start living? Book a coaching session.</div>
+<a href="https://wa.me/qr/OFPFUYXQFBMIF1" target="_blank" style="display:block;padding:12px;background:linear-gradient(135deg,var(--green),#00B85D);border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;text-align:center;">💬 Book a Session on WhatsApp</a>
+</div>
+
+<button class="modal-btn" id="founderClose" style="background:linear-gradient(135deg,var(--gold),var(--orange));">Close</button>
 </div></div>
 
 <div class="modal" id="archetypeModal"><div class="modal-content" style="text-align:center;">
@@ -1168,6 +1208,8 @@ document.getElementById('qaBtn').onclick=function(){document.getElementById('qaM
 document.getElementById('qaClose').onclick=function(){document.getElementById('qaModal').classList.remove('active')};
 document.getElementById('aiBtn').onclick=function(){showAIAnalysis()};
 document.getElementById('aiClose').onclick=function(){document.getElementById('aiModal').classList.remove('active')};
+document.getElementById('founderBtn').onclick=function(){document.getElementById('founderModal').classList.add('active')};
+document.getElementById('founderClose').onclick=function(){document.getElementById('founderModal').classList.remove('active')};
 document.getElementById('archetypeClose').onclick=function(){document.getElementById('archetypeModal').classList.remove('active')};
 document.getElementById('resetBtn').onclick=function(){document.getElementById('qaModal').classList.remove('active');document.getElementById('resetModal').classList.add('active')};
 document.getElementById('resetCancel').onclick=function(){document.getElementById('resetModal').classList.remove('active')};
