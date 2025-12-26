@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Level Up">
+<meta name="theme-color" content="#0d0a1a">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230d0a1a' width='100' height='100' rx='20'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>🎮</text></svg>">
+<link rel="manifest" href="manifest.json">
 <title>Level Up - 7 Levels of Self</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -201,10 +207,44 @@ body::-webkit-scrollbar{display:none}
 .qa-answer{font-size:13px;color:var(--muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s ease}
 .qa-item.open .qa-answer{max-height:500px;padding-top:12px}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:1000}
+.install-banner{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,var(--purple),var(--blue));padding:16px 20px;display:none;align-items:center;justify-content:space-between;gap:12px;z-index:600;box-shadow:0 -4px 20px rgba(0,0,0,0.4)}
+.install-banner.show{display:flex}
+.install-banner-text{flex:1}
+.install-banner-title{font-size:14px;font-weight:700;margin-bottom:2px}
+.install-banner-sub{font-size:12px;color:rgba(255,255,255,0.8)}
+.install-banner-btn{padding:10px 20px;background:#fff;color:var(--purple);border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.install-banner-close{background:none;border:none;color:rgba(255,255,255,0.6);font-size:20px;cursor:pointer;padding:4px}
+.ios-modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:flex-end;justify-content:center;padding:20px;z-index:700}
+.ios-modal.active{display:flex}
+.ios-modal-content{background:var(--card);border:1px solid var(--border);border-radius:20px 20px 0 0;padding:24px;width:100%;max-width:400px;text-align:center}
+.ios-modal-title{font-size:18px;font-weight:700;margin-bottom:16px}
+.ios-modal-steps{text-align:left;margin:16px 0}
+.ios-modal-step{display:flex;align-items:center;gap:12px;margin-bottom:12px;font-size:14px}
+.ios-modal-icon{font-size:24px}
+.ios-modal-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px}
 </style>
 </head>
 <body>
 <canvas id="confetti"></canvas>
+<div class="install-banner" id="installBanner">
+<button class="install-banner-close" id="installClose">×</button>
+<div class="install-banner-text">
+<div class="install-banner-title">📲 Add to Home Screen</div>
+<div class="install-banner-sub">Play daily without opening browser</div>
+</div>
+<button class="install-banner-btn" id="installBtn">Install</button>
+</div>
+<div class="ios-modal" id="iosModal">
+<div class="ios-modal-content">
+<div class="ios-modal-title">Add Level Up to Home Screen</div>
+<div class="ios-modal-steps">
+<div class="ios-modal-step"><span class="ios-modal-icon">📤</span><span>Tap the <strong>Share</strong> button below</span></div>
+<div class="ios-modal-step"><span class="ios-modal-icon">➕</span><span>Scroll and tap <strong>"Add to Home Screen"</strong></span></div>
+<div class="ios-modal-step"><span class="ios-modal-icon">✓</span><span>Tap <strong>Add</strong> in the top right</span></div>
+</div>
+<button class="ios-modal-btn" id="iosClose">Got it!</button>
+</div>
+</div>
 <audio id="music" loop><source src="level-up.mp3" type="audio/mpeg"></audio>
 <div class="toast" id="toast">+10 XP!</div>
 <div class="combo-display" id="comboDisplay">🔥 3x COMBO!</div>
@@ -563,6 +603,52 @@ document.getElementById('mirrorMode').onclick=()=>startMirrorGame();
 document.getElementById('agreementMode').onclick=()=>startAgreementGame();
 document.getElementById('shareBtn').onclick=shareGame;
 document.getElementById('resultsShare').onclick=shareGame;
+
+// PWA Install Logic
+let deferredPrompt=null;
+let installDismissed=localStorage.getItem('installDismissed');
+let isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
+let isInStandaloneMode=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone;
+
+function showInstallBanner(){
+  if(isInStandaloneMode||installDismissed)return;
+  setTimeout(()=>{document.getElementById('installBanner').classList.add('show')},3000);
+}
+
+window.addEventListener('beforeinstallprompt',(e)=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  showInstallBanner();
+});
+
+document.getElementById('installBtn').onclick=function(){
+  if(isIOS){
+    document.getElementById('installBanner').classList.remove('show');
+    document.getElementById('iosModal').classList.add('active');
+  }else if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((result)=>{
+      if(result.outcome==='accepted'){showToast('🎉 Added to Home Screen!')}
+      deferredPrompt=null;
+      document.getElementById('installBanner').classList.remove('show');
+    });
+  }
+};
+
+document.getElementById('installClose').onclick=function(){
+  document.getElementById('installBanner').classList.remove('show');
+  localStorage.setItem('installDismissed','true');
+};
+
+document.getElementById('iosClose').onclick=function(){
+  document.getElementById('iosModal').classList.remove('active');
+  localStorage.setItem('installDismissed','true');
+};
+
+// Show install banner for iOS after a delay
+if(isIOS&&!isInStandaloneMode&&!installDismissed){
+  showInstallBanner();
+}
 
 if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
 setInterval(updateTimer,1000);
