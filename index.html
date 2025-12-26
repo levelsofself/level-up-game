@@ -30,27 +30,27 @@ body::-webkit-scrollbar{display:none}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 .onboard{position:fixed;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:200;overflow-y:auto}
 .onboard.active{display:flex}
-.onboard-screen{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:auto;max-width:500px;padding:20px 20px 100px;text-align:center}
+.onboard-screen{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:auto;width:100%;max-width:700px;padding:40px 30px;text-align:center}
 .onboard-screen.active{display:flex}
-.onboard-title{font-size:26px;font-weight:800;text-align:center;margin:20px 0 16px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.onboard-sub{text-align:center;color:var(--muted);font-size:15px;margin-bottom:20px}
-.onboard-text{text-align:center;color:var(--muted);font-size:15px;line-height:1.6;margin-bottom:6px}
-.onboard-text2{text-align:center;color:var(--text);font-size:14px;margin-bottom:6px}
-.onboard-highlight{text-align:center;color:var(--text);font-size:15px;font-weight:600}
+.onboard-title{font-size:32px;font-weight:800;text-align:center;margin:20px 0 16px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.onboard-sub{text-align:center;color:var(--muted);font-size:17px;margin-bottom:20px}
+.onboard-text{text-align:center;color:var(--muted);font-size:17px;line-height:1.6;margin-bottom:6px}
+.onboard-text2{text-align:center;color:var(--text);font-size:16px;margin-bottom:6px}
+.onboard-highlight{text-align:center;color:var(--text);font-size:17px;font-weight:600}
 .onboard-highlight strong{color:var(--pink)}
 .onboard-spacer{height:16px}
-.onboard-levels{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
-.onboard-level{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
-.onboard-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#000;flex-shrink:0}
+.onboard-levels{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;width:100%}
+.onboard-level{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.onboard-num{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#000;flex-shrink:0}
 .onboard-info{flex:1}
-.onboard-name{font-size:14px;font-weight:600}
-.onboard-desc{font-size:12px;color:var(--muted)}
+.onboard-name{font-size:16px;font-weight:600}
+.onboard-desc{font-size:14px;color:var(--muted)}
 .onboard-dots{display:flex;justify-content:center;gap:8px;margin:20px 0}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--border)}
 .dot.active{background:var(--pink)}
-.onboard-btns{display:flex;gap:12px;width:100%;max-width:500px;padding:16px 20px;margin-top:20px}
-.onboard-skip{padding:16px 24px;background:transparent;border:none;color:var(--muted);font-size:15px;cursor:pointer}
-.onboard-next,.onboard-start{flex:1;padding:16px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+.onboard-btns{display:flex;gap:12px;width:100%;max-width:700px;padding:20px 30px;margin-top:24px}
+.onboard-skip{padding:18px 28px;background:transparent;border:none;color:var(--muted);font-size:16px;cursor:pointer}
+.onboard-next,.onboard-start{flex:1;padding:18px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:17px;font-weight:700;cursor:pointer}
 .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
 .logo{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .controls{display:flex;gap:8px}
