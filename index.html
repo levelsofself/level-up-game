@@ -120,9 +120,9 @@ body::-webkit-scrollbar{display:none}
 .mode.locked{opacity:0.5;border-color:var(--border);box-shadow:0 2px 10px rgba(0,0,0,0.15)}
 .mode.locked:hover{box-shadow:0 2px 10px rgba(0,0,0,0.15);transform:none}
 .mode.locked::after{content:'🔒';position:absolute;top:10px;right:10px;font-size:16px}
-.mode.newly-unlocked{border-color:var(--purple);box-shadow:0 0 20px rgba(120,75,160,0.5);animation:unlockPulse 2s ease-in-out infinite}
-.level.newly-unlocked{border:2px solid var(--purple);box-shadow:0 0 15px rgba(120,75,160,0.4);animation:unlockPulse 2s ease-in-out infinite}
-@keyframes unlockPulse{0%,100%{box-shadow:0 0 15px rgba(120,75,160,0.4)}50%{box-shadow:0 0 25px rgba(120,75,160,0.7)}}
+.mode.newly-unlocked{border-color:var(--pink);box-shadow:0 0 20px rgba(255,60,172,0.5);animation:unlockPulse 2s ease-in-out infinite}
+.level.newly-unlocked{border:2px solid var(--pink);box-shadow:0 0 15px rgba(255,60,172,0.4);animation:unlockPulse 2s ease-in-out infinite}
+@keyframes unlockPulse{0%,100%{box-shadow:0 0 15px rgba(255,60,172,0.4)}50%{box-shadow:0 0 25px rgba(255,60,172,0.7)}}
 .mode-icon{font-size:40px;margin-bottom:12px;line-height:1}
 .mode-name{font-size:16px;font-weight:700;margin-bottom:6px}
 .mode-desc{font-size:12px;color:var(--muted);line-height:1.4}
@@ -180,7 +180,7 @@ body::-webkit-scrollbar{display:none}
 .choice.correct{border-color:var(--green);background:rgba(0,210,106,0.15);box-shadow:0 0 15px rgba(0,210,106,0.2)}
 .choice.wrong{border-color:var(--red);background:rgba(255,71,87,0.15);box-shadow:0 0 15px rgba(255,71,87,0.2)}
 .choice.dim{opacity:0.25}
-.results{display:none;text-align:center;padding-top:40px}
+.results{display:none;text-align:center;padding-top:40px;padding-bottom:100px}
 .results.active{display:block}
 .results h2{font-size:26px;margin-bottom:16px;font-weight:800}
 .score{font-size:72px;font-weight:900;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:20px 0;text-shadow:0 0 40px rgba(255,60,172,0.3)}
@@ -680,14 +680,14 @@ function endGame(){
     if(recognized.length>0){
       reflection+='<p style="font-size:13px;color:var(--text);margin-bottom:8px;">You recognized:</p>';
       recognized.slice(0,2).forEach(a=>{
-        reflection+='<div style="font-size:13px;color:var(--muted);font-style:italic;margin:4px 0 4px 12px;">"'+a.insight+'"</div>';
+        reflection+='<div style="font-size:13px;color:var(--muted);font-style:italic;margin:4px 0 4px 12px;">"'+(a.text||a.insight)+'"</div>';
       });
     }
     
     // Show what they rejected - potential blind spots
     if(notMe.length>0&&recognized.length>0){
       reflection+='<p style="font-size:13px;color:var(--text);margin:12px 0 8px;">But you rejected:</p>';
-      reflection+='<div style="font-size:13px;color:var(--muted);font-style:italic;margin:4px 0 4px 12px;">"'+notMe[0].insight+'"</div>';
+      reflection+='<div style="font-size:13px;color:var(--muted);font-style:italic;margin:4px 0 4px 12px;">"'+(notMe[0].text||notMe[0].insight)+'"</div>';
       
       // Look for contradiction patterns
       let boundaryWords=['boundary','boundaries','no','yes','peace','please','avoid','conflict'];
