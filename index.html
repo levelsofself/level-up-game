@@ -57,6 +57,7 @@ body::-webkit-scrollbar{display:none}
 .hook-container{max-width:480px;width:100%;position:relative;z-index:1}
 .hook-screen{display:none;flex-direction:column;align-items:center;opacity:0;transform:translateY(20px)}
 .hook-screen.active{display:flex;animation:screenFadeIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
+.hook-screen-scrollable{justify-content:flex-start;padding-top:40px;padding-bottom:40px;overflow-y:auto}
 @keyframes screenFadeIn{to{opacity:1;transform:translateY(0)}}
 .hook-line{font-size:clamp(32px,8vw,46px);font-weight:800;line-height:1.15;margin-bottom:6px;opacity:0;transform:translateY(30px);background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hook-line.show{animation:lineFadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards}
@@ -87,12 +88,45 @@ body::-webkit-scrollbar{display:none}
 @keyframes revealFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .reveal-label{font-size:12px;text-transform:uppercase;letter-spacing:2.5px;color:var(--pink);margin-bottom:10px;font-weight:700}
 .reveal-pattern{font-size:30px;font-weight:800;margin-bottom:14px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.reveal-insight{font-size:17px;color:var(--text);line-height:1.6;margin-bottom:28px;font-style:italic;max-width:340px;opacity:0.95}
+.reveal-insight{font-size:17px;color:var(--text);line-height:1.6;margin-bottom:16px;font-style:italic;max-width:340px;opacity:0.95}
+.reveal-context{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:20px;max-width:340px}
+.reveal-divider{width:60px;height:2px;background:linear-gradient(90deg,var(--pink),var(--purple));margin:0 auto 16px;border-radius:2px}
+.levels-intro{font-size:13px;color:var(--muted);margin-bottom:12px;font-weight:500}
 .reveal-stats{display:flex;gap:40px;margin-bottom:28px;padding:20px 28px;background:var(--card);border-radius:16px;border:1px solid var(--border)}
 .reveal-stat{text-align:center}
 .reveal-stat-value{font-size:32px;font-weight:800;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .reveal-stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;font-weight:600}
 .reveal-cta{font-size:15px;color:var(--muted);margin-bottom:24px;line-height:1.6;max-width:320px}
+.levels-compact{display:flex;flex-direction:column;gap:8px;width:100%;max-width:400px;margin-bottom:24px}
+.level-compact{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 16px}
+.level-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#000;flex-shrink:0}
+.level-compact-info{display:flex;flex-direction:column;text-align:left}
+.level-compact-name{font-size:14px;font-weight:600;color:var(--text)}
+.level-compact-desc{font-size:11px;color:var(--muted)}
+/* Screen 5: Shareable Pattern Card */
+.reveal-label-top{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--pink);margin-bottom:20px}
+.pattern-card-container{width:100%;max-width:360px;margin-bottom:28px}
+.pattern-card-share{background:linear-gradient(165deg,#1e1a2e 0%,#13101f 100%);border-radius:28px;padding:36px 28px;position:relative;box-shadow:0 12px 80px rgba(255,60,172,0.3),0 0 0 1px rgba(255,255,255,0.1),inset 0 1px 0 rgba(255,255,255,0.1);overflow:hidden}
+.card-glow{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:300px;height:300px;background:radial-gradient(circle,rgba(255,60,172,0.2) 0%,rgba(255,107,53,0.1) 40%,transparent 70%);pointer-events:none;animation:glowPulse 4s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{opacity:0.6;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.1)}}
+.card-content-share{position:relative;z-index:1;text-align:center}
+.pattern-icon-share{font-size:80px;margin-bottom:20px;line-height:1;filter:drop-shadow(0 8px 32px rgba(0,0,0,0.5))}
+.pattern-name-share{font-size:28px;font-weight:800;margin-bottom:16px;background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2}
+.pattern-tagline-share{font-size:16px;color:var(--text);line-height:1.6;font-style:italic;opacity:0.9;max-width:300px;margin:0 auto 24px}
+.card-divider{width:50px;height:2px;background:linear-gradient(90deg,transparent,var(--pink),transparent);margin:0 auto 20px;border-radius:2px}
+.card-footer-share{display:flex;flex-direction:column;gap:4px}
+.footer-question{font-size:15px;color:var(--text);font-weight:600}
+.footer-url{font-size:13px;color:var(--pink);font-weight:700;letter-spacing:0.5px}
+/* Share Buttons */
+.share-buttons{display:flex;flex-direction:column;gap:12px;width:100%;max-width:360px;margin-bottom:20px}
+.share-btn{width:100%;padding:18px 24px;background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 100%);border:none;border-radius:16px;font-size:17px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 32px rgba(255,60,172,0.4);transition:all 0.3s cubic-bezier(0.16,1,0.3,1)}
+.share-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(255,60,172,0.5)}
+.share-btn:active{transform:translateY(-1px)}
+.share-btn-icon{font-size:20px}
+.share-btn-secondary{width:100%;padding:14px 24px;background:transparent;border:2px solid var(--border);border-radius:14px;font-size:15px;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.25s ease}
+.share-btn-secondary:hover{border-color:var(--pink);color:var(--text);background:rgba(255,60,172,0.1)}
+.start-playing-btn{padding:16px 48px;background:transparent;border:none;font-size:16px;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.25s ease}
+.start-playing-btn:hover{color:var(--text)}
 /* Shareable Card Modal */
 .share-card-modal{position:fixed;inset:0;background:rgba(13,10,26,0.95);display:none;align-items:center;justify-content:center;z-index:400;padding:24px;opacity:0;transition:opacity 0.3s ease}
 .share-card-modal.active{display:flex;animation:modalFadeIn 0.4s cubic-bezier(0.16,1,0.3,1) forwards}
@@ -460,26 +494,51 @@ body::-webkit-scrollbar{display:none}
 <div class="voice-option" data-voice="all-there-is" onclick="selectVoice(this)">"Is this really all there is?"</div>
 </div>
 </div>
-<!-- Screen 4: Reveal -->
-<div class="hook-screen" id="hookScreen4">
-<div class="hook-progress"><span class="h-dot done"></span><span class="h-dot done"></span><span class="h-dot active"></span></div>
-<div class="reveal-icon" id="revealIcon">🪞</div>
-<div class="reveal-label">Your Entry Pattern</div>
-<div class="reveal-pattern" id="revealPattern">The Honest Avoider</div>
-<div class="reveal-insight" id="revealInsight">"You see yourself clearly but struggle to act on what you see."</div>
-<div class="reveal-stats">
-<div class="reveal-stat"><div class="reveal-stat-value" id="matchPercent">87%</div><div class="reveal-stat-label">Pattern Match</div></div>
-<div class="reveal-stat"><div class="reveal-stat-value" id="othersPercent">23%</div><div class="reveal-stat-label">Share This</div></div>
+<!-- Screen 4: The Explanation -->
+<div class="hook-screen hook-screen-scrollable" id="hookScreen4">
+<div class="hook-progress"><span class="h-dot done"></span><span class="h-dot done"></span><span class="h-dot active"></span><span class="h-dot"></span></div>
+<div class="hook-question-title">This isn't a flaw.</div>
+<div class="hook-question-sub">It's a signal you're solving the problem at the wrong level.</div>
+<div class="reveal-divider"></div>
+<div class="levels-intro">There are 7 levels where patterns live:</div>
+<div class="levels-compact">
+<div class="level-compact"><div class="level-dot" style="background:#FF6B35">1</div><div class="level-compact-info"><span class="level-compact-name">Individual</span><span class="level-compact-desc">Your relationship with yourself</span></div></div>
+<div class="level-compact"><div class="level-dot" style="background:#FF3CAC">2</div><div class="level-compact-info"><span class="level-compact-name">Family</span><span class="level-compact-desc">Your closest relationships</span></div></div>
+<div class="level-compact"><div class="level-dot" style="background:#784BA0">3</div><div class="level-compact-info"><span class="level-compact-name">Groups</span><span class="level-compact-desc">Teams, friends, communities</span></div></div>
+<div class="level-compact"><div class="level-dot" style="background:#2F80ED">4</div><div class="level-compact-info"><span class="level-compact-name">Community</span><span class="level-compact-desc">Your role in the larger whole</span></div></div>
+<div class="level-compact"><div class="level-dot" style="background:#00D26A">5</div><div class="level-compact-info"><span class="level-compact-name">Society</span><span class="level-compact-desc">Systems, culture, nation</span></div></div>
+<div class="level-compact"><div class="level-dot" style="background:#F7C948">6</div><div class="level-compact-info"><span class="level-compact-name">World</span><span class="level-compact-desc">Global connection</span></div></div>
+<div class="level-compact"><div class="level-dot" style="background:#C0C0C0">7</div><div class="level-compact-info"><span class="level-compact-name">Generations</span><span class="level-compact-desc">Legacy that outlasts you</span></div></div>
 </div>
-<div class="reveal-cta">The game reveals why this pattern keeps showing up — and what to do about it.</div>
-<button class="hook-btn show" id="startGameBtn">Let's Go</button>
+<div class="reveal-cta">The game helps you find which level your pattern lives on—so you can finally change it.</div>
+<button class="hook-btn show" onclick="showHookScreen(5)">See My Pattern</button>
+</div>
+<!-- Screen 5: The Shareable Pattern Card -->
+<div class="hook-screen" id="hookScreen5">
+<div class="hook-progress"><span class="h-dot done"></span><span class="h-dot done"></span><span class="h-dot done"></span><span class="h-dot active"></span></div>
+<div class="reveal-label-top">Your Pattern</div>
+<div class="pattern-card-container">
+<div class="pattern-card-share">
+<div class="card-glow"></div>
+<div class="card-content-share">
+<div class="pattern-icon-share" id="revealIcon">🪞</div>
+<div class="pattern-name-share" id="revealPattern">The Honest Avoider</div>
+<div class="pattern-tagline-share" id="revealInsight">"I see myself clearly but struggle to act on what I see."</div>
+<div class="card-divider"></div>
+<div class="card-footer-share">
+<span class="footer-question">What's yours?</span>
+<span class="footer-url">100levelup.com</span>
 </div>
 </div>
 </div>
-
-<div class="onboard" id="onboard">
-<div class="onboard-screen active" id="onboard1"><div class="onboard-title">There Are Levels To This</div><div class="onboard-text">You keep repeating the same patterns—not because you're broken, but because you're working on the wrong level.</div><div class="onboard-spacer"></div><div class="onboard-text2">This game reveals your patterns.</div><div class="onboard-text2">Then helps you change them.</div><div class="onboard-spacer"></div><div class="onboard-highlight">The goal isn't the "highest" level.<br>It's the <strong>right</strong> level.</div><div class="onboard-dots"><span class="dot active"></span><span class="dot"></span></div><div class="onboard-btns"><button class="onboard-skip" id="skipBtn">Skip</button><button class="onboard-next" id="nextBtn1">Next</button></div></div>
-<div class="onboard-screen" id="onboard2"><div class="onboard-title">The 7 Levels of Self</div><div class="onboard-sub">Master each level to unlock the next.</div><div class="onboard-levels"><div class="onboard-level"><div class="onboard-num" style="background:#FF6B35">1</div><div class="onboard-info"><div class="onboard-name">Individual</div><div class="onboard-desc">Your relationship with yourself</div></div></div><div class="onboard-level"><div class="onboard-num" style="background:#FF3CAC">2</div><div class="onboard-info"><div class="onboard-name">Family</div><div class="onboard-desc">Your closest relationships</div></div></div><div class="onboard-level"><div class="onboard-num" style="background:#784BA0">3</div><div class="onboard-info"><div class="onboard-name">Groups</div><div class="onboard-desc">Teams, friends, communities</div></div></div><div class="onboard-level"><div class="onboard-num" style="background:#2F80ED">4</div><div class="onboard-info"><div class="onboard-name">Community</div><div class="onboard-desc">Your role in the larger whole</div></div></div><div class="onboard-level"><div class="onboard-num" style="background:#00D26A">5</div><div class="onboard-info"><div class="onboard-name">Society</div><div class="onboard-desc">Systems, culture, nation</div></div></div><div class="onboard-level"><div class="onboard-num" style="background:#F7C948">6</div><div class="onboard-info"><div class="onboard-name">World</div><div class="onboard-desc">Global connection</div></div></div><div class="onboard-level"><div class="onboard-num" style="background:#C0C0C0">7</div><div class="onboard-info"><div class="onboard-name">Generations</div><div class="onboard-desc">Legacy that outlasts you</div></div></div></div><div class="onboard-dots"><span class="dot"></span><span class="dot active"></span></div><div class="onboard-btns"><button class="onboard-skip" id="skipBtn2">Skip</button><button class="onboard-start" id="goBtn">Let's Go</button></div></div>
+</div>
+<div class="share-buttons">
+<button class="share-btn" onclick="sharePatternCard()"><span class="share-btn-icon">📤</span> Share My Pattern</button>
+<button class="share-btn-secondary" onclick="copyPatternLink()">📋 Copy Link</button>
+</div>
+<button class="start-playing-btn" id="startGameBtn">Start Playing →</button>
+</div>
+</div>
 </div>
 
 <div class="app">
@@ -1216,7 +1275,19 @@ function selectVoice(el) {
     playSound(523, 0.1);
     setTimeout(() => playSound(659, 0.1), 80);
   }
-  setTimeout(() => showEntryReveal(), 600);
+  // Store the pattern now
+  const patternKey = determineEntryPattern();
+  const pattern = ENTRY_PATTERNS[patternKey];
+  data.entryPattern = patternKey;
+  save();
+  
+  // Pre-populate Screen 5 with pattern data
+  document.getElementById('revealIcon').textContent = pattern.icon;
+  document.getElementById('revealPattern').textContent = pattern.name;
+  document.getElementById('revealInsight').textContent = '"' + pattern.tagline + '"';
+  
+  // Go to explanation screen (Screen 4)
+  setTimeout(() => showHookScreen(4), 600);
 }
 
 function determineEntryPattern() {
@@ -1228,51 +1299,18 @@ function determineEntryPattern() {
   return 'honest-avoider';
 }
 
-function showEntryReveal() {
-  const patternKey = determineEntryPattern();
-  const pattern = ENTRY_PATTERNS[patternKey];
-  
-  // Store entry pattern for later use
-  data.entryPattern = patternKey;
-  save();
-  
-  // Transition to reveal screen
-  showHookScreen(4);
-  
-  // Animate reveal elements with stagger
-  setTimeout(() => {
-    document.getElementById('revealIcon').textContent = pattern.icon;
-    // Play reveal sound
-    if(soundOn) {
-      [523, 659, 784].forEach((f, i) => setTimeout(() => playSound(f, 0.12), i * 100));
-    }
-  }, 200);
-  
-  setTimeout(() => {
-    document.getElementById('revealPattern').textContent = pattern.name;
-  }, 400);
-  
-  setTimeout(() => {
-    document.getElementById('revealInsight').textContent = '"' + pattern.tagline + '"';
-  }, 600);
-  
-  setTimeout(() => {
-    document.getElementById('matchPercent').textContent = pattern.match + '%';
-    document.getElementById('othersPercent').textContent = pattern.others + '%';
-  }, 800);
-}
-
 // Hook button starts entry flow
 document.getElementById('hookBtn').onclick = function() {
   showHookScreen(2);
 };
 
 // Start game button after reveal
+// Start game button goes directly to home
 document.getElementById('startGameBtn').onclick = function() {
   data.seenIntro = true;
   save();
   document.getElementById('hook').classList.add('hidden');
-  document.getElementById('onboard').classList.add('active');
+  updateHome();
 };
 
 // Shareable Pattern Card Functions
@@ -1358,10 +1396,6 @@ function dismissCoachingBridge() {
   save();
 }
 // Entry flow hookBtn handler is defined above - this line removed to prevent override
-document.getElementById('skipBtn').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
-document.getElementById('skipBtn2').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
-document.getElementById('nextBtn1').onclick=function(){document.getElementById('onboard1').classList.remove('active');document.getElementById('onboard2').classList.add('active')};
-document.getElementById('goBtn').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
 
 function startMirrorGame(lf){
   game.mode='mirror';game.idx=0;game.answers=[];game.useTimer=false;currentCombo=0;
