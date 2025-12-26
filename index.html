@@ -629,11 +629,11 @@ function selectDecisionChoice(ch,btn,sc){
 }
 function showDecisionFeedback(ch,isCorr){document.getElementById('fbIcon').textContent=isCorr?'✓':'💡';document.getElementById('fbIcon').style.color=isCorr?'var(--green)':'var(--yellow)';document.getElementById('fbTitle').textContent=isCorr?'Correct!':'Not Quite';document.getElementById('fbLabel').textContent='Insight';document.getElementById('fbText').textContent=ch.fb;document.getElementById('feedbackModal').classList.add('active')}
 
-function startTimer(){game.timeLeft=15;if(game.timer)clearInterval(game.timer);game.timer=setInterval(()=>{game.timeLeft-=0.1;let pct=(game.timeLeft/15)*100,fill=document.getElementById('timerFill');fill.style.width=pct+'%';fill.classList.remove('warn','danger');if(game.timeLeft<=5)fill.classList.add('danger');else if(game.timeLeft<=10)fill.classList.add('warn');if(game.timeLeft<=0){clearInterval(game.timer);timeUp()}},100)}
+function startTimer(){let duration=game.timerDuration||15;game.timeLeft=duration;if(game.timer)clearInterval(game.timer);game.timer=setInterval(()=>{game.timeLeft-=0.1;let pct=(game.timeLeft/duration)*100,fill=document.getElementById('timerFill');fill.style.width=pct+'%';fill.classList.remove('warn','danger');if(game.timeLeft<=5)fill.classList.add('danger');else if(game.timeLeft<=duration*0.66)fill.classList.add('warn');if(game.timeLeft<=0){clearInterval(game.timer);timeUp()}},100)}
 function timeUp(){
   let s=game.scenarios[game.idx];document.querySelectorAll('.choice').forEach(b=>b.disabled=true);resetCombo();
-  if(game.mode==='agreement'){let acc=s.choices.find(c=>c.type==='acceptance');game.answers.push({type:'timeout',isAcceptance:false});data.agreementTotal++;document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else b.classList.add('dim')});neutralSound();setTimeout(()=>{document.getElementById('fbIcon').textContent='⏰';document.getElementById('fbTitle').textContent="Time's Up";document.getElementById('fbLabel').textContent='The accepting response';document.getElementById('fbText').textContent=acc.insight;document.getElementById('feedbackModal').classList.add('active')},500)}
-  else if(game.mode==='decision'){let corr=s.choices.find(c=>c.correct===true);game.answers.push({correct:false});document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===corr.text)b.classList.add('correct');else b.classList.add('dim')});neutralSound();setTimeout(()=>{document.getElementById('fbIcon').textContent='⏰';document.getElementById('fbTitle').textContent="Time's Up";document.getElementById('fbLabel').textContent='The right response';document.getElementById('fbText').textContent=corr.fb;document.getElementById('feedbackModal').classList.add('active')},500)}
+  if(game.mode==='agreement'||(game.mode==='mixed'&&s.gameType==='agreement')){let acc=s.choices.find(c=>c.type==='acceptance');game.answers.push({type:'timeout',isAcceptance:false,level:s.level});data.agreementTotal++;document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else b.classList.add('dim')});neutralSound();setTimeout(()=>{document.getElementById('fbIcon').textContent='⏰';document.getElementById('fbTitle').textContent="Time's Up";document.getElementById('fbLabel').textContent='The accepting response';document.getElementById('fbText').textContent=acc.insight;document.getElementById('feedbackModal').classList.add('active')},500)}
+  else if(game.mode==='decision'||(game.mode==='mixed'&&s.gameType==='decision')){let corr=s.choices.find(c=>c.correct===true);game.answers.push({correct:false,feedback:corr.fb,level:s.level,gameType:'decision'});document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===corr.text)b.classList.add('correct');else b.classList.add('dim')});neutralSound();setTimeout(()=>{document.getElementById('fbIcon').textContent='⏰';document.getElementById('fbTitle').textContent="Time's Up";document.getElementById('fbLabel').textContent='The right response';document.getElementById('fbText').textContent=corr.fb;document.getElementById('feedbackModal').classList.add('active')},500)}
 }
 
 document.getElementById('nextBtn').onclick=function(){document.getElementById('feedbackModal').classList.remove('active');game.idx++;if(game.idx>=game.scenarios.length)endGame();else{if(game.mode==='mirror')showMirrorScenario();else if(game.mode==='agreement')showAgreementScenario();else if(game.mode==='decision')showDecisionScenario();else if(game.mode==='mixed')showMixedScenario();}};
@@ -664,13 +664,18 @@ function endGame(){
   }else if(game.mode==='mixed'){
     let mirrorAnswers=game.answers.filter(a=>a.recognized!==undefined);
     let agreementAnswers=game.answers.filter(a=>a.isAcceptance!==undefined);
+    let decisionAnswers=game.answers.filter(a=>a.gameType==='decision');
     let recognized=mirrorAnswers.filter(a=>a.recognized);
     let notMe=mirrorAnswers.filter(a=>!a.recognized);
     let acceptCount=agreementAnswers.filter(a=>a.isAcceptance).length;
     let judgmentCount=agreementAnswers.length-acceptCount;
+    let correctCount=decisionAnswers.filter(a=>a.correct).length;
     
     document.getElementById('resultsTitle').textContent='Mixed Complete';
-    document.getElementById('finalScore').innerHTML='🪞 '+mirrorAnswers.length+' Reflections • ⚖️ '+acceptCount+'/'+agreementAnswers.length+' Accepted';
+    let scoreText='🪞 '+mirrorAnswers.length+' Reflections';
+    if(agreementAnswers.length>0)scoreText+=' • ⚖️ '+acceptCount+'/'+agreementAnswers.length+' Accepted';
+    if(decisionAnswers.length>0)scoreText+=' • 🎯 '+correctCount+'/'+decisionAnswers.length+' Correct';
+    document.getElementById('finalScore').innerHTML=scoreText;
     
     // Build DEEP personalized reflection
     let reflection='<div style="background:linear-gradient(135deg,rgba(120,75,160,0.15),rgba(255,60,172,0.1));border:1px solid var(--purple);border-radius:12px;padding:16px;margin-bottom:16px;text-align:left;">';
@@ -694,8 +699,8 @@ function endGame(){
       let controlWords=['control','perfect','right','wrong','should','must','fix'];
       let worthWords=['worth','deserve','enough','value','matter'];
       
-      let recognizedText=recognized.map(a=>a.insight.toLowerCase()).join(' ');
-      let rejectedText=notMe.map(a=>a.insight.toLowerCase()).join(' ');
+      let recognizedText=recognized.map(a=>(a.insight||'').toLowerCase()).join(' ');
+      let rejectedText=notMe.map(a=>(a.insight||'').toLowerCase()).join(' ');
       
       let hasBoundaryRecognized=boundaryWords.some(w=>recognizedText.includes(w));
       let hasBoundaryRejected=boundaryWords.some(w=>rejectedText.includes(w));
@@ -708,7 +713,7 @@ function endGame(){
       }else if(hasControlRecognized&&hasWorthRejected){
         reflection+='<p style="font-size:13px;color:var(--text);margin:12px 0;">Interesting pattern: you recognize control tendencies but may not see how they connect to self-worth. Control is often protection.</p>';
       }else if(recognized.length>=2){
-        reflection+='<p style="font-size:13px;color:var(--text);margin:12px 0;">These three are often connected. The patterns you see and the one you rejected may share a root. That\'s not a flaw—it\'s how awareness unfolds.</p>';
+        reflection+='<p style="font-size:13px;color:var(--text);margin:12px 0;">These patterns are often connected. The ones you see and the ones you rejected may share a root. That\'s not a flaw—it\'s how awareness unfolds.</p>';
       }
     }
     
@@ -717,7 +722,7 @@ function endGame(){
       if(judgmentCount>acceptCount){
         let judgmentExample=agreementAnswers.find(a=>!a.isAcceptance);
         reflection+='<p style="font-size:13px;color:var(--text);margin:12px 0;">In acceptance scenarios, <strong>judgment came up more than acceptance</strong>.';
-        if(judgmentExample){
+        if(judgmentExample&&judgmentExample.insight){
           reflection+=' One insight: "'+judgmentExample.insight+'" The trigger is the teacher.</p>';
         }else{
           reflection+='</p>';
@@ -726,6 +731,17 @@ function endGame(){
         reflection+='<p style="font-size:13px;color:var(--text);margin:12px 0;">You chose acceptance <strong>'+acceptCount+' time'+(acceptCount>1?'s':'')+'</strong>. You\'re building the muscle that creates space for change.</p>';
       }else if(acceptCount===judgmentCount&&acceptCount>0){
         reflection+='<p style="font-size:13px;color:var(--text);margin:12px 0;">Equal acceptance and judgment. You\'re in transition—the old patterns and new awareness are both present. That\'s exactly where growth happens.</p>';
+      }
+    }
+    
+    // Decision analysis
+    if(decisionAnswers.length>0){
+      if(correctCount===decisionAnswers.length){
+        reflection+='<p style="font-size:13px;color:var(--text);margin:12px 0;"><strong>Perfect on decision scenarios.</strong> Your instincts are aligned with wisdom.</p>';
+      }else if(correctCount===0){
+        reflection+='<p style="font-size:13px;color:var(--text);margin:12px 0;">The decision scenarios challenged you. Each "wrong" answer revealed a growth edge.</p>';
+      }else{
+        reflection+='<p style="font-size:13px;color:var(--text);margin:12px 0;">'+correctCount+' of '+decisionAnswers.length+' decisions aligned with the framework. The misses are where learning lives.</p>';
       }
     }
     
@@ -747,7 +763,17 @@ function endGame(){
     
     // Show all responses
     insights.innerHTML='<div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Your Responses</div>';
-    game.answers.forEach(a=>{let div=document.createElement('div');div.className='insight-item';if(a.recognized!==undefined){div.innerHTML='<span style="color:'+(a.recognized?'var(--green)':'var(--muted)')+';">🪞 '+(a.recognized?'That\'s Me':'Not Me')+'</span><div style="margin-top:4px;">"'+(a.text||a.insight)+'"</div>'}else{div.innerHTML='<span style="color:'+(a.isAcceptance?'var(--green)':'var(--yellow)')+';">⚖️ '+(a.isAcceptance?'Accepted':'Judgment')+'</span> — '+a.insight}insights.appendChild(div)});
+    game.answers.forEach(a=>{
+      let div=document.createElement('div');div.className='insight-item';
+      if(a.recognized!==undefined){
+        div.innerHTML='<span style="color:'+(a.recognized?'var(--green)':'var(--muted)')+';">🪞 '+(a.recognized?'That\'s Me':'Not Me')+'</span><div style="margin-top:4px;">"'+(a.text||a.insight)+'"</div>';
+      }else if(a.isAcceptance!==undefined){
+        div.innerHTML='<span style="color:'+(a.isAcceptance?'var(--green)':'var(--yellow)')+';">⚖️ '+(a.isAcceptance?'Accepted':'Judgment')+'</span> — '+a.insight;
+      }else if(a.gameType==='decision'){
+        div.innerHTML='<span style="color:'+(a.correct?'var(--green)':'var(--yellow)')+';">🎯 '+(a.correct?'Correct':'Missed')+'</span><div style="margin-top:4px;">"'+(a.text||'')+'"</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">'+a.feedback+'</div>';
+      }
+      insights.appendChild(div);
+    });
   }else if(game.mode==='decision'){
     document.getElementById('resultsTitle').textContent='Challenge Complete';document.getElementById('finalScore').textContent='🔥 '+data.streak;
     document.getElementById('resultMsg').textContent=score+'/'+total+' correct!';
@@ -777,12 +803,18 @@ document.getElementById('levelMixedBtn').onclick=function(){if(data.unlockedAgre
 document.getElementById('levelInsightsBtn').onclick=function(){document.getElementById('levelSelectModal').classList.remove('active');showInsightsModal(selectedLevel.id)};
 
 function startMixedGame(levelFilter){
-  game.mode='mixed';game.idx=0;game.answers=[];game.useTimer=true;currentCombo=0;
+  game.mode='mixed';game.idx=0;game.answers=[];game.useTimer=true;game.timerDuration=18;currentCombo=0;
   let mirrorPool=levelFilter?MIRROR_SCENARIOS.filter(s=>s.level===levelFilter):MIRROR_SCENARIOS.filter(s=>data.unlockedLevels.includes(s.level));
-  let agreePool=levelFilter&&typeof AGREEMENT_SCENARIOS!=='undefined'?AGREEMENT_SCENARIOS.filter(s=>s.level===levelFilter):typeof AGREEMENT_SCENARIOS!=='undefined'?AGREEMENT_SCENARIOS.filter(s=>data.unlockedLevels.includes(s.level)):[];
+  let agreePool=levelFilter&&typeof DECISION_SCENARIOS!=='undefined'?DECISION_SCENARIOS.filter(s=>s.level===levelFilter):typeof DECISION_SCENARIOS!=='undefined'?DECISION_SCENARIOS.filter(s=>data.unlockedLevels.includes(s.level)):[];
+  let decisionPool=[];
+  if(typeof window.SCENARIOS!=='undefined'){
+    if(levelFilter&&window.SCENARIOS[levelFilter]){decisionPool=window.SCENARIOS[levelFilter]}
+    else{data.unlockedLevels.forEach(lvl=>{if(window.SCENARIOS[lvl])decisionPool=decisionPool.concat(window.SCENARIOS[lvl].map(s=>({...s,level:lvl})))})}
+  }
   let combined=[];
-  shuffle(mirrorPool).slice(0,7).forEach(s=>combined.push({...s,gameType:'mirror'}));
+  shuffle(mirrorPool).slice(0,5).forEach(s=>combined.push({...s,gameType:'mirror'}));
   shuffle(agreePool).slice(0,3).forEach(s=>combined.push({...s,gameType:'agreement'}));
+  shuffle(decisionPool).slice(0,2).forEach(s=>combined.push({...s,gameType:'decision',level:s.level||levelFilter||1}));
   game.scenarios=shuffle(combined).slice(0,10);
   if(game.scenarios.length===0){showToast('No scenarios available!');return}
   document.getElementById('home').classList.add('hidden');document.getElementById('game').classList.add('active');
@@ -792,18 +824,24 @@ function startMixedGame(levelFilter){
 
 function showMixedScenario(){
   let s=game.scenarios[game.idx];if(!s){endGame();return}
+  document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;
+  let lv=LEVELS.find(l=>l.id===s.level);
   if(s.gameType==='mirror'){
-    document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;
-    let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='🪞 Level '+s.level+': '+(lv?lv.name:'');
+    document.getElementById('scenarioCat').textContent='🪞 Level '+s.level+': '+(lv?lv.name:'');
     document.getElementById('scenarioText').textContent=s.text;
     let c=document.getElementById('choices');c.innerHTML='';
     [{text:"That's Me",value:true},{text:"That's Not Me",value:false}].forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectMixedMirror(ch,b,s);c.appendChild(b)});
-  }else{
-    document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;
-    let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='⚖️ Level '+s.level+': '+(lv?lv.name:'');
+  }else if(s.gameType==='agreement'){
+    document.getElementById('scenarioCat').textContent='⚖️ Level '+s.level+': '+(lv?lv.name:'');
     document.getElementById('scenarioText').textContent=s.scenario;
     let c=document.getElementById('choices');c.innerHTML='';
     shuffle(s.choices).forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectMixedAgreement(ch,b,s);c.appendChild(b)});
+    if(game.useTimer)startTimer();
+  }else if(s.gameType==='decision'){
+    document.getElementById('scenarioCat').textContent='🎯 Level '+s.level+': '+(lv?lv.name:'');
+    document.getElementById('scenarioText').textContent=s.text;
+    let c=document.getElementById('choices');c.innerHTML='';
+    s.choices.forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectMixedDecision(ch,b,s);c.appendChild(b)});
     if(game.useTimer)startTimer();
   }
 }
@@ -818,11 +856,20 @@ function selectMixedMirror(ch,btn,sc){
 
 function selectMixedAgreement(ch,btn,sc){
   if(game.timer)clearInterval(game.timer);document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
-  let isAcc=ch.type==='acceptance';game.answers.push({type:ch.type,isAcceptance:isAcc,insight:ch.insight,level:sc.level});
+  let isAcc=ch.type==='acceptance';game.answers.push({type:ch.type,isAcceptance:isAcc,insight:ch.insight,level:sc.level,gameType:'agreement'});
   if(isAcc){btn.classList.add('correct');data.agreementAccepted++;positiveSound();multiCoinSound(2);addXP(15);addInsight(ch.insight,sc.level);addCombo()}
   else{btn.classList.add('wrong');let acc=sc.choices.find(c=>c.type==='acceptance');document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(5);resetCombo()}
   data.agreementTotal++;maybeBonus();
   setTimeout(()=>{document.getElementById('fbIcon').textContent=isAcc?'✓':'⚖️';document.getElementById('fbIcon').style.color=isAcc?'var(--green)':'var(--yellow)';document.getElementById('fbTitle').textContent=isAcc?'Acceptance':'Judgment';document.getElementById('fbLabel').textContent=isAcc?'Why this works':'Learning opportunity';document.getElementById('fbText').textContent=ch.insight;document.getElementById('feedbackModal').classList.add('active')},500);
+}
+
+function selectMixedDecision(ch,btn,sc){
+  if(game.timer)clearInterval(game.timer);document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  let isCorr=ch.correct===true;game.answers.push({correct:isCorr,feedback:ch.fb,text:sc.text,level:sc.level,gameType:'decision'});
+  if(isCorr){btn.classList.add('correct');positiveSound();multiCoinSound(3);addXP(20);addInsight(ch.fb,sc.level);addCombo()}
+  else{btn.classList.add('wrong');let corr=sc.choices.find(c=>c.correct===true);document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===corr.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(5);resetCombo()}
+  maybeBonus();
+  setTimeout(()=>{document.getElementById('fbIcon').textContent=isCorr?'✓':'💡';document.getElementById('fbIcon').style.color=isCorr?'var(--green)':'var(--yellow)';document.getElementById('fbTitle').textContent=isCorr?'Correct!':'Not Quite';document.getElementById('fbLabel').textContent='Insight';document.getElementById('fbText').textContent=ch.fb;document.getElementById('feedbackModal').classList.add('active')},500);
 }
 
 function showInsightsModal(filterLevel){
