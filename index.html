@@ -89,7 +89,7 @@ body::-webkit-scrollbar{display:none}
 .ctrl-btn:active{transform:scale(0.95)}
 .ctrl-btn.on{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;border:none}
 .ctrl-btn.qa-btn{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:none;box-shadow:0 2px 8px rgba(120,75,160,0.4)}
-.ctrl-btn.ai-btn{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#fff;border:none;box-shadow:0 2px 8px rgba(0,216,255,0.4)}
+.ctrl-btn.heart-btn{background:linear-gradient(135deg,#FF4757,#FF6B81);color:#fff;border:none;box-shadow:0 2px 8px rgba(255,71,87,0.4)}
 .login-bonus{background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.15));border:2px solid var(--gold);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center;cursor:pointer;display:none}
 .login-bonus.show{display:block;animation:glow 2s ease-in-out infinite}
 @keyframes glow{0%,100%{box-shadow:0 0 5px var(--gold)}50%{box-shadow:0 0 20px var(--gold)}}
@@ -345,7 +345,7 @@ body::-webkit-scrollbar{display:none}
 
 <div class="app">
 <div class="home" id="home">
-<div class="header"><div class="logo">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="musicBtn">🎵</button><button class="ctrl-btn on" id="soundBtn">🔊</button><button class="ctrl-btn ai-btn" id="aiBtn">🤖</button><button class="ctrl-btn qa-btn" id="qaBtn">❓</button></div></div>
+<div class="header"><div class="logo">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="musicBtn">🎵</button><button class="ctrl-btn on" id="soundBtn">🔊</button><button class="ctrl-btn heart-btn" id="aiBtn">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn">❓</button></div></div>
 
 <div class="login-bonus" id="loginBonus"><div class="login-title">🎁 Daily Login Bonus!</div><div class="login-sub">Tap to claim <span id="loginReward">+20 XP</span></div></div>
 <div class="streak-warning" id="streakWarning"><div class="streak-warning-text">⚠️ Play today or lose your <span id="streakCount">0</span>-day streak!</div></div>
@@ -389,23 +389,31 @@ body::-webkit-scrollbar{display:none}
 <div class="results" id="results"><h2 id="resultsTitle">Game Complete</h2><div class="score" id="finalScore">0</div><p class="result-msg" id="resultMsg">Keep going!</p><div class="insights-list" id="insightsList"></div><button class="results-btn" id="homeBtn">Continue</button><button class="results-share" id="resultsShare">📤 Share Results</button></div>
 </div>
 
-<div class="modal" id="qaModal"><div class="modal-content" style="max-height:80vh;overflow-y:auto;position:relative;">
-<button onclick="document.getElementById('qaModal').classList.remove('active')" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+<div class="modal" id="qaModal"><div class="modal-content" id="qaContent" style="max-height:80vh;overflow-y:auto;position:relative;scroll-behavior:smooth;">
+<button onclick="document.getElementById('qaModal').classList.remove('active')" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;">✕</button>
 <div class="modal-title" style="margin-top:8px;">Questions & Answers</div>
+<div style="display:flex;justify-content:center;margin-bottom:16px;">
+<button onclick="document.getElementById('qaBottom').scrollIntoView({behavior:'smooth'})" style="padding:10px 20px;background:var(--card);border:1px solid var(--border);border-radius:20px;color:var(--muted);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;"><span style="font-size:18px;">⬇</span> Jump to Bottom</button>
+</div>
 <div class="qa-item"><div class="qa-question">What is the 7 Levels framework?</div><div class="qa-answer">The 7 Levels of Self maps human growth across 7 dimensions: Individual (self), Family (close relationships), Groups (teams/friends), Community (local impact), Society (systems/culture), World (global connection), and Generations (legacy). You can't skip levels - each must be mastered before climbing higher.</div></div>
-<div class="qa-item"><div class="qa-question">How does the scoring work?</div><div class="qa-answer">You earn XP for every answer. Correct/accepting answers earn more XP. As you accumulate XP, you level up and unlock new content. Streaks multiply your progress!</div></div>
-<div class="qa-item"><div class="qa-question">What's the difference between the 3 games?</div><div class="qa-answer"><strong style="color:var(--pink);">🪞 Mirror Game:</strong> Self-reflection. See patterns honestly. No right/wrong.<br><br><strong style="color:var(--purple);">⚖️ Agreement Game:</strong> Train yourself to choose acceptance over judgment. Timed.<br><br><strong style="color:var(--orange);">🌍 Worldwide Challenge:</strong> Same 3 scenarios for everyone globally. One chance daily.</div></div>
-<div class="qa-item"><div class="qa-question">What does "Acceptance ≠ Agreement" mean?</div><div class="qa-answer">Acceptance means acknowledging reality as it is. Agreement means endorsing it. You can accept that something IS without agreeing it SHOULD BE. Acceptance is the first step to change.</div></div>
-<div class="qa-item"><div class="qa-question">How do I unlock new levels?</div><div class="qa-answer">Play games to earn XP. At Player Level 2 you unlock the Agreement Game + Family scenarios. Higher player levels unlock more framework levels and content.</div></div>
-<div class="qa-item"><div class="qa-question">Can I use this with my therapist or coach?</div><div class="qa-answer">Yes! Your insights reveal growth patterns. Share your results with your therapist, coach, or accountability partner to deepen your work together.</div></div>
-<div class="qa-item"><div class="qa-question">What are Insights?</div><div class="qa-answer">When you play Mirror Game, every pattern you recognize gets saved to your Insights collection. Tap the Insights stat to review them anytime. They're organized by level so you can see your growth patterns.</div></div>
-<div style="display:flex;flex-direction:column;gap:12px;margin-top:24px;">
+<div class="qa-item"><div class="qa-question">What's the difference between the 3 games?</div><div class="qa-answer"><strong style="color:var(--pink);">🪞 Mirror Game:</strong> Self-reflection. See patterns honestly. No right/wrong - just recognition.<br><br><strong style="color:var(--purple);">⚖️ Agreement Game:</strong> Train yourself to choose acceptance over judgment. Timed to build instinct.<br><br><strong style="color:var(--orange);">🌍 Worldwide Challenge:</strong> Same 3 scenarios for everyone globally. One chance daily. Builds streak.</div></div>
+<div class="qa-item"><div class="qa-question">How does scoring and leveling work?</div><div class="qa-answer"><strong>XP System:</strong> Every answer earns XP. Correct/accepting answers earn more. Combos multiply rewards!<br><br><strong>Level Up:</strong> Every 100 XP = 1 level. Levels unlock new game modes and framework levels.<br><br><strong>Unlocks:</strong><br>• Level 2: Agreement Game + Family<br>• Level 3: Groups<br>• Level 5: Community<br>• Level 7: Society<br>• Level 10: World<br>• Level 15: Generations</div></div>
+<div class="qa-item"><div class="qa-question">What does "Acceptance ≠ Agreement" mean?</div><div class="qa-answer">This is the core philosophy. <strong>Acceptance</strong> means acknowledging reality as it is. <strong>Agreement</strong> means endorsing it.<br><br>You can accept that something IS without agreeing it SHOULD BE. Acceptance is the first step to change - you can't transform what you won't acknowledge.</div></div>
+<div class="qa-item"><div class="qa-question">What is the ❤️ Deep Insight button?</div><div class="qa-answer">Deep Insight examines your gameplay patterns and generates personalized insights about your growth journey:<br><br>• <strong>Your Growth Pattern:</strong> A personalized summary of where you are<br>• <strong>Self-Awareness & Acceptance Scores:</strong> How you see and accept yourself<br>• <strong>Recurring Themes:</strong> Patterns like boundaries, control, self-worth<br>• <strong>Your Archetype:</strong> A growth personality based on your patterns<br>• <strong>Recommended Practice:</strong> Which level to focus on next<br><br>Play at least 10 games to unlock this feature.</div></div>
+<div class="qa-item"><div class="qa-question">What are Archetypes?</div><div class="qa-answer">Based on your gameplay patterns, you're matched with one of these growth archetypes:<br><br><strong style="color:#FF6B35;">🔥 The Boundary Builder:</strong> Learning to protect your energy<br><strong style="color:#784BA0;">🔮 The Pattern Seeker:</strong> Seeing connections others miss<br><strong style="color:#2F80ED;">🌊 The Flow Finder:</strong> Releasing control for peace<br><strong style="color:#00D26A;">🌱 The Growth Gardener:</strong> Nurturing steady progress<br><strong style="color:#F7C948;">⚡ The Truth Teller:</strong> Embracing radical honesty<br><strong style="color:#FF3CAC;">💫 The Integration Master:</strong> Balancing all dimensions</div></div>
+<div class="qa-item"><div class="qa-question">What are Insights and how do I use them?</div><div class="qa-answer">Every pattern you recognize in Mirror Game gets saved to your Insights collection. Tap the <strong>Insights stat</strong> on the home screen to review them.<br><br>They're organized by level and date so you can:<br>• Track your growth over time<br>• Share with therapists or coaches<br>• Notice recurring patterns<br>• Celebrate your self-awareness journey</div></div>
+<div class="qa-item"><div class="qa-question">What is Mixed Mode?</div><div class="qa-answer">When you tap a level on the Journey map, you can choose <strong>Mixed Mode</strong> which combines Mirror Game and Agreement Game questions in a shuffled order.<br><br>This is great for:<br>• Variety in gameplay<br>• Testing both recognition AND acceptance skills<br>• Focused practice on a specific level</div></div>
+<div class="qa-item"><div class="qa-question">How do streaks and daily bonuses work?</div><div class="qa-answer"><strong>Daily Login Bonus:</strong> Log in each day to claim increasing XP rewards (up to 100 XP on day 7).<br><br><strong>Streak:</strong> Complete the Worldwide Challenge daily to build your streak. Miss a day and it resets!<br><br><strong>Combos:</strong> Get multiple correct answers in a row for bonus XP (5x combo = +15 XP, 10x = +40 XP).</div></div>
+<div class="qa-item"><div class="qa-question">Can I use this with my therapist or coach?</div><div class="qa-answer">Absolutely! Your insights reveal growth patterns that can deepen therapeutic or coaching work.<br><br>Ways to use it:<br>• Share your Insights collection<br>• Discuss your archetype and growth edge<br>• Track progress between sessions<br>• Use scenarios as conversation starters</div></div>
+<div id="qaActions" style="display:flex;flex-direction:column;gap:12px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);">
+<div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;text-align:center;">Quick Actions</div>
 <a href="https://selfcheck.100levelup.com/assessment.html" target="_blank" style="display:block;padding:14px;background:linear-gradient(135deg,var(--orange),var(--pink));border-radius:12px;color:#fff;font-size:15px;font-weight:700;text-decoration:none;text-align:center;">📋 Take Full Assessment</a>
 <a href="https://levelsofself.com" target="_blank" style="display:block;padding:14px;background:linear-gradient(135deg,var(--purple),var(--blue));border-radius:12px;color:#fff;font-size:15px;font-weight:600;text-decoration:none;text-align:center;">🌐 Visit LevelsOfSelf.com</a>
-<button onclick="if(navigator.share){navigator.share({title:'Level Up - 7 Levels of Self',text:'Rewire your brain through play!',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');alert('Link copied!')}" style="padding:14px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:600;cursor:pointer;">📤 Share This Game</button>
+<button onclick="if(navigator.share){navigator.share({title:'Level Up - 7 Levels of Self',text:'Rewire your brain through play!',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:14px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:600;cursor:pointer;">📤 Share This Game</button>
 <a href="https://wa.me/qr/OFPFUYXQFBMIF1" target="_blank" style="display:block;padding:14px;background:linear-gradient(135deg,var(--green),#00B85D);border-radius:12px;color:#fff;font-size:15px;font-weight:600;text-decoration:none;text-align:center;">💬 Book a Coaching Session</a>
 <button id="resetBtn" style="padding:14px;background:transparent;border:2px solid var(--red);border-radius:12px;color:var(--red);font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;">🔄 Reset All Progress</button>
 </div>
+<div id="qaBottom"></div>
 <button class="modal-btn" id="qaClose" style="margin-top:16px;background:var(--card);border:1px solid var(--border);color:var(--muted);">Close</button></div></div>
 
 <div class="modal" id="feedbackModal"><div class="modal-content"><div class="modal-icon" id="fbIcon">💡</div><div class="modal-title" id="fbTitle">Insight</div><div class="feedback-box"><div class="feedback-label" id="fbLabel">Reflection</div><div class="feedback-text" id="fbText">...</div></div><button class="modal-btn" id="nextBtn">Next</button></div></div>
@@ -433,12 +441,12 @@ body::-webkit-scrollbar{display:none}
 </div></div>
 
 <div class="modal" id="aiModal"><div class="modal-content" style="max-height:85vh;overflow-y:auto">
-<div class="modal-icon">🤖</div>
-<div class="modal-title">AI Pattern Analysis</div>
-<div id="aiAnalysisContent" style="background:linear-gradient(135deg,rgba(0,216,255,0.1),rgba(120,75,160,0.1));border:2px solid var(--cyan);border-radius:12px;padding:16px;margin-bottom:16px;text-align:left;">
+<div class="modal-icon">❤️</div>
+<div class="modal-title" style="background:linear-gradient(135deg,#FF4757,#FF6B81);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Deep Insight</div>
+<div id="aiAnalysisContent" style="background:linear-gradient(135deg,rgba(255,71,87,0.1),rgba(255,107,129,0.1));border:2px solid #FF4757;border-radius:12px;padding:16px;margin-bottom:16px;text-align:left;">
 <p style="color:var(--muted);text-align:center;">Play more games to generate personalized analysis!</p>
 </div>
-<button class="modal-btn" id="aiClose">Close</button>
+<button class="modal-btn" id="aiClose" style="background:linear-gradient(135deg,#FF4757,#FF6B81);">Close</button>
 </div></div>
 
 <div class="modal" id="archetypeModal"><div class="modal-content" style="text-align:center;">
@@ -663,52 +671,134 @@ function updatePatternCard(){
 }
 
 function showAIAnalysis(){
-  let analysis=analyzePatterns();
   let content='';
   
-  if(!analysis||data.games<5){
-    content='<p style="color:var(--muted);text-align:center;">Play at least 5 games to generate personalized AI analysis!</p>';
-    content+='<p style="color:var(--muted);text-align:center;margin-top:12px;">Games played: '+data.games+'/5</p>';
+  // analyzePatterns requires 10 games, so check for that
+  if(data.games<10){
+    content='<p style="color:var(--muted);text-align:center;">Play at least 10 games to unlock your Deep Insight!</p>';
+    content+='<p style="color:var(--muted);text-align:center;margin-top:12px;">Games played: <strong style="color:var(--pink);">'+data.games+'</strong> / 10</p>';
+    
+    // Show progress bar
+    let pct=Math.min((data.games/10)*100,100);
+    content+='<div style="margin-top:16px;background:var(--border);border-radius:5px;height:8px;overflow:hidden;"><div style="width:'+pct+'%;height:100%;background:linear-gradient(90deg,#FF4757,#FF6B81);border-radius:5px;"></div></div>';
+    
+    // Show what they'll get
+    content+='<div style="margin-top:20px;padding:16px;background:rgba(0,0,0,0.3);border-radius:12px;text-align:left;">';
+    content+='<p style="color:var(--text);font-size:13px;margin-bottom:12px;"><strong>Coming soon:</strong></p>';
+    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Your Growth Pattern Summary</p>';
+    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Recurring Theme Tags</p>';
+    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Personal Archetype Match</p>';
+    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Level-Specific Recommendations</p>';
+    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Daily Growth Challenges</p>';
+    content+='</div>';
   }else{
-    let p=analysis.profile;
-    content='<h3 style="color:var(--cyan);font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">🧠 Your Growth Patterns</h3>';
-    
-    // Recognition analysis
-    let recPct=Math.round(p.mirrorRecognition*100);
-    if(recPct>=70){
-      content+='<p style="margin-bottom:12px;"><strong style="color:var(--green);">High Self-Awareness ('+recPct+'%)</strong><br>You see your patterns clearly and honestly.</p>';
-    }else if(recPct>=40){
-      content+='<p style="margin-bottom:12px;"><strong style="color:var(--yellow);">Growing Awareness ('+recPct+'%)</strong><br>You\'re learning to recognize your patterns.</p>';
+    let analysis=analyzePatterns();
+    if(!analysis){
+      content='<p style="color:var(--muted);text-align:center;">Unable to analyze patterns. Keep playing to build data!</p>';
     }else{
-      content+='<p style="margin-bottom:12px;"><strong style="color:var(--orange);">Potential Blind Spots ('+recPct+'%)</strong><br>You may be avoiding looking at certain patterns.</p>';
+      let p=analysis.profile;
+      let recPct=Math.round(p.mirrorRecognition*100);
+      let accPct=Math.round(p.acceptanceRate*100);
+      
+      // YOUR GROWTH PATTERN - Summary box
+      content='<div style="background:linear-gradient(135deg,rgba(120,75,160,0.2),rgba(255,60,172,0.1));border:1px solid var(--purple);border-radius:12px;padding:16px;margin-bottom:16px;">';
+      content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);font-weight:700;margin-bottom:8px;">Your Growth Pattern</div>';
+      
+      // Generate dynamic summary based on stats
+      let summary='';
+      if(recPct>=70 && accPct>=70){
+        summary='You see yourself clearly and accept what you see. This is rare. Your growth edge is going deeper, not wider.';
+      }else if(recPct>=70 && accPct<50){
+        summary='You see yourself clearly but struggle to accept what you see. This tension is where growth happens.';
+      }else if(recPct<50 && accPct>=70){
+        summary='You accept others easily but may be avoiding your own mirror. Your growth edge is honest self-examination.';
+      }else if(recPct>=40 && accPct>=40){
+        summary='You\'re developing self-awareness while still avoiding certain difficult truths. This tension is where growth happens.';
+      }else{
+        summary='You\'re at the beginning of your journey. Every pattern you recognize brings you closer to transformation.';
+      }
+      content+='<p style="color:var(--text);font-size:14px;line-height:1.6;">'+summary+'</p>';
+      content+='</div>';
+      
+      // Stats row
+      content+='<div style="display:flex;gap:12px;margin-bottom:16px;">';
+      content+='<div style="flex:1;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;">';
+      content+='<div style="font-size:24px;font-weight:800;color:'+(recPct>=60?'var(--green)':recPct>=40?'var(--yellow)':'var(--orange)')+';">'+recPct+'%</div>';
+      content+='<div style="font-size:10px;color:var(--muted);text-transform:uppercase;">Self-Aware</div>';
+      content+='</div>';
+      content+='<div style="flex:1;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;">';
+      content+='<div style="font-size:24px;font-weight:800;color:'+(accPct>=60?'var(--green)':accPct>=40?'var(--yellow)':'var(--orange)')+';">'+accPct+'%</div>';
+      content+='<div style="font-size:10px;color:var(--muted);text-transform:uppercase;">Acceptance</div>';
+      content+='</div>';
+      content+='</div>';
+      
+      // RECURRING THEMES - Tag style
+      let hasThemes=p.boundaryTheme>0.1||p.controlTheme>0.1||p.worthTheme>0.1;
+      if(hasThemes){
+        content+='<div style="margin-bottom:16px;">';
+        content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);font-weight:700;margin-bottom:10px;">Recurring Themes</div>';
+        content+='<div style="display:flex;flex-wrap:wrap;gap:8px;">';
+        if(p.boundaryTheme>0.1)content+='<span style="background:rgba(255,60,172,0.2);color:var(--pink);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">Boundaries</span>';
+        if(p.controlTheme>0.1)content+='<span style="background:rgba(120,75,160,0.2);color:var(--purple);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">Control</span>';
+        if(p.worthTheme>0.1)content+='<span style="background:rgba(47,128,237,0.2);color:var(--blue);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">Self-Worth</span>';
+        // Add more themes based on acceptance rate
+        if(accPct<40)content+='<span style="background:rgba(255,107,53,0.2);color:var(--orange);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">Judgment</span>';
+        if(recPct>=70)content+='<span style="background:rgba(0,210,106,0.2);color:var(--green);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">Self-Awareness</span>';
+        content+='</div>';
+        content+='</div>';
+      }
+      
+      // ARCHETYPE
+      content+='<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;text-align:center;">';
+      content+='<div style="font-size:36px;margin-bottom:8px;">'+analysis.archetype.icon+'</div>';
+      content+='<div style="font-size:18px;font-weight:800;color:var(--pink);margin-bottom:6px;">'+analysis.archetype.name+'</div>';
+      content+='<div style="font-size:13px;color:var(--muted);line-height:1.5;">'+analysis.archetype.edge+'</div>';
+      content+='</div>';
+      
+      // RECOMMENDED PRACTICE - Level-specific
+      let topLevel=Object.entries(p.topLevels).sort((x,y)=>y[1]-x[1])[0];
+      let recommendedLevel=2;
+      let levelName='Family';
+      let levelReason='boundary-setting patterns that may be influencing your self-relationship';
+      
+      if(topLevel){
+        let lvlId=parseInt(topLevel[0]);
+        let lvl=LEVELS.find(l=>l.id===lvlId);
+        if(lvl){
+          // Recommend the next level up or same level for deeper work
+          if(lvlId<7 && data.unlockedLevels.includes(lvlId+1)){
+            recommendedLevel=lvlId+1;
+            let nextLvl=LEVELS.find(l=>l.id===recommendedLevel);
+            levelName=nextLvl?nextLvl.name:'Family';
+          }else{
+            recommendedLevel=lvlId;
+            levelName=lvl.name;
+          }
+        }
+      }
+      
+      // Dynamic reason based on themes
+      if(p.boundaryTheme>0.15){
+        levelReason='boundary-setting patterns that show up in your relationships';
+      }else if(p.controlTheme>0.15){
+        levelReason='control patterns and where they originate';
+      }else if(p.worthTheme>0.15){
+        levelReason='self-worth patterns and how they affect your connections';
+      }else{
+        levelReason='deeper patterns that are ready to emerge';
+      }
+      
+      content+='<div style="background:linear-gradient(135deg,rgba(0,210,106,0.1),rgba(47,128,237,0.1));border:1px solid var(--green);border-radius:12px;padding:16px;">';
+      content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);font-weight:700;margin-bottom:8px;">Recommended Practice</div>';
+      content+='<p style="color:var(--text);font-size:14px;line-height:1.6;">Focus on <strong>Level '+recommendedLevel+' ('+levelName+')</strong> scenarios to explore '+levelReason+'.</p>';
+      content+='</div>';
+      
+      // TODAY'S CHALLENGE
+      content+='<div style="margin-top:16px;padding:16px;background:rgba(0,0,0,0.3);border-radius:12px;border-left:3px solid var(--gold);">';
+      content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700;margin-bottom:8px;">Today\'s Challenge</div>';
+      content+='<p style="color:var(--text);font-size:14px;line-height:1.6;">'+getDailyChallenge(analysis.archetype)+'</p>';
+      content+='</div>';
     }
-    
-    // Acceptance analysis
-    let accPct=Math.round(p.acceptanceRate*100);
-    if(accPct>=70){
-      content+='<p style="margin-bottom:12px;"><strong style="color:var(--green);">Strong Acceptance ('+accPct+'%)</strong><br>You create space for reality as it is.</p>';
-    }else if(accPct>=40){
-      content+='<p style="margin-bottom:12px;"><strong style="color:var(--yellow);">Balanced ('+accPct+'%)</strong><br>Acceptance and judgment are both present.</p>';
-    }else{
-      content+='<p style="margin-bottom:12px;"><strong style="color:var(--orange);">Judgment Tendency ('+accPct+'%)</strong><br>You tend to judge before accepting.</p>';
-    }
-    
-    // Theme analysis
-    if(p.boundaryTheme>0.15||p.controlTheme>0.15||p.worthTheme>0.15){
-      content+='<h3 style="color:var(--cyan);font-size:14px;margin:16px 0 12px;">📊 Recurring Themes</h3>';
-      if(p.boundaryTheme>0.15)content+='<p style="margin-bottom:8px;">• <strong>Boundaries:</strong> '+Math.round(p.boundaryTheme*100)+'% of insights</p>';
-      if(p.controlTheme>0.15)content+='<p style="margin-bottom:8px;">• <strong>Control:</strong> '+Math.round(p.controlTheme*100)+'% of insights</p>';
-      if(p.worthTheme>0.15)content+='<p style="margin-bottom:8px;">• <strong>Self-Worth:</strong> '+Math.round(p.worthTheme*100)+'% of insights</p>';
-    }
-    
-    // Archetype
-    content+='<h3 style="color:var(--cyan);font-size:14px;margin:16px 0 12px;">🎭 Your Archetype</h3>';
-    content+='<p><strong style="color:var(--pink);">'+analysis.archetype.icon+' '+analysis.archetype.name+'</strong></p>';
-    content+='<p style="color:var(--muted);font-size:13px;margin-top:4px;">'+analysis.archetype.edge+'</p>';
-    
-    // Recommendation
-    content+='<h3 style="color:var(--cyan);font-size:14px;margin:16px 0 12px;">💡 Recommendation</h3>';
-    content+='<p style="color:var(--text);">'+getDailyChallenge(analysis.archetype)+'</p>';
   }
   
   document.getElementById('aiAnalysisContent').innerHTML=content;
