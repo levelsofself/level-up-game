@@ -224,6 +224,15 @@ body::-webkit-scrollbar{display:none}
 .ios-modal-step{display:flex;align-items:center;gap:12px;margin-bottom:12px;font-size:14px}
 .ios-modal-icon{font-size:24px}
 .ios-modal-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px}
+.insights-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.filter-btn{padding:8px 14px;background:var(--card);border:1px solid var(--border);border-radius:20px;color:var(--muted);font-size:12px;cursor:pointer;transition:all 0.2s}
+.filter-btn.active{background:linear-gradient(135deg,var(--orange),var(--pink));border-color:transparent;color:#fff}
+.insights-collection{display:flex;flex-direction:column;gap:10px;max-height:50vh;overflow-y:auto}
+.collection-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;font-size:13px;line-height:1.5}
+.collection-item-level{font-size:10px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.collection-item-level span{width:8px;height:8px;border-radius:50%;display:inline-block}
+.collection-item-text{color:var(--text)}
+.collection-empty{text-align:center;color:var(--muted);padding:40px 20px;font-size:14px}
 </style>
 </head>
 <body>
@@ -273,7 +282,7 @@ body::-webkit-scrollbar{display:none}
 
 <div class="xp-container"><div class="xp-header"><div class="xp-level" id="playerLevel">Level 1</div><div class="xp-coins">🪙 <span id="coinCount">0</span></div></div><div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div><div class="xp-text"><span id="xpCurrent">0</span> / <span id="xpNeeded">100</span> XP</div></div>
 
-<div class="stats"><div class="stat"><div class="stat-val" id="statPlayed">0</div><div class="stat-label">Played</div></div><div class="stat"><div class="stat-val" id="statMirror">0</div><div class="stat-label">Recognized</div></div><div class="stat"><div class="stat-val" id="statAccept">0</div><div class="stat-label">Accepted</div></div><div class="stat"><div class="stat-val" id="statStreak">0</div><div class="stat-label">Streak</div></div></div>
+<div class="stats"><div class="stat"><div class="stat-val" id="statPlayed">0</div><div class="stat-label">Played</div></div><div class="stat"><div class="stat-val" id="statMirror">0</div><div class="stat-label">Reflected</div></div><div class="stat"><div class="stat-val" id="statAccept">0</div><div class="stat-label">Accepted</div></div><div class="stat" id="insightsBtn" style="cursor:pointer;border:2px solid var(--pink);box-shadow:0 0 10px rgba(255,60,172,0.3)"><div class="stat-val" id="statInsights">0</div><div class="stat-label">Insights 💡</div></div></div>
 
 <div class="modes"><div class="mode" id="mirrorMode"><div class="mode-icon">🪞</div><div class="mode-name">Mirror Game</div><div class="mode-desc">See yourself honestly</div><div class="mode-unlock" id="mirrorUnlock"></div></div><div class="mode" id="agreementMode"><div class="mode-icon">⚖️</div><div class="mode-name">Agreement Game</div><div class="mode-desc">Acceptance vs Judgment</div><div class="mode-unlock" id="agreementUnlock"></div></div></div>
 
@@ -306,6 +315,8 @@ body::-webkit-scrollbar{display:none}
 <button class="modal-btn" id="qaClose">Close</button></div></div>
 
 <div class="modal" id="feedbackModal"><div class="modal-content"><div class="modal-icon" id="fbIcon">💡</div><div class="modal-title" id="fbTitle">Insight</div><div class="feedback-box"><div class="feedback-label" id="fbLabel">Reflection</div><div class="feedback-text" id="fbText">...</div></div><button class="modal-btn" id="nextBtn">Next</button></div></div>
+
+<div class="modal" id="insightsModal"><div class="modal-content" style="max-height:85vh;overflow-y:auto"><div class="modal-title">Your Insights</div><div class="insights-filter" id="insightsFilter"></div><div class="insights-collection" id="insightsCollection"></div><button class="modal-btn" id="insightsClose">Close</button></div></div>
 
 <script src="mirror-level1-individual.js"></script>
 <script src="mirror-level2-family.js"></script>
@@ -417,9 +428,9 @@ function addInsight(text,level){if(text&&!data.insightsCollection.some(i=>i.text
 function updateHome(){
   updateXPBar();checkDailyLogin();checkStreakWarning();
   document.getElementById('statPlayed').textContent=data.games;
-  document.getElementById('statMirror').textContent=data.mirrorRecognized;
+  document.getElementById('statMirror').textContent=data.mirrorTotal;
   document.getElementById('statAccept').textContent=data.agreementAccepted;
-  document.getElementById('statStreak').textContent=data.streak;
+  document.getElementById('statInsights').textContent=data.insightsCollection.length;
   let today=new Date().toDateString(),daily=document.getElementById('dailyCard');
   if(data.lastDaily===today){daily.classList.add('done');document.getElementById('dailyCta').textContent='✓ Completed today'}
   else{daily.classList.remove('done');document.getElementById('dailyCta').textContent='Tap to join the global movement'}
@@ -511,11 +522,13 @@ function showMirrorScenario(){
 function selectMirrorChoice(ch,btn,sc){
   document.querySelectorAll('.choice').forEach(b=>b.disabled=true);btn.classList.add('selected');
   game.answers.push({recognized:ch.value,insight:sc.insight,level:sc.level});
-  if(ch.value){data.mirrorRecognized++;addInsight(sc.insight,sc.level);addCombo()}else{resetCombo()}
-  data.mirrorTotal++;positiveSound();coinSound();addXP(10);maybeBonus();
+  data.mirrorTotal++;
+  addInsight(sc.insight,sc.level);
+  addCombo();
+  positiveSound();coinSound();addXP(10);maybeBonus();
   setTimeout(()=>showMirrorFeedback(sc.insight,ch.value),400);
 }
-function showMirrorFeedback(ins,rec){document.getElementById('fbIcon').textContent='💡';document.getElementById('fbIcon').style.color='var(--pink)';document.getElementById('fbTitle').textContent=rec?'Recognized':'Noted';document.getElementById('fbLabel').textContent='Insight';document.getElementById('fbText').textContent=ins;document.getElementById('feedbackModal').classList.add('active')}
+function showMirrorFeedback(ins,rec){document.getElementById('fbIcon').textContent='💡';document.getElementById('fbIcon').style.color='var(--pink)';document.getElementById('fbTitle').textContent='Reflection';document.getElementById('fbLabel').textContent=rec?'You recognized this':'You noted this';document.getElementById('fbText').textContent=ins;document.getElementById('feedbackModal').classList.add('active')}
 
 function showAgreementScenario(){
   let s=game.scenarios[game.idx];if(!s){endGame();return}
@@ -576,10 +589,10 @@ function endGame(){
   save();document.getElementById('game').classList.remove('active');document.getElementById('results').classList.add('active');
   let insights=document.getElementById('insightsList');
   if(game.mode==='mirror'){
-    document.getElementById('resultsTitle').textContent='Mirror Complete';document.getElementById('finalScore').textContent=score+'/'+total;
-    document.getElementById('resultMsg').textContent=score>=8?'Deep self-awareness!':score>=5?'Growing recognition.':'Keep exploring.';
-    insights.innerHTML='';game.answers.filter(a=>a.recognized).slice(0,5).forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.textContent='💡 '+a.insight;insights.appendChild(div)});
-    if(score===10){triggerConfetti();showToast('🎉 Perfect! +25 XP');addXP(25)}
+    document.getElementById('resultsTitle').textContent='Mirror Complete';document.getElementById('finalScore').textContent=total+' Reflections';
+    document.getElementById('resultMsg').textContent='Honest self-reflection is the first step.';
+    insights.innerHTML='';game.answers.forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.innerHTML=(a.recognized?'<span style="color:var(--green)">✓ That\'s Me</span>':'<span style="color:var(--muted)">✗ Not Me</span>')+'<br><span style="font-size:13px;color:var(--text)">'+a.insight+'</span>';insights.appendChild(div)});
+    if(total===10){triggerConfetti();showToast('🎉 Complete! +25 XP');addXP(25)}
   }else if(game.mode==='agreement'){
     document.getElementById('resultsTitle').textContent='Agreement Complete';document.getElementById('finalScore').textContent=score+'/'+total;
     document.getElementById('resultMsg').textContent=score>=8?'Strong acceptance!':score>=5?'Growing awareness.':'Keep practicing.';
@@ -605,6 +618,58 @@ document.getElementById('mirrorMode').onclick=()=>startMirrorGame();
 document.getElementById('agreementMode').onclick=()=>startAgreementGame();
 document.getElementById('shareBtn').onclick=shareGame;
 document.getElementById('resultsShare').onclick=shareGame;
+
+// Insights Collection
+let currentInsightFilter='all';
+document.getElementById('insightsBtn').onclick=function(){showInsightsModal()};
+document.getElementById('insightsClose').onclick=function(){document.getElementById('insightsModal').classList.remove('active')};
+
+function showInsightsModal(){
+  let filter=document.getElementById('insightsFilter');
+  let collection=document.getElementById('insightsCollection');
+  
+  // Build filter buttons
+  filter.innerHTML='<button class="filter-btn active" data-level="all">All</button>';
+  LEVELS.forEach(lv=>{
+    let count=data.insightsCollection.filter(i=>i.level===lv.id).length;
+    if(count>0){
+      filter.innerHTML+='<button class="filter-btn" data-level="'+lv.id+'" style="border-color:'+lv.color+'">'+lv.name+' ('+count+')</button>';
+    }
+  });
+  
+  // Add click handlers to filters
+  filter.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.onclick=function(){
+      filter.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      this.classList.add('active');
+      currentInsightFilter=this.dataset.level;
+      renderInsights();
+    };
+  });
+  
+  currentInsightFilter='all';
+  renderInsights();
+  document.getElementById('insightsModal').classList.add('active');
+}
+
+function renderInsights(){
+  let collection=document.getElementById('insightsCollection');
+  let filtered=currentInsightFilter==='all'?data.insightsCollection:data.insightsCollection.filter(i=>i.level===parseInt(currentInsightFilter));
+  
+  if(filtered.length===0){
+    collection.innerHTML='<div class="collection-empty">No insights yet.<br>Play the Mirror Game to collect insights!</div>';
+    return;
+  }
+  
+  collection.innerHTML='';
+  filtered.slice().reverse().forEach(ins=>{
+    let lv=LEVELS.find(l=>l.id===ins.level);
+    let div=document.createElement('div');
+    div.className='collection-item';
+    div.innerHTML='<div class="collection-item-level"><span style="background:'+(lv?lv.color:'#666')+'"></span>'+(lv?lv.name:'Level '+ins.level)+'</div><div class="collection-item-text">'+ins.text+'</div>';
+    collection.appendChild(div);
+  });
+}
 
 // PWA Install Logic
 let deferredPrompt=null;
