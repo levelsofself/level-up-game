@@ -1357,7 +1357,7 @@ function dismissCoachingBridge() {
   data.bridgeDismissed = new Date().getTime();
   save();
 }
-document.getElementById('hookBtn').onclick=function(){document.getElementById('hook').classList.add('hidden');document.getElementById('onboard').classList.add('active');music.play().then(()=>{musicOn=true;document.getElementById('musicBtn').classList.add('on')}).catch(()=>{})};
+// Entry flow hookBtn handler is defined above - this line removed to prevent override
 document.getElementById('skipBtn').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
 document.getElementById('skipBtn2').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
 document.getElementById('nextBtn1').onclick=function(){document.getElementById('onboard1').classList.remove('active');document.getElementById('onboard2').classList.add('active')};
