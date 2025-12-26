@@ -113,6 +113,20 @@ body::-webkit-scrollbar{display:none}
 .stat-label{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-top:4px;letter-spacing:0.5px}
 .insights-stat{cursor:pointer;border:2px solid var(--pink);box-shadow:0 0 12px rgba(255,60,172,0.3)}
 .insights-stat:hover{box-shadow:0 0 20px rgba(255,60,172,0.5)}
+.pattern-card{display:none;background:linear-gradient(135deg,rgba(120,75,160,0.2),rgba(255,60,172,0.1));border:2px solid var(--purple);border-radius:16px;padding:18px;margin-bottom:16px;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden}
+.pattern-card.show{display:block}
+.pattern-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent,rgba(255,255,255,0.03),transparent);transform:rotate(45deg);animation:shimmer 3s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%) rotate(45deg)}100%{transform:translateX(100%) rotate(45deg)}}
+.pattern-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(120,75,160,0.3)}
+.pattern-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.pattern-icon{font-size:28px}
+.pattern-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);font-weight:700}
+.pattern-archetype{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.pattern-edge{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:12px}
+.pattern-challenge{background:rgba(0,0,0,0.3);border-radius:10px;padding:12px;border-left:3px solid var(--gold)}
+.pattern-challenge-label{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);font-weight:700;margin-bottom:6px}
+.pattern-challenge-text{font-size:13px;color:var(--text);line-height:1.5}
+.pattern-tap{font-size:11px;color:var(--muted);text-align:center;margin-top:12px}
 .modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
 .mode{background:var(--card);border:2px solid var(--pink);border-radius:16px;padding:20px 14px;text-align:center;cursor:pointer;position:relative;transition:all 0.2s;box-shadow:0 4px 20px rgba(255,60,172,0.15)}
 .mode:hover{box-shadow:0 6px 25px rgba(255,60,172,0.25);transform:translateY(-2px)}
@@ -225,9 +239,9 @@ body::-webkit-scrollbar{display:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-10px)}
 .qa-item{border-bottom:1px solid var(--border);padding:14px 0}
 .qa-item:last-of-type{border:none}
-.qa-question{font-size:14px;font-weight:600;cursor:pointer;padding:6px 0;display:flex;justify-content:space-between;align-items:center;color:var(--text)}
-.qa-question::after{content:'▸';color:var(--purple);font-size:12px;transition:transform 0.3s}
-.qa-item.open .qa-question::after{transform:rotate(90deg)}
+.qa-question{font-size:14px;font-weight:600;cursor:pointer;padding:10px 0;display:flex;justify-content:space-between;align-items:center;color:var(--text);gap:12px}
+.qa-question::after{content:'+';color:var(--pink);font-size:20px;font-weight:700;width:28px;height:28px;background:rgba(255,60,172,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s}
+.qa-item.open .qa-question::after{content:'−';background:rgba(255,60,172,0.3)}
 .qa-answer{font-size:13px;color:var(--muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s ease}
 .qa-item.open .qa-answer{max-height:500px;padding-top:12px}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:1000}
@@ -297,6 +311,17 @@ body::-webkit-scrollbar{display:none}
 
 <div class="stats"><div class="stat"><div class="stat-val" id="statPlayed">0</div><div class="stat-label">Played</div></div><div class="stat"><div class="stat-val" id="statStreak">0</div><div class="stat-label">Streak</div></div><div class="stat"><div class="stat-val" id="statAcceptRate">0%</div><div class="stat-label">Acceptance</div></div><div class="stat insights-stat" id="insightsStat"><div class="stat-val" id="statInsights">0</div><div class="stat-label">Insights</div></div></div>
 
+<div class="pattern-card" id="patternCard">
+<div class="pattern-header"><span class="pattern-icon" id="patternIcon">🔮</span><span class="pattern-label">Your Pattern</span></div>
+<div class="pattern-archetype" id="patternArchetype">The Aware One</div>
+<div class="pattern-edge" id="patternEdge">You see yourself clearly. Now the question is: what will you do with what you see?</div>
+<div class="pattern-challenge">
+<div class="pattern-challenge-label">Today's Practice</div>
+<div class="pattern-challenge-text" id="patternChallenge">Notice one moment today when a pattern you recognized shows up. You don't have to change it—just notice.</div>
+</div>
+<div class="pattern-tap">Tap for full profile →</div>
+</div>
+
 <div class="modes"><div class="mode" id="mirrorMode"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">🪞</div><div class="mode-name">Mirror Game</div><div class="mode-desc">See yourself honestly</div><div class="mode-unlock" id="mirrorUnlock"></div></div><div class="mode" id="agreementMode"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">⚖️</div><div class="mode-name">Agreement Game</div><div class="mode-desc">Acceptance vs Judgment</div><div class="mode-unlock" id="agreementUnlock"></div></div></div>
 
 <div class="section-title">Your Journey</div>
@@ -351,6 +376,12 @@ body::-webkit-scrollbar{display:none}
 <button class="modal-btn" id="levelInsightsBtn" style="background:linear-gradient(135deg,var(--gold),var(--orange));">💡 Your Insights<br><span style="font-size:12px;font-weight:400;opacity:0.8;" id="levelInsightsCount">0 collected</span></button>
 </div>
 <button id="levelSelectClose" style="margin-top:16px;padding:12px;background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--muted);font-size:14px;cursor:pointer;width:100%;">Cancel</button>
+</div></div>
+
+<div class="modal" id="patternModal"><div class="modal-content" style="max-height:85vh;overflow-y:auto">
+<div class="modal-title">Your Growth Profile</div>
+<div id="patternProfile"></div>
+<button class="modal-btn" id="patternClose" style="margin-top:16px;">Close</button>
 </div></div>
 
 <script src="mirror-level1-individual.js"></script>
@@ -491,8 +522,114 @@ function updateHome(){
     if(unlocked){div.onclick=()=>{if(isNew){data.newlyUnlockedLevels=data.newlyUnlockedLevels.filter(x=>x!==lv.id);save();div.classList.remove('newly-unlocked');}showLevelSelect(lv)};}map.appendChild(div);
   });
   updateTimer();
+  updatePatternCard();
 }
 function updateTimer(){let now=new Date(),tom=new Date(now);tom.setDate(tom.getDate()+1);tom.setHours(0,0,0,0);let d=tom-now,h=String(Math.floor(d/3600000)).padStart(2,'0'),m=String(Math.floor((d%3600000)/60000)).padStart(2,'0'),s=String(Math.floor((d%60000)/1000)).padStart(2,'0');document.getElementById('dailyTimer').textContent='Resets in '+h+':'+m+':'+s}
+
+// ============ PATTERN ANALYSIS SYSTEM ============
+const ARCHETYPES = [
+  {id:'honest-avoider',name:'The Honest Avoider',icon:'🪞',condition:(p)=>p.mirrorRecognition>=0.7&&p.acceptanceRate<0.5,edge:'You see yourself clearly but struggle to act on what you see. Your growth edge is courage.',challenges:['Notice one moment today when you see a pattern but choose not to act. What stops you?','When you recognize something about yourself today, take one tiny action on it.','Ask yourself: "What am I protecting by not acting on what I know?"']},
+  {id:'compassionate-boundary-breaker',name:'The Compassionate Boundary-Breaker',icon:'💔',condition:(p)=>p.boundaryTheme>=0.3&&p.acceptanceRate>=0.6,edge:'You accept others easily but let yourself get crossed. Your growth edge is self-protection.',challenges:['Notice one moment today when you say yes but mean no.','Practice: "I hear you, and I need to think about it."','Ask yourself: "Whose feelings am I protecting at the cost of my own?"']},
+  {id:'aware-procrastinator',name:'The Aware Procrastinator',icon:'⏳',condition:(p)=>p.mirrorRecognition>=0.6&&p.controlTheme>=0.25,edge:'You understand your patterns but delay changing them. Your growth edge is starting before you feel ready.',challenges:['Pick one pattern you recognized recently. Take one 2-minute action on it today.','Notice when "I\'ll do it later" appears. What feeling is underneath?','Ask yourself: "What\'s the smallest possible step I could take right now?"']},
+  {id:'self-critical-achiever',name:'The Self-Critical Achiever',icon:'⚡',condition:(p)=>p.mirrorRecognition>=0.5&&p.worthTheme>=0.25&&p.acceptanceRate<0.6,edge:'You push yourself hard but struggle with self-compassion. Your growth edge is being as kind to yourself as you are to others.',challenges:['When you catch yourself being self-critical today, ask: "Would I say this to a friend?"','Notice one thing you did well today. Let yourself feel it for 10 seconds.','Practice: "I did my best with what I had."']},
+  {id:'peaceful-avoider',name:'The Peaceful Avoider',icon:'🕊️',condition:(p)=>p.mirrorRecognition<0.5&&p.acceptanceRate>=0.7,edge:'You accept others easily but may be avoiding your own mirror. Your growth edge is honest self-examination.',challenges:['Ask yourself: "What am I afraid to see about myself?"','Notice if you deflect when someone gives you feedback today.','Try: "That might be true about me. Let me sit with it."']},
+  {id:'growth-seeker',name:'The Growth Seeker',icon:'🌱',condition:(p)=>p.mirrorRecognition>=0.6&&p.acceptanceRate>=0.6,edge:'You see yourself and accept what you see. Your growth edge is going deeper, not wider.',challenges:['Pick your most recognized pattern. What\'s underneath it?','Instead of adding new insights, spend time with one you already have.','Ask: "What would change if I fully lived what I already know?"']},
+  {id:'emerging-observer',name:'The Emerging Observer',icon:'👁️',condition:(p)=>p.games>=10&&p.games<20,edge:'You\'re building the habit of self-reflection. Your growth edge is consistency.',challenges:['Play one game today. Streaks build the muscle.','Notice one pattern from yesterday showing up today.','Ask: "What did I learn about myself this week?"']},
+  {id:'default',name:'The Aware One',icon:'🔮',condition:()=>true,edge:'You\'re on the path. Keep looking.',challenges:['Notice one moment today when you react instead of respond.','Ask yourself: "What pattern am I in right now?"','Practice pausing before responding to anything that triggers you.']}
+];
+
+function analyzePatterns(){
+  if(data.games<10)return null;
+  let insights=data.insightsCollection||[];
+  let profile={
+    games:data.games,
+    mirrorRecognition:data.mirrorTotal>0?(data.mirrorRecognized||insights.length)/Math.max(data.mirrorTotal,1):0,
+    acceptanceRate:data.agreementTotal>0?data.agreementAccepted/data.agreementTotal:0.5,
+    boundaryTheme:0,
+    controlTheme:0,
+    worthTheme:0,
+    topLevels:{}
+  };
+  let boundaryWords=['boundary','boundaries','no','yes','peace','please','avoid','conflict','protect','safe'];
+  let controlWords=['control','perfect','right','wrong','should','must','fix','order','plan'];
+  let worthWords=['worth','deserve','enough','value','matter','good enough','worthy','love yourself'];
+  insights.forEach(i=>{
+    let t=(i.text||'').toLowerCase();
+    if(boundaryWords.some(w=>t.includes(w)))profile.boundaryTheme+=0.05;
+    if(controlWords.some(w=>t.includes(w)))profile.controlTheme+=0.05;
+    if(worthWords.some(w=>t.includes(w)))profile.worthTheme+=0.05;
+    profile.topLevels[i.level]=(profile.topLevels[i.level]||0)+1;
+  });
+  profile.boundaryTheme=Math.min(profile.boundaryTheme,1);
+  profile.controlTheme=Math.min(profile.controlTheme,1);
+  profile.worthTheme=Math.min(profile.worthTheme,1);
+  for(let arch of ARCHETYPES){if(arch.condition(profile))return{archetype:arch,profile:profile}}
+  return{archetype:ARCHETYPES[ARCHETYPES.length-1],profile:profile};
+}
+
+function getDailyChallenge(archetype){
+  let dayOfYear=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/86400000);
+  return archetype.challenges[dayOfYear%archetype.challenges.length];
+}
+
+function updatePatternCard(){
+  let analysis=analyzePatterns();
+  let card=document.getElementById('patternCard');
+  if(!analysis){card.classList.remove('show');return}
+  card.classList.add('show');
+  document.getElementById('patternIcon').textContent=analysis.archetype.icon;
+  document.getElementById('patternArchetype').textContent=analysis.archetype.name;
+  document.getElementById('patternEdge').textContent=analysis.archetype.edge;
+  document.getElementById('patternChallenge').textContent=getDailyChallenge(analysis.archetype);
+}
+
+function showPatternModal(){
+  let analysis=analyzePatterns();
+  if(!analysis)return;
+  let p=analysis.profile,a=analysis.archetype;
+  let topLevel=Object.entries(p.topLevels).sort((x,y)=>y[1]-x[1])[0];
+  let topLevelName='Individual';
+  if(topLevel){let lvl=LEVELS.find(l=>l.id===parseInt(topLevel[0]));if(lvl)topLevelName=lvl.name;}
+  let html='<div style="text-align:center;margin-bottom:20px;">';
+  html+='<div style="font-size:60px;margin-bottom:10px;">'+a.icon+'</div>';
+  html+='<div style="font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">'+a.name+'</div>';
+  html+='</div>';
+  html+='<div style="background:rgba(0,0,0,0.3);border-radius:12px;padding:16px;margin-bottom:16px;">';
+  html+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--purple);font-weight:700;margin-bottom:8px;">Your Growth Edge</div>';
+  html+='<div style="font-size:15px;color:var(--text);line-height:1.6;">'+a.edge+'</div>';
+  html+='</div>';
+  html+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;margin-bottom:12px;">Your Numbers</div>';
+  html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">';
+  html+='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--pink);">'+Math.round(p.mirrorRecognition*100)+'%</div><div style="font-size:10px;color:var(--muted);margin-top:4px;">Self-Recognition</div></div>';
+  html+='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--green);">'+Math.round(p.acceptanceRate*100)+'%</div><div style="font-size:10px;color:var(--muted);margin-top:4px;">Acceptance Rate</div></div>';
+  html+='</div>';
+  html+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;margin-bottom:12px;">Themes In Your Patterns</div>';
+  html+='<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">';
+  if(p.boundaryTheme>0.1)html+='<div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:13px;">Boundaries</span><div style="width:100px;height:6px;background:var(--border);border-radius:3px;overflow:hidden;"><div style="width:'+Math.round(p.boundaryTheme*100)+'%;height:100%;background:var(--orange);"></div></div></div>';
+  if(p.controlTheme>0.1)html+='<div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:13px;">Control</span><div style="width:100px;height:6px;background:var(--border);border-radius:3px;overflow:hidden;"><div style="width:'+Math.round(p.controlTheme*100)+'%;height:100%;background:var(--purple);"></div></div></div>';
+  if(p.worthTheme>0.1)html+='<div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:13px;">Self-Worth</span><div style="width:100px;height:6px;background:var(--border);border-radius:3px;overflow:hidden;"><div style="width:'+Math.round(p.worthTheme*100)+'%;height:100%;background:var(--pink);"></div></div></div>';
+  if(p.boundaryTheme<=0.1&&p.controlTheme<=0.1&&p.worthTheme<=0.1)html+='<div style="font-size:13px;color:var(--muted);font-style:italic;">Keep playing to reveal your themes.</div>';
+  html+='</div>';
+  html+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;margin-bottom:12px;">Most Active Level</div>';
+  html+='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:16px;text-align:center;">';
+  html+='<div style="font-size:16px;font-weight:700;">'+topLevelName+'</div>';
+  html+='<div style="font-size:12px;color:var(--muted);">'+((data.insightsCollection||[]).filter(i=>topLevel&&i.level===parseInt(topLevel[0])).length)+' insights collected</div>';
+  html+='</div>';
+  html+='<div style="background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:12px;padding:14px;">';
+  html+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);font-weight:700;margin-bottom:8px;">Today\'s Practice</div>';
+  html+='<div style="font-size:14px;color:var(--text);line-height:1.6;">'+getDailyChallenge(a)+'</div>';
+  html+='</div>';
+  html+='<div style="text-align:center;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">';
+  html+='<div style="font-size:11px;color:var(--muted);">Based on '+data.games+' games played</div>';
+  html+='<div style="font-size:11px;color:var(--muted);margin-top:4px;">Your archetype updates as you grow</div>';
+  html+='</div>';
+  document.getElementById('patternProfile').innerHTML=html;
+  document.getElementById('patternModal').classList.add('active');
+}
+
+document.getElementById('patternCard').onclick=showPatternModal;
+document.getElementById('patternClose').onclick=function(){document.getElementById('patternModal').classList.remove('active')};
+// ============ END PATTERN ANALYSIS SYSTEM ============
 
 let selectedLevel=null;
 function showLevelSelect(lv){
@@ -588,7 +725,7 @@ function selectMirrorChoice(ch,btn,sc){
   document.querySelectorAll('.choice').forEach(b=>b.disabled=true);btn.classList.add('selected');
   game.answers.push({recognized:ch.value,insight:sc.insight,text:sc.text,level:sc.level});
   addInsight(sc.insight,sc.level);addCombo();
-  data.mirrorTotal++;positiveSound();coinSound();addXP(10);maybeBonus();
+  data.mirrorTotal++;if(ch.value)data.mirrorRecognized++;positiveSound();coinSound();addXP(10);maybeBonus();save();
   setTimeout(()=>showMirrorFeedback(sc.text,sc.insight,ch.value),400);
 }
 function showMirrorFeedback(txt,ins,rec){document.getElementById('fbIcon').textContent='💡';document.getElementById('fbIcon').style.color='var(--pink)';document.getElementById('fbTitle').textContent='Reflection';document.getElementById('fbLabel').textContent=rec?'✓ That\'s Me':'✗ Not Me';document.getElementById('fbText').innerHTML='<div style="font-size:14px;margin-bottom:10px;color:var(--text);">"'+txt+'"</div><div style="font-size:13px;color:var(--muted);font-style:italic;">'+ins+'</div>';document.getElementById('feedbackModal').classList.add('active')}
@@ -850,7 +987,7 @@ function selectMixedMirror(ch,btn,sc){
   document.querySelectorAll('.choice').forEach(b=>b.disabled=true);btn.classList.add('selected');
   game.answers.push({recognized:ch.value,insight:sc.insight,text:sc.text,level:sc.level});
   addInsight(sc.insight,sc.level);addCombo();
-  data.mirrorTotal++;positiveSound();coinSound();addXP(10);maybeBonus();
+  data.mirrorTotal++;if(ch.value)data.mirrorRecognized++;positiveSound();coinSound();addXP(10);maybeBonus();save();
   setTimeout(()=>{document.getElementById('fbIcon').textContent='💡';document.getElementById('fbIcon').style.color='var(--pink)';document.getElementById('fbTitle').textContent='Reflection';document.getElementById('fbLabel').textContent=ch.value?'✓ That\'s Me':'✗ Not Me';document.getElementById('fbText').innerHTML='<div style="font-size:14px;margin-bottom:10px;color:var(--text);">"'+sc.text+'"</div><div style="font-size:13px;color:var(--muted);font-style:italic;">'+sc.insight+'</div>';document.getElementById('feedbackModal').classList.add('active')},400);
 }
 
