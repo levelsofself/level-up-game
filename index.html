@@ -8,20 +8,20 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Level Up">
 <meta name="theme-color" content="#0d0a1a">
-<meta name="description" content="See the patterns that quietly run your life. A game that reveals why you keep repeating the same mistakes.">
+<meta name="description" content="Everyone sees your pattern except you. The game that reveals why you keep repeating the same mistakes.">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://100levelup.com/">
-<meta property="og:title" content="Level Up - See Your Patterns">
-<meta property="og:description" content="See the patterns that quietly run your life. The game that reveals why you keep repeating the same mistakes.">
+<meta property="og:title" content="Everyone sees your pattern except you.">
+<meta property="og:description" content="The game that reveals why you keep repeating the same mistakes. You're not broken — you're just working on the wrong level.">
 <meta property="og:image" content="https://100levelup.com/og-game.png">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://100levelup.com/">
-<meta name="twitter:title" content="Level Up - See Your Patterns">
-<meta name="twitter:description" content="See the patterns that quietly run your life. The game that reveals why you keep repeating the same mistakes.">
+<meta name="twitter:title" content="Everyone sees your pattern except you.">
+<meta name="twitter:description" content="The game that reveals why you keep repeating the same mistakes. You're not broken — you're just working on the wrong level.">
 <meta name="twitter:image" content="https://100levelup.com/og-game.png">
 
 <link rel="icon" type="image/png" sizes="32x32" href="apple-touch-icon.png">
@@ -50,14 +50,84 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:linear-gr
 body::-webkit-scrollbar{display:none}
 *{scrollbar-width:none}
 .app{max-width:500px;margin:0 auto;padding:16px;padding-top:20px;padding-bottom:40px}
-.hook{position:fixed;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);display:flex;align-items:center;justify-content:center;z-index:300;text-align:center;padding:24px}
+.hook{position:fixed;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);display:flex;align-items:center;justify-content:center;z-index:300;text-align:center;padding:24px;overflow-y:auto}
 .hook.hidden{display:none}
-.hook-line{font-size:36px;font-weight:800;margin-bottom:16px;opacity:0;transform:translateY(20px);background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hook-container{max-width:480px;width:100%}
+.hook-screen{display:none;flex-direction:column;align-items:center;animation:fadeUp 0.5s ease}
+.hook-screen.active{display:flex}
+.hook-line{font-size:clamp(28px,7vw,42px);font-weight:800;margin-bottom:8px;opacity:0;transform:translateY(20px);background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hook-line.show{animation:fadeUp 0.8s forwards}
-.hook-sub{font-size:17px;color:var(--muted);line-height:1.6;margin:24px 0;opacity:0}
+.hook-sub{font-size:18px;color:var(--text);line-height:1.6;margin:24px 0;opacity:0}
 .hook-sub.show{animation:fadeUp 0.8s forwards}
-.hook-btn{padding:18px 48px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:16px;color:#fff;font-size:18px;font-weight:700;cursor:pointer;opacity:0;transform:translateY(20px)}
+.hook-btn{padding:18px 48px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:16px;color:#fff;font-size:18px;font-weight:700;cursor:pointer;opacity:0;transform:translateY(20px);box-shadow:0 4px 20px rgba(255,60,172,0.3);transition:all 0.2s ease}
 .hook-btn.show{animation:fadeUp 0.6s forwards}
+.hook-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,60,172,0.4)}
+.hook-time{font-size:13px;color:var(--muted);margin-top:16px;opacity:0}
+.hook-time.show{animation:fadeUp 0.6s forwards}
+.hook-progress{display:flex;gap:8px;margin-bottom:32px}
+.h-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:all 0.3s ease}
+.h-dot.active{background:var(--pink);width:24px;border-radius:4px}
+.h-dot.done{background:var(--green)}
+.hook-question-title{font-size:24px;font-weight:700;margin-bottom:8px}
+.hook-question-sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+.recognition-grid{display:flex;flex-direction:column;gap:10px;width:100%;margin-bottom:24px}
+.recognition-item{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:16px 20px;font-size:15px;color:var(--text);cursor:pointer;transition:all 0.2s ease;text-align:left}
+.recognition-item:hover{border-color:var(--pink)}
+.recognition-item.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1))}
+.recognition-item.selected::after{content:'✓';float:right;color:var(--pink);font-weight:bold}
+.voice-options{display:flex;flex-direction:column;gap:10px;width:100%}
+.voice-option{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:18px 20px;font-size:15px;color:var(--text);cursor:pointer;transition:all 0.2s ease;text-align:left;font-style:italic}
+.voice-option:hover{border-color:var(--pink);transform:translateY(-2px)}
+.voice-option.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1))}
+.reveal-icon{font-size:72px;margin-bottom:16px;filter:drop-shadow(0 8px 24px rgba(0,0,0,0.4))}
+.reveal-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--pink);margin-bottom:8px}
+.reveal-pattern{font-size:28px;font-weight:800;margin-bottom:12px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.reveal-insight{font-size:16px;color:var(--text);line-height:1.5;margin-bottom:24px;font-style:italic;max-width:320px}
+.reveal-stats{display:flex;gap:32px;margin-bottom:24px}
+.reveal-stat{text-align:center}
+.reveal-stat-value{font-size:28px;font-weight:700;color:var(--pink)}
+.reveal-stat-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.reveal-cta{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.5}
+/* Shareable Card Modal */
+.share-card-modal{position:fixed;inset:0;background:rgba(0,0,0,0.9);display:none;align-items:center;justify-content:center;z-index:400;padding:24px}
+.share-card-modal.active{display:flex}
+.share-card{width:100%;max-width:360px;aspect-ratio:1/1.15;background:linear-gradient(145deg,#1a1425 0%,#0d0a14 100%);border-radius:24px;padding:28px;position:relative;box-shadow:0 4px 60px rgba(255,60,172,0.2)}
+.share-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:auto}
+.share-card-logo{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.share-card-label{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--pink);background:rgba(255,60,172,0.1);padding:5px 10px;border-radius:20px}
+.share-card-center{text-align:center;margin:auto 0;padding:20px 0}
+.share-card-icon{font-size:56px;margin-bottom:12px}
+.share-card-name{font-size:24px;font-weight:800;margin-bottom:10px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.share-card-tagline{font-size:14px;color:var(--text);line-height:1.5;opacity:0.9;font-style:italic}
+.share-card-stats{display:flex;justify-content:center;gap:28px;margin-top:auto;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
+.share-card-stat-value{font-size:24px;font-weight:700;color:var(--text)}
+.share-card-stat-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.share-card-cta{text-align:center;margin-top:16px}
+.share-card-cta-q{font-size:13px;color:var(--text);font-weight:500}
+.share-card-cta-url{font-size:11px;color:var(--pink);margin-top:2px;font-weight:600}
+.share-card-actions{display:flex;gap:10px;margin-top:20px;width:100%;max-width:360px}
+.share-card-btn{flex:1;padding:14px;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s ease}
+.share-card-btn.primary{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff}
+.share-card-btn.secondary{background:rgba(255,255,255,0.05);color:var(--text);border:1px solid var(--border)}
+.share-card-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+/* Coaching Bridge */
+.coaching-bridge{display:none;background:linear-gradient(145deg,#1a1425,#0d0a14);border:2px solid var(--purple);border-radius:20px;padding:24px;margin-bottom:16px;position:relative;overflow:hidden}
+.coaching-bridge::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--pink),var(--purple))}
+.coaching-bridge.show{display:block}
+.bridge-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.bridge-icon{font-size:28px}
+.bridge-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--pink);font-weight:600}
+.bridge-title{font-size:20px;font-weight:700;margin-bottom:8px}
+.bridge-pattern-count{display:inline-flex;align-items:center;gap:6px;background:rgba(255,60,172,0.1);border:1px solid rgba(255,60,172,0.3);border-radius:20px;padding:6px 12px;font-size:12px;color:var(--pink);margin-bottom:16px}
+.bridge-insight{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.bridge-insight strong{color:var(--text)}
+.bridge-cta{font-size:15px;color:var(--text);margin-bottom:16px;line-height:1.5}
+.bridge-btns{display:flex;flex-direction:column;gap:10px}
+.bridge-btn{padding:16px 20px;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;text-align:center;transition:all 0.2s ease}
+.bridge-btn.primary{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;box-shadow:0 4px 20px rgba(255,60,172,0.3)}
+.bridge-btn.secondary{background:rgba(255,255,255,0.05);color:var(--text);border:1px solid var(--border)}
+.bridge-dismiss{text-align:center;margin-top:12px}
+.bridge-dismiss a{color:var(--muted);font-size:12px;text-decoration:none}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 .onboard{position:fixed;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:200;overflow-y:auto}
 .onboard.active{display:flex}
@@ -338,7 +408,59 @@ body::-webkit-scrollbar{display:none}
 <div class="bonus-popup" id="bonusPopup"><div class="bonus-icon">🎁</div><div class="bonus-title">BONUS!</div><div class="bonus-sub" id="bonusText">+25 XP</div></div>
 <div class="levelup-popup" id="levelupPopup"><div class="levelup-content"><div class="levelup-icon" id="levelupIcon">⭐</div><div class="levelup-title">LEVEL UP!</div><div class="levelup-sub" id="levelupText">You're now Level 2</div><div class="levelup-unlock" id="levelupUnlock"></div><button class="levelup-btn" id="levelupBtn">Amazing!</button></div></div>
 
-<div class="hook" id="hook"><div><div class="hook-line" id="line1">See the patterns</div><div class="hook-line" id="line2">that quietly run your life.</div><div class="hook-sub" id="hookSub">Discover why you keep repeating the same mistakes.</div><button class="hook-btn" id="hookBtn">Show Me</button></div></div>
+<div class="hook" id="hook">
+<div class="hook-container">
+<!-- Screen 1: The Hook -->
+<div class="hook-screen active" id="hookScreen1">
+<div class="hook-line" id="line1">Everyone sees your pattern</div>
+<div class="hook-line" id="line2">except you.</div>
+<div class="hook-sub" id="hookSub">This changes that.</div>
+<button class="hook-btn" id="hookBtn">See My Pattern</button>
+<div class="hook-time">Takes 60 seconds</div>
+</div>
+<!-- Screen 2: Recognition -->
+<div class="hook-screen" id="hookScreen2">
+<div class="hook-progress"><span class="h-dot active"></span><span class="h-dot"></span><span class="h-dot"></span></div>
+<div class="hook-question-title">Have you ever felt like...</div>
+<div class="hook-question-sub">Select all that feel true</div>
+<div class="recognition-grid" id="recognitionGrid">
+<div class="recognition-item" data-pattern="success-empty" onclick="toggleRecognition(this)">You're successful on paper, but something essential is missing?</div>
+<div class="recognition-item" data-pattern="repeat" onclick="toggleRecognition(this)">You've tried everything, but the same patterns keep repeating?</div>
+<div class="recognition-item" data-pattern="help-others" onclick="toggleRecognition(this)">You're great at helping others, but can't seem to help yourself?</div>
+<div class="recognition-item" data-pattern="more" onclick="toggleRecognition(this)">There has to be more to life than this?</div>
+<div class="recognition-item" data-pattern="dying-inside" onclick="toggleRecognition(this)">Everyone thinks you're doing great... but you're dying inside?</div>
+</div>
+<button class="hook-btn" onclick="showHookScreen(3)">Continue</button>
+</div>
+<!-- Screen 3: Inner Voice -->
+<div class="hook-screen" id="hookScreen3">
+<div class="hook-progress"><span class="h-dot done"></span><span class="h-dot active"></span><span class="h-dot"></span></div>
+<div class="hook-question-title">Do you ever ask yourself...</div>
+<div class="hook-question-sub">Select the one that haunts you most</div>
+<div class="voice-options" id="voiceOptions">
+<div class="voice-option" data-voice="not-enough" onclick="selectVoice(this)">"Why am I not enough, no matter how much I achieve?"</div>
+<div class="voice-option" data-voice="alone" onclick="selectVoice(this)">"Why do I feel so alone, even when surrounded by people?"</div>
+<div class="voice-option" data-voice="success-unhappy" onclick="selectVoice(this)">"What's the point of all this success if I'm still unhappy?"</div>
+<div class="voice-option" data-voice="made-it" onclick="selectVoice(this)">"When will I finally feel like I've made it?"</div>
+<div class="voice-option" data-voice="all-there-is" onclick="selectVoice(this)">"Is this really all there is?"</div>
+</div>
+</div>
+<!-- Screen 4: Reveal -->
+<div class="hook-screen" id="hookScreen4">
+<div class="hook-progress"><span class="h-dot done"></span><span class="h-dot done"></span><span class="h-dot active"></span></div>
+<div class="reveal-icon" id="revealIcon">🪞</div>
+<div class="reveal-label">Your Entry Pattern</div>
+<div class="reveal-pattern" id="revealPattern">The Honest Avoider</div>
+<div class="reveal-insight" id="revealInsight">"You see yourself clearly but struggle to act on what you see."</div>
+<div class="reveal-stats">
+<div class="reveal-stat"><div class="reveal-stat-value" id="matchPercent">87%</div><div class="reveal-stat-label">Pattern Match</div></div>
+<div class="reveal-stat"><div class="reveal-stat-value" id="othersPercent">23%</div><div class="reveal-stat-label">Share This</div></div>
+</div>
+<div class="reveal-cta">The game reveals why this pattern keeps showing up — and what to do about it.</div>
+<button class="hook-btn" id="startGameBtn">Go Deeper</button>
+</div>
+</div>
+</div>
 
 <div class="onboard" id="onboard">
 <div class="onboard-screen active" id="onboard1"><div class="onboard-title">There Are Levels To This</div><div class="onboard-text">You keep repeating the same patterns—not because you're broken, but because you're working on the wrong level.</div><div class="onboard-spacer"></div><div class="onboard-text2">This game reveals your patterns.</div><div class="onboard-text2">Then helps you change them.</div><div class="onboard-spacer"></div><div class="onboard-highlight">The goal isn't the "highest" level.<br>It's the <strong>right</strong> level.</div><div class="onboard-dots"><span class="dot active"></span><span class="dot"></span></div><div class="onboard-btns"><button class="onboard-skip" id="skipBtn">Skip</button><button class="onboard-next" id="nextBtn1">Next</button></div></div>
@@ -352,7 +474,29 @@ body::-webkit-scrollbar{display:none}
 <div class="login-bonus" id="loginBonus"><div class="login-title">🎁 Daily Login Bonus!</div><div class="login-sub">Tap to claim <span id="loginReward">+20 XP</span></div></div>
 <div class="streak-warning" id="streakWarning"><div class="streak-warning-text">⚠️ Play today or lose your <span id="streakCount">0</span>-day streak!</div></div>
 
-<div class="hero"><h1>See Your Patterns</h1><p>The game that reveals what's really running your life.</p></div>
+<!-- Coaching Bridge (injected dynamically) -->
+<div class="coaching-bridge" id="coachingBridge">
+<div class="bridge-header">
+<span class="bridge-icon">🔄</span>
+<span class="bridge-label">Pattern Detected</span>
+</div>
+<div class="bridge-title">This keeps showing up.</div>
+<div class="bridge-pattern-count" id="bridgePatternCount">
+<span>⚡</span>
+<span id="bridgePatternText">Self-worth pattern appeared 3 times recently</span>
+</div>
+<div class="bridge-insight">
+<strong>You're seeing it clearly now.</strong> That's the first step. But seeing a pattern and breaking it are two different things.
+</div>
+<div class="bridge-cta">Most people can't break lifelong patterns alone. That's not weakness — it's how patterns work.</div>
+<div class="bridge-btns">
+<a href="https://wa.me/qr/OFPFUYXQFBMIF1" target="_blank" class="bridge-btn primary">Talk to Arthur →</a>
+<button class="bridge-btn secondary" onclick="dismissCoachingBridge()">Keep Playing</button>
+</div>
+<div class="bridge-dismiss"><a href="#" onclick="dismissCoachingBridge();return false;">Remind me later</a></div>
+</div>
+
+<div class="hero"><h1>See Your Patterns</h1><p>You're not broken. You're just working on the wrong level.</p></div>
 
 <div class="challenge" id="dailyCard"><div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div><h2>Worldwide Challenge</h2><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer">Resets in --:--:--</span></div></div>
 
@@ -463,7 +607,7 @@ body::-webkit-scrollbar{display:none}
 </div>
 
 <div style="background:rgba(0,0,0,0.3);border-radius:12px;padding:16px;margin-bottom:16px;border-left:3px solid var(--gold);">
-<div style="font-size:14px;color:var(--text);line-height:1.7;font-style:italic;">"For 20 years, I helped people transform their financial lives while I was dying inside. No matter how much I achieved, I was never enough. The problem wasn't my circumstances—it was my foundation: me."</div>
+<div style="font-size:14px;color:var(--text);line-height:1.7;font-style:italic;">"I built this because I watched brilliant people destroy their lives solving the wrong level. The pattern you can't see is the pattern running your life. This game makes it visible. What you do next is up to you."</div>
 </div>
 
 <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;">
@@ -512,6 +656,36 @@ After 10 years of deep transformational work—Landmark, MITT, Insight Seminars,
 <button id="resetConfirm" style="flex:1;padding:14px;background:var(--red);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;">Reset</button>
 </div>
 </div></div>
+
+<!-- Shareable Pattern Card Modal -->
+<div class="share-card-modal" id="shareCardModal">
+<button class="share-card-close" onclick="document.getElementById('shareCardModal').classList.remove('active')">✕</button>
+<div style="display:flex;flex-direction:column;align-items:center;">
+<div class="share-card" id="shareCard">
+<div class="share-card-header">
+<div class="share-card-logo">Level Up</div>
+<div class="share-card-label">My Pattern</div>
+</div>
+<div class="share-card-center">
+<div class="share-card-icon" id="shareCardIcon">🪞</div>
+<div class="share-card-name" id="shareCardName">The Honest Avoider</div>
+<div class="share-card-tagline" id="shareCardTagline">"I see myself clearly but struggle to act on what I see."</div>
+</div>
+<div class="share-card-stats">
+<div class="share-card-stat"><div class="share-card-stat-value" id="shareCardRecognition">72%</div><div class="share-card-stat-label">Self-Recognition</div></div>
+<div class="share-card-stat"><div class="share-card-stat-value" id="shareCardAcceptance">48%</div><div class="share-card-stat-label">Acceptance</div></div>
+</div>
+<div class="share-card-cta">
+<div class="share-card-cta-q">What's your pattern?</div>
+<div class="share-card-cta-url">100levelup.com</div>
+</div>
+</div>
+<div class="share-card-actions">
+<button class="share-card-btn secondary" onclick="copyPatternLink()">📋 Copy Link</button>
+<button class="share-card-btn primary" onclick="sharePatternCard()">📤 Share</button>
+</div>
+</div>
+</div>
 
 <script src="mirror-level1-individual.js"></script>
 <script src="mirror-level2-family.js"></script>
@@ -625,7 +799,7 @@ function checkStreakWarning(){
 function addInsight(text,level){if(text&&!data.insightsCollection.some(i=>i.text===text)){data.insightsCollection.push({text:text,level:level||1,date:new Date().toLocaleDateString()});if(data.insightsCollection.length>200)data.insightsCollection=data.insightsCollection.slice(-200);save()}}
 
 function updateHome(){
-  updateXPBar();checkDailyLogin();checkStreakWarning();
+  updateXPBar();checkDailyLogin();checkStreakWarning();checkCoachingBridge();
   document.getElementById('statPlayed').textContent=data.games;
   document.getElementById('statInsights').textContent=data.insightsCollection?data.insightsCollection.length:0;
   document.getElementById('statStreak').textContent=data.streak||0;
@@ -934,8 +1108,15 @@ function showLevelSelect(lv){
 }
 
 function shareGame(){
+  // If user has enough data, show the shareable pattern card
+  if(data.games >= 10 && analyzePatterns()) {
+    showShareCard();
+    return;
+  }
+  
+  // Fallback to basic share
   let text="I'm Level "+data.level+" on Level Up! 🎮 "+data.games+" games played, 🔥"+data.streak+"-day streak. Can you beat me?\n\n";
-  let url=window.location.href;
+  let url='https://100levelup.com';
   let fullText=text+url;
   if(navigator.share){
     navigator.share({title:'Level Up - 7 Levels of Self',text:text,url:url}).then(()=>showToast('Shared!')).catch(()=>{copyToClipboard(fullText)});
@@ -956,7 +1137,168 @@ function fallbackCopy(text){
   document.body.removeChild(ta);
 }
 
-function showHook(){setTimeout(()=>document.getElementById('line1').classList.add('show'),400);setTimeout(()=>document.getElementById('line2').classList.add('show'),1400);setTimeout(()=>document.getElementById('hookSub').classList.add('show'),2600);setTimeout(()=>document.getElementById('hookBtn').classList.add('show'),3400)}
+function showHook(){
+  setTimeout(()=>document.getElementById('line1').classList.add('show'),400);
+  setTimeout(()=>document.getElementById('line2').classList.add('show'),1200);
+  setTimeout(()=>document.getElementById('hookSub').classList.add('show'),2200);
+  setTimeout(()=>{document.getElementById('hookBtn').classList.add('show');document.getElementById('hookBtn').style.opacity='1';document.getElementById('hookBtn').style.transform='translateY(0)'},3000);
+  setTimeout(()=>{let t=document.querySelector('.hook-time');if(t){t.classList.add('show');t.style.opacity='1'}},3400);
+}
+
+// Entry Flow State
+let entryAnswers = { recognition: [], voice: null };
+
+// Entry Flow Pattern Mapping
+const ENTRY_PATTERNS = {
+  'honest-avoider': { icon: '🪞', name: 'The Honest Avoider', tagline: 'I see myself clearly but struggle to act on what I see.', match: 87, others: 23 },
+  'boundary-breaker': { icon: '💔', name: 'The Compassionate Boundary-Breaker', tagline: 'I accept others easily but let myself get crossed.', match: 82, others: 31 },
+  'self-critical-achiever': { icon: '⚡', name: 'The Self-Critical Achiever', tagline: 'I push myself hard but struggle with self-compassion.', match: 91, others: 28 },
+  'peaceful-avoider': { icon: '🕊️', name: 'The Peaceful Avoider', tagline: 'I keep the peace but may be avoiding my own mirror.', match: 78, others: 19 },
+  'aware-procrastinator': { icon: '⏳', name: 'The Aware Procrastinator', tagline: 'I understand my patterns but delay changing them.', match: 85, others: 34 }
+};
+
+function showHookScreen(num) {
+  document.querySelectorAll('.hook-screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('hookScreen' + num).classList.add('active');
+}
+
+function toggleRecognition(el) {
+  el.classList.toggle('selected');
+  const pattern = el.dataset.pattern;
+  if (el.classList.contains('selected')) {
+    entryAnswers.recognition.push(pattern);
+  } else {
+    entryAnswers.recognition = entryAnswers.recognition.filter(p => p !== pattern);
+  }
+}
+
+function selectVoice(el) {
+  document.querySelectorAll('.voice-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  entryAnswers.voice = el.dataset.voice;
+  setTimeout(() => showEntryReveal(), 500);
+}
+
+function determineEntryPattern() {
+  const { recognition, voice } = entryAnswers;
+  if (voice === 'not-enough' || recognition.includes('success-empty')) return 'self-critical-achiever';
+  if (recognition.includes('help-others') || recognition.includes('dying-inside')) return 'boundary-breaker';
+  if (voice === 'alone') return 'peaceful-avoider';
+  if (recognition.includes('repeat')) return 'aware-procrastinator';
+  return 'honest-avoider';
+}
+
+function showEntryReveal() {
+  const patternKey = determineEntryPattern();
+  const pattern = ENTRY_PATTERNS[patternKey];
+  document.getElementById('revealIcon').textContent = pattern.icon;
+  document.getElementById('revealPattern').textContent = pattern.name;
+  document.getElementById('revealInsight').textContent = '"' + pattern.tagline + '"';
+  document.getElementById('matchPercent').textContent = pattern.match + '%';
+  document.getElementById('othersPercent').textContent = pattern.others + '%';
+  
+  // Store entry pattern for later use
+  data.entryPattern = patternKey;
+  save();
+  
+  showHookScreen(4);
+}
+
+// Hook button starts entry flow
+document.getElementById('hookBtn').onclick = function() {
+  showHookScreen(2);
+};
+
+// Start game button after reveal
+document.getElementById('startGameBtn').onclick = function() {
+  data.seenIntro = true;
+  save();
+  document.getElementById('hook').classList.add('hidden');
+  document.getElementById('onboard').classList.add('active');
+};
+
+// Shareable Pattern Card Functions
+function showShareCard() {
+  let analysis = analyzePatterns();
+  if (!analysis) {
+    showToast('Play more games to unlock your shareable card!');
+    return;
+  }
+  
+  const a = analysis.archetype;
+  const p = analysis.profile;
+  
+  document.getElementById('shareCardIcon').textContent = a.icon;
+  document.getElementById('shareCardName').textContent = a.name;
+  document.getElementById('shareCardTagline').textContent = '"' + a.edge.split('.')[0] + '."';
+  document.getElementById('shareCardRecognition').textContent = Math.round(p.mirrorRecognition * 100) + '%';
+  document.getElementById('shareCardAcceptance').textContent = Math.round(p.acceptanceRate * 100) + '%';
+  
+  document.getElementById('shareCardModal').classList.add('active');
+}
+
+async function sharePatternCard() {
+  let analysis = analyzePatterns();
+  if (!analysis) return;
+  
+  const shareData = {
+    title: 'My Pattern | Level Up',
+    text: `I'm "${analysis.archetype.name}" — ${analysis.archetype.edge.split('.')[0].toLowerCase()}. What's your pattern?`,
+    url: 'https://100levelup.com?ref=share'
+  };
+  
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData);
+      document.getElementById('shareCardModal').classList.remove('active');
+    } catch (err) {
+      console.log('Share cancelled');
+    }
+  } else {
+    copyPatternLink();
+  }
+}
+
+function copyPatternLink() {
+  let analysis = analyzePatterns();
+  let url = 'https://100levelup.com';
+  if (analysis) {
+    url += '?pattern=' + analysis.archetype.id;
+  }
+  navigator.clipboard.writeText(url);
+  showToast('Link copied!');
+}
+
+// Coaching Bridge Logic
+function checkCoachingBridge() {
+  if (data.games < 10) return;
+  if (data.bridgeDismissed && new Date().getTime() - data.bridgeDismissed < 86400000 * 3) return; // 3 day cooldown
+  
+  // Check for repeating patterns
+  let insights = data.insightsCollection || [];
+  let recentInsights = insights.slice(-20);
+  
+  let themes = { boundary: 0, control: 0, worth: 0 };
+  recentInsights.forEach(i => {
+    let text = (i.text || '').toLowerCase();
+    if (text.includes('boundary') || text.includes('no ') || text.includes('yes ')) themes.boundary++;
+    if (text.includes('control') || text.includes('perfect') || text.includes('fix')) themes.control++;
+    if (text.includes('worth') || text.includes('enough') || text.includes('deserve')) themes.worth++;
+  });
+  
+  let topTheme = Object.entries(themes).sort((a,b) => b[1] - a[1])[0];
+  if (topTheme && topTheme[1] >= 3) {
+    let themeNames = { boundary: 'Boundary', control: 'Control', worth: 'Self-worth' };
+    document.getElementById('bridgePatternText').textContent = themeNames[topTheme[0]] + ' pattern appeared ' + topTheme[1] + ' times recently';
+    document.getElementById('coachingBridge').classList.add('show');
+  }
+}
+
+function dismissCoachingBridge() {
+  document.getElementById('coachingBridge').classList.remove('show');
+  data.bridgeDismissed = new Date().getTime();
+  save();
+}
 document.getElementById('hookBtn').onclick=function(){document.getElementById('hook').classList.add('hidden');document.getElementById('onboard').classList.add('active');music.play().then(()=>{musicOn=true;document.getElementById('musicBtn').classList.add('on')}).catch(()=>{})};
 document.getElementById('skipBtn').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
 document.getElementById('skipBtn2').onclick=function(){data.seenIntro=true;save();document.getElementById('onboard').classList.remove('active');updateHome()};
