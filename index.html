@@ -1,32 +1,42 @@
 <!DOCTYPE html>
-<!-- Level Up Game v2.0 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
+<!-- Level Up Game v2.0 | Built by Arthur Palyan | 7 Levels of Self | Dec 2024 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Level Up">
 <meta name="theme-color" content="#0d0a1a">
-<meta name="description" content="Everyone sees your pattern except you. The game that reveals why you keep repeating the same mistakes.">
+<meta name="description" content="Everyone sees your pattern except you. The 60-second game that reveals why you keep repeating the same mistakes.">
+<meta name="keywords" content="self-awareness, personal growth, patterns, behavior, coaching, transformation, 7 levels">
+<meta name="author" content="Arthur Palyan">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://100levelup.com/">
+<meta property="og:site_name" content="Level Up">
 <meta property="og:title" content="Everyone sees your pattern except you.">
-<meta property="og:description" content="The game that reveals why you keep repeating the same mistakes. You're not broken — you're just working on the wrong level.">
+<meta property="og:description" content="The 60-second game that reveals why you keep repeating the same mistakes. 2M+ patterns revealed.">
 <meta property="og:image" content="https://100levelup.com/og-game.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Level Up - See the patterns that run your life">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@levelsofself">
+<meta name="twitter:creator" content="@arthurpalyan">
 <meta name="twitter:url" content="https://100levelup.com/">
 <meta name="twitter:title" content="Everyone sees your pattern except you.">
-<meta name="twitter:description" content="The game that reveals why you keep repeating the same mistakes. You're not broken — you're just working on the wrong level.">
+<meta name="twitter:description" content="The 60-second game that reveals why you keep repeating the same mistakes. What's your pattern?">
 <meta name="twitter:image" content="https://100levelup.com/og-game.png">
 
-<link rel="icon" type="image/png" sizes="32x32" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="16x16" href="apple-touch-icon.png">
+<!-- Favicons -->
+<link rel="icon" type="image/png" sizes="32x32" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="shortcut icon" href="icon-192.png">
 <link rel="manifest" href="manifest.json">
 <title>Level Up - See Your Patterns | 7 Levels of Self</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,10 +79,11 @@ body::-webkit-scrollbar{display:none}
 @keyframes btnFadeUp{to{opacity:1;transform:translateY(0)}}
 .hook-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 36px rgba(255,60,172,0.5)}
 .hook-btn:active{transform:translateY(-1px) scale(0.98)}
-.hook-progress{display:flex;gap:10px;margin-bottom:36px;justify-content:center}
-.h-dot{width:10px;height:10px;border-radius:10px;background:var(--border);transition:all 0.4s cubic-bezier(0.16,1,0.3,1)}
-.h-dot.active{background:linear-gradient(135deg,var(--pink),var(--purple));width:28px;box-shadow:0 0 16px rgba(255,60,172,0.5)}
-.h-dot.done{background:var(--green);box-shadow:0 0 12px rgba(0,210,106,0.5)}
+.hook-progress{display:flex;gap:6px;margin-bottom:36px;justify-content:center}
+.h-dot{width:40px;height:4px;border-radius:4px;background:rgba(255,255,255,0.12);transition:all 0.5s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden}
+.h-dot::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--orange),var(--pink));border-radius:4px;transform:scaleX(0);transform-origin:left;transition:transform 0.6s cubic-bezier(0.34,1.56,0.64,1)}
+.h-dot.active::after,.h-dot.done::after{transform:scaleX(1)}
+.h-dot.active{box-shadow:0 0 16px rgba(255,60,172,0.3)}
 .hook-question-title{font-size:26px;font-weight:800;margin-bottom:10px;color:var(--text)}
 .hook-question-sub{color:var(--muted);font-size:15px;margin-bottom:28px;font-weight:500}
 .recognition-grid{display:flex;flex-direction:column;gap:12px;width:100%;margin-bottom:28px}
@@ -533,8 +544,8 @@ body::-webkit-scrollbar{display:none}
 </div>
 </div>
 <div class="share-buttons">
-<button class="share-btn" onclick="sharePatternCard()"><span class="share-btn-icon">📤</span> Share My Pattern</button>
-<button class="share-btn-secondary" onclick="copyPatternLink()">📋 Copy Link</button>
+<button class="share-btn" onclick="shareEntryPattern()"><span class="share-btn-icon">📤</span> Share My Pattern</button>
+<button class="share-btn-secondary" onclick="copyEntryLink()">📋 Copy Link</button>
 </div>
 <button class="start-playing-btn" id="startGameBtn">Start Playing →</button>
 </div>
@@ -905,14 +916,14 @@ function updateTimer(){let now=new Date(),tom=new Date(now);tom.setDate(tom.getD
 
 // ============ PATTERN ANALYSIS SYSTEM ============
 const ARCHETYPES = [
-  {id:'honest-avoider',name:'The Honest Avoider',icon:'🪞',condition:(p)=>p.mirrorRecognition>=0.7&&p.acceptanceRate<0.5,edge:'You see yourself clearly but struggle to act on what you see. Your growth edge is courage.',challenges:['Notice one moment today when you see a pattern but choose not to act. What stops you?','When you recognize something about yourself today, take one tiny action on it.','Ask yourself: "What am I protecting by not acting on what I know?"']},
-  {id:'compassionate-boundary-breaker',name:'The Compassionate Boundary-Breaker',icon:'💔',condition:(p)=>p.boundaryTheme>=0.3&&p.acceptanceRate>=0.6,edge:'You accept others easily but let yourself get crossed. Your growth edge is self-protection.',challenges:['Notice one moment today when you say yes but mean no.','Practice: "I hear you, and I need to think about it."','Ask yourself: "Whose feelings am I protecting at the cost of my own?"']},
-  {id:'aware-procrastinator',name:'The Aware Procrastinator',icon:'⏳',condition:(p)=>p.mirrorRecognition>=0.6&&p.controlTheme>=0.25,edge:'You understand your patterns but delay changing them. Your growth edge is starting before you feel ready.',challenges:['Pick one pattern you recognized recently. Take one 2-minute action on it today.','Notice when "I\'ll do it later" appears. What feeling is underneath?','Ask yourself: "What\'s the smallest possible step I could take right now?"']},
-  {id:'self-critical-achiever',name:'The Self-Critical Achiever',icon:'⚡',condition:(p)=>p.mirrorRecognition>=0.5&&p.worthTheme>=0.25&&p.acceptanceRate<0.6,edge:'You push yourself hard but struggle with self-compassion. Your growth edge is being as kind to yourself as you are to others.',challenges:['When you catch yourself being self-critical today, ask: "Would I say this to a friend?"','Notice one thing you did well today. Let yourself feel it for 10 seconds.','Practice: "I did my best with what I had."']},
-  {id:'peaceful-avoider',name:'The Peaceful Avoider',icon:'🕊️',condition:(p)=>p.mirrorRecognition<0.5&&p.acceptanceRate>=0.7,edge:'You accept others easily but may be avoiding your own mirror. Your growth edge is honest self-examination.',challenges:['Ask yourself: "What am I afraid to see about myself?"','Notice if you deflect when someone gives you feedback today.','Try: "That might be true about me. Let me sit with it."']},
-  {id:'growth-seeker',name:'The Growth Seeker',icon:'🌱',condition:(p)=>p.mirrorRecognition>=0.6&&p.acceptanceRate>=0.6,edge:'You see yourself and accept what you see. Your growth edge is going deeper, not wider.',challenges:['Pick your most recognized pattern. What\'s underneath it?','Instead of adding new insights, spend time with one you already have.','Ask: "What would change if I fully lived what I already know?"']},
-  {id:'emerging-observer',name:'The Emerging Observer',icon:'👁️',condition:(p)=>p.games>=10&&p.games<20,edge:'You\'re building the habit of self-reflection. Your growth edge is consistency.',challenges:['Play one game today. Streaks build the muscle.','Notice one pattern from yesterday showing up today.','Ask: "What did I learn about myself this week?"']},
-  {id:'default',name:'The Aware One',icon:'🔮',condition:()=>true,edge:'You\'re on the path. Keep looking.',challenges:['Notice one moment today when you react instead of respond.','Ask yourself: "What pattern am I in right now?"','Practice pausing before responding to anything that triggers you.']}
+  {id:'honest-avoider',name:'The Honest Avoider',icon:'🪞',condition:(p)=>p.mirrorRecognition>=0.7&&p.acceptanceRate<0.5,edge:'You see yourself with unusual clarity—but seeing isn\'t doing. Your next step is bridging the gap between recognition and action.',challenges:['Notice one moment today when you see a pattern but choose not to act. What story do you tell yourself about why?','When you recognize something uncomfortable about yourself today, take one small action within 5 minutes.','Ask yourself: "What am I protecting by staying aware but inactive?"','Write down one pattern you\'ve known about for months but haven\'t changed. What would it cost you to change it?','Today, when you catch yourself analyzing instead of acting, say out loud: "I see this. Now I choose."'],traits:['High self-awareness','Analysis paralysis','Knowledge-action gap']},
+  {id:'compassionate-boundary-breaker',name:'The Compassionate Boundary-Breaker',icon:'💔',condition:(p)=>p.boundaryTheme>=0.3&&p.acceptanceRate>=0.6,edge:'Your empathy is a gift—but you give it away too freely. Learning to protect your energy isn\'t selfish, it\'s sustainable.',challenges:['Notice one moment today when you say yes but your body says no. What did you override?','Practice this exact phrase: "I care about you, and I need to take care of myself first."','Track every "yes" today. How many were genuine? How many were guilt?','When someone asks for your time today, wait 24 hours before responding.','Ask yourself: "Whose peace am I preserving at the cost of my own?"'],traits:['Deep empathy','Porous boundaries','Self-abandonment']},
+  {id:'aware-procrastinator',name:'The Aware Procrastinator',icon:'⏳',condition:(p)=>p.mirrorRecognition>=0.6&&p.controlTheme>=0.25,edge:'You\'ve done the inner work to understand your patterns—now it\'s time to stop preparing and start doing. Insight without action is just sophisticated avoidance.',challenges:['Pick your oldest recognized pattern. What\'s the 2-minute version of addressing it? Do that today.','Notice when "I need to think about it more" appears. That\'s fear dressed as wisdom.','Ask yourself: "What am I waiting for that will never come?"','Set a timer for 10 minutes. Work on that thing you\'ve been "about to start" for weeks.','Today, replace "I should" with "I will" or "I won\'t." No middle ground.'],traits:['Deep understanding','Endless preparation','Action resistance']},
+  {id:'self-critical-achiever',name:'The Self-Critical Achiever',icon:'⚡',condition:(p)=>p.mirrorRecognition>=0.5&&p.worthTheme>=0.25&&p.acceptanceRate<0.6,edge:'You\'ve accomplished more than most by being hard on yourself—but the cost is invisible. The next level of growth isn\'t more effort, it\'s more self-compassion.',challenges:['When your inner critic speaks today, ask: "Would I say this to someone I love?"','Notice one thing you did well today. Let yourself feel proud for 30 full seconds. Time it.','Replace "I should have done better" with "I did what I could with what I had."','Track your self-critical thoughts today. Just count them. Awareness is the first step.','Ask yourself: "What would I attempt if I knew I couldn\'t fail?"'],traits:['High achievement','Harsh inner critic','Conditional self-worth']},
+  {id:'peaceful-avoider',name:'The Peaceful Avoider',icon:'🕊️',condition:(p)=>p.mirrorRecognition<0.5&&p.acceptanceRate>=0.7,edge:'You\'ve mastered accepting others—but you might be using that acceptance to avoid looking in your own mirror. Peace that comes from avoidance isn\'t peace.',challenges:['Ask yourself honestly: "What truth about myself am I most afraid to face?"','Notice today if you redirect conversations away from yourself. What are you protecting?','When someone gives you feedback, resist explaining. Just say: "Tell me more."','Write down three things about yourself that you\'ve never told anyone. Why not?','Ask someone who loves you: "What do you see in me that I might not see in myself?"'],traits:['External acceptance','Self-avoidance','Surface peace']},
+  {id:'growth-seeker',name:'The Growth Seeker',icon:'🌱',condition:(p)=>p.mirrorRecognition>=0.6&&p.acceptanceRate>=0.6,edge:'You\'re doing the rare work of seeing yourself clearly and accepting what you see. Your next edge isn\'t more insight—it\'s deeper integration of what you already know.',challenges:['Instead of seeking new insights today, spend 15 minutes with one you\'ve already had. What haven\'t you fully lived?','Ask yourself: "What would my life look like if I fully embodied what I already know?"','Pick your most repeated insight. What\'s underneath it? Go one layer deeper.','Today, teach someone else one thing you\'ve learned about yourself. Teaching deepens understanding.','Notice if you\'re collecting insights like trophies. Growth isn\'t accumulation—it\'s transformation.'],traits:['Self-awareness','Self-acceptance','Integration focus']},
+  {id:'emerging-observer',name:'The Emerging Observer',icon:'👁️',condition:(p)=>p.games>=10&&p.games<25,edge:'You\'re building a powerful new habit: paying attention to yourself. Consistency now matters more than depth. Keep showing up.',challenges:['Play one game today. You\'re building the muscle of self-reflection.','Notice one pattern from this week showing up in real life. Connection is growth.','Ask yourself: "What surprised me most about myself this week?"','Share one insight with someone you trust. Vulnerability accelerates growth.','Before bed, name one thing you learned about yourself today. Make it a ritual.'],traits:['Building awareness','Consistency focus','Early insights']},
+  {id:'default',name:'The Aware One',icon:'🔮',condition:()=>true,edge:'You\'ve started the journey of self-knowledge. Every question you ask yourself creates space for growth. Keep going.',challenges:['Notice one moment today when you react instead of respond. What triggered it?','Ask yourself: "What pattern am I in right now?" Do this three times today.','Practice pausing for 3 breaths before responding to anything that triggers you.','Write down one question about yourself that you don\'t know the answer to yet.','At the end of today, ask: "Who was I today? Who do I want to be tomorrow?"'],traits:['Beginning journey','Open curiosity','Growth potential']}
 ];
 
 function analyzePatterns(){
@@ -1010,16 +1021,26 @@ function showAIAnalysis(){
       
       // Generate dynamic summary based on stats
       let summary='';
-      if(recPct>=70 && accPct>=70){
-        summary='You see yourself clearly and accept what you see. This is rare. Your growth edge is going deeper, not wider.';
+      if(recPct>=80 && accPct>=80){
+        summary='You\'ve achieved something rare: you see yourself with clarity and accept what you see with compassion. Your work now is integration—living what you already know.';
+      }else if(recPct>=70 && accPct>=70){
+        summary='You\'re developing genuine self-awareness and self-acceptance. This balance is the foundation of lasting change. Go deeper, not wider.';
+      }else if(recPct>=70 && accPct<40){
+        summary='You see yourself with unusual clarity—but you\'re harder on yourself than you need to be. The patterns you judge are trying to protect you.';
       }else if(recPct>=70 && accPct<50){
-        summary='You see yourself clearly but struggle to accept what you see. This tension is where growth happens.';
+        summary='Your self-awareness is a gift, but it comes with a shadow: harsh self-judgment. What would it feel like to see yourself with the same compassion you offer others?';
+      }else if(recPct<40 && accPct>=70){
+        summary='You accept others easily—perhaps too easily. This acceptance might be a way of avoiding your own mirror. What are you afraid to see?';
       }else if(recPct<50 && accPct>=70){
-        summary='You accept others easily but may be avoiding your own mirror. Your growth edge is honest self-examination.';
+        summary='Your acceptance of others is genuine, but it may be coming at a cost. Are you using compassion for others to avoid examining yourself?';
+      }else if(recPct>=50 && accPct>=50){
+        summary='You\'re in the middle of the journey—seeing some things clearly, accepting others. The patterns you\'re most resistant to see are often the ones running your life.';
       }else if(recPct>=40 && accPct>=40){
-        summary='You\'re developing self-awareness while still avoiding certain difficult truths. This tension is where growth happens.';
+        summary='You\'re building the muscle of self-awareness. Every pattern you recognize—especially the uncomfortable ones—brings you closer to freedom.';
+      }else if(recPct<40 && accPct<40){
+        summary='You\'re at the beginning of a powerful journey. The fact that you\'re here, looking at yourself, is the first step. Most people never take it.';
       }else{
-        summary='You\'re at the beginning of your journey. Every pattern you recognize brings you closer to transformation.';
+        summary='Your patterns are still emerging. Keep playing to reveal what\'s running beneath the surface. Awareness is the first step toward change.';
       }
       content+='<p style="color:var(--text);font-size:14px;line-height:1.6;">'+summary+'</p>';
       content+='</div>';
@@ -1224,11 +1245,11 @@ let entryAnswers = { recognition: [], voice: null };
 
 // Entry Flow Pattern Mapping
 const ENTRY_PATTERNS = {
-  'honest-avoider': { icon: '🪞', name: 'The Honest Avoider', tagline: 'I see myself clearly but struggle to act on what I see.', match: 87, others: 23 },
-  'boundary-breaker': { icon: '💔', name: 'The Compassionate Boundary-Breaker', tagline: 'I accept others easily but let myself get crossed.', match: 82, others: 31 },
-  'self-critical-achiever': { icon: '⚡', name: 'The Self-Critical Achiever', tagline: 'I push myself hard but struggle with self-compassion.', match: 91, others: 28 },
-  'peaceful-avoider': { icon: '🕊️', name: 'The Peaceful Avoider', tagline: 'I keep the peace but may be avoiding my own mirror.', match: 78, others: 19 },
-  'aware-procrastinator': { icon: '⏳', name: 'The Aware Procrastinator', tagline: 'I understand my patterns but delay changing them.', match: 85, others: 34 }
+  'honest-avoider': { icon: '🪞', name: 'The Honest Avoider', tagline: 'You see yourself with unusual clarity—but seeing isn\'t doing.', match: 87, others: 23 },
+  'boundary-breaker': { icon: '💔', name: 'The Compassionate Boundary-Breaker', tagline: 'Your empathy is a gift you give away too freely.', match: 82, others: 31 },
+  'self-critical-achiever': { icon: '⚡', name: 'The Self-Critical Achiever', tagline: 'You\'ve achieved so much by being hard on yourself—but at what cost?', match: 91, others: 28 },
+  'peaceful-avoider': { icon: '🕊️', name: 'The Peaceful Avoider', tagline: 'You\'ve mastered accepting others—but what about yourself?', match: 78, others: 19 },
+  'aware-procrastinator': { icon: '⏳', name: 'The Aware Procrastinator', tagline: 'You understand your patterns deeply—and delay changing them.', match: 85, others: 34 }
 };
 
 function showHookScreen(num) {
@@ -1290,6 +1311,36 @@ function selectVoice(el) {
   setTimeout(() => showHookScreen(4), 600);
 }
 
+// Share entry pattern (for Screen 5, before any games played)
+async function shareEntryPattern() {
+  const patternKey = data.entryPattern || 'honest-avoider';
+  const pattern = ENTRY_PATTERNS[patternKey];
+  
+  const shareData = {
+    title: 'My Pattern | Level Up',
+    text: `I'm "${pattern.name}" — ${pattern.tagline.toLowerCase().replace(/"/g, '')} What's your pattern?`,
+    url: 'https://100levelup.com?ref=share'
+  };
+  
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData);
+    } catch (err) {
+      // User cancelled or error
+    }
+  } else {
+    copyEntryLink();
+  }
+}
+
+// Copy entry pattern link (for Screen 5)
+function copyEntryLink() {
+  const patternKey = data.entryPattern || 'honest-avoider';
+  const url = 'https://100levelup.com?pattern=' + patternKey;
+  navigator.clipboard.writeText(url);
+  showToast('Link copied!');
+}
+
 function determineEntryPattern() {
   const { recognition, voice } = entryAnswers;
   if (voice === 'not-enough' || recognition.includes('success-empty')) return 'self-critical-achiever';
@@ -1348,7 +1399,7 @@ async function sharePatternCard() {
       await navigator.share(shareData);
       document.getElementById('shareCardModal').classList.remove('active');
     } catch (err) {
-      console.log('Share cancelled');
+      // Share cancelled or failed
     }
   } else {
     copyPatternLink();
