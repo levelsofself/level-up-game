@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Level Up Game v3.0 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
+<!-- Level Up Game v3.0 | Built by Arthur Palyan | 7 Levels of Self | Dec 2024 -->
 <!-- Enhanced: 357 Decision scenarios, 10 themes, core wounds, contradictions, level insights -->
 <html lang="en">
 <head>
@@ -64,42 +64,43 @@ body::-webkit-scrollbar{display:none}
 /* Solid overlay - prevents any content bleed-through */
 body.hook-active{overflow:hidden;position:fixed;width:100%;height:100%;touch-action:none}
 body.hook-active .app{visibility:hidden;pointer-events:none}
-.hook{position:fixed;inset:0;background:#0d0a1a;display:flex;align-items:center;justify-content:center;z-index:9999;text-align:center;padding:24px;overflow-y:auto;-webkit-overflow-scrolling:touch;isolation:isolate;overscroll-behavior:contain}
+.hook{position:fixed;inset:0;background:#0d0a1a;display:flex;align-items:center;justify-content:center;z-index:9999;text-align:center;padding:24px;overflow:hidden;-webkit-overflow-scrolling:touch;isolation:isolate;overscroll-behavior:none}
 .hook::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);z-index:-2}
 .hook::before{content:'';position:absolute;top:-30%;left:-30%;width:160%;height:160%;background:radial-gradient(circle at 30% 30%,rgba(255,107,53,0.12) 0%,transparent 50%),radial-gradient(circle at 70% 70%,rgba(120,75,160,0.15) 0%,transparent 50%);pointer-events:none;animation:ambientFloat 20s ease-in-out infinite;z-index:-1}
 @keyframes ambientFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-2%,2%)}}
 .hook.hidden{display:none}
-.hook-container{max-width:480px;width:100%;position:relative;z-index:1;max-height:100%;display:flex;flex-direction:column}
-.hook-screen{display:none;flex-direction:column;align-items:center;opacity:0;transform:translateY(20px);width:100%}
+.hook-container{max-width:480px;width:100%;position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.hook-screen{display:none;flex-direction:column;align-items:center;opacity:0;transform:translateY(20px);width:100%;padding:20px 0;flex-shrink:0}
 .hook-screen.active{display:flex;animation:screenFadeIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
-.hook-screen-scrollable{justify-content:flex-start;padding-top:40px;padding-bottom:40px;overflow-y:auto;max-height:calc(100vh - 48px)}
+.hook-screen-scrollable{justify-content:flex-start;padding-top:20px;padding-bottom:40px}
 @keyframes screenFadeIn{to{opacity:1;transform:translateY(0)}}
-.hook-line{font-size:clamp(32px,8vw,46px);font-weight:800;line-height:1.15;margin-bottom:6px;opacity:0;transform:translateY(30px);background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hook-line{font-size:clamp(26px,6.5vw,38px);font-weight:800;line-height:1.15;margin-bottom:4px;opacity:0;transform:translateY(30px);background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap}
 .hook-line.show{animation:lineFadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards}
 @keyframes lineFadeUp{to{opacity:1;transform:translateY(0)}}
-.hook-sub{font-size:19px;color:var(--text);line-height:1.5;margin:28px 0;opacity:0;font-weight:500}
+.hook-sub{font-size:16px;color:var(--text);line-height:1.4;margin:20px 0;opacity:0;font-weight:500;max-width:300px;white-space:normal}
 .hook-sub.show{animation:lineFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
-.hook-btn{padding:20px 52px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:16px;color:#fff;font-size:18px;font-weight:700;cursor:pointer;opacity:0;transform:translateY(20px);box-shadow:0 4px 24px rgba(255,60,172,0.4);transition:all 0.3s cubic-bezier(0.16,1,0.3,1)}
+.hook-btn{padding:18px 48px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:16px;color:#fff;font-size:18px;font-weight:700;cursor:pointer;opacity:0;transform:translateY(20px);box-shadow:0 4px 24px rgba(255,60,172,0.4);transition:all 0.3s cubic-bezier(0.16,1,0.3,1)}
 .hook-btn.show{animation:btnFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards}
 @keyframes btnFadeUp{to{opacity:1;transform:translateY(0)}}
 .hook-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 36px rgba(255,60,172,0.5)}
 .hook-btn:active{transform:translateY(-1px) scale(0.98)}
-.hook-progress{display:flex;gap:6px;margin-bottom:36px;justify-content:center}
+.hook-progress{display:flex;gap:6px;margin-bottom:28px;justify-content:center}
 .h-dot{width:40px;height:4px;border-radius:4px;background:rgba(255,255,255,0.12);transition:all 0.5s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden}
 .h-dot::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--orange),var(--pink));border-radius:4px;transform:scaleX(0);transform-origin:left;transition:transform 0.6s cubic-bezier(0.34,1.56,0.64,1)}
 .h-dot.active::after,.h-dot.done::after{transform:scaleX(1)}
 .h-dot.active{box-shadow:0 0 16px rgba(255,60,172,0.3)}
-.hook-question-title{font-size:26px;font-weight:800;margin-bottom:10px;color:var(--text)}
-.hook-question-sub{color:var(--muted);font-size:15px;margin-bottom:28px;font-weight:500}
-.recognition-grid{display:flex;flex-direction:column;gap:12px;width:100%;margin-bottom:28px}
-.recognition-item{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:18px 22px;font-size:15px;color:var(--text);cursor:pointer;transition:all 0.25s cubic-bezier(0.16,1,0.3,1);text-align:left;line-height:1.5;position:relative}
+.hook-question-title{font-size:24px;font-weight:800;margin-bottom:8px;color:var(--text)}
+.hook-question-sub{color:var(--muted);font-size:14px;margin-bottom:24px;font-weight:500}
+.recognition-grid{display:flex;flex-direction:column;gap:10px;width:100%;margin-bottom:24px}
+.recognition-item{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:14px 18px;font-size:14px;color:var(--text);cursor:pointer;transition:all 0.25s cubic-bezier(0.16,1,0.3,1);text-align:left;line-height:1.4;position:relative}
 .recognition-item:hover{border-color:var(--pink);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
 .recognition-item.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.15),rgba(120,75,160,0.15));box-shadow:0 0 0 3px rgba(255,60,172,0.2),0 8px 24px rgba(255,60,172,0.15)}
-.recognition-item.selected::after{content:'✓';position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--pink);font-weight:700;font-size:18px}
-.voice-options{display:flex;flex-direction:column;gap:12px;width:100%}
-.voice-option{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:20px 24px;font-size:15px;color:var(--text);cursor:pointer;transition:all 0.25s cubic-bezier(0.16,1,0.3,1);text-align:left;line-height:1.5;font-style:italic}
+.recognition-item.selected::after{content:'✓';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--pink);font-weight:700;font-size:16px}
+.voice-options{display:flex;flex-direction:column;gap:10px;width:100%;margin-bottom:24px}
+.voice-option{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:14px 18px;font-size:14px;color:var(--text);cursor:pointer;transition:all 0.25s cubic-bezier(0.16,1,0.3,1);text-align:left;line-height:1.4;font-style:italic;position:relative}
 .voice-option:hover{border-color:var(--pink);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
-.voice-option.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.15),rgba(120,75,160,0.15));box-shadow:0 0 0 3px rgba(255,60,172,0.2);transform:scale(1.01)}
+.voice-option.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.15),rgba(120,75,160,0.15));box-shadow:0 0 0 3px rgba(255,60,172,0.2),0 8px 24px rgba(255,60,172,0.15)}
+.voice-option.selected::after{content:'✓';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--pink);font-weight:700;font-size:16px}
 .reveal-icon{font-size:80px;margin-bottom:20px;filter:drop-shadow(0 8px 24px rgba(0,0,0,0.3));animation:revealFloat 3s ease-in-out infinite}
 @keyframes revealFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .reveal-label{font-size:12px;text-transform:uppercase;letter-spacing:2.5px;color:var(--pink);margin-bottom:10px;font-weight:700}
@@ -112,13 +113,18 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .reveal-stat{text-align:center}
 .reveal-stat-value{font-size:32px;font-weight:800;background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .reveal-stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;font-weight:600}
-.reveal-cta{font-size:15px;color:var(--muted);margin-bottom:24px;line-height:1.6;max-width:320px}
-.levels-compact{display:flex;flex-direction:column;gap:8px;width:100%;max-width:400px;margin-bottom:24px}
-.level-compact{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 16px}
-.level-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#000;flex-shrink:0}
+.reveal-cta{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.5;max-width:340px;text-align:center}
+.levels-compact{display:flex;flex-direction:column;gap:0;width:100%;max-width:400px;margin-bottom:20px}
+.level-compact{display:flex;align-items:center;gap:10px;background:var(--card);border:2px solid var(--border);border-radius:10px;padding:10px 14px;cursor:pointer;transition:all 0.25s ease;margin-bottom:6px}
+.level-compact:hover{border-color:var(--pink);transform:translateX(4px)}
+.level-compact.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));box-shadow:0 0 0 2px rgba(255,60,172,0.2)}
+.level-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;flex-shrink:0}
 .level-compact-info{display:flex;flex-direction:column;text-align:left}
-.level-compact-name{font-size:14px;font-weight:600;color:var(--text)}
-.level-compact-desc{font-size:11px;color:var(--muted)}
+.level-compact-name{font-size:13px;font-weight:600;color:var(--text)}
+.level-compact-desc{font-size:10px;color:var(--muted)}
+.level-detail{display:none;background:rgba(0,0,0,0.3);border-left:3px solid var(--pink);border-radius:0 8px 8px 0;padding:12px 14px;margin:-2px 0 8px 14px;font-size:12px;color:var(--muted);line-height:1.6;text-align:left;animation:detailFadeIn 0.3s ease}
+.level-detail.show{display:block}
+@keyframes detailFadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 /* Screen 5: Shareable Pattern Card */
 .reveal-label-top{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--pink);margin-bottom:20px}
 .pattern-card-container{width:100%;max-width:360px;margin-bottom:28px}
@@ -501,14 +507,15 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="hook-screen" id="hookScreen3">
 <div class="hook-progress"><span class="h-dot done"></span><span class="h-dot active"></span><span class="h-dot"></span></div>
 <div class="hook-question-title">Do you ever ask yourself...</div>
-<div class="hook-question-sub">Select the one that haunts you most</div>
+<div class="hook-question-sub">Select all that resonate with you</div>
 <div class="voice-options" id="voiceOptions">
-<div class="voice-option" data-voice="not-enough" onclick="selectVoice(this)">"Why am I not enough, no matter how much I achieve?"</div>
-<div class="voice-option" data-voice="alone" onclick="selectVoice(this)">"Why do I feel so alone, even when surrounded by people?"</div>
-<div class="voice-option" data-voice="success-unhappy" onclick="selectVoice(this)">"What's the point of all this success if I'm still unhappy?"</div>
-<div class="voice-option" data-voice="made-it" onclick="selectVoice(this)">"When will I finally feel like I've made it?"</div>
-<div class="voice-option" data-voice="all-there-is" onclick="selectVoice(this)">"Is this really all there is?"</div>
+<div class="voice-option" data-voice="not-enough" onclick="toggleVoice(this)">"Why am I not enough, no matter how much I achieve?"</div>
+<div class="voice-option" data-voice="alone" onclick="toggleVoice(this)">"Why do I feel so alone, even when surrounded by people?"</div>
+<div class="voice-option" data-voice="success-unhappy" onclick="toggleVoice(this)">"What's the point of all this success if I'm still unhappy?"</div>
+<div class="voice-option" data-voice="made-it" onclick="toggleVoice(this)">"When will I finally feel like I've made it?"</div>
+<div class="voice-option" data-voice="all-there-is" onclick="toggleVoice(this)">"Is this really all there is?"</div>
 </div>
+<button class="hook-btn show" onclick="continueFromVoice()">Continue</button>
 </div>
 <!-- Screen 4: The Explanation -->
 <div class="hook-screen hook-screen-scrollable" id="hookScreen4">
@@ -516,17 +523,24 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="hook-question-title">This isn't a flaw.</div>
 <div class="hook-question-sub">It's a signal you're solving the problem at the wrong level.</div>
 <div class="reveal-divider"></div>
-<div class="levels-intro">There are 7 levels where patterns live:</div>
+<div class="levels-intro">Tap each level to learn more:</div>
 <div class="levels-compact">
-<div class="level-compact"><div class="level-dot" style="background:#FF6B35">1</div><div class="level-compact-info"><span class="level-compact-name">Individual</span><span class="level-compact-desc">Your relationship with yourself</span></div></div>
-<div class="level-compact"><div class="level-dot" style="background:#FF3CAC">2</div><div class="level-compact-info"><span class="level-compact-name">Family</span><span class="level-compact-desc">Your closest relationships</span></div></div>
-<div class="level-compact"><div class="level-dot" style="background:#784BA0">3</div><div class="level-compact-info"><span class="level-compact-name">Groups</span><span class="level-compact-desc">Teams, friends, communities</span></div></div>
-<div class="level-compact"><div class="level-dot" style="background:#2F80ED">4</div><div class="level-compact-info"><span class="level-compact-name">Community</span><span class="level-compact-desc">Your role in the larger whole</span></div></div>
-<div class="level-compact"><div class="level-dot" style="background:#00D26A">5</div><div class="level-compact-info"><span class="level-compact-name">Society</span><span class="level-compact-desc">Systems, culture, nation</span></div></div>
-<div class="level-compact"><div class="level-dot" style="background:#F7C948">6</div><div class="level-compact-info"><span class="level-compact-name">World</span><span class="level-compact-desc">Global connection</span></div></div>
-<div class="level-compact"><div class="level-dot" style="background:#C0C0C0">7</div><div class="level-compact-info"><span class="level-compact-name">Generations</span><span class="level-compact-desc">Legacy that outlasts you</span></div></div>
+<div class="level-compact" onclick="toggleLevelInfo(this, 1)" data-level="1"><div class="level-dot" style="background:#FF6B35">1</div><div class="level-compact-info"><span class="level-compact-name">Individual</span><span class="level-compact-desc">Your relationship with yourself</span></div></div>
+<div class="level-detail" id="levelDetail1">Your relationship with yourself. Daily practices, honesty, self-care. Before you can show up for anyone else, you have to show up for yourself. This means having non-negotiables — things you do for yourself every day, no matter what. It's not selfish. It's required. If this level isn't solid, everything above it is unstable.</div>
+<div class="level-compact" onclick="toggleLevelInfo(this, 2)" data-level="2"><div class="level-dot" style="background:#FF3CAC">2</div><div class="level-compact-info"><span class="level-compact-name">Family</span><span class="level-compact-desc">Your closest relationships</span></div></div>
+<div class="level-detail" id="levelDetail2">Your immediate family — spouse, kids, or the family you live with. If you're estranged or don't have family, this is about your closest relationships. These are the people who see you at your best and worst. You can't skip to community impact if things are incomplete here.</div>
+<div class="level-compact" onclick="toggleLevelInfo(this, 3)" data-level="3"><div class="level-dot" style="background:#784BA0">3</div><div class="level-compact-info"><span class="level-compact-name">Groups</span><span class="level-compact-desc">Teams, friends, communities</span></div></div>
+<div class="level-detail" id="levelDetail3">Friends, coworkers, teams, extended family — people outside your immediate circle. If you're isolated, this level is about that too. The question: Are you being yourself, or performing a version of yourself to fit in — or hiding entirely?</div>
+<div class="level-compact" onclick="toggleLevelInfo(this, 4)" data-level="4"><div class="level-dot" style="background:#2F80ED">4</div><div class="level-compact-info"><span class="level-compact-name">Community</span><span class="level-compact-desc">Your role in the larger whole</span></div></div>
+<div class="level-detail" id="levelDetail4">Where you belong beyond personal relationships — neighborhood, industry, causes, or any group you're part of. Whether you're working, retired, or still figuring it out, the question is the same: do you have a role, and do you respect the roles of others?</div>
+<div class="level-compact" onclick="toggleLevelInfo(this, 5)" data-level="5"><div class="level-dot" style="background:#00D26A">5</div><div class="level-compact-info"><span class="level-compact-name">Society</span><span class="level-compact-desc">Systems, culture, nation</span></div></div>
+<div class="level-detail" id="levelDetail5">Your nation and its systems — government, economy, culture. This level is about seeing reality clearly. Not what you wish was true. Not what you're fighting against. What actually is. You can't change what you won't first accept.</div>
+<div class="level-compact" onclick="toggleLevelInfo(this, 6)" data-level="6"><div class="level-dot" style="background:#F7C948">6</div><div class="level-compact-info"><span class="level-compact-name">World</span><span class="level-compact-desc">Global connection</span></div></div>
+<div class="level-detail" id="levelDetail6">Beyond your immediate world — other nations, other cultures, humanity as a whole. How connected do you feel to what happens outside your borders? This isn't about being an activist. It's about recognizing you're part of something larger than your own life.</div>
+<div class="level-compact" onclick="toggleLevelInfo(this, 7)" data-level="7"><div class="level-dot" style="background:#C0C0C0">7</div><div class="level-compact-info"><span class="level-compact-name">Generations</span><span class="level-compact-desc">Legacy that outlasts you</span></div></div>
+<div class="level-detail" id="levelDetail7">What you're building that will outlast you — whether that's family, work, impact, or simply how you live. This isn't about fame or wealth. It's about sustainability. Will what you create survive without you? Legacy isn't always a building. Sometimes it's a cycle you refused to repeat.</div>
 </div>
-<div class="reveal-cta">The game helps you find which level your pattern lives on—so you can finally change it.</div>
+<div class="reveal-cta">The game shows you which level your pattern lives on—so you can finally change it.</div>
 <button class="hook-btn show" onclick="showHookScreen(5)">See My Pattern</button>
 </div>
 <!-- Screen 5: The Shareable Pattern Card -->
@@ -625,7 +639,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 
 <div class="game" id="game"><div class="game-header"><div class="game-info"><div class="game-mode" id="gameMode">Mirror</div><div id="gameProgress">1/5</div><div class="game-combo" id="gameCombo"></div></div><button class="quit" id="quitBtn">✕</button></div><div class="timer" id="timerBar"><div class="timer-fill" id="timerFill"></div></div><div class="scenario"><div class="scenario-cat" id="scenarioCat">Level 1: Individual</div><div class="scenario-text" id="scenarioText">Loading...</div></div><div class="choices" id="choices"></div></div>
 
-<div class="results" id="results"><h2 id="resultsTitle">Game Complete</h2><div class="score" id="finalScore">0</div><p class="result-msg" id="resultMsg">Keep going!</p><div class="insights-list" id="insightsList"></div><button class="results-btn" id="homeBtn">Continue</button><button class="results-share" id="resultsShare">📤 Share Results</button></div>
+<div class="results" id="results"><h2 id="resultsTitle">Game Complete</h2><div class="score" id="finalScore">0</div><div class="results-xp" id="resultsXP" style="display:none;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin:12px 0;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--gold);">+<span id="sessionXP">0</span> XP</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">This session</div></div><p class="result-msg" id="resultMsg">Keep going!</p><div class="insights-list" id="insightsList"></div><div class="results-actions" style="display:flex;flex-direction:column;gap:10px;margin-top:16px;"><button class="results-btn" id="keepPlayingBtn" style="background:linear-gradient(135deg,var(--green),#00B85D);display:none;">🔄 Keep Playing (+10 more)</button><button class="results-btn" id="endlessModeBtn" style="background:linear-gradient(135deg,var(--purple),var(--blue));display:none;">♾️ Endless Mode</button><button class="results-btn" id="homeBtn">🏠 Back to Home</button></div><button class="results-share" id="resultsShare">📤 Share Results</button></div>
 </div>
 
 <div class="modal" id="qaModal"><div class="modal-content" id="qaContent" style="max-height:80vh;overflow-y:auto;position:relative;scroll-behavior:smooth;">
@@ -777,25 +791,25 @@ After 10 years of deep transformational work—Landmark, MITT, Insight Seminars,
 </div>
 </div>
 
-<script src="mirror-level1-individual.js"></script>
-<script src="mirror-level2-family.js"></script>
-<script src="mirror-level3-groups.js"></script>
-<script src="mirror-level4-community.js"></script>
-<script src="mirror-level5-society.js"></script>
-<script src="mirror-level6-world.js"></script>
-<script src="mirror-level7-generations.js"></script>
-<script src="agreement_game.js"></script>
-<script src="worldwide_challenge.js"></script>
+<script src="mirror-level1-individual.js" onerror="console.warn('Failed to load mirror-level1-individual.js')"></script>
+<script src="mirror-level2-family.js" onerror="console.warn('Failed to load mirror-level2-family.js')"></script>
+<script src="mirror-level3-groups.js" onerror="console.warn('Failed to load mirror-level3-groups.js')"></script>
+<script src="mirror-level4-community.js" onerror="console.warn('Failed to load mirror-level4-community.js')"></script>
+<script src="mirror-level5-society.js" onerror="console.warn('Failed to load mirror-level5-society.js')"></script>
+<script src="mirror-level6-world.js" onerror="console.warn('Failed to load mirror-level6-world.js')"></script>
+<script src="mirror-level7-generations.js" onerror="console.warn('Failed to load mirror-level7-generations.js')"></script>
+<script src="agreement_game.js" onerror="console.warn('Failed to load agreement_game.js')"></script>
+<script src="worldwide_challenge.js" onerror="console.warn('Failed to load worldwide_challenge.js')"></script>
 <!-- NEW: Expanded Decision Mode Scenarios -->
-<script src="decision-level1-individual.js"></script>
-<script src="decision-level2-family.js"></script>
-<script src="decision-level3-groups.js"></script>
-<script src="decision-level4-community.js"></script>
-<script src="decision-level5-society.js"></script>
-<script src="decision-level6-world.js"></script>
-<script src="decision-level7-generations.js"></script>
+<script src="decision-level1-individual.js" onerror="console.warn('Failed to load decision-level1-individual.js')"></script>
+<script src="decision-level2-family.js" onerror="console.warn('Failed to load decision-level2-family.js')"></script>
+<script src="decision-level3-groups.js" onerror="console.warn('Failed to load decision-level3-groups.js')"></script>
+<script src="decision-level4-community.js" onerror="console.warn('Failed to load decision-level4-community.js')"></script>
+<script src="decision-level5-society.js" onerror="console.warn('Failed to load decision-level5-society.js')"></script>
+<script src="decision-level6-world.js" onerror="console.warn('Failed to load decision-level6-world.js')"></script>
+<script src="decision-level7-generations.js" onerror="console.warn('Failed to load decision-level7-generations.js')"></script>
 <!-- NEW: Enhanced Deep Insight System -->
-<script src="enhanced-deep-insight.js"></script>
+<script src="enhanced-deep-insight.js" onerror="console.warn('Failed to load enhanced-deep-insight.js')"></script>
 <script>
 // Combine all Mirror scenarios
 const MIRROR_SCENARIOS=[...(typeof LEVEL_1_INDIVIDUAL!=='undefined'?LEVEL_1_INDIVIDUAL:[]),...(typeof LEVEL_2_FAMILY!=='undefined'?LEVEL_2_FAMILY:[]),...(typeof LEVEL_3_GROUPS!=='undefined'?LEVEL_3_GROUPS:[]),...(typeof LEVEL_4_COMMUNITY!=='undefined'?LEVEL_4_COMMUNITY:[]),...(typeof LEVEL_5_SOCIETY!=='undefined'?LEVEL_5_SOCIETY:[]),...(typeof LEVEL_6_WORLD!=='undefined'?LEVEL_6_WORLD:[]),...(typeof LEVEL_7_GENERATIONS!=='undefined'?LEVEL_7_GENERATIONS:[])];
@@ -818,7 +832,25 @@ const XP_PER_LEVEL=100;
 let music=document.getElementById('music');music.volume=0.4;
 let musicOn=false,soundOn=true,currentCombo=0;
 let data=JSON.parse(localStorage.getItem('levelup_v7'))||{xp:0,level:1,coins:0,games:0,mirrorRecognized:0,mirrorTotal:0,agreementAccepted:0,agreementTotal:0,streak:0,lastDaily:null,lastLogin:null,loginDay:0,unlockedLevels:[1],unlockedAgreement:false,seenIntro:false,insightsCollection:[],newlyUnlockedLevels:[],seenAgreementUnlock:false};
-let game={mode:null,scenarios:[],idx:0,answers:[],timer:null,timeLeft:15,useTimer:true};
+let game={mode:null,scenarios:[],idx:0,answers:[],timer:null,timeLeft:15,useTimer:true,timerDuration:15,levelFilter:null,endlessMode:false,sessionXP:0,sessionInsights:0,sessionGames:0};
+
+// Error handling for external scripts
+window.onerror=function(msg,url,line,col,error){
+  console.error('Game Error:',msg,url,line);
+  if(msg.includes('MIRROR_SCENARIOS')||msg.includes('DECISION_SCENARIOS')||msg.includes('SCENARIOS')){
+    showToast('⚠️ Loading scenarios... Please wait');
+  }
+  return false;
+};
+
+// Track script loading status
+let scriptsLoaded={mirror:false,decision:false,agreement:false};
+function checkScriptsReady(){
+  if(typeof MIRROR_SCENARIOS!=='undefined'&&MIRROR_SCENARIOS.length>0)scriptsLoaded.mirror=true;
+  if(typeof DECISION_SCENARIOS!=='undefined'&&DECISION_SCENARIOS.length>0)scriptsLoaded.agreement=true;
+  if(typeof window.SCENARIOS!=='undefined')scriptsLoaded.decision=true;
+  return scriptsLoaded;
+}
 
 function save(){localStorage.setItem('levelup_v7',JSON.stringify(data))}
 function shuffle(a){let arr=[...a];for(let i=arr.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
@@ -835,6 +867,7 @@ function comboSound(n){let base=523;for(let i=0;i<Math.min(n,5);i++){setTimeout(
 
 function addXP(amount){
   data.xp+=amount;data.coins+=Math.floor(amount/2);
+  game.sessionXP+=amount; // Track session XP
   let newLevel=Math.floor(data.xp/XP_PER_LEVEL)+1;
   if(newLevel>data.level){
     data.level=newLevel;levelUpSound();triggerConfetti();
@@ -873,8 +906,10 @@ function addCombo(){
   if(currentCombo>=3){
     let el=document.getElementById('comboDisplay');el.textContent='🔥 '+currentCombo+'x COMBO!';el.classList.add('show');comboSound(currentCombo);
     setTimeout(()=>el.classList.remove('show'),1500);
-    if(currentCombo===5){showBonusPopup('+30 XP Combo!');addXP(30);}
-    else if(currentCombo===10){showBonusPopup('+50 XP Mega Combo!');addXP(50);}
+    if(currentCombo===5){showBonusPopup('🔥 +30 XP Combo!');addXP(30);}
+    else if(currentCombo===10){showBonusPopup('🔥🔥 +50 XP Mega Combo!');addXP(50);}
+    else if(currentCombo===15){showBonusPopup('🔥🔥🔥 +75 XP Ultra Combo!');addXP(75);triggerConfetti();}
+    else if(currentCombo===20){showBonusPopup('⭐ +100 XP LEGENDARY!');addXP(100);triggerConfetti();}
   }
   document.getElementById('gameCombo').textContent=currentCombo>1?'🔥'+currentCombo+'x':'';
 }
@@ -882,7 +917,34 @@ function resetCombo(){currentCombo=0;document.getElementById('gameCombo').textCo
 
 function showToast(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
 function showBonusPopup(text){document.getElementById('bonusText').textContent=text;document.getElementById('bonusPopup').classList.add('show');bonusSound();setTimeout(()=>document.getElementById('bonusPopup').classList.remove('show'),2500)}
-function maybeBonus(){if(Math.random()<0.12){let bonuses=[{text:'+25 XP Bonus!',xp:25},{text:'+50 XP Jackpot!',xp:50},{text:'💎 Rare Insight!',xp:30}];let bonus=bonuses[Math.floor(Math.random()*bonuses.length)];setTimeout(()=>{showBonusPopup(bonus.text);addXP(bonus.xp)},800);return true}return false}
+function maybeBonus(){
+  // Base chance 12%, but increases with combo and endless mode
+  let chance=0.12;
+  if(currentCombo>=3)chance+=0.05;
+  if(currentCombo>=5)chance+=0.08;
+  if(game.endlessMode)chance+=0.03;
+  
+  if(Math.random()<chance){
+    let bonuses=[
+      {text:'+25 XP Bonus!',xp:25,icon:'⚡'},
+      {text:'+50 XP Jackpot!',xp:50,icon:'💎'},
+      {text:'💎 Rare Insight!',xp:30,icon:'🔮'},
+      {text:'+35 XP Streak Bonus!',xp:35,icon:'🔥'}
+    ];
+    // Add special endless mode bonus
+    if(game.endlessMode&&Math.random()<0.2){
+      bonuses.push({text:'+75 XP Endless Bonus!',xp:75,icon:'♾️'});
+    }
+    // Add combo bonus
+    if(currentCombo>=5){
+      bonuses.push({text:'+60 XP Combo Master!',xp:60,icon:'🎯'});
+    }
+    let bonus=bonuses[Math.floor(Math.random()*bonuses.length)];
+    setTimeout(()=>{showBonusPopup(bonus.icon+' '+bonus.text);addXP(bonus.xp)},800);
+    return true;
+  }
+  return false;
+}
 
 function triggerConfetti(){
   let canvas=document.getElementById('confetti'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;
@@ -911,10 +973,10 @@ function checkStreakWarning(){
   else{document.getElementById('streakWarning').classList.remove('show')}
 }
 
-function addInsight(text,level){if(text&&!data.insightsCollection.some(i=>i.text===text)){data.insightsCollection.push({text:text,level:level||1,date:new Date().toLocaleDateString()});if(data.insightsCollection.length>200)data.insightsCollection=data.insightsCollection.slice(-200);save()}}
+function addInsight(text,level){if(text&&!data.insightsCollection.some(i=>i.text===text)){data.insightsCollection.push({text:text,level:level||1,date:new Date().toLocaleDateString()});game.sessionInsights++;if(data.insightsCollection.length>200)data.insightsCollection=data.insightsCollection.slice(-200);save()}}
 
 function updateHome(){
-  updateXPBar();checkDailyLogin();checkStreakWarning();checkCoachingBridge();
+  updateXPBar();checkDailyLogin();checkStreakWarning();checkCoachingBridge();checkMilestones();
   document.getElementById('statPlayed').textContent=data.games;
   document.getElementById('statInsights').textContent=data.insightsCollection?data.insightsCollection.length:0;
   document.getElementById('statStreak').textContent=data.streak||0;
@@ -941,6 +1003,35 @@ function updateHome(){
   });
   updateTimer();
   updatePatternCard();
+}
+
+// Milestone rewards system
+function checkMilestones(){
+  if(!data.milestones)data.milestones={};
+  let milestones=[
+    {id:'first_game',condition:data.games>=1,reward:50,msg:'🎮 First game completed! +50 XP'},
+    {id:'5_games',condition:data.games>=5,reward:100,msg:'🎯 5 games played! +100 XP'},
+    {id:'10_games',condition:data.games>=10,reward:150,msg:'🏆 10 games milestone! +150 XP'},
+    {id:'25_games',condition:data.games>=25,reward:250,msg:'⭐ 25 games champion! +250 XP'},
+    {id:'50_games',condition:data.games>=50,reward:500,msg:'👑 50 games legend! +500 XP'},
+    {id:'100_games',condition:data.games>=100,reward:1000,msg:'🌟 100 GAMES MASTER! +1000 XP'},
+    {id:'10_insights',condition:(data.insightsCollection||[]).length>=10,reward:75,msg:'💡 10 insights collected! +75 XP'},
+    {id:'50_insights',condition:(data.insightsCollection||[]).length>=50,reward:200,msg:'🧠 50 insights wisdom! +200 XP'},
+    {id:'100_insights',condition:(data.insightsCollection||[]).length>=100,reward:400,msg:'🔮 100 insights sage! +400 XP'},
+    {id:'3_streak',condition:data.streak>=3,reward:50,msg:'🔥 3-day streak! +50 XP'},
+    {id:'7_streak',condition:data.streak>=7,reward:150,msg:'🔥🔥 7-day streak! +150 XP'},
+    {id:'14_streak',condition:data.streak>=14,reward:300,msg:'🔥🔥🔥 14-day streak! +300 XP'},
+    {id:'30_streak',condition:data.streak>=30,reward:750,msg:'⚡ 30-DAY STREAK LEGEND! +750 XP'},
+    {id:'50_acceptance',condition:data.agreementTotal>=10&&(data.agreementAccepted/data.agreementTotal)>=0.5,reward:100,msg:'⚖️ 50%+ acceptance rate! +100 XP'},
+    {id:'80_acceptance',condition:data.agreementTotal>=20&&(data.agreementAccepted/data.agreementTotal)>=0.8,reward:300,msg:'💫 80%+ acceptance master! +300 XP'},
+  ];
+  milestones.forEach(m=>{
+    if(m.condition&&!data.milestones[m.id]){
+      data.milestones[m.id]=true;
+      setTimeout(()=>{showBonusPopup(m.msg);addXP(m.reward);triggerConfetti()},500);
+      save();
+    }
+  });
 }
 function updateTimer(){let now=new Date(),tom=new Date(now);tom.setDate(tom.getDate()+1);tom.setHours(0,0,0,0);let d=tom-now,h=String(Math.floor(d/3600000)).padStart(2,'0'),m=String(Math.floor((d%3600000)/60000)).padStart(2,'0'),s=String(Math.floor((d%60000)/1000)).padStart(2,'0');document.getElementById('dailyTimer').textContent='Resets in '+h+':'+m+':'+s}
 
@@ -1396,7 +1487,7 @@ function showHook(){
 }
 
 // Entry Flow State
-let entryAnswers = { recognition: [], voice: null };
+let entryAnswers = { recognition: [], voice: null, voices: [] };
 
 // Entry Flow Pattern Mapping
 const ENTRY_PATTERNS = {
@@ -1440,6 +1531,78 @@ function toggleRecognition(el) {
     entryAnswers.recognition = entryAnswers.recognition.filter(p => p !== pattern);
     if(soundOn) playSound(440, 0.06);
   }
+}
+
+function toggleLevelInfo(el, levelNum) {
+  const wasSelected = el.classList.contains('selected');
+  
+  // Remove selected from all levels and hide all details
+  document.querySelectorAll('.level-compact').forEach(l => l.classList.remove('selected'));
+  document.querySelectorAll('.level-detail').forEach(d => d.classList.remove('show'));
+  
+  // If it wasn't selected, select it and show detail
+  if (!wasSelected) {
+    el.classList.add('selected');
+    const detail = document.getElementById('levelDetail' + levelNum);
+    if (detail) {
+      detail.classList.add('show');
+    }
+    if(soundOn) playSound(523, 0.08);
+  } else {
+    if(soundOn) playSound(440, 0.06);
+  }
+}
+
+function toggleVoice(el) {
+  el.classList.toggle('selected');
+  const voice = el.dataset.voice;
+  if (el.classList.contains('selected')) {
+    if (!entryAnswers.voices) entryAnswers.voices = [];
+    entryAnswers.voices.push(voice);
+    entryAnswers.voice = voice; // Keep primary for pattern matching
+    if(soundOn) playSound(523, 0.1);
+  } else {
+    entryAnswers.voices = (entryAnswers.voices || []).filter(v => v !== voice);
+    // Update primary voice to another selected one, or null
+    if (entryAnswers.voice === voice) {
+      entryAnswers.voice = entryAnswers.voices.length > 0 ? entryAnswers.voices[0] : null;
+    }
+    if(soundOn) playSound(440, 0.06);
+  }
+}
+
+function continueFromVoice() {
+  // Require at least one selection
+  const selectedCount = document.querySelectorAll('.voice-option.selected').length;
+  if (selectedCount === 0) {
+    showToast('Please select at least one');
+    return;
+  }
+  
+  // Use first selected voice for pattern matching
+  if (!entryAnswers.voice && entryAnswers.voices && entryAnswers.voices.length > 0) {
+    entryAnswers.voice = entryAnswers.voices[0];
+  }
+  
+  // Store the pattern now
+  const patternKey = determineEntryPattern();
+  const pattern = ENTRY_PATTERNS[patternKey];
+  data.entryPattern = patternKey;
+  save();
+  
+  // Pre-populate Screen 5 with pattern data
+  document.getElementById('revealIcon').textContent = pattern.icon;
+  document.getElementById('revealPattern').textContent = pattern.name;
+  document.getElementById('revealInsight').textContent = '"' + pattern.tagline + '"';
+  
+  // Play confirmation sound
+  if(soundOn) {
+    playSound(523, 0.1);
+    setTimeout(() => playSound(659, 0.1), 80);
+  }
+  
+  // Go to explanation screen (Screen 4)
+  showHookScreen(4);
 }
 
 function selectVoice(el) {
@@ -1497,16 +1660,113 @@ function copyEntryLink() {
 }
 
 function determineEntryPattern() {
-  const { recognition, voice } = entryAnswers;
-  if (voice === 'not-enough' || recognition.includes('success-empty')) return 'self-critical-achiever';
-  if (recognition.includes('help-others') || recognition.includes('dying-inside')) return 'boundary-breaker';
-  if (voice === 'alone') return 'peaceful-avoider';
-  if (recognition.includes('repeat')) return 'aware-procrastinator';
-  return 'honest-avoider';
+  const { recognition, voices } = entryAnswers;
+  
+  // Score each pattern based on ALL selections
+  const scores = {
+    'self-critical-achiever': 0,
+    'boundary-breaker': 0,
+    'peaceful-avoider': 0,
+    'aware-procrastinator': 0,
+    'honest-avoider': 0
+  };
+  
+  // Screen 2 Recognition scoring (what they've felt)
+  if (recognition.includes('success-empty')) {
+    scores['self-critical-achiever'] += 3;
+    scores['honest-avoider'] += 1;
+  }
+  if (recognition.includes('repeat')) {
+    scores['aware-procrastinator'] += 3;
+    scores['honest-avoider'] += 2;
+  }
+  if (recognition.includes('help-others')) {
+    scores['boundary-breaker'] += 3;
+  }
+  if (recognition.includes('more')) {
+    scores['peaceful-avoider'] += 2;
+    scores['honest-avoider'] += 2;
+  }
+  if (recognition.includes('dying-inside')) {
+    scores['boundary-breaker'] += 3;
+    scores['self-critical-achiever'] += 1;
+  }
+  
+  // Screen 3 Voice scoring (what haunts them) - stronger weight
+  const voiceList = voices || [];
+  voiceList.forEach(voice => {
+    switch(voice) {
+      case 'not-enough':
+        scores['self-critical-achiever'] += 4;
+        break;
+      case 'alone':
+        scores['peaceful-avoider'] += 4;
+        scores['boundary-breaker'] += 1;
+        break;
+      case 'success-unhappy':
+        scores['self-critical-achiever'] += 2;
+        scores['honest-avoider'] += 3;
+        break;
+      case 'made-it':
+        scores['self-critical-achiever'] += 3;
+        scores['aware-procrastinator'] += 2;
+        break;
+      case 'all-there-is':
+        scores['peaceful-avoider'] += 2;
+        scores['honest-avoider'] += 3;
+        scores['aware-procrastinator'] += 1;
+        break;
+    }
+  });
+  
+  // Combination bonuses - when patterns reinforce each other
+  if (recognition.includes('success-empty') && voiceList.includes('not-enough')) {
+    scores['self-critical-achiever'] += 2; // Strong achiever signal
+  }
+  if (recognition.includes('help-others') && recognition.includes('dying-inside')) {
+    scores['boundary-breaker'] += 2; // Classic boundary pattern
+  }
+  if (recognition.includes('repeat') && voiceList.includes('all-there-is')) {
+    scores['aware-procrastinator'] += 2; // Knows but doesn't act
+  }
+  if (voiceList.includes('alone') && recognition.includes('more')) {
+    scores['peaceful-avoider'] += 2; // Disconnected from self
+  }
+  
+  // Find highest scoring pattern
+  let maxScore = 0;
+  let result = 'honest-avoider';
+  
+  for (const [pattern, score] of Object.entries(scores)) {
+    if (score > maxScore) {
+      maxScore = score;
+      result = pattern;
+    }
+  }
+  
+  // If scores are very close (within 1), and honest-avoider is close, prefer it
+  // because it means they have broad self-awareness without one dominant wound
+  if (scores['honest-avoider'] >= maxScore - 1 && result !== 'honest-avoider') {
+    // Check if honest-avoider is actually close
+    const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    if (sortedScores[0][1] - sortedScores[1][1] <= 1) {
+      // Close race - they see themselves broadly
+      result = 'honest-avoider';
+    }
+  }
+  
+  return result;
 }
 
-// Hook button starts entry flow
+// Hook button starts entry flow and music
 document.getElementById('hookBtn').onclick = function() {
+  // Start music on user interaction
+  if(!musicOn) {
+    music.play().then(() => {
+      musicOn = true;
+      document.getElementById('musicBtn').classList.add('on');
+    }).catch(() => {});
+  }
   showHookScreen(2);
 };
 
@@ -1605,23 +1865,40 @@ function dismissCoachingBridge() {
 // Entry flow hookBtn handler is defined above - this line removed to prevent override
 
 function startMirrorGame(lf){
-  game.mode='mirror';game.idx=0;game.answers=[];game.useTimer=false;currentCombo=0;
+  game.mode='mirror';game.idx=0;game.answers=[];game.useTimer=false;game.levelFilter=lf||null;currentCombo=0;
+  if(!game.endlessMode){game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;}
+  game.sessionGames++;
+  // Check if scenarios are loaded
+  if(typeof MIRROR_SCENARIOS==='undefined'||MIRROR_SCENARIOS.length===0){
+    showToast('⚠️ Loading scenarios...');
+    setTimeout(()=>startMirrorGame(lf),1000);
+    return;
+  }
   let pool=MIRROR_SCENARIOS.filter(s=>lf?s.level===lf:data.unlockedLevels.includes(s.level));
-  if(pool.length===0){showToast('No scenarios');return}
-  game.scenarios=shuffle(pool).slice(0,10);
+  if(pool.length===0){showToast('No scenarios for this level');return}
+  let questionCount=game.endlessMode?Math.min(pool.length,25):15;
+  game.scenarios=shuffle(pool).slice(0,questionCount);
   document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
-  document.getElementById('gameMode').textContent='Mirror Game';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.add('hidden');
+  document.getElementById('gameMode').textContent=game.endlessMode?'♾️ Mirror (Endless)':'Mirror Game';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.add('hidden');
   showMirrorScenario();
 }
 function startAgreementGame(lf){
   if(!data.unlockedAgreement){showToast('🔒 Reach Level 2!');return}
-  game.mode='agreement';game.idx=0;game.answers=[];game.useTimer=true;currentCombo=0;
-  if(typeof DECISION_SCENARIOS==='undefined'||DECISION_SCENARIOS.length===0){showToast('Loading...');return}
+  game.mode='agreement';game.idx=0;game.answers=[];game.useTimer=true;game.levelFilter=lf||null;currentCombo=0;
+  if(!game.endlessMode){game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;}
+  game.sessionGames++;
+  // Check if scenarios are loaded
+  if(typeof DECISION_SCENARIOS==='undefined'||DECISION_SCENARIOS.length===0){
+    showToast('⚠️ Loading scenarios...');
+    setTimeout(()=>startAgreementGame(lf),1000);
+    return;
+  }
   let pool=DECISION_SCENARIOS.filter(s=>lf?s.level===lf:data.unlockedLevels.includes(s.level));
-  if(pool.length===0){showToast('No scenarios');return}
-  game.scenarios=shuffle(pool).slice(0,10);
+  if(pool.length===0){showToast('No scenarios for this level');return}
+  let questionCount=game.endlessMode?Math.min(pool.length,25):15;
+  game.scenarios=shuffle(pool).slice(0,questionCount);
   document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
-  document.getElementById('gameMode').textContent='Agreement Game';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.remove('hidden');
+  document.getElementById('gameMode').textContent=game.endlessMode?'♾️ Agreement (Endless)':'Agreement Game';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.remove('hidden');
   showAgreementScenario();
 }
 function startDecisionGame(){
@@ -1712,16 +1989,45 @@ function endGame(){
     data.lastDaily=today;
   }
   save();document.getElementById('game').classList.remove('active');document.getElementById('results').classList.add('active');
+  
+  // Show session XP earned
+  if(game.sessionXP>0){
+    document.getElementById('sessionXP').textContent=game.sessionXP;
+    document.getElementById('resultsXP').style.display='block';
+    // Add session stats
+    let sessionStats='';
+    if(game.sessionGames>1)sessionStats+='<div style="font-size:11px;color:var(--muted);margin-top:4px;">'+game.sessionGames+' games • '+game.sessionInsights+' new insights</div>';
+    document.getElementById('resultsXP').innerHTML='<div style="font-size:24px;font-weight:800;color:var(--gold);">+'+game.sessionXP+' XP</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">This session</div>'+sessionStats;
+  }else{
+    document.getElementById('resultsXP').style.display='none';
+  }
+  
+  // Show/hide Keep Playing and Endless Mode buttons (not for Daily Challenge)
+  let keepPlayingBtn=document.getElementById('keepPlayingBtn');
+  let endlessModeBtn=document.getElementById('endlessModeBtn');
+  if(game.mode!=='decision'){
+    keepPlayingBtn.style.display='block';
+    endlessModeBtn.style.display=game.endlessMode?'none':'block';
+    if(game.endlessMode){
+      keepPlayingBtn.textContent='♾️ Continue Endless (+25 more)';
+    }else{
+      keepPlayingBtn.textContent='🔄 Keep Playing (+10 more)';
+    }
+  }else{
+    keepPlayingBtn.style.display='none';
+    endlessModeBtn.style.display='none';
+  }
+  
   let insights=document.getElementById('insightsList');
   if(game.mode==='mirror'){
-    document.getElementById('resultsTitle').textContent='Mirror Complete';document.getElementById('finalScore').textContent=total+' Reflections';
+    document.getElementById('resultsTitle').textContent=game.endlessMode?'♾️ Mirror Endless':'Mirror Complete';document.getElementById('finalScore').textContent=total+' Reflections';
     document.getElementById('resultMsg').textContent='Honest self-reflection is the first step.';
     insights.innerHTML='';game.answers.slice(0,10).forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.innerHTML='<span style="color:'+(a.recognized?'var(--green)':'var(--muted)')+';">'+(a.recognized?'✓ That\'s Me':'✗ Not Me')+'</span><div style="margin-top:4px;">"'+a.text+'"</div>';insights.appendChild(div)});
   }else if(game.mode==='agreement'){
-    document.getElementById('resultsTitle').textContent='Agreement Complete';document.getElementById('finalScore').textContent=score+'/'+total;
+    document.getElementById('resultsTitle').textContent=game.endlessMode?'♾️ Agreement Endless':'Agreement Complete';document.getElementById('finalScore').textContent=score+'/'+total;
     document.getElementById('resultMsg').textContent=score>=8?'Strong acceptance!':score>=5?'Growing awareness.':'Keep practicing.';
     insights.innerHTML='';game.answers.slice(0,5).forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.textContent=(a.isAcceptance?'✓ ':'⚖️ ')+a.insight;insights.appendChild(div)});
-    if(score===10){triggerConfetti();showToast('🎉 Perfect! +25 XP');addXP(25)}
+    if(score===total&&total>=10){triggerConfetti();showToast('🎉 Perfect! +25 XP');addXP(25)}
   }else if(game.mode==='mixed'){
     let mirrorAnswers=game.answers.filter(a=>a.recognized!==undefined);
     let agreementAnswers=game.answers.filter(a=>a.isAcceptance!==undefined);
@@ -1732,7 +2038,7 @@ function endGame(){
     let judgmentCount=agreementAnswers.length-acceptCount;
     let correctCount=decisionAnswers.filter(a=>a.correct).length;
     
-    document.getElementById('resultsTitle').textContent='Mixed Complete';
+    document.getElementById('resultsTitle').textContent=game.endlessMode?'♾️ Mixed Endless':'Mixed Complete';
     let scoreText='🪞 '+mirrorAnswers.length+' Reflections';
     if(agreementAnswers.length>0)scoreText+=' • ⚖️ '+acceptCount+'/'+agreementAnswers.length+' Accepted';
     if(decisionAnswers.length>0)scoreText+=' • 🎯 '+correctCount+'/'+decisionAnswers.length+' Correct';
@@ -1843,8 +2149,39 @@ function endGame(){
   }
 }
 
-document.getElementById('homeBtn').onclick=function(){document.getElementById('results').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
-document.getElementById('quitBtn').onclick=function(){if(game.timer)clearInterval(game.timer);document.getElementById('game').classList.remove('active');document.getElementById('feedbackModal').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
+document.getElementById('homeBtn').onclick=function(){game.endlessMode=false;game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;document.getElementById('results').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
+
+// Keep Playing button - continue same mode with 10 more questions
+document.getElementById('keepPlayingBtn').onclick=function(){
+  document.getElementById('results').classList.remove('active');
+  let lf=game.levelFilter;
+  let currentMode=game.mode;
+  // Keep session stats running
+  if(currentMode==='mirror'){
+    startMirrorGame(lf);
+  }else if(currentMode==='agreement'){
+    startAgreementGame(lf);
+  }else if(currentMode==='mixed'){
+    startMixedGame(lf);
+  }
+};
+
+// Endless Mode button - sets endless mode and restarts
+document.getElementById('endlessModeBtn').onclick=function(){
+  game.endlessMode=true;
+  document.getElementById('results').classList.remove('active');
+  let lf=game.levelFilter;
+  let currentMode=game.mode;
+  showToast('♾️ Endless Mode activated!');
+  if(currentMode==='mirror'){
+    startMirrorGame(lf);
+  }else if(currentMode==='agreement'){
+    startAgreementGame(lf);
+  }else if(currentMode==='mixed'){
+    startMixedGame(lf);
+  }
+};
+document.getElementById('quitBtn').onclick=function(){if(game.timer)clearInterval(game.timer);game.endlessMode=false;game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;document.getElementById('game').classList.remove('active');document.getElementById('feedbackModal').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
 document.getElementById('musicBtn').onclick=function(){if(musicOn){music.pause();musicOn=false;this.classList.remove('on')}else{music.play().then(()=>{musicOn=true;this.classList.add('on')}).catch(()=>{})}};
 document.getElementById('soundBtn').onclick=function(){soundOn=!soundOn;this.classList.toggle('on',soundOn);if(soundOn)coinSound()};
 document.getElementById('qaBtn').onclick=function(){document.getElementById('qaModal').classList.add('active')};
@@ -1872,7 +2209,9 @@ document.getElementById('levelMixedBtn').onclick=function(){if(data.unlockedAgre
 document.getElementById('levelInsightsBtn').onclick=function(){document.getElementById('levelSelectModal').classList.remove('active');showInsightsModal(selectedLevel.id)};
 
 function startMixedGame(levelFilter){
-  game.mode='mixed';game.idx=0;game.answers=[];game.useTimer=true;game.timerDuration=18;currentCombo=0;
+  game.mode='mixed';game.idx=0;game.answers=[];game.useTimer=true;game.timerDuration=18;game.levelFilter=levelFilter||null;currentCombo=0;
+  if(!game.endlessMode){game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;}
+  game.sessionGames++;
   let mirrorPool=levelFilter?MIRROR_SCENARIOS.filter(s=>s.level===levelFilter):MIRROR_SCENARIOS.filter(s=>data.unlockedLevels.includes(s.level));
   let agreePool=levelFilter&&typeof DECISION_SCENARIOS!=='undefined'?DECISION_SCENARIOS.filter(s=>s.level===levelFilter):typeof DECISION_SCENARIOS!=='undefined'?DECISION_SCENARIOS.filter(s=>data.unlockedLevels.includes(s.level)):[];
   let decisionPool=[];
@@ -1881,13 +2220,17 @@ function startMixedGame(levelFilter){
     else{data.unlockedLevels.forEach(lvl=>{if(window.SCENARIOS[lvl])decisionPool=decisionPool.concat(window.SCENARIOS[lvl].map(s=>({...s,level:lvl})))})}
   }
   let combined=[];
-  shuffle(mirrorPool).slice(0,5).forEach(s=>combined.push({...s,gameType:'mirror'}));
-  shuffle(agreePool).slice(0,3).forEach(s=>combined.push({...s,gameType:'agreement'}));
-  shuffle(decisionPool).slice(0,2).forEach(s=>combined.push({...s,gameType:'decision',level:s.level||levelFilter||1}));
-  game.scenarios=shuffle(combined).slice(0,10);
+  let mirrorCount=game.endlessMode?12:7;
+  let agreeCount=game.endlessMode?8:5;
+  let decisionCount=game.endlessMode?5:3;
+  shuffle(mirrorPool).slice(0,mirrorCount).forEach(s=>combined.push({...s,gameType:'mirror'}));
+  shuffle(agreePool).slice(0,agreeCount).forEach(s=>combined.push({...s,gameType:'agreement'}));
+  shuffle(decisionPool).slice(0,decisionCount).forEach(s=>combined.push({...s,gameType:'decision',level:s.level||levelFilter||1}));
+  let totalCount=game.endlessMode?25:15;
+  game.scenarios=shuffle(combined).slice(0,totalCount);
   if(game.scenarios.length===0){showToast('No scenarios available!');return}
   document.getElementById('home').classList.add('hidden');document.getElementById('game').classList.add('active');
-  document.getElementById('gameMode').textContent='Mixed';document.getElementById('timerBar').classList.remove('hidden');
+  document.getElementById('gameMode').textContent=game.endlessMode?'♾️ Mixed (Endless)':'Mixed';document.getElementById('timerBar').classList.remove('hidden');
   showMixedScenario();
 }
 
