@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<!-- Level Up Game v2.0 | Built by Arthur Palyan | 7 Levels of Self | Dec 2024 -->
+<!-- Level Up Game v3.0 | Built by Arthur Palyan | 7 Levels of Self | Dec 2024 -->
+<!-- Enhanced: 357 Decision scenarios, 10 themes, core wounds, contradictions, level insights -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -781,8 +782,33 @@ After 10 years of deep transformational work—Landmark, MITT, Insight Seminars,
 <script src="mirror-level7-generations.js"></script>
 <script src="agreement_game.js"></script>
 <script src="worldwide_challenge.js"></script>
+<!-- NEW: Expanded Decision Mode Scenarios -->
+<script src="decision-level1-individual.js"></script>
+<script src="decision-level2-family.js"></script>
+<script src="decision-level3-groups.js"></script>
+<script src="decision-level4-community.js"></script>
+<script src="decision-level5-society.js"></script>
+<script src="decision-level6-world.js"></script>
+<script src="decision-level7-generations.js"></script>
+<!-- NEW: Enhanced Deep Insight System -->
+<script src="enhanced-deep-insight.js"></script>
 <script>
+// Combine all Mirror scenarios
 const MIRROR_SCENARIOS=[...(typeof LEVEL_1_INDIVIDUAL!=='undefined'?LEVEL_1_INDIVIDUAL:[]),...(typeof LEVEL_2_FAMILY!=='undefined'?LEVEL_2_FAMILY:[]),...(typeof LEVEL_3_GROUPS!=='undefined'?LEVEL_3_GROUPS:[]),...(typeof LEVEL_4_COMMUNITY!=='undefined'?LEVEL_4_COMMUNITY:[]),...(typeof LEVEL_5_SOCIETY!=='undefined'?LEVEL_5_SOCIETY:[]),...(typeof LEVEL_6_WORLD!=='undefined'?LEVEL_6_WORLD:[]),...(typeof LEVEL_7_GENERATIONS!=='undefined'?LEVEL_7_GENERATIONS:[])];
+
+// Combine all Decision scenarios (original + expanded)
+const DECISION_SCENARIOS_EXPANDED=[
+  ...(typeof DECISION_SCENARIOS!=='undefined'?DECISION_SCENARIOS:[]),
+  ...(typeof DECISION_LEVEL_1!=='undefined'?DECISION_LEVEL_1:[]),
+  ...(typeof DECISION_LEVEL_2!=='undefined'?DECISION_LEVEL_2:[]),
+  ...(typeof DECISION_LEVEL_3!=='undefined'?DECISION_LEVEL_3:[]),
+  ...(typeof DECISION_LEVEL_4!=='undefined'?DECISION_LEVEL_4:[]),
+  ...(typeof DECISION_LEVEL_5!=='undefined'?DECISION_LEVEL_5:[]),
+  ...(typeof DECISION_LEVEL_6!=='undefined'?DECISION_LEVEL_6:[]),
+  ...(typeof DECISION_LEVEL_7!=='undefined'?DECISION_LEVEL_7:[])
+];
+// Override DECISION_SCENARIOS with expanded version
+if(DECISION_SCENARIOS_EXPANDED.length>0){window.DECISION_SCENARIOS=DECISION_SCENARIOS_EXPANDED;}
 const LEVELS=[{id:1,name:'Individual',color:'#FF6B35',desc:'Your relationship with yourself'},{id:2,name:'Family',color:'#FF3CAC',desc:'Your closest relationships'},{id:3,name:'Groups',color:'#784BA0',desc:'Teams, friends, communities'},{id:4,name:'Community',color:'#2F80ED',desc:'Your role in the larger whole'},{id:5,name:'Society',color:'#00D26A',desc:'Systems, culture, nation'},{id:6,name:'World',color:'#F7C948',desc:'Global connection'},{id:7,name:'Generations',color:'#C0C0C0',desc:'Legacy that outlasts you'}];
 const XP_PER_LEVEL=100;
 let music=document.getElementById('music');music.volume=0.4;
@@ -939,24 +965,39 @@ function analyzePatterns(){
     authenticityTheme:0,
     fearTheme:0,
     attachmentTheme:0,
+    // NEW themes
+    responsibilityTheme:0,
+    angerTheme:0,
+    shameTheme:0,
+    trustTheme:0,
     topLevels:{}
   };
-  // Extended keyword detection
+  // Extended keyword detection - original 6 themes
   let boundaryWords=['boundary','boundaries','no','yes','peace','please','avoid','conflict','protect','safe','space','limit','refuse','people please','doormat','taken advantage','stand up','speak up','voice','silent'];
   let controlWords=['control','perfect','right','wrong','should','must','fix','order','plan','organize','anxious','worry','certain','uncertain','chaos','mess','failure','mistake'];
   let worthWords=['worth','deserve','enough','value','matter','good enough','worthy','love yourself','self-esteem','confidence','imposter','fraud','belong','fit in','measure up','compare','inferior','prove','validation','approval'];
   let authenticityWords=['authentic','real','true','mask','pretend','fake','hide','show','reveal','vulnerable','honest','lie','truth','self','identity','who I am','perform','image','reputation'];
   let fearWords=['fear','afraid','scared','anxiety','panic','worry','dread','avoid','run','escape','danger','threat','risk','unknown','what if'];
   let attachmentWords=['attach','cling','need','depend','abandon','leave','alone','lonely','connection','close','distant','push away','pull close','smother','neglect','available'];
+  // NEW 4 themes
+  let responsibilityWords=['responsible','blame','fault','guilty','my job','their job','not my problem','burden','carry','weight','shoulder','take on','let go','own','accountable'];
+  let angerWords=['anger','angry','rage','fury','irritated','annoyed','frustrated','resentment','bitter','grudge','forgive','revenge','fair','unfair','injustice','wronged','betrayed'];
+  let shameWords=['shame','ashamed','embarrass','humiliate','guilt','bad person','wrong','broken','defective','flawed','damaged','unlovable','disgust','exposed'];
+  let trustWords=['trust','faith','believe','betray','doubt','suspicious','reliable','depend','count on','let down','disappointed','safe','unsafe','guard','walls'];
   
   insights.forEach(i=>{
-    let t=(i.text||'').toLowerCase();
+    let t=((i.text||'')+(i.insight||'')).toLowerCase();
     if(boundaryWords.some(w=>t.includes(w)))profile.boundaryTheme+=0.04;
     if(controlWords.some(w=>t.includes(w)))profile.controlTheme+=0.04;
     if(worthWords.some(w=>t.includes(w)))profile.worthTheme+=0.04;
     if(authenticityWords.some(w=>t.includes(w)))profile.authenticityTheme+=0.04;
     if(fearWords.some(w=>t.includes(w)))profile.fearTheme+=0.04;
     if(attachmentWords.some(w=>t.includes(w)))profile.attachmentTheme+=0.04;
+    // NEW themes
+    if(responsibilityWords.some(w=>t.includes(w)))profile.responsibilityTheme+=0.04;
+    if(angerWords.some(w=>t.includes(w)))profile.angerTheme+=0.04;
+    if(shameWords.some(w=>t.includes(w)))profile.shameTheme+=0.04;
+    if(trustWords.some(w=>t.includes(w)))profile.trustTheme+=0.04;
     profile.topLevels[i.level]=(profile.topLevels[i.level]||0)+1;
   });
   profile.boundaryTheme=Math.min(profile.boundaryTheme,1);
@@ -965,6 +1006,10 @@ function analyzePatterns(){
   profile.authenticityTheme=Math.min(profile.authenticityTheme,1);
   profile.fearTheme=Math.min(profile.fearTheme,1);
   profile.attachmentTheme=Math.min(profile.attachmentTheme,1);
+  profile.responsibilityTheme=Math.min(profile.responsibilityTheme,1);
+  profile.angerTheme=Math.min(profile.angerTheme,1);
+  profile.shameTheme=Math.min(profile.shameTheme,1);
+  profile.trustTheme=Math.min(profile.trustTheme,1);
   for(let arch of ARCHETYPES){if(arch.condition(profile))return{archetype:arch,profile:profile}}
   return{archetype:ARCHETYPES[ARCHETYPES.length-1],profile:profile};
 }
@@ -1000,10 +1045,11 @@ function showAIAnalysis(){
     // Show what they'll get
     content+='<div style="margin-top:20px;padding:16px;background:rgba(0,0,0,0.3);border-radius:12px;text-align:left;">';
     content+='<p style="color:var(--text);font-size:13px;margin-bottom:12px;"><strong>Coming soon:</strong></p>';
-    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Your Growth Pattern Summary</p>';
-    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Recurring Theme Tags</p>';
-    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Personal Archetype Match</p>';
-    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Level-Specific Recommendations</p>';
+    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Personalized Growth Pattern Summary</p>';
+    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Core Wound Identification</p>';
+    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Pattern Contradiction Detection</p>';
+    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• 10 Theme Analysis</p>';
+    content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Level-Specific Insights</p>';
     content+='<p style="color:var(--muted);font-size:12px;line-height:2;">• Daily Growth Challenges</p>';
     content+='</div>';
   }else{
@@ -1014,33 +1060,52 @@ function showAIAnalysis(){
       let p=analysis.profile;
       let recPct=Math.round(p.mirrorRecognition*100);
       let accPct=Math.round(p.acceptanceRate*100);
+      let insights=data.insightsCollection||[];
       
-      // YOUR GROWTH PATTERN - Summary box
+      // YOUR GROWTH PATTERN - Enhanced Summary
       content='<div style="background:linear-gradient(135deg,rgba(120,75,160,0.2),rgba(255,60,172,0.1));border:1px solid var(--purple);border-radius:12px;padding:16px;margin-bottom:16px;">';
       content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);font-weight:700;margin-bottom:8px;">Your Growth Pattern</div>';
       
-      // Generate dynamic summary based on stats
+      // Enhanced summary generation
       let summary='';
-      if(recPct>=80 && accPct>=80){
-        summary='You\'ve achieved something rare: you see yourself with clarity and accept what you see with compassion. Your work now is integration—living what you already know.';
-      }else if(recPct>=70 && accPct>=70){
-        summary='You\'re developing genuine self-awareness and self-acceptance. This balance is the foundation of lasting change. Go deeper, not wider.';
-      }else if(recPct>=70 && accPct<40){
-        summary='You see yourself with unusual clarity—but you\'re harder on yourself than you need to be. The patterns you judge are trying to protect you.';
-      }else if(recPct>=70 && accPct<50){
-        summary='Your self-awareness is a gift, but it comes with a shadow: harsh self-judgment. What would it feel like to see yourself with the same compassion you offer others?';
-      }else if(recPct<40 && accPct>=70){
-        summary='You accept others easily—perhaps too easily. This acceptance might be a way of avoiding your own mirror. What are you afraid to see?';
-      }else if(recPct<50 && accPct>=70){
-        summary='Your acceptance of others is genuine, but it may be coming at a cost. Are you using compassion for others to avoid examining yourself?';
-      }else if(recPct>=50 && accPct>=50){
-        summary='You\'re in the middle of the journey—seeing some things clearly, accepting others. The patterns you\'re most resistant to see are often the ones running your life.';
-      }else if(recPct>=40 && accPct>=40){
-        summary='You\'re building the muscle of self-awareness. Every pattern you recognize—especially the uncomfortable ones—brings you closer to freedom.';
-      }else if(recPct<40 && accPct<40){
-        summary='You\'re at the beginning of a powerful journey. The fact that you\'re here, looking at yourself, is the first step. Most people never take it.';
+      // Get dominant theme for context
+      let themes=[{k:'boundaries',v:p.boundaryTheme||0},{k:'control',v:p.controlTheme||0},{k:'worthiness',v:p.worthTheme||0},{k:'authenticity',v:p.authenticityTheme||0},{k:'fear',v:p.fearTheme||0},{k:'attachment',v:p.attachmentTheme||0},{k:'responsibility',v:p.responsibilityTheme||0},{k:'anger',v:p.angerTheme||0},{k:'shame',v:p.shameTheme||0},{k:'trust',v:p.trustTheme||0}];
+      themes.sort((a,b)=>b.v-a.v);
+      let domTheme=themes[0].v>0.1?themes[0].k:null;
+      
+      // Core pattern based on recognition + acceptance
+      if(recPct>=75&&accPct>=75){
+        summary='You see yourself clearly AND accept what you see. This combination is rare and powerful. ';
+      }else if(recPct>=75&&accPct<45){
+        summary='You see yourself with unusual clarity—but that sight comes with harsh judgment. Your awareness is a gift; your self-criticism is the shadow. ';
+      }else if(recPct<45&&accPct>=75){
+        summary='You\'re gentle with yourself and others—perhaps too gentle to look closely. Your acceptance may be avoiding the mirror. ';
+      }else if(recPct>=60&&accPct>=60){
+        summary='You\'re building both awareness and acceptance—this balance is the foundation of lasting change. ';
+      }else if(recPct<45&&accPct<45){
+        summary='You\'re at the beginning of the journey. Most people never start. The fact that you\'re here matters. ';
       }else{
-        summary='Your patterns are still emerging. Keep playing to reveal what\'s running beneath the surface. Awareness is the first step toward change.';
+        summary='Your patterns are emerging. Every time you recognize something, you gain power over it. ';
+      }
+      
+      // Add archetype context
+      summary+='As '+analysis.archetype.name+', '+analysis.archetype.edge.split('.')[0].toLowerCase()+'. ';
+      
+      // Add theme context if dominant
+      if(domTheme){
+        let themeDescriptions={
+          boundaries:'Your patterns cluster around boundaries—fear of rejection if you set limits.',
+          control:'Your patterns cluster around control—deep fear that if you relax, everything falls apart.',
+          worthiness:'Your patterns cluster around self-worth—believing you must earn your right to exist.',
+          authenticity:'Your patterns cluster around authenticity—fear that the real you is unacceptable.',
+          fear:'Your patterns cluster around fear—belief that you cannot handle what life brings.',
+          attachment:'Your patterns cluster around attachment—early experiences taught connection is unsafe.',
+          responsibility:'Your patterns cluster around responsibility—confusion about what\'s yours to carry.',
+          anger:'Your patterns cluster around anger—not being seen, understood, or gotten.',
+          shame:'Your patterns cluster around shame—belief that something is fundamentally wrong with you.',
+          trust:'Your patterns cluster around trust—past betrayals made trust feel dangerous.'
+        };
+        if(themeDescriptions[domTheme])summary+=themeDescriptions[domTheme];
       }
       content+='<p style="color:var(--text);font-size:14px;line-height:1.6;">'+summary+'</p>';
       content+='</div>';
@@ -1057,8 +1122,60 @@ function showAIAnalysis(){
       content+='</div>';
       content+='</div>';
       
-      // RECURRING THEMES - Tag style (now with 6 themes)
-      let hasThemes=p.boundaryTheme>0.08||p.controlTheme>0.08||p.worthTheme>0.08||p.authenticityTheme>0.08||p.fearTheme>0.08||p.attachmentTheme>0.08;
+      // CORE WOUNDS DETECTED (NEW)
+      let wounds=[];
+      if((p.boundaryTheme||0)>0.15)wounds.push({wound:'Fear of rejection if you set limits',theme:'Boundaries'});
+      if((p.worthTheme||0)>0.15)wounds.push({wound:'Belief that you must earn your worth',theme:'Self-Worth'});
+      if((p.shameTheme||0)>0.15)wounds.push({wound:'Belief that something is fundamentally wrong with you',theme:'Shame'});
+      if((p.trustTheme||0)>0.15)wounds.push({wound:'Past betrayals made trust feel dangerous',theme:'Trust'});
+      if((p.attachmentTheme||0)>0.15)wounds.push({wound:'Early experiences taught you connection is unsafe',theme:'Attachment'});
+      if((p.angerTheme||0)>0.15)wounds.push({wound:'Not being seen, understood, or gotten',theme:'Anger'});
+      if(accPct<40)wounds.push({wound:'Harsh inner critic that blocks self-acceptance',theme:'Judgment'});
+      
+      if(wounds.length>0){
+        content+='<div style="margin-bottom:16px;">';
+        content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#FF4757;font-weight:700;margin-bottom:10px;">Core Wounds Detected</div>';
+        wounds.slice(0,3).forEach(w=>{
+          content+='<div style="background:rgba(255,71,87,0.1);border-left:3px solid #FF4757;padding:10px 12px;margin-bottom:8px;border-radius:0 8px 8px 0;">';
+          content+='<p style="color:var(--text);font-size:13px;margin:0;">'+w.wound+'</p>';
+          content+='<p style="color:var(--muted);font-size:11px;margin-top:4px;">Theme: '+w.theme+'</p>';
+          content+='</div>';
+        });
+        content+='</div>';
+      }
+      
+      // CONTRADICTION DETECTION (NEW)
+      if(insights.length>=10){
+        let allText=insights.map(i=>((i.text||'')+(i.insight||'')).toLowerCase()).join(' ');
+        let contradictions=[];
+        // Check for contradiction patterns
+        let contraPairs=[
+          {p1:['avoid conflict','people please','say yes','keep peace'],p2:['anger','resentment','frustrated','bitter'],insight:'You avoid conflict on the surface while anger builds beneath. The peace you keep costs you.',theme:'Suppressed Anger'},
+          {p1:['control','perfect','plan','organize','certain'],p2:['anxious','worry','fear','panic','overwhelm'],insight:'Your control is a response to anxiety, not a cure for it. The tighter you grip, the more anxious you become.',theme:'Control-Anxiety Loop'},
+          {p1:['independent','don\'t need','alone','self-sufficient'],p2:['lonely','abandoned','disconnected','want connection'],insight:'Your independence protects you from rejection but creates the loneliness you fear.',theme:'False Independence'},
+          {p1:['achieve','success','prove','accomplish'],p2:['not enough','imposter','fraud','worthless'],insight:'No achievement has ever silenced the voice that says you\'re not enough. Worth can\'t be earned.',theme:'Achievement Trap'},
+          {p1:['help others','give','support','caretake'],p2:['neglect self','exhausted','burned out','empty'],insight:'You give to others what you won\'t give to yourself. Helping becomes hiding.',theme:'Caretaker Depletion'}
+        ];
+        contraPairs.forEach(cp=>{
+          let has1=cp.p1.some(p=>allText.includes(p));
+          let has2=cp.p2.some(p=>allText.includes(p));
+          if(has1&&has2)contradictions.push(cp);
+        });
+        
+        if(contradictions.length>0){
+          let c=contradictions[0];
+          content+='<div style="margin-bottom:16px;">';
+          content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);font-weight:700;margin-bottom:10px;">🔄 Pattern Contradiction</div>';
+          content+='<div style="background:rgba(0,216,255,0.1);border:1px solid var(--cyan);border-radius:12px;padding:14px;">';
+          content+='<p style="color:var(--text);font-size:13px;line-height:1.6;margin:0;">'+c.insight+'</p>';
+          content+='<p style="color:var(--cyan);font-size:11px;margin-top:8px;font-weight:600;">'+c.theme+'</p>';
+          content+='</div>';
+          content+='</div>';
+        }
+      }
+      
+      // RECURRING THEMES - Now with 10 themes
+      let hasThemes=p.boundaryTheme>0.08||p.controlTheme>0.08||p.worthTheme>0.08||p.authenticityTheme>0.08||p.fearTheme>0.08||p.attachmentTheme>0.08||p.responsibilityTheme>0.08||p.angerTheme>0.08||p.shameTheme>0.08||p.trustTheme>0.08;
       content+='<div style="margin-bottom:16px;">';
       content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#FF4757;font-weight:700;margin-bottom:10px;">Recurring Themes</div>';
       content+='<div style="display:flex;flex-wrap:wrap;gap:8px;">';
@@ -1069,6 +1186,11 @@ function showAIAnalysis(){
         if(p.authenticityTheme>0.08)content+='<span style="background:rgba(0,210,106,0.2);color:var(--green);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🎭 Authenticity</span>';
         if(p.fearTheme>0.08)content+='<span style="background:rgba(255,107,53,0.2);color:var(--orange);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">😰 Fear</span>';
         if(p.attachmentTheme>0.08)content+='<span style="background:rgba(247,201,72,0.2);color:var(--yellow);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🔗 Attachment</span>';
+        // NEW 4 themes
+        if(p.responsibilityTheme>0.08)content+='<span style="background:rgba(192,192,192,0.2);color:var(--silver);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">⚖️ Responsibility</span>';
+        if(p.angerTheme>0.08)content+='<span style="background:rgba(255,71,87,0.2);color:var(--red);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🔥 Anger</span>';
+        if(p.shameTheme>0.08)content+='<span style="background:rgba(139,92,246,0.2);color:#8B5CF6;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🫣 Shame</span>';
+        if(p.trustTheme>0.08)content+='<span style="background:rgba(0,216,255,0.2);color:var(--cyan);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🤝 Trust</span>';
       }else{
         content+='<span style="background:rgba(255,255,255,0.1);color:var(--muted);padding:6px 12px;border-radius:20px;font-size:12px;">Keep playing to reveal themes...</span>';
       }
@@ -1078,6 +1200,36 @@ function showAIAnalysis(){
       content+='</div>';
       content+='</div>';
       
+      // LEVEL BREAKDOWN (NEW)
+      let levelCounts=Object.entries(p.topLevels||{}).sort((a,b)=>b[1]-a[1]);
+      if(levelCounts.length>0){
+        content+='<div style="margin-bottom:16px;">';
+        content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);font-weight:700;margin-bottom:10px;">Your Level Focus</div>';
+        let levelNames={1:'Individual',2:'Family',3:'Groups',4:'Community',5:'Society',6:'World',7:'Generations'};
+        let levelInsights={
+          1:{high:'Your relationship with yourself is your strongest foundation.',low:'Your patterns keep circling back to Level 1—your relationship with yourself. This is where your real work is.'},
+          2:{high:'You\'ve done significant work on your closest relationships.',low:'Your family patterns are asking for attention. What you learned about love came from here.'},
+          3:{high:'You navigate group dynamics with increasing awareness.',low:'Group situations reveal your patterns—do you hide, perform, dominate, or disappear?'},
+          4:{high:'You understand your role in community and contribute meaningfully.',low:'Where do you belong beyond personal relationships? Your community role is speaking to you.'},
+          5:{high:'You see society clearly—not as you wish it were, but as it is.',low:'Your relationship with society creates friction. What reality are you fighting instead of seeing?'},
+          6:{high:'You feel connected to humanity beyond your borders.',low:'The world beyond your immediate life is calling for your attention.'},
+          7:{high:'You\'re thinking about legacy—what you\'ll leave behind.',low:'Questions about legacy and mortality are emerging. What are you building that will survive you?'}
+        };
+        levelCounts.slice(0,2).forEach(([lvlId,count])=>{
+          let id=parseInt(lvlId);
+          let lname=levelNames[id]||'Unknown';
+          let linsight=levelInsights[id]?(count>=5?levelInsights[id].high:levelInsights[id].low):'';
+          content+='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;">';
+          content+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
+          content+='<span style="font-weight:700;color:var(--text);">Level '+id+': '+lname+'</span>';
+          content+='<span style="background:var(--purple);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">'+count+' patterns</span>';
+          content+='</div>';
+          content+='<p style="color:var(--muted);font-size:12px;line-height:1.5;margin:0;">'+linsight+'</p>';
+          content+='</div>';
+        });
+        content+='</div>';
+      }
+      
       // ARCHETYPE
       content+='<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;text-align:center;">';
       content+='<div style="font-size:36px;margin-bottom:8px;">'+analysis.archetype.icon+'</div>';
@@ -1085,7 +1237,7 @@ function showAIAnalysis(){
       content+='<div style="font-size:13px;color:var(--muted);line-height:1.5;">'+analysis.archetype.edge+'</div>';
       content+='</div>';
       
-      // RECOMMENDED PRACTICE - Level-specific
+      // RECOMMENDED PRACTICE - Level-specific with enhanced theme detection
       let topLevel=Object.entries(p.topLevels).sort((x,y)=>y[1]-x[1])[0];
       let recommendedLevel=2;
       let levelName='Family';
@@ -1095,8 +1247,7 @@ function showAIAnalysis(){
         let lvlId=parseInt(topLevel[0]);
         let lvl=LEVELS.find(l=>l.id===lvlId);
         if(lvl){
-          // Recommend the next level up or same level for deeper work
-          if(lvlId<7 && data.unlockedLevels.includes(lvlId+1)){
+          if(lvlId<7&&data.unlockedLevels.includes(lvlId+1)){
             recommendedLevel=lvlId+1;
             let nextLvl=LEVELS.find(l=>l.id===recommendedLevel);
             levelName=nextLvl?nextLvl.name:'Family';
@@ -1107,16 +1258,15 @@ function showAIAnalysis(){
         }
       }
       
-      // Dynamic reason based on themes
-      if(p.boundaryTheme>0.15){
-        levelReason='boundary-setting patterns that show up in your relationships';
-      }else if(p.controlTheme>0.15){
-        levelReason='control patterns and where they originate';
-      }else if(p.worthTheme>0.15){
-        levelReason='self-worth patterns and how they affect your connections';
-      }else{
-        levelReason='deeper patterns that are ready to emerge';
-      }
+      // Dynamic reason based on ALL themes
+      if(p.boundaryTheme>0.15)levelReason='boundary-setting patterns that show up in your relationships';
+      else if(p.controlTheme>0.15)levelReason='control patterns and where they originate';
+      else if(p.worthTheme>0.15)levelReason='self-worth patterns and how they affect your connections';
+      else if(p.shameTheme>0.15)levelReason='shame patterns and where they were learned';
+      else if(p.trustTheme>0.15)levelReason='trust patterns and how to rebuild safety';
+      else if(p.angerTheme>0.15)levelReason='anger patterns and what needs aren\'t being met';
+      else if(p.responsibilityTheme>0.15)levelReason='responsibility patterns—what\'s yours to carry and what isn\'t';
+      else levelReason='deeper patterns that are ready to emerge';
       
       content+='<div style="background:linear-gradient(135deg,rgba(0,210,106,0.1),rgba(47,128,237,0.1));border:1px solid var(--green);border-radius:12px;padding:16px;">';
       content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);font-weight:700;margin-bottom:8px;">Recommended Practice</div>';
