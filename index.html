@@ -364,8 +364,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .results{display:none;text-align:center;padding-top:40px;padding-bottom:100px}
 .results.active{display:block}
 .results h2{font-size:26px;margin-bottom:16px;font-weight:800;background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.score{font-size:72px;font-weight:900;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:20px 0;text-shadow:0 0 40px rgba(255,60,172,0.3);animation:scoreBounce 1s ease}
-.score.has-emoji{-webkit-text-fill-color:unset;background:none;color:var(--text)}
+.score{font-size:72px;font-weight:900;color:var(--pink);margin:20px 0;text-shadow:0 0 40px rgba(255,60,172,0.3);animation:scoreBounce 1s ease}
 @keyframes scoreBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 .result-msg{font-size:17px;color:var(--muted);margin-bottom:24px;line-height:1.6;padding:0 20px}
 .results-btn{width:100%;padding:18px;background:var(--grad-primary);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:12px;box-shadow:0 4px 15px rgba(255,60,172,0.3);transition:var(--transition-fast)}
@@ -1983,7 +1982,6 @@ function endGame(){
   let score=0,total=game.answers.length;
   
   // Reset results screen state
-  document.getElementById('finalScore').classList.remove('has-emoji');
   document.getElementById('insightsList').innerHTML='';
   document.getElementById('resultMsg').textContent='';
   
@@ -2150,7 +2148,6 @@ function endGame(){
       insights.appendChild(div);
     });
   }else if(game.mode==='decision'){
-    document.getElementById('finalScore').classList.add('has-emoji');
     document.getElementById('resultsTitle').textContent='Challenge Complete';document.getElementById('finalScore').textContent='🔥 '+data.streak;
     document.getElementById('resultMsg').textContent=score+'/'+total+' correct!';
     insights.innerHTML='';game.answers.forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.textContent=(a.correct?'✓ ':'💡 ')+a.feedback;insights.appendChild(div)});
