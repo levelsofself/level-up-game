@@ -364,7 +364,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .results{display:none;text-align:center;padding-top:40px;padding-bottom:100px}
 .results.active{display:block}
 .results h2{font-size:26px;margin-bottom:16px;font-weight:800;background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.score{font-size:72px;font-weight:900;color:var(--pink);margin:20px 0;text-shadow:0 0 40px rgba(255,60,172,0.3);animation:scoreBounce 1s ease}
+.score{font-size:72px;font-weight:900;color:var(--text);margin:20px 0;text-shadow:0 0 40px rgba(255,60,172,0.3);animation:scoreBounce 1s ease}
 @keyframes scoreBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 .result-msg{font-size:17px;color:var(--muted);margin-bottom:24px;line-height:1.6;padding:0 20px}
 .results-btn{width:100%;padding:18px;background:var(--grad-primary);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:12px;box-shadow:0 4px 15px rgba(255,60,172,0.3);transition:var(--transition-fast)}
@@ -674,10 +674,10 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="modal" id="feedbackModal"><div class="modal-content"><div class="modal-icon" id="fbIcon">💡</div><div class="modal-title" id="fbTitle">Insight</div><div class="feedback-box"><div class="feedback-label" id="fbLabel">Reflection</div><div class="feedback-text" id="fbText">...</div></div><button class="modal-btn" id="nextBtn">Next</button></div></div>
 
 <div class="modal" id="insightsModal"><div class="modal-content" id="insightsContent" style="max-height:80vh;overflow-y:auto;scroll-behavior:smooth;"><div class="modal-title">Your Insights</div>
+<div id="insightsFilter" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;justify-content:center;"></div>
 <div style="display:flex;justify-content:center;margin-bottom:16px;">
 <button onclick="document.getElementById('insightsBottom').scrollIntoView({behavior:'smooth'})" style="padding:10px 20px;background:var(--card);border:1px solid var(--border);border-radius:20px;color:var(--muted);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;"><span style="font-size:18px;">⬇</span> Jump to Bottom</button>
 </div>
-<div id="insightsFilter" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;justify-content:center;"></div>
 <div id="insightsListModal" style="text-align:left;"></div><div id="insightsBottom"></div><div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);"><button class="modal-btn" id="insightsClose">Close</button></div></div></div>
 
 <div class="modal" id="levelSelectModal"><div class="modal-content">
@@ -716,13 +716,13 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 </div></div>
 
 <div class="modal" id="founderModal"><div class="modal-content" id="founderContent" style="max-height:85vh;overflow-y:auto;scroll-behavior:smooth;">
-<div style="display:flex;justify-content:center;margin-bottom:16px;">
-<button onclick="document.getElementById('founderBottom').scrollIntoView({behavior:'smooth'})" style="padding:10px 20px;background:var(--card);border:1px solid var(--border);border-radius:20px;color:var(--muted);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;"><span style="font-size:18px;">⬇</span> Jump to Bottom</button>
-</div>
 <div style="text-align:center;margin-bottom:20px;">
 <img src="arthur.jpg" alt="Arthur Palyan" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 4px 20px rgba(255,215,0,0.4);margin-bottom:16px;">
 <div style="font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Meet Arthur Palyan</div>
 <div style="font-size:13px;color:var(--muted);margin-top:4px;">Creator of the 7 Levels of Self</div>
+</div>
+<div style="display:flex;justify-content:center;margin-bottom:16px;">
+<button onclick="document.getElementById('founderBottom').scrollIntoView({behavior:'smooth'})" style="padding:10px 20px;background:var(--card);border:1px solid var(--border);border-radius:20px;color:var(--muted);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;"><span style="font-size:18px;">⬇</span> Jump to Bottom</button>
 </div>
 
 <div style="background:rgba(0,0,0,0.3);border-radius:12px;padding:16px;margin-bottom:16px;border-left:3px solid var(--gold);">
