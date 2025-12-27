@@ -62,17 +62,17 @@ body::-webkit-scrollbar{display:none}
 *{scrollbar-width:none}
 .app{max-width:500px;margin:0 auto;padding:16px;padding-top:20px;padding-bottom:40px}
 /* Solid overlay - prevents any content bleed-through */
-body.hook-active{overflow:hidden;position:fixed;width:100%;height:100%}
-body.hook-active .app{visibility:hidden}
-.hook{position:fixed;inset:0;background:#0d0a1a;display:flex;align-items:center;justify-content:center;z-index:9999;text-align:center;padding:24px;overflow-y:auto;-webkit-overflow-scrolling:touch;isolation:isolate}
+body.hook-active{overflow:hidden;position:fixed;width:100%;height:100%;touch-action:none}
+body.hook-active .app{visibility:hidden;pointer-events:none}
+.hook{position:fixed;inset:0;background:#0d0a1a;display:flex;align-items:center;justify-content:center;z-index:9999;text-align:center;padding:24px;overflow-y:auto;-webkit-overflow-scrolling:touch;isolation:isolate;overscroll-behavior:contain}
 .hook::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);z-index:-2}
 .hook::before{content:'';position:absolute;top:-30%;left:-30%;width:160%;height:160%;background:radial-gradient(circle at 30% 30%,rgba(255,107,53,0.12) 0%,transparent 50%),radial-gradient(circle at 70% 70%,rgba(120,75,160,0.15) 0%,transparent 50%);pointer-events:none;animation:ambientFloat 20s ease-in-out infinite;z-index:-1}
 @keyframes ambientFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-2%,2%)}}
 .hook.hidden{display:none}
-.hook-container{max-width:480px;width:100%;position:relative;z-index:1}
-.hook-screen{display:none;flex-direction:column;align-items:center;opacity:0;transform:translateY(20px)}
+.hook-container{max-width:480px;width:100%;position:relative;z-index:1;max-height:100%;display:flex;flex-direction:column}
+.hook-screen{display:none;flex-direction:column;align-items:center;opacity:0;transform:translateY(20px);width:100%}
 .hook-screen.active{display:flex;animation:screenFadeIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
-.hook-screen-scrollable{justify-content:flex-start;padding-top:40px;padding-bottom:40px;overflow-y:auto}
+.hook-screen-scrollable{justify-content:flex-start;padding-top:40px;padding-bottom:40px;overflow-y:auto;max-height:calc(100vh - 48px)}
 @keyframes screenFadeIn{to{opacity:1;transform:translateY(0)}}
 .hook-line{font-size:clamp(32px,8vw,46px);font-weight:800;line-height:1.15;margin-bottom:6px;opacity:0;transform:translateY(30px);background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hook-line.show{animation:lineFadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards}
