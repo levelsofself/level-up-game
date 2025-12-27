@@ -302,6 +302,25 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .mode.newly-unlocked{border-color:var(--pink);box-shadow:0 0 20px rgba(255,60,172,0.5);animation:unlockPulse 2s ease-in-out infinite}
 .level.newly-unlocked{border:2px solid var(--pink);box-shadow:0 0 15px rgba(255,60,172,0.4);animation:unlockPulse 2s ease-in-out infinite}
 @keyframes unlockPulse{0%,100%{box-shadow:0 0 15px rgba(255,60,172,0.4)}50%{box-shadow:0 0 25px rgba(255,60,172,0.7)}}
+/* Streak risk pulsing fire */
+.streak-risk{position:absolute;top:-8px;right:-8px;font-size:20px;animation:streakPulse 1s ease-in-out infinite}
+@keyframes streakPulse{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.2);filter:brightness(1.3)}}
+/* NEW badge for recently unlocked content */
+.new-badge{position:absolute;top:-6px;right:-6px;background:linear-gradient(135deg,var(--green),#00B85D);color:#fff;font-size:9px;font-weight:800;padding:3px 6px;border-radius:8px;text-transform:uppercase;letter-spacing:0.5px;animation:newBadgePop 0.5s ease-out,newBadgeGlow 2s ease-in-out infinite 0.5s;z-index:5}
+@keyframes newBadgePop{0%{transform:scale(0);opacity:0}50%{transform:scale(1.2)}100%{transform:scale(1);opacity:1}}
+@keyframes newBadgeGlow{0%,100%{box-shadow:0 0 5px rgba(0,210,106,0.5)}50%{box-shadow:0 0 15px rgba(0,210,106,0.8)}}
+/* Scroll to top button */
+.scroll-top-btn{position:fixed;bottom:80px;right:20px;width:44px;height:44px;border-radius:50%;background:var(--card);border:2px solid var(--pink);color:var(--pink);font-size:20px;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:100;box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:all 0.3s ease}
+.scroll-top-btn.show{display:flex;animation:fadeInUp 0.3s ease}
+.scroll-top-btn:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(255,60,172,0.4)}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+/* First-time hint tooltip */
+.hint-tooltip{position:absolute;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:600;max-width:200px;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.3);animation:hintPop 0.4s ease-out}
+.hint-tooltip::after{content:'';position:absolute;border:8px solid transparent}
+.hint-tooltip.bottom::after{top:-16px;left:50%;transform:translateX(-50%);border-bottom-color:var(--purple)}
+.hint-tooltip.left::after{right:-16px;top:50%;transform:translateY(-50%);border-left-color:var(--pink)}
+@keyframes hintPop{0%{opacity:0;transform:scale(0.8)}100%{opacity:1;transform:scale(1)}}
+.hint-dismiss{margin-top:8px;font-size:11px;opacity:0.8;cursor:pointer;text-decoration:underline}
 .mode-icon{font-size:40px;margin-bottom:12px;line-height:1}
 .mode-name{font-size:16px;font-weight:700;margin-bottom:6px}
 .mode-desc{font-size:12px;color:var(--muted);line-height:1.4}
@@ -807,6 +826,9 @@ After 10 years of deep transformational work—Landmark, MITT, Insight Seminars,
 </div>
 </div>
 
+<!-- Scroll to top button -->
+<button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <script src="mirror-level1-individual.js" onerror="console.warn('Failed to load mirror-level1-individual.js')"></script>
 <script src="mirror-level2-family.js" onerror="console.warn('Failed to load mirror-level2-family.js')"></script>
 <script src="mirror-level3-groups.js" onerror="console.warn('Failed to load mirror-level3-groups.js')"></script>
@@ -847,8 +869,46 @@ const LEVELS=[{id:1,name:'Individual',color:'#FF6B35',desc:'Your relationship wi
 const XP_PER_LEVEL=500;
 let music=document.getElementById('music');music.volume=0.4;
 let musicOn=false,soundOn=true,currentCombo=0;
-let data=JSON.parse(localStorage.getItem('levelup_v7'))||{xp:0,level:1,coins:0,games:0,mirrorRecognized:0,mirrorTotal:0,agreementAccepted:0,agreementTotal:0,streak:0,lastDaily:null,lastLogin:null,loginDay:0,unlockedLevels:[1],unlockedAgreement:false,seenIntro:false,insightsCollection:[],newlyUnlockedLevels:[],seenAgreementUnlock:false};
+let data=JSON.parse(localStorage.getItem('levelup_v7'))||{xp:0,level:1,coins:0,games:0,mirrorRecognized:0,mirrorTotal:0,agreementAccepted:0,agreementTotal:0,streak:0,lastDaily:null,lastLogin:null,loginDay:0,unlockedLevels:[1],unlockedAgreement:false,seenIntro:false,insightsCollection:[],newlyUnlockedLevels:[],seenAgreementUnlock:false,seenScenarios:{mirror:[],agreement:[],decision:[]},favoriteInsights:[],firstTimeHints:{deepInsight:false,insights:false,pattern:false},unlockTimestamps:{}};
+// Migrate old data if needed
+if(!data.seenScenarios)data.seenScenarios={mirror:[],agreement:[],decision:[]};
+if(!data.favoriteInsights)data.favoriteInsights=[];
+if(!data.firstTimeHints)data.firstTimeHints={deepInsight:false,insights:false,pattern:false};
+if(!data.unlockTimestamps)data.unlockTimestamps={};
 let game={mode:null,scenarios:[],idx:0,answers:[],timer:null,timeLeft:15,useTimer:true,timerDuration:15,levelFilter:null,endlessMode:false,sessionXP:0,sessionInsights:0,sessionGames:0};
+
+// Haptic feedback for mobile
+function haptic(style='light'){
+  if(navigator.vibrate){
+    if(style==='light')navigator.vibrate(10);
+    else if(style==='medium')navigator.vibrate(25);
+    else if(style==='heavy')navigator.vibrate([50,30,50]);
+    else if(style==='success')navigator.vibrate([10,50,10,50,10]);
+    else if(style==='error')navigator.vibrate(100);
+  }
+}
+
+// Track seen scenarios to prioritize fresh content
+function markScenarioSeen(type,id){
+  if(!data.seenScenarios[type])data.seenScenarios[type]=[];
+  if(!data.seenScenarios[type].includes(id)){
+    data.seenScenarios[type].push(id);
+    // Keep only last 500 to prevent storage bloat
+    if(data.seenScenarios[type].length>500)data.seenScenarios[type]=data.seenScenarios[type].slice(-500);
+    save();
+  }
+}
+
+// Prioritize unseen scenarios in shuffle
+function smartShuffle(arr,type){
+  let seen=data.seenScenarios[type]||[];
+  let unseen=arr.filter(s=>!seen.includes(s.text||s.scenario||s.id));
+  let seenArr=arr.filter(s=>seen.includes(s.text||s.scenario||s.id));
+  // Prioritize unseen, but mix in some seen for variety
+  let shuffledUnseen=shuffle(unseen);
+  let shuffledSeen=shuffle(seenArr);
+  return [...shuffledUnseen,...shuffledSeen];
+}
 
 // Error handling for external scripts
 window.onerror=function(msg,url,line,col,error){
@@ -873,12 +933,13 @@ function shuffle(a){let arr=[...a];for(let i=arr.length-1;i>0;i--){let j=Math.fl
 function hashDate(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h=h&h}return Math.abs(h)}
 
 function playSound(f,d){if(!soundOn)return;try{let c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.frequency.value=f;o.connect(g);g.connect(c.destination);g.gain.setValueAtTime(0.15,c.currentTime);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+d);o.start();o.stop(c.currentTime+d)}catch(e){}}
-function positiveSound(){[523,659,784].forEach((f,i)=>setTimeout(()=>playSound(f,0.15),i*80))}
+function positiveSound(){haptic('light');[523,659,784].forEach((f,i)=>setTimeout(()=>playSound(f,0.15),i*80))}
 function neutralSound(){playSound(330,0.2)}
 function coinSound(){playSound(988,0.05);setTimeout(()=>playSound(1319,0.3),60)}
 function multiCoinSound(n){for(let i=0;i<Math.min(n,5);i++){setTimeout(()=>{playSound(988+i*100,0.05);setTimeout(()=>playSound(1319+i*100,0.2),40)},i*80)}}
-function levelUpSound(){[523,659,784,1047].forEach((f,i)=>setTimeout(()=>playSound(f,0.2),i*100))}
-function bonusSound(){[784,988,1175,1568].forEach((f,i)=>setTimeout(()=>playSound(f,0.15),i*60))}
+function levelUpSound(){haptic('success');[523,659,784,1047].forEach((f,i)=>setTimeout(()=>playSound(f,0.2),i*100))}
+function bonusSound(){haptic('medium');[784,988,1175,1568].forEach((f,i)=>setTimeout(()=>playSound(f,0.15),i*60))}
+function milestoneSound(){haptic('heavy');[659,784,988,1175,1319].forEach((f,i)=>setTimeout(()=>playSound(f,0.25),i*120))}
 function comboSound(n){let base=523;for(let i=0;i<Math.min(n,5);i++){setTimeout(()=>playSound(base+i*50,0.1),i*50)}}
 
 function addXP(amount){
@@ -888,12 +949,12 @@ function addXP(amount){
   if(newLevel>data.level){
     data.level=newLevel;levelUpSound();triggerConfetti();
     let unlockMsg='';
-    if(newLevel===2){data.unlockedAgreement=true;data.seenAgreementUnlock=false;if(!data.unlockedLevels.includes(2)){data.unlockedLevels.push(2);if(!data.newlyUnlockedLevels)data.newlyUnlockedLevels=[];data.newlyUnlockedLevels.push(2);}unlockMsg='🔓 Agreement Game unlocked!';}
-    if(newLevel===3&&!data.unlockedLevels.includes(3)){data.unlockedLevels.push(3);if(!data.newlyUnlockedLevels)data.newlyUnlockedLevels=[];data.newlyUnlockedLevels.push(3);unlockMsg='🔓 Level 3 unlocked!';}
-    if(newLevel>=5&&!data.unlockedLevels.includes(4)){data.unlockedLevels.push(4);if(!data.newlyUnlockedLevels)data.newlyUnlockedLevels=[];data.newlyUnlockedLevels.push(4);}
-    if(newLevel>=7&&!data.unlockedLevels.includes(5)){data.unlockedLevels.push(5);if(!data.newlyUnlockedLevels)data.newlyUnlockedLevels=[];data.newlyUnlockedLevels.push(5);}
-    if(newLevel>=10&&!data.unlockedLevels.includes(6)){data.unlockedLevels.push(6);if(!data.newlyUnlockedLevels)data.newlyUnlockedLevels=[];data.newlyUnlockedLevels.push(6);}
-    if(newLevel>=15&&!data.unlockedLevels.includes(7)){data.unlockedLevels.push(7);if(!data.newlyUnlockedLevels)data.newlyUnlockedLevels=[];data.newlyUnlockedLevels.push(7);}
+    if(newLevel===2){data.unlockedAgreement=true;data.seenAgreementUnlock=false;if(!data.unlockedLevels.includes(2)){data.unlockedLevels.push(2);if(!data.newlyUnlockedLevels)data.newlyUnlockedLevels=[];data.newlyUnlockedLevels.push(2);data.unlockTimestamps.agreement=Date.now();data.unlockTimestamps.level2=Date.now();}unlockMsg='🔓 Agreement Game unlocked!';}
+    if(newLevel===3&&!data.unlockedLevels.includes(3)){data.unlockedLevels.push(3);if(!data.newlyUnlockedLevels)data.newlyUnlockedLevels=[];data.newlyUnlockedLevels.push(3);data.unlockTimestamps.level3=Date.now();unlockMsg='🔓 Level 3 unlocked!';}
+    if(newLevel>=5&&!data.unlockedLevels.includes(4)){data.unlockedLevels.push(4);if(!data.newlyUnlockedLevels)data.newlyUnlockedLevels=[];data.newlyUnlockedLevels.push(4);data.unlockTimestamps.level4=Date.now();}
+    if(newLevel>=7&&!data.unlockedLevels.includes(5)){data.unlockedLevels.push(5);if(!data.newlyUnlockedLevels)data.newlyUnlockedLevels=[];data.newlyUnlockedLevels.push(5);data.unlockTimestamps.level5=Date.now();}
+    if(newLevel>=10&&!data.unlockedLevels.includes(6)){data.unlockedLevels.push(6);if(!data.newlyUnlockedLevels)data.newlyUnlockedLevels=[];data.newlyUnlockedLevels.push(6);data.unlockTimestamps.level6=Date.now();}
+    if(newLevel>=15&&!data.unlockedLevels.includes(7)){data.unlockedLevels.push(7);if(!data.newlyUnlockedLevels)data.newlyUnlockedLevels=[];data.newlyUnlockedLevels.push(7);data.unlockTimestamps.level7=Date.now();}
     showLevelUp(newLevel,unlockMsg);
   }
   save();updateXPBar();
@@ -993,31 +1054,66 @@ function checkStreakWarning(){
 function addInsight(text,level){if(text&&!data.insightsCollection.some(i=>i.text===text)){data.insightsCollection.push({text:text,level:level||1,date:new Date().toLocaleDateString()});game.sessionInsights++;if(data.insightsCollection.length>200)data.insightsCollection=data.insightsCollection.slice(-200);save()}}
 
 function updateHome(){
-  updateXPBar();checkDailyLogin();checkStreakWarning();checkCoachingBridge();checkMilestones();
+  updateXPBar();checkDailyLogin();checkStreakWarning();checkCoachingBridge();checkMilestones();checkFirstTimeHints();
   document.getElementById('statPlayed').textContent=data.games;
   document.getElementById('statInsights').textContent=data.insightsCollection?data.insightsCollection.length:0;
   document.getElementById('statStreak').textContent=data.streak||0;
+  
+  // Add pulsing fire for streak at risk
+  let streakEl=document.getElementById('statStreak').parentElement;
+  let existingFire=streakEl.querySelector('.streak-risk');
+  if(existingFire)existingFire.remove();
+  if(data.streak>=3&&data.lastDaily!==new Date().toDateString()){
+    let fire=document.createElement('span');fire.className='streak-risk';fire.textContent='🔥';
+    streakEl.style.position='relative';
+    streakEl.appendChild(fire);
+  }
+  
   let acceptRate=data.agreementTotal>0?Math.round((data.agreementAccepted/data.agreementTotal)*100):0;
   document.getElementById('statAcceptRate').textContent=acceptRate+'%';
   let today=new Date().toDateString(),daily=document.getElementById('dailyCard');
   if(data.lastDaily===today){daily.classList.add('done');document.getElementById('dailyCta').textContent='✓ Completed today'}
   else{daily.classList.remove('done');document.getElementById('dailyCta').textContent='Tap to join the global movement'}
   document.getElementById('mirrorMode').classList.remove('locked','newly-unlocked');document.getElementById('mirrorUnlock').textContent='';
+  
+  // Add NEW badge to Agreement mode if recently unlocked (within 3 days)
+  let agreementEl=document.getElementById('agreementMode');
+  let existingBadge=agreementEl.querySelector('.new-badge');
+  if(existingBadge)existingBadge.remove();
+  
   if(data.unlockedAgreement){
-    document.getElementById('agreementMode').classList.remove('locked');
+    agreementEl.classList.remove('locked');
     document.getElementById('agreementUnlock').textContent='';
-    if(!data.seenAgreementUnlock){document.getElementById('agreementMode').classList.add('newly-unlocked');}
+    if(!data.seenAgreementUnlock){agreementEl.classList.add('newly-unlocked');}
+    // Show NEW badge if unlocked within last 3 days
+    if(data.unlockTimestamps&&data.unlockTimestamps.agreement){
+      let daysSinceUnlock=(Date.now()-data.unlockTimestamps.agreement)/(1000*60*60*24);
+      if(daysSinceUnlock<3&&!data.seenAgreementUnlock){
+        let badge=document.createElement('span');badge.className='new-badge';badge.textContent='NEW';
+        agreementEl.style.position='relative';
+        agreementEl.appendChild(badge);
+      }
+    }
   }
-  else{document.getElementById('agreementMode').classList.add('locked');document.getElementById('agreementMode').classList.remove('newly-unlocked');document.getElementById('agreementUnlock').textContent='Reach Level 2'}
+  else{agreementEl.classList.add('locked');agreementEl.classList.remove('newly-unlocked');document.getElementById('agreementUnlock').textContent='Reach Level 2'}
   let map=document.getElementById('levelMap');map.innerHTML='';
   const UNLOCK_LEVELS={1:1,2:2,3:3,4:5,5:7,6:10,7:15};
   LEVELS.forEach(lv=>{
     let unlocked=data.unlockedLevels.includes(lv.id);
     let isNew=unlocked&&data.newlyUnlockedLevels&&data.newlyUnlockedLevels.includes(lv.id);
     let div=document.createElement('div');div.className='level'+(unlocked?' unlocked':' locked')+(isNew?' newly-unlocked':'');
+    div.style.position='relative';
     let unlockText='Reach Player Level '+UNLOCK_LEVELS[lv.id];
     div.innerHTML='<div class="level-num" style="background:'+lv.color+'">'+lv.id+'</div><div class="level-info"><div class="level-name">'+lv.name+(unlocked?'':' 🔒')+'</div><div class="level-desc">'+(unlocked?lv.desc:unlockText)+'</div></div>';
-    if(unlocked){div.onclick=()=>{if(isNew){data.newlyUnlockedLevels=data.newlyUnlockedLevels.filter(x=>x!==lv.id);save();div.classList.remove('newly-unlocked');}showLevelSelect(lv)};}map.appendChild(div);
+    // Add NEW badge for recently unlocked levels
+    if(isNew&&data.unlockTimestamps&&data.unlockTimestamps['level'+lv.id]){
+      let daysSince=(Date.now()-data.unlockTimestamps['level'+lv.id])/(1000*60*60*24);
+      if(daysSince<3){
+        let badge=document.createElement('span');badge.className='new-badge';badge.textContent='NEW';
+        div.appendChild(badge);
+      }
+    }
+    if(unlocked){div.onclick=()=>{if(isNew){data.newlyUnlockedLevels=data.newlyUnlockedLevels.filter(x=>x!==lv.id);save();div.classList.remove('newly-unlocked');let b=div.querySelector('.new-badge');if(b)b.remove();}showLevelSelect(lv)};}map.appendChild(div);
   });
   updateTimer();
   updatePatternCard();
@@ -1046,7 +1142,7 @@ function checkMilestones(){
   milestones.forEach(m=>{
     if(m.condition&&!data.milestones[m.id]){
       data.milestones[m.id]=true;
-      setTimeout(()=>{showBonusPopup(m.msg);addXP(m.reward);triggerConfetti()},500);
+      setTimeout(()=>{showBonusPopup(m.msg);milestoneSound();addXP(m.reward);triggerConfetti()},500);
       save();
     }
   });
@@ -1452,7 +1548,17 @@ function showLevelSelect(lv){
   document.getElementById('levelSelectTitle').textContent='Level '+lv.id+': '+lv.name;
   document.getElementById('levelSelectDesc').textContent=lv.desc;
   let levelInsightCount=data.insightsCollection?data.insightsCollection.filter(i=>i.level===lv.id).length:0;
-  document.getElementById('levelInsightsCount').textContent=levelInsightCount+' collected';
+  
+  // Calculate level mastery progress
+  let mirrorSeen=(data.seenScenarios&&data.seenScenarios.mirror)?data.seenScenarios.mirror.filter(s=>{
+    let scenario=MIRROR_SCENARIOS&&MIRROR_SCENARIOS.find(m=>m.text===s&&m.level===lv.id);
+    return scenario;
+  }).length:0;
+  let totalMirror=MIRROR_SCENARIOS?MIRROR_SCENARIOS.filter(s=>s.level===lv.id).length:300;
+  let progressPct=totalMirror>0?Math.round((mirrorSeen/totalMirror)*100):0;
+  
+  document.getElementById('levelInsightsCount').innerHTML=levelInsightCount+' insights collected<br><span style="font-size:11px;color:rgba(255,255,255,0.85);">📊 '+mirrorSeen+'/'+totalMirror+' scenarios explored ('+progressPct+'%)</span>';
+  
   let agrBtn=document.getElementById('levelAgreementBtn');
   let mixBtn=document.getElementById('levelMixedBtn');
   if(data.unlockedAgreement){
@@ -1895,7 +2001,8 @@ function startMirrorGame(lf){
   let pool=MIRROR_SCENARIOS.filter(s=>lf?s.level===lf:data.unlockedLevels.includes(s.level));
   if(pool.length===0){showToast('No scenarios for this level');return}
   let questionCount=game.endlessMode?Math.min(pool.length,25):15;
-  game.scenarios=shuffle(pool).slice(0,questionCount);
+  // Use smartShuffle to prioritize unseen scenarios
+  game.scenarios=smartShuffle(pool,'mirror').slice(0,questionCount);
   document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
   document.getElementById('gameMode').textContent=game.endlessMode?'♾️ Mirror (Endless)':'Mirror Game';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.add('hidden');
   showMirrorScenario();
@@ -1914,7 +2021,8 @@ function startAgreementGame(lf){
   let pool=DECISION_SCENARIOS.filter(s=>lf?s.level===lf:data.unlockedLevels.includes(s.level));
   if(pool.length===0){showToast('No scenarios for this level');return}
   let questionCount=game.endlessMode?Math.min(pool.length,25):15;
-  game.scenarios=shuffle(pool).slice(0,questionCount);
+  // Use smartShuffle to prioritize unseen scenarios
+  game.scenarios=smartShuffle(pool,'agreement').slice(0,questionCount);
   document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
   document.getElementById('gameMode').textContent=game.endlessMode?'♾️ Agreement (Endless)':'Agreement Game';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.remove('hidden');
   showAgreementScenario();
@@ -1945,7 +2053,10 @@ function selectMirrorChoice(ch,btn,sc){
   game.answers.push({recognized:ch.value,insight:sc.insight,text:sc.text,level:sc.level});
   addInsight(sc.insight,sc.level);
   // Mirror mode: no combos (no right/wrong answer), reduced XP for reflection
-  data.mirrorTotal++;if(ch.value)data.mirrorRecognized++;positiveSound();coinSound();addXP(5);maybeBonus();save();
+  data.mirrorTotal++;if(ch.value)data.mirrorRecognized++;positiveSound();coinSound();addXP(5);maybeBonus();
+  // Track seen scenario
+  markScenarioSeen('mirror',sc.text);
+  save();
   setTimeout(()=>showMirrorFeedback(sc.text,sc.insight,ch.value),400);
 }
 function showMirrorFeedback(txt,ins,rec){document.getElementById('fbIcon').textContent='💡';document.getElementById('fbIcon').style.color='var(--pink)';document.getElementById('fbTitle').textContent='Reflection';document.getElementById('fbLabel').textContent=rec?'✓ That\'s Me':'✗ Not Me';document.getElementById('fbText').innerHTML='<div style="font-size:14px;margin-bottom:10px;color:var(--text);">"'+txt+'"</div><div style="font-size:13px;color:var(--muted);font-style:italic;">'+ins+'</div>';document.getElementById('feedbackModal').classList.add('active')}
@@ -1964,6 +2075,8 @@ function selectAgreementChoice(ch,btn,sc){
   let isAcc=ch.type==='acceptance';game.answers.push({type:ch.type,isAcceptance:isAcc,insight:ch.insight,level:sc.level});
   if(isAcc){btn.classList.add('correct');data.agreementAccepted++;positiveSound();multiCoinSound(2);addXP(10);addInsight(ch.insight,sc.level);addCombo()}
   else{btn.classList.add('wrong');let acc=sc.choices.find(c=>c.type==='acceptance');document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(2);resetCombo()}
+  // Track seen scenario
+  markScenarioSeen('agreement',sc.scenario);
   data.agreementTotal++;maybeBonus();setTimeout(()=>showAgreementFeedback(ch,isAcc),500);
 }
 function showAgreementFeedback(ch,isAcc){document.getElementById('fbIcon').textContent=isAcc?'✓':'⚖️';document.getElementById('fbIcon').style.color=isAcc?'var(--green)':'var(--yellow)';document.getElementById('fbTitle').textContent=isAcc?'Acceptance':'Judgment';document.getElementById('fbLabel').textContent=isAcc?'Why this works':'Learning opportunity';document.getElementById('fbText').textContent=ch.insight;document.getElementById('feedbackModal').classList.add('active')}
@@ -2317,7 +2430,12 @@ function selectMixedDecision(ch,btn,sc){
 
 function showInsightsModal(filterLevel){
   let filter=document.getElementById('insightsFilter');
+  // Add favorites filter
+  let hasFavorites=data.favoriteInsights&&data.favoriteInsights.length>0;
   filter.innerHTML='<button style="padding:6px 12px;border-radius:20px;border:none;font-size:12px;font-weight:600;cursor:pointer;background:'+(filterLevel===null?'var(--pink)':'var(--card)')+';color:'+(filterLevel===null?'#fff':'var(--muted)')+';" onclick="showInsightsModal(null)">All</button>';
+  if(hasFavorites){
+    filter.innerHTML+='<button style="padding:6px 12px;border-radius:20px;border:none;font-size:12px;font-weight:600;cursor:pointer;background:'+(filterLevel==='favorites'?'var(--gold)':'var(--card)')+';color:'+(filterLevel==='favorites'?'#000':'var(--muted)')+';" onclick="showInsightsModal(\'favorites\')">⭐ Favorites</button>';
+  }
   LEVELS.forEach(lv=>{
     let hasInsights=data.insightsCollection&&data.insightsCollection.some(i=>i.level===lv.id);
     if(hasInsights){
@@ -2329,16 +2447,49 @@ function showInsightsModal(filterLevel){
   if(!data.insightsCollection||data.insightsCollection.length===0){
     list.innerHTML='<p style="color:var(--muted);text-align:center;padding:20px;">No insights yet. Play Mirror Game to collect insights about yourself!</p>';
   }else{
-    let filtered=filterLevel===null?data.insightsCollection:data.insightsCollection.filter(i=>i.level===filterLevel);
-    filtered.slice().reverse().forEach((insight,i)=>{
+    let filtered;
+    if(filterLevel==='favorites'){
+      filtered=data.insightsCollection.filter(i=>data.favoriteInsights.includes(i.text));
+    }else{
+      filtered=filterLevel===null?data.insightsCollection:data.insightsCollection.filter(i=>i.level===filterLevel);
+    }
+    filtered.slice().reverse().forEach((insight,idx)=>{
       let lv=LEVELS.find(l=>l.id===insight.level)||{color:'#888',name:'Unknown'};
+      let isFav=data.favoriteInsights&&data.favoriteInsights.includes(insight.text);
       let div=document.createElement('div');
-      div.style.cssText='background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px;';
-      div.innerHTML='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><span style="width:10px;height:10px;border-radius:50%;background:'+lv.color+';"></span><span style="font-size:12px;color:var(--muted);">Level '+insight.level+': '+lv.name+(insight.date?' • '+insight.date:'')+'</span></div><div style="font-size:14px;color:var(--text);">'+insight.text+'</div>';
+      div.style.cssText='background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px;position:relative;';
+      div.innerHTML='<button onclick="toggleFavoriteInsight(\''+btoa(encodeURIComponent(insight.text))+'\')" style="position:absolute;top:10px;right:10px;background:none;border:none;font-size:18px;cursor:pointer;opacity:'+(isFav?'1':'0.4')+';transition:all 0.2s;">'+(isFav?'⭐':'☆')+'</button><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;padding-right:30px;"><span style="width:10px;height:10px;border-radius:50%;background:'+lv.color+';"></span><span style="font-size:12px;color:var(--muted);">Level '+insight.level+': '+lv.name+(insight.date?' • '+insight.date:'')+'</span></div><div style="font-size:14px;color:var(--text);padding-right:30px;">'+insight.text+'</div>';
       list.appendChild(div);
     });
   }
   document.getElementById('insightsModal').classList.add('active');
+}
+
+function toggleFavoriteInsight(encodedText){
+  let text=decodeURIComponent(atob(encodedText));
+  if(!data.favoriteInsights)data.favoriteInsights=[];
+  let idx=data.favoriteInsights.indexOf(text);
+  if(idx>-1){
+    data.favoriteInsights.splice(idx,1);
+    haptic('light');
+  }else{
+    data.favoriteInsights.push(text);
+    haptic('medium');
+    showToast('⭐ Added to favorites!');
+  }
+  save();
+  // Refresh the modal
+  let currentFilter=document.querySelector('#insightsFilter button[style*="var(--pink)"]')||document.querySelector('#insightsFilter button[style*="var(--gold)"]');
+  let filterVal=null;
+  if(currentFilter){
+    if(currentFilter.textContent.includes('Favorites'))filterVal='favorites';
+    else if(currentFilter.textContent!=='All'){
+      let lvName=currentFilter.textContent.trim();
+      let lv=LEVELS.find(l=>l.name===lvName);
+      if(lv)filterVal=lv.id;
+    }
+  }
+  showInsightsModal(filterVal);
 }
 
 // PWA Install Logic
@@ -2385,6 +2536,64 @@ document.getElementById('iosClose').onclick=function(){
 // Show install banner for iOS after a delay
 if(isIOS&&!isInStandaloneMode&&!installDismissed){
   showInstallBanner();
+}
+
+// Scroll to top button logic
+window.addEventListener('scroll',function(){
+  let btn=document.getElementById('scrollTopBtn');
+  if(window.scrollY>400){btn.classList.add('show')}
+  else{btn.classList.remove('show')}
+});
+
+// First-time feature hints
+function checkFirstTimeHints(){
+  if(!data.firstTimeHints)data.firstTimeHints={};
+  // Show Deep Insight hint after 5+ games
+  if(data.games>=5&&!data.firstTimeHints.deepInsight){
+    setTimeout(()=>showFeatureHint('aiBtn','Tap here to see your Deep Insight analysis based on your gameplay!','left'),2000);
+  }
+  // Show Insights collection hint after 10+ insights
+  if((data.insightsCollection||[]).length>=10&&!data.firstTimeHints.insights){
+    setTimeout(()=>showFeatureHint('insightsStat','Tap to review all your collected insights!','bottom'),3000);
+  }
+}
+
+function showFeatureHint(elementId,text,position){
+  let el=document.getElementById(elementId);
+  if(!el)return;
+  // Remove any existing hints
+  document.querySelectorAll('.hint-tooltip').forEach(h=>h.remove());
+  
+  let hint=document.createElement('div');
+  hint.className='hint-tooltip '+position;
+  hint.innerHTML=text+'<div class="hint-dismiss" onclick="dismissHint(\''+elementId+'\')">Got it!</div>';
+  
+  let rect=el.getBoundingClientRect();
+  hint.style.position='fixed';
+  hint.style.zIndex='9999';
+  
+  if(position==='bottom'){
+    hint.style.top=(rect.bottom+12)+'px';
+    hint.style.left=(rect.left+rect.width/2)+'px';
+    hint.style.transform='translateX(-50%)';
+  }else if(position==='left'){
+    hint.style.top=(rect.top+rect.height/2)+'px';
+    hint.style.right=(window.innerWidth-rect.left+12)+'px';
+    hint.style.transform='translateY(-50%)';
+  }
+  
+  document.body.appendChild(hint);
+  haptic('light');
+  
+  // Auto-dismiss after 8 seconds
+  setTimeout(()=>{if(hint.parentNode)hint.remove()},8000);
+}
+
+function dismissHint(elementId){
+  document.querySelectorAll('.hint-tooltip').forEach(h=>h.remove());
+  if(elementId==='aiBtn')data.firstTimeHints.deepInsight=true;
+  if(elementId==='insightsStat')data.firstTimeHints.insights=true;
+  save();
 }
 
 if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
