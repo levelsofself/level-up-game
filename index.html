@@ -337,7 +337,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .level-info{flex:1}
 .level-name{font-size:15px;font-weight:600}
 .level-desc{font-size:12px;color:var(--muted);margin-top:2px}
-.action-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.action-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .action-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;text-decoration:none;color:var(--text);transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
 .action-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
 .action-btn:active{transform:scale(0.97)}
@@ -347,7 +347,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .action-btn.assess:hover{border-color:var(--blue);box-shadow:0 4px 15px rgba(47,128,237,0.3)}
 .action-btn.share{border-color:var(--green);background:linear-gradient(135deg,rgba(0,210,106,0.1),rgba(0,210,106,0.05))}
 .action-btn.share:hover{border-color:var(--green);box-shadow:0 4px 15px rgba(0,210,106,0.3)}
-.footer{text-align:center;padding:16px 0}
+.footer{text-align:center;padding:8px 0 16px 0}
 .footer-btns{display:flex;flex-direction:column;gap:12px;margin-bottom:12px}
 .footer-btn{display:block;padding:14px 24px;background:var(--card);border:2px solid var(--pink);border-radius:12px;color:var(--text);text-decoration:none;font-size:14px;font-weight:600;transition:var(--transition-fast)}
 .footer-btn:hover{background:rgba(255,60,172,0.15);transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,60,172,0.2)}
@@ -498,7 +498,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="toast" id="toast">+10 XP!</div>
 <div class="combo-display" id="comboDisplay">🔥 3x COMBO!</div>
 <div class="bonus-popup" id="bonusPopup"><div class="bonus-icon">🎁</div><div class="bonus-title">BONUS!</div><div class="bonus-sub" id="bonusText">+25 XP</div></div>
-<div class="levelup-popup" id="levelupPopup"><div class="levelup-content"><div class="levelup-icon" id="levelupIcon">⭐</div><div class="levelup-title">LEVEL UP!</div><div class="levelup-sub" id="levelupText">You're now Level 2</div><div class="levelup-unlock" id="levelupUnlock"></div><button class="levelup-btn" id="levelupBtn">Amazing!</button></div></div>
+<div class="levelup-popup" id="levelupPopup"><div class="levelup-content"><div class="levelup-icon" id="levelupIcon">⭐</div><div class="levelup-title">LEVEL UP!</div><div class="levelup-sub" id="levelupText">You're now Level 2</div><div class="levelup-unlock" id="levelupUnlock"></div><div style="display:flex;gap:10px;width:100%;"><button class="levelup-btn" id="levelupBtn" style="flex:1;">Continue</button><button class="levelup-btn" id="levelupShareBtn" style="flex:1;background:linear-gradient(135deg,var(--green),#00B85D);">📤 Share</button></div></div></div>
 
 <div class="hook" id="hook">
 <div class="hook-container">
@@ -796,6 +796,18 @@ After 10 years of deep transformational work—Landmark, MITT, Insight Seminars,
 </div>
 </div></div>
 
+<!-- Milestone Share Prompt Modal -->
+<div class="modal" id="milestoneShareModal"><div class="modal-content" style="text-align:center;">
+<div style="font-size:56px;margin-bottom:12px;" id="milestoneShareIcon">🏆</div>
+<div class="modal-title" id="milestoneShareTitle">Achievement Unlocked!</div>
+<div style="color:var(--gold);font-size:18px;font-weight:700;margin-bottom:12px;" id="milestoneShareMsg">10 Games Played!</div>
+<div style="color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:20px;">Share your progress and challenge your friends to discover their patterns!</div>
+<div style="display:flex;gap:10px;">
+<button onclick="document.getElementById('milestoneShareModal').classList.remove('active')" style="flex:1;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;color:var(--muted);font-size:15px;font-weight:600;cursor:pointer;">Maybe Later</button>
+<button onclick="shareMilestone();document.getElementById('milestoneShareModal').classList.remove('active')" style="flex:1;padding:14px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;">📤 Share Now</button>
+</div>
+</div></div>
+
 <!-- Shareable Pattern Card Modal -->
 <div class="share-card-modal" id="shareCardModal">
 <button class="share-card-close" onclick="document.getElementById('shareCardModal').classList.remove('active')">✕</button>
@@ -977,6 +989,37 @@ function showLevelUp(level,unlockMsg){
   document.getElementById('levelupPopup').classList.add('show');
 }
 document.getElementById('levelupBtn').onclick=function(){document.getElementById('levelupPopup').classList.remove('show')};
+document.getElementById('levelupShareBtn').onclick=function(){
+  document.getElementById('levelupPopup').classList.remove('show');
+  shareLevelUpCard();
+};
+
+function shareLevelUpCard(){
+  let level=data.level;
+  let icon=GROWTH_ICONS[Math.min(level-1,6)];
+  let games=data.games;
+  let insights=(data.insightsCollection||[]).length;
+  
+  // Get a recent insight if available
+  let recentInsight='';
+  if(data.insightsCollection&&data.insightsCollection.length>0){
+    let recent=data.insightsCollection[data.insightsCollection.length-1];
+    recentInsight=recent.text;
+  }
+  
+  let text=icon+' I just reached Level '+level+' on Level Up!\n\n';
+  text+='🎮 '+games+' games played\n';
+  text+='💡 '+insights+' insights collected\n';
+  if(data.streak>0)text+='🔥 '+data.streak+'-day streak\n';
+  if(recentInsight)text+='\nMy latest insight:\n"'+recentInsight.substring(0,100)+(recentInsight.length>100?'...':'')+'"';
+  text+='\n\nWhat\'s YOUR pattern?\n100levelup.com';
+  
+  if(navigator.share){
+    navigator.share({title:'Level Up - I reached Level '+level+'!',text:text,url:'https://100levelup.com'}).catch(()=>copyToClipboard(text));
+  }else{
+    copyToClipboard(text);
+  }
+}
 
 function addCombo(){
   currentCombo++;
@@ -1120,32 +1163,65 @@ function updateHome(){
 }
 
 // Milestone rewards system
+let pendingMilestoneShare=null;
 function checkMilestones(){
   if(!data.milestones)data.milestones={};
   let milestones=[
-    {id:'first_game',condition:data.games>=1,reward:25,msg:'🎮 First game completed! +25 XP'},
-    {id:'5_games',condition:data.games>=5,reward:50,msg:'🎯 5 games played! +50 XP'},
-    {id:'10_games',condition:data.games>=10,reward:75,msg:'🏆 10 games milestone! +75 XP'},
-    {id:'25_games',condition:data.games>=25,reward:100,msg:'⭐ 25 games champion! +100 XP'},
-    {id:'50_games',condition:data.games>=50,reward:150,msg:'👑 50 games legend! +150 XP'},
-    {id:'100_games',condition:data.games>=100,reward:250,msg:'🌟 100 GAMES MASTER! +250 XP'},
-    {id:'10_insights',condition:(data.insightsCollection||[]).length>=10,reward:30,msg:'💡 10 insights collected! +30 XP'},
-    {id:'50_insights',condition:(data.insightsCollection||[]).length>=50,reward:75,msg:'🧠 50 insights wisdom! +75 XP'},
-    {id:'100_insights',condition:(data.insightsCollection||[]).length>=100,reward:150,msg:'🔮 100 insights sage! +150 XP'},
-    {id:'3_streak',condition:data.streak>=3,reward:25,msg:'🔥 3-day streak! +25 XP'},
-    {id:'7_streak',condition:data.streak>=7,reward:50,msg:'🔥🔥 7-day streak! +50 XP'},
-    {id:'14_streak',condition:data.streak>=14,reward:100,msg:'🔥🔥🔥 14-day streak! +100 XP'},
-    {id:'30_streak',condition:data.streak>=30,reward:200,msg:'⚡ 30-DAY STREAK LEGEND! +200 XP'},
-    {id:'50_acceptance',condition:data.agreementTotal>=10&&(data.agreementAccepted/data.agreementTotal)>=0.5,reward:50,msg:'⚖️ 50%+ acceptance rate! +50 XP'},
-    {id:'80_acceptance',condition:data.agreementTotal>=20&&(data.agreementAccepted/data.agreementTotal)>=0.8,reward:100,msg:'💫 80%+ acceptance master! +100 XP'},
+    {id:'first_game',condition:data.games>=1,reward:25,msg:'🎮 First game completed! +25 XP',icon:'🎮',share:false},
+    {id:'5_games',condition:data.games>=5,reward:50,msg:'🎯 5 games played! +50 XP',icon:'🎯',share:true,shareMsg:'5 Games Milestone!'},
+    {id:'10_games',condition:data.games>=10,reward:75,msg:'🏆 10 games milestone! +75 XP',icon:'🏆',share:true,shareMsg:'10 Games Champion!'},
+    {id:'25_games',condition:data.games>=25,reward:100,msg:'⭐ 25 games champion! +100 XP',icon:'⭐',share:true,shareMsg:'25 Games Legend!'},
+    {id:'50_games',condition:data.games>=50,reward:150,msg:'👑 50 games legend! +150 XP',icon:'👑',share:true,shareMsg:'50 Games Master!'},
+    {id:'100_games',condition:data.games>=100,reward:250,msg:'🌟 100 GAMES MASTER! +250 XP',icon:'🌟',share:true,shareMsg:'100 GAMES MASTER!'},
+    {id:'10_insights',condition:(data.insightsCollection||[]).length>=10,reward:30,msg:'💡 10 insights collected! +30 XP',icon:'💡',share:true,shareMsg:'10 Insights Collected!'},
+    {id:'50_insights',condition:(data.insightsCollection||[]).length>=50,reward:75,msg:'🧠 50 insights wisdom! +75 XP',icon:'🧠',share:true,shareMsg:'50 Insights Wisdom!'},
+    {id:'100_insights',condition:(data.insightsCollection||[]).length>=100,reward:150,msg:'🔮 100 insights sage! +150 XP',icon:'🔮',share:true,shareMsg:'100 Insights Sage!'},
+    {id:'3_streak',condition:data.streak>=3,reward:25,msg:'🔥 3-day streak! +25 XP',icon:'🔥',share:false},
+    {id:'7_streak',condition:data.streak>=7,reward:50,msg:'🔥🔥 7-day streak! +50 XP',icon:'🔥',share:true,shareMsg:'7-Day Streak!'},
+    {id:'14_streak',condition:data.streak>=14,reward:100,msg:'🔥🔥🔥 14-day streak! +100 XP',icon:'🔥',share:true,shareMsg:'14-Day Streak!'},
+    {id:'30_streak',condition:data.streak>=30,reward:200,msg:'⚡ 30-DAY STREAK LEGEND! +200 XP',icon:'⚡',share:true,shareMsg:'30-DAY STREAK LEGEND!'},
+    {id:'50_acceptance',condition:data.agreementTotal>=10&&(data.agreementAccepted/data.agreementTotal)>=0.5,reward:50,msg:'⚖️ 50%+ acceptance rate! +50 XP',icon:'⚖️',share:false},
+    {id:'80_acceptance',condition:data.agreementTotal>=20&&(data.agreementAccepted/data.agreementTotal)>=0.8,reward:100,msg:'💫 80%+ acceptance master! +100 XP',icon:'💫',share:true,shareMsg:'80% Acceptance Master!'},
   ];
   milestones.forEach(m=>{
     if(m.condition&&!data.milestones[m.id]){
       data.milestones[m.id]=true;
-      setTimeout(()=>{showBonusPopup(m.msg);milestoneSound();addXP(m.reward);triggerConfetti()},500);
+      setTimeout(()=>{
+        showBonusPopup(m.msg);milestoneSound();addXP(m.reward);triggerConfetti();
+        // Show share prompt for significant milestones
+        if(m.share){
+          pendingMilestoneShare={icon:m.icon,msg:m.shareMsg,id:m.id};
+          setTimeout(()=>showMilestoneSharePrompt(),2000);
+        }
+      },500);
       save();
     }
   });
+}
+
+function showMilestoneSharePrompt(){
+  if(!pendingMilestoneShare)return;
+  document.getElementById('milestoneShareIcon').textContent=pendingMilestoneShare.icon;
+  document.getElementById('milestoneShareTitle').textContent='Achievement Unlocked!';
+  document.getElementById('milestoneShareMsg').textContent=pendingMilestoneShare.msg;
+  document.getElementById('milestoneShareModal').classList.add('active');
+}
+
+function shareMilestone(){
+  if(!pendingMilestoneShare)return;
+  let text=pendingMilestoneShare.icon+' '+pendingMilestoneShare.msg+'\n\n';
+  text+='I just hit this milestone on Level Up!\n';
+  text+='🎮 Level '+data.level+' • '+data.games+' games • '+(data.insightsCollection||[]).length+' insights\n';
+  if(data.streak>0)text+='🔥 '+data.streak+'-day streak\n';
+  text+='\nThis game reveals patterns you can\'t see yourself.\nWhat\'s YOUR pattern?\n';
+  text+='100levelup.com';
+  
+  if(navigator.share){
+    navigator.share({title:'Level Up Achievement: '+pendingMilestoneShare.msg,text:text,url:'https://100levelup.com'}).catch(()=>copyToClipboard(text));
+  }else{
+    copyToClipboard(text);
+  }
+  pendingMilestoneShare=null;
 }
 function updateTimer(){let now=new Date(),tom=new Date(now);tom.setDate(tom.getDate()+1);tom.setHours(0,0,0,0);let d=tom-now,h=String(Math.floor(d/3600000)).padStart(2,'0'),m=String(Math.floor((d%3600000)/60000)).padStart(2,'0'),s=String(Math.floor((d%60000)/1000)).padStart(2,'0');document.getElementById('dailyTimer').textContent='Resets in '+h+':'+m+':'+s}
 
@@ -1578,8 +1654,19 @@ function shareGame(){
     return;
   }
   
-  // Fallback to basic share
-  let text="I'm Level "+data.level+" on Level Up! 🎮 "+data.games+" games played, 🔥"+data.streak+"-day streak. Can you beat me?\n\n";
+  // Build enhanced share text with recent insight
+  let text="🎮 Just finished a game on Level Up!\n\n";
+  text+="I'm Level "+data.level+" with "+data.games+" games played";
+  if(data.streak>0)text+=" and a 🔥"+data.streak+"-day streak";
+  text+=".\n";
+  
+  // Add a recent insight if available
+  if(data.insightsCollection&&data.insightsCollection.length>0){
+    let recent=data.insightsCollection[data.insightsCollection.length-1];
+    text+='\n💡 Insight I just got:\n"'+recent.text.substring(0,80)+(recent.text.length>80?'...':'')+'"\n';
+  }
+  
+  text+="\nThis game sees patterns you can't. What's yours?\n";
   let url='https://100levelup.com';
   let fullText=text+url;
   if(navigator.share){
