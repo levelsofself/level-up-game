@@ -1978,6 +1978,7 @@ function timeUp(){
 document.getElementById('nextBtn').onclick=function(){document.getElementById('feedbackModal').classList.remove('active');game.idx++;if(game.idx>=game.scenarios.length)endGame();else{if(game.mode==='mirror')showMirrorScenario();else if(game.mode==='agreement')showAgreementScenario();else if(game.mode==='decision')showDecisionScenario();else if(game.mode==='mixed')showMixedScenario();}};
 
 function endGame(){
+  console.log('endGame called with mode:', game.mode, 'answers:', game.answers.length);
   if(game.timer)clearInterval(game.timer);data.games++;
   let score=0,total=game.answers.length;
   
@@ -1998,7 +1999,6 @@ function endGame(){
   
   // Show session XP earned
   if(game.sessionXP>0){
-    document.getElementById('sessionXP').textContent=game.sessionXP;
     document.getElementById('resultsXP').style.display='block';
     // Add session stats
     let sessionStats='';
@@ -2152,10 +2152,16 @@ function endGame(){
     document.getElementById('resultMsg').textContent=score+'/'+total+' correct!';
     insights.innerHTML='';game.answers.forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.textContent=(a.correct?'✓ ':'💡 ')+a.feedback;insights.appendChild(div)});
     if(score===3){triggerConfetti();showToast('🎉 Perfect! +30 XP');addXP(30)}
+  }else{
+    // Fallback for unknown mode - show generic results
+    console.warn('Unknown game mode:',game.mode);
+    document.getElementById('resultsTitle').textContent='Game Complete';
+    document.getElementById('finalScore').textContent=total+' Questions';
+    document.getElementById('resultMsg').textContent='Great job!';
   }
 }
 
-document.getElementById('homeBtn').onclick=function(){game.endlessMode=false;game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;document.getElementById('results').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
+document.getElementById('homeBtn').onclick=function(){game.mode=null;game.scenarios=[];game.answers=[];game.idx=0;game.endlessMode=false;game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;document.getElementById('results').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
 
 // Keep Playing button - continue same mode with 10 more questions
 document.getElementById('keepPlayingBtn').onclick=function(){
@@ -2187,7 +2193,7 @@ document.getElementById('endlessModeBtn').onclick=function(){
     startMixedGame(lf);
   }
 };
-document.getElementById('quitBtn').onclick=function(){if(game.timer)clearInterval(game.timer);game.endlessMode=false;game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;document.getElementById('game').classList.remove('active');document.getElementById('feedbackModal').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
+document.getElementById('quitBtn').onclick=function(){if(game.timer)clearInterval(game.timer);game.mode=null;game.scenarios=[];game.answers=[];game.idx=0;game.endlessMode=false;game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;document.getElementById('game').classList.remove('active');document.getElementById('feedbackModal').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
 document.getElementById('musicBtn').onclick=function(){if(musicOn){music.pause();musicOn=false;this.classList.remove('on')}else{music.play().then(()=>{musicOn=true;this.classList.add('on')}).catch(()=>{})}};
 document.getElementById('soundBtn').onclick=function(){soundOn=!soundOn;this.classList.toggle('on',soundOn);if(soundOn)coinSound()};
 document.getElementById('qaBtn').onclick=function(){document.getElementById('qaModal').classList.add('active')};
@@ -2365,6 +2371,6 @@ if(isIOS&&!isInStandaloneMode&&!installDismissed){
 if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
 setInterval(updateTimer,1000);
 </script>
-<script src="pattern-analysis.js"></script>
+<script src="pattern-analysis.js" onerror="console.warn('Failed to load pattern-analysis.js')"></script>
 </body>
 </html>

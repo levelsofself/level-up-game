@@ -196,7 +196,7 @@ const ENHANCED_ARCHETYPES = [
 ];
 
 // Contradiction patterns - when someone says "That's Me" to conflicting statements
-const CONTRADICTION_PAIRS = [
+const PATTERN_CONTRADICTION_PAIRS = [
   {
     patterns: ['say yes when I mean no', 'I have strong boundaries'],
     insight: 'You believe you have boundaries, but your actions tell a different story. The gap between intention and action is where your work lives.'
@@ -271,7 +271,7 @@ function detectContradictions(insights) {
   const contradictions = [];
   const texts = insights.map(i => (i.text || '').toLowerCase());
   
-  CONTRADICTION_PAIRS.forEach(pair => {
+  PATTERN_CONTRADICTION_PAIRS.forEach(pair => {
     const hasFirst = texts.some(t => pair.patterns[0].split(' ').some(word => t.includes(word)));
     const hasSecond = texts.some(t => pair.patterns[1].split(' ').some(word => t.includes(word)));
     
@@ -386,7 +386,7 @@ if (typeof window !== 'undefined') {
   window.PatternAnalysis = {
     THEME_PATTERNS,
     ENHANCED_ARCHETYPES,
-    CONTRADICTION_PAIRS,
+    PATTERN_CONTRADICTION_PAIRS,
     generateGrowthSummary,
     getDominantTheme,
     detectContradictions,
