@@ -115,7 +115,9 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .reveal-stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;font-weight:600}
 .reveal-cta{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.5;max-width:340px;text-align:center}
 .levels-compact{display:flex;flex-direction:column;gap:0;width:100%;max-width:400px;margin-bottom:20px}
-.level-compact{display:flex;align-items:center;gap:10px;background:var(--card);border:2px solid var(--border);border-radius:10px;padding:10px 14px;cursor:pointer;transition:all 0.25s ease;margin-bottom:6px}
+.level-compact{display:flex;align-items:center;gap:10px;background:var(--card);border:2px solid var(--border);border-radius:10px;padding:10px 14px;cursor:pointer;transition:all 0.25s ease;margin-bottom:6px;position:relative}
+.level-compact::after{content:'›';position:absolute;right:14px;font-size:18px;color:var(--muted);transition:transform 0.3s ease}
+.level-compact.selected::after{transform:rotate(90deg);color:var(--pink)}
 .level-compact:hover{border-color:var(--pink);transform:translateX(4px)}
 .level-compact.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));box-shadow:0 0 0 2px rgba(255,60,172,0.2)}
 .level-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;flex-shrink:0}
@@ -363,6 +365,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .results.active{display:block}
 .results h2{font-size:26px;margin-bottom:16px;font-weight:800;background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .score{font-size:72px;font-weight:900;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:20px 0;text-shadow:0 0 40px rgba(255,60,172,0.3);animation:scoreBounce 1s ease}
+.score.has-emoji{-webkit-text-fill-color:unset;background:none;color:var(--text)}
 @keyframes scoreBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 .result-msg{font-size:17px;color:var(--muted);margin-bottom:24px;line-height:1.6;padding:0 20px}
 .results-btn{width:100%;padding:18px;background:var(--grad-primary);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:12px;box-shadow:0 4px 15px rgba(255,60,172,0.3);transition:var(--transition-fast)}
@@ -1979,6 +1982,12 @@ document.getElementById('nextBtn').onclick=function(){document.getElementById('f
 function endGame(){
   if(game.timer)clearInterval(game.timer);data.games++;
   let score=0,total=game.answers.length;
+  
+  // Reset results screen state
+  document.getElementById('finalScore').classList.remove('has-emoji');
+  document.getElementById('insightsList').innerHTML='';
+  document.getElementById('resultMsg').textContent='';
+  
   if(game.mode==='mirror'){score=game.answers.filter(a=>a.recognized).length}
   else if(game.mode==='agreement'){score=game.answers.filter(a=>a.isAcceptance).length}
   else if(game.mode==='mixed'){score=game.answers.filter(a=>a.recognized||a.isAcceptance).length}
@@ -2142,6 +2151,7 @@ function endGame(){
       insights.appendChild(div);
     });
   }else if(game.mode==='decision'){
+    document.getElementById('finalScore').classList.add('has-emoji');
     document.getElementById('resultsTitle').textContent='Challenge Complete';document.getElementById('finalScore').textContent='🔥 '+data.streak;
     document.getElementById('resultMsg').textContent=score+'/'+total+' correct!';
     insights.innerHTML='';game.answers.forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.textContent=(a.correct?'✓ ':'💡 ')+a.feedback;insights.appendChild(div)});
