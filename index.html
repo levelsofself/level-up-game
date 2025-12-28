@@ -79,7 +79,7 @@ body.game-active{overflow:hidden}
 .hook-line{font-size:clamp(26px,6.5vw,38px);font-weight:800;line-height:1.15;margin-bottom:4px;opacity:0;transform:translateY(30px);background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap}
 .hook-line.show{animation:lineFadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards}
 @keyframes lineFadeUp{to{opacity:1;transform:translateY(0)}}
-.hook-sub{font-size:16px;color:var(--text);line-height:1.4;margin:20px 0;opacity:0;font-weight:500;max-width:300px;white-space:normal}
+.hook-sub{font-size:16px;color:var(--text);line-height:1.4;margin:20px 0;opacity:0;font-weight:500;max-width:340px;white-space:normal}
 .hook-sub.show{animation:lineFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
 .hook-btn{padding:18px 48px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:16px;color:#fff;font-size:18px;font-weight:700;cursor:pointer;opacity:0;transform:translateY(20px);box-shadow:0 4px 24px rgba(255,60,172,0.4);transition:all 0.3s cubic-bezier(0.16,1,0.3,1)}
 .hook-btn.show{animation:btnFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards}
@@ -428,7 +428,7 @@ body.game-active{overflow:hidden}
 .timer-fill::after{content:'';position:absolute;top:0;right:0;bottom:0;width:4px;background:rgba(255,255,255,0.5);animation:pulse 1s infinite}
 .timer-fill.warn{background:var(--yellow)}
 .timer-fill.danger{background:var(--red)}
-.scenario{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px;position:relative;animation:fadeIn 0.3s ease}
+.scenario{background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:18px;margin-bottom:14px;position:relative;animation:fadeIn 0.3s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .scenario-cat{display:inline-block;background:var(--border);padding:5px 10px;border-radius:16px;font-size:10px;text-transform:uppercase;margin-bottom:12px;font-weight:600;letter-spacing:0.5px}
 .scenario-text{font-size:16px;line-height:1.6}
@@ -577,7 +577,7 @@ body.game-active{overflow:hidden}
 <div class="hook-screen active" id="hookScreen1">
 <div class="hook-line" id="line1">See the patterns</div>
 <div class="hook-line" id="line2">that quietly run your life.</div>
-<div class="hook-sub" id="hookSub">Discover why you keep repeating the same mistakes.</div>
+<div class="hook-sub" id="hookSub">Discover why you keep repeating<br>the same mistakes.</div>
 <button class="hook-btn" id="hookBtn">Prove it</button>
 </div>
 <!-- Screen 2: Recognition -->
@@ -613,7 +613,6 @@ body.game-active{overflow:hidden}
 <div class="hook-progress"><span class="h-dot done"></span><span class="h-dot done"></span><span class="h-dot active"></span><span class="h-dot"></span></div>
 <div class="hook-question-title">This isn't a flaw.</div>
 <div class="hook-question-sub">It's a signal you're solving the problem at the wrong level.</div>
-<div class="reveal-divider"></div>
 <div class="levels-intro">Tap each level to learn more:</div>
 <div class="levels-compact">
 <div class="level-compact" onclick="toggleLevelInfo(this, 1)" data-level="1"><div class="level-dot" style="background:#FF6B35">1</div><div class="level-compact-info"><span class="level-compact-name">Individual</span><span class="level-compact-desc">Your relationship with yourself</span></div></div>
