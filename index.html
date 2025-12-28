@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Level Up Game v3.0 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
-<!-- Enhanced: 357 Decision scenarios, 10 themes, core wounds, contradictions, level insights -->
+<!-- Level Up Game v4.0 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
+<!-- v4.0: Pattern Analysis, Dynamic WhatsApp, Global Stats, Atmospheric Levels, Safe Haptics, Shuffled Choices -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -44,6 +44,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+html{background:#0d0a1a;min-height:100%;min-height:-webkit-fill-available}
 :root{
   --bg:#0d0a1a;--card:rgba(30,26,46,0.95);--border:#3d3655;--text:#f5f0ff;--muted:#b8b0cc;
   --pink:#FF3CAC;--orange:#FF6B35;--purple:#784BA0;--blue:#2F80ED;--green:#00D26A;--yellow:#F7C948;--silver:#C0C0C0;--red:#FF4757;--gold:#FFD700;--cyan:#00D8FF;
@@ -57,7 +58,7 @@
   --transition-fast:all 0.2s ease;
   --transition-normal:all 0.3s ease
 }
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);min-height:100vh;color:var(--text);overflow-x:hidden}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#0d0a1a;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);min-height:100vh;min-height:-webkit-fill-available;color:var(--text);overflow-x:hidden}
 body::-webkit-scrollbar{display:none}
 *{scrollbar-width:none}
 .app{max-width:500px;margin:0 auto;padding:16px;padding-top:20px;padding-bottom:40px}
@@ -180,6 +181,31 @@ body.game-active{overflow:hidden}
 .share-card-btn.secondary:hover{background:rgba(255,255,255,0.08);border-color:var(--pink)}
 .share-card-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;z-index:10}
 .share-card-close:hover{background:rgba(255,255,255,0.1);color:var(--text)}
+
+/* ============ GLOBAL ACCEPTANCE RATE ============ */
+.global-stat{display:flex;align-items:center;gap:8px;background:rgba(120,75,160,0.15);border:1px solid rgba(120,75,160,0.3);border-radius:10px;padding:10px 14px;margin-top:12px;font-size:12px}
+.global-stat-icon{font-size:16px}
+.global-stat-text{color:var(--muted)}
+.global-stat-text strong{color:var(--text);font-weight:700}
+.global-stat-pulse{width:8px;height:8px;background:var(--green);border-radius:50%;animation:globalPulse 2s infinite;margin-left:auto}
+@keyframes globalPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.2)}}
+
+/* ============ PROTOCOL REVEAL (Enhanced Bridge) ============ */
+.bridge-protocol{background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:12px;padding:14px;margin-bottom:16px;position:relative;z-index:1}
+.bridge-protocol-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700;margin-bottom:6px}
+.bridge-protocol-name{font-size:16px;font-weight:700;color:var(--text)}
+
+/* ============ ATMOSPHERIC LEVEL BACKGROUNDS ============ */
+.game-atmosphere{position:fixed;inset:0;pointer-events:none;z-index:0;transition:opacity 0.8s ease,background 0.8s ease;opacity:0}
+.game-atmosphere.active{opacity:1}
+.game-atmosphere.level-1{background:radial-gradient(circle at 50% 50%,rgba(255,107,53,0.12) 0%,transparent 60%)}
+.game-atmosphere.level-2{background:radial-gradient(circle at 50% 50%,rgba(255,60,172,0.10) 0%,transparent 60%)}
+.game-atmosphere.level-3{background:radial-gradient(circle at 50% 50%,rgba(120,75,160,0.10) 0%,transparent 60%)}
+.game-atmosphere.level-4{background:radial-gradient(circle at 50% 50%,rgba(47,128,237,0.08) 0%,transparent 60%)}
+.game-atmosphere.level-5{background:radial-gradient(circle at 50% 50%,rgba(0,210,106,0.07) 0%,transparent 60%)}
+.game-atmosphere.level-6{background:radial-gradient(circle at 50% 30%,rgba(247,201,72,0.08) 0%,transparent 50%)}
+.game-atmosphere.level-7{background:radial-gradient(ellipse at 50% 0%,rgba(232,213,255,0.12) 0%,transparent 50%)}
+
 /* Coaching Bridge */
 .coaching-bridge{display:none;background:var(--card);border:2px solid var(--purple);border-radius:20px;padding:24px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 4px 30px rgba(120,75,160,0.2)}
 .coaching-bridge::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--pink),var(--purple))}
@@ -458,9 +484,9 @@ body.game-active{overflow:hidden}
 @keyframes comboPop{0%{transform:translateX(-50%) scale(0.5)}50%{transform:translateX(-50%) scale(1.2)}100%{transform:translateX(-50%) scale(1)}}
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--grad-success);color:#fff;padding:14px 28px;border-radius:14px;font-size:14px;font-weight:600;opacity:0;transition:var(--transition-normal);z-index:500;pointer-events:none;box-shadow:0 4px 20px rgba(0,210,106,0.4)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-10px)}
-.qa-item{border-bottom:1px solid var(--border);padding:14px 0}
+.qa-item{border-bottom:1px solid var(--border);padding:10px 0}
 .qa-item:last-of-type{border:none}
-.qa-question{font-size:14px;font-weight:600;cursor:pointer;padding:10px 0;display:flex;justify-content:space-between;align-items:center;color:var(--text);gap:12px;transition:var(--transition-fast)}
+.qa-question{font-size:14px;font-weight:600;cursor:pointer;padding:6px 0;display:flex;justify-content:space-between;align-items:center;color:var(--text);gap:12px;transition:var(--transition-fast)}
 .qa-question:hover{color:var(--pink)}
 .qa-question::after{content:'+';color:var(--pink);font-size:20px;font-weight:700;width:28px;height:28px;background:rgba(255,60,172,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition-normal)}
 .qa-item.open .qa-question::after{content:'−';background:rgba(255,60,172,0.3)}
@@ -505,6 +531,8 @@ body.game-active{overflow:hidden}
 </style>
 </head>
 <body>
+<!-- Atmospheric background for level-based color shifts -->
+<div class="game-atmosphere" id="gameAtmosphere"></div>
 <canvas id="confetti"></canvas>
 <div class="install-banner" id="installBanner">
 <button class="install-banner-close" id="installClose">×</button>
@@ -635,17 +663,23 @@ body.game-active{overflow:hidden}
 <span class="bridge-icon">🔄</span>
 <span class="bridge-label">Pattern Detected</span>
 </div>
-<div class="bridge-title">This keeps showing up.</div>
+<div class="bridge-title" id="bridgeTitle">This keeps showing up.</div>
 <div class="bridge-pattern-count" id="bridgePatternCount">
 <span>⚡</span>
 <span id="bridgePatternText">Self-worth pattern appeared 3 times recently</span>
+</div>
+<!-- NEW: Protocol Reveal Section -->
+<div class="bridge-protocol" id="bridgeProtocol">
+<div class="bridge-protocol-label">Arthur Has a Protocol For This</div>
+<div class="bridge-protocol-name" id="bridgeProtocolName">The Control Release Protocol</div>
 </div>
 <div class="bridge-insight">
 <strong>You're seeing it clearly now.</strong> That's the first step. But seeing a pattern and breaking it are two different things.
 </div>
 <div class="bridge-cta">Most people can't break lifelong patterns alone. That's not weakness — it's how patterns work.</div>
 <div class="bridge-btns">
-<a href="https://wa.me/+18184399770?text=Hi%20Arthur%2C%20I%27ve%20been%20playing%20Level%20Up%20and%20I%20keep%20seeing%20the%20same%20patterns.%20Can%20we%20talk%3F" target="_blank" class="bridge-btn primary">Talk to Arthur →</a>
+<!-- Dynamic WhatsApp with pre-filled pattern-specific message -->
+<a href="#" id="bridgeWhatsAppBtn" target="_blank" class="bridge-btn primary">View Protocol →</a>
 <button class="bridge-btn secondary" onclick="dismissCoachingBridge()">Keep Playing</button>
 </div>
 <div class="bridge-dismiss"><a href="#" onclick="dismissCoachingBridge();return false;">Remind me later</a></div>
@@ -696,7 +730,14 @@ body.game-active{overflow:hidden}
 </div>
 </div>
 
-<div class="game" id="game"><div class="game-header"><div class="game-info"><div class="game-mode" id="gameMode">Mirror</div><div id="gameProgress">1/5</div><div class="game-combo" id="gameCombo"></div></div><button class="quit" id="quitBtn">✕</button></div><div class="timer" id="timerBar"><div class="timer-fill" id="timerFill"></div></div><div class="scenario"><div class="scenario-cat" id="scenarioCat">Level 1: Individual</div><div class="scenario-text" id="scenarioText">Loading...</div></div><div class="choices" id="choices"></div></div>
+<div class="game" id="game"><div class="game-header"><div class="game-info"><div class="game-mode" id="gameMode">Mirror</div><div id="gameProgress">1/5</div><div class="game-combo" id="gameCombo"></div></div><button class="quit" id="quitBtn">✕</button></div><div class="timer" id="timerBar"><div class="timer-fill" id="timerFill"></div></div><div class="scenario"><div class="scenario-cat" id="scenarioCat">Level 1: Individual</div><div class="scenario-text" id="scenarioText">Loading...</div>
+<!-- Global Acceptance Rate -->
+<div class="global-stat" id="globalStat" style="display:none;">
+<span class="global-stat-icon">🌍</span>
+<span class="global-stat-text"><strong id="globalPercent">73%</strong> of people also find this level challenging</span>
+<span class="global-stat-pulse"></span>
+</div>
+</div><div class="choices" id="choices"></div></div>
 
 <div class="results" id="results"><h2 id="resultsTitle">Game Complete</h2><div class="score" id="finalScore">0</div><div class="results-xp" id="resultsXP" style="display:none;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin:12px 0;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--gold);">+<span id="sessionXP">0</span> XP</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">This session</div></div><p class="result-msg" id="resultMsg">Keep going!</p><div class="insights-list" id="insightsList"></div><div class="results-actions" style="display:flex;flex-direction:column;gap:10px;margin-top:16px;"><button class="results-btn" id="keepPlayingBtn" style="background:linear-gradient(135deg,var(--green),#00B85D);display:none;">🔄 Keep Playing (+10 more)</button><button class="results-btn" id="endlessModeBtn" style="background:linear-gradient(135deg,var(--purple),var(--blue));display:none;">♾️ Endless Mode</button><button class="results-btn" id="homeBtn" style="background:var(--card);border:2px solid var(--pink);">🏠 Back to Home</button></div><button class="results-share" id="resultsShare">📤 Share Results</button><div id="resultsCoachingCta" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);text-align:center;"><p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Ready to break these patterns for good?</p><a href="https://wa.me/+18184399770?text=Hi%20Arthur%2C%20I%27ve%20been%20playing%20Level%20Up%20and%20I%27m%20ready%20to%20go%20deeper.%20I%27m%20interested%20in%20integration." target="_blank" style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;">✨ Integrate with Arthur</a></div></div>
 </div>
@@ -705,22 +746,22 @@ body.game-active{overflow:hidden}
 <button onclick="document.getElementById('qaModal').classList.remove('active')" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;">✕</button>
 <div class="modal-title" style="margin-top:8px;">Questions & Answers</div>
 <button class="scroll-bottom-btn" onclick="document.getElementById('qaBottom').scrollIntoView({behavior:'smooth'})">↓</button>
+<div class="qa-item"><div class="qa-question">What does "Acceptance ≠ Agreement" mean?</div><div class="qa-answer">This is the core philosophy. <strong>Acceptance</strong> means acknowledging reality as it is. <strong>Agreement</strong> means endorsing it.<br><br>You can accept that something IS without agreeing it SHOULD BE. Acceptance is the first step to change - you can't transform what you won't acknowledge.</div></div>
 <div class="qa-item"><div class="qa-question">What is the 7 Levels framework?</div><div class="qa-answer">The 7 Levels of Self maps human growth across 7 dimensions: Individual (self), Family (close relationships), Groups (teams/friends), Community (local impact), Society (systems/culture), World (global connection), and Generations (legacy). You can't skip levels - each must be mastered before climbing higher.</div></div>
 <div class="qa-item"><div class="qa-question">What's the difference between the 3 games?</div><div class="qa-answer"><strong style="color:var(--pink);">🪞 Mirror Game:</strong> Self-reflection. See patterns honestly. No right/wrong - just recognition.<br><br><strong style="color:var(--purple);">⚖️ Agreement Game:</strong> Train yourself to choose acceptance over judgment. Timed to build instinct.<br><br><strong style="color:var(--orange);">🌍 Worldwide Challenge:</strong> Same 3 scenarios for everyone globally. One chance daily. Builds streak.</div></div>
-<div class="qa-item"><div class="qa-question">How does scoring and leveling work?</div><div class="qa-answer"><strong>XP System:</strong> Every answer earns XP. Correct/accepting answers earn more. Combos add bonus XP!<br><br><strong>Level Up:</strong> Every 500 XP = 1 level. Levels unlock new game modes and framework levels.<br><br><strong>Unlocks:</strong><br>• Level 2: Agreement Game + Family<br>• Level 3: Groups<br>• Level 5: Community<br>• Level 7: Society<br>• Level 10: World<br>• Level 15: Generations</div></div>
-<div class="qa-item"><div class="qa-question">What does "Acceptance ≠ Agreement" mean?</div><div class="qa-answer">This is the core philosophy. <strong>Acceptance</strong> means acknowledging reality as it is. <strong>Agreement</strong> means endorsing it.<br><br>You can accept that something IS without agreeing it SHOULD BE. Acceptance is the first step to change - you can't transform what you won't acknowledge.</div></div>
+<div class="qa-item"><div class="qa-question">What are Insights and how do I use them?</div><div class="qa-answer">Every pattern you recognize in Mirror Game gets saved to your Insights collection. Tap the <strong>Insights stat</strong> on the home screen to review them.<br><br>They're organized by level and date so you can:<br>• Track your growth over time<br>• Share with therapists or coaches<br>• Notice recurring patterns<br>• Celebrate your self-awareness journey</div></div>
 <div class="qa-item"><div class="qa-question">What is the ❤️ Deep Insight button?</div><div class="qa-answer">Deep Insight examines your gameplay patterns and generates personalized insights about your growth journey:<br><br>• <strong>Your Growth Pattern:</strong> A personalized summary of where you are<br>• <strong>Self-Awareness & Acceptance Scores:</strong> How you see and accept yourself<br>• <strong>Recurring Themes:</strong> Patterns like boundaries, control, self-worth<br>• <strong>Your Archetype:</strong> A growth personality based on your patterns<br>• <strong>Recommended Practice:</strong> Which level to focus on next<br><br>Play at least 10 games to unlock this feature.</div></div>
 <div class="qa-item"><div class="qa-question">What are Archetypes?</div><div class="qa-answer">Based on your gameplay patterns, you're matched with one of these growth archetypes:<br><br><strong style="color:#FF6B35;">🔥 The Boundary Builder:</strong> Learning to protect your energy<br><strong style="color:#784BA0;">🔮 The Pattern Seeker:</strong> Seeing connections others miss<br><strong style="color:#2F80ED;">🌊 The Flow Finder:</strong> Releasing control for peace<br><strong style="color:#00D26A;">🌱 The Growth Gardener:</strong> Nurturing steady progress<br><strong style="color:#F7C948;">⚡ The Truth Teller:</strong> Embracing radical honesty<br><strong style="color:#FF3CAC;">💫 The Integration Master:</strong> Balancing all dimensions</div></div>
-<div class="qa-item"><div class="qa-question">What are Insights and how do I use them?</div><div class="qa-answer">Every pattern you recognize in Mirror Game gets saved to your Insights collection. Tap the <strong>Insights stat</strong> on the home screen to review them.<br><br>They're organized by level and date so you can:<br>• Track your growth over time<br>• Share with therapists or coaches<br>• Notice recurring patterns<br>• Celebrate your self-awareness journey</div></div>
-<div class="qa-item"><div class="qa-question">What is Mixed Mode?</div><div class="qa-answer">When you tap a level on the Journey map, you can choose <strong>Mixed Mode</strong> which combines Mirror Game and Agreement Game questions in a shuffled order.<br><br>This is great for:<br>• Variety in gameplay<br>• Testing both recognition AND acceptance skills<br>• Focused practice on a specific level</div></div>
+<div class="qa-item"><div class="qa-question">How does scoring and leveling work?</div><div class="qa-answer"><strong>XP System:</strong> Every answer earns XP. Correct/accepting answers earn more. Combos add bonus XP!<br><br><strong>Level Up:</strong> Every 500 XP = 1 level. Levels unlock new game modes and framework levels.<br><br><strong>Unlocks:</strong><br>• Level 2: Agreement Game + Family<br>• Level 3: Groups<br>• Level 5: Community<br>• Level 7: Society<br>• Level 10: World<br>• Level 15: Generations</div></div>
 <div class="qa-item"><div class="qa-question">How do streaks and bonuses work?</div><div class="qa-answer"><strong>Daily Login Bonus:</strong> Log in each day to claim increasing XP rewards (up to 100 XP on day 7).<br><br><strong>Streak:</strong> Complete the Worldwide Challenge daily to build your streak. Miss a day and it resets!<br><br><strong>Combos:</strong> Get multiple correct answers in a row for bonus XP (5x combo = +15 XP, 10x = +40 XP).</div></div>
+<div class="qa-item"><div class="qa-question">What is Mixed Mode?</div><div class="qa-answer">When you tap a level on the Journey map, you can choose <strong>Mixed Mode</strong> which combines Mirror Game and Agreement Game questions in a shuffled order.<br><br>This is great for:<br>• Variety in gameplay<br>• Testing both recognition AND acceptance skills<br>• Focused practice on a specific level</div></div>
+<div class="qa-item"><div class="qa-question">Can I work with Arthur directly?</div><div class="qa-answer"><strong style="color:var(--pink);">Yes!</strong> Arthur offers 1-on-1 integration sessions for people who are ready to go deeper.<br><br><strong style="color:var(--gold);">$500</strong>/session<br><br><em style="color:var(--muted);">If you need a discount, just ask.</em><br><br><button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('coachingModal').classList.add('active');" style="padding:12px 20px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">💬 Book a Session</button></div></div>
+<div class="qa-item"><div class="qa-question">Is there a deeper assessment?</div><div class="qa-answer">Yes! The <strong>Full Assessment</strong> gives you a comprehensive breakdown of where you are across all 7 levels, with personalized insights and recommendations.<br><br><a href="https://selfcheck.100levelup.com/assessment.html" target="_blank" style="display:inline-block;padding:12px 20px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;">📋 Take Full Assessment</a></div></div>
 <div class="qa-item"><div class="qa-question">Can I use this with my therapist or coach?</div><div class="qa-answer">Absolutely! Your insights reveal growth patterns that can deepen therapeutic or coaching work.<br><br>Ways to use it:<br>• Share your Insights collection<br>• Discuss your archetype and growth edge<br>• Track progress between sessions<br>• Use scenarios as conversation starters</div></div>
 <div class="qa-item"><div class="qa-question">Is this a substitute for therapy?</div><div class="qa-answer"><strong style="color:var(--yellow);">No.</strong> This game is for self-reflection and personal growth—it is not therapy, diagnosis, or treatment.<br><br>If you're experiencing a mental health crisis, please reach out for professional support:<br><br><strong style="color:var(--green);">🆘 Crisis Resources:</strong><br>• <strong>988 Suicide & Crisis Lifeline:</strong> Call or text 988 (US)<br>• <strong>Crisis Text Line:</strong> Text HOME to 741741<br>• <strong>International:</strong> <a href="https://findahelpline.com" target="_blank" style="color:var(--blue);">findahelpline.com</a><br><br><em style="color:var(--muted);">You are not alone. Help is available.</em></div></div>
 <div class="qa-item"><div class="qa-question">Is my data private?</div><div class="qa-answer"><strong style="color:var(--green);">Yes.</strong> All your game data, insights, and progress are stored locally on your device only.<br><br>• We don't collect personal information<br>• Nothing is sent to any server<br>• Your reflections stay completely private<br>• Clearing your browser data will reset your progress<br><br><em style="color:var(--muted);">Your growth journey is yours alone.</em></div></div>
-<div class="qa-item"><div class="qa-question">Can I work with Arthur directly?</div><div class="qa-answer"><strong style="color:var(--pink);">Yes!</strong> Arthur offers 1-on-1 integration sessions for people who are ready to go deeper.<br><br><strong style="color:var(--gold);">$500</strong>/session<br><br><em style="color:var(--muted);">If you need a discount, just ask.</em><br><br><button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('coachingModal').classList.add('active');" style="padding:12px 20px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">💬 Book a Session</button></div></div>
-<div class="qa-item"><div class="qa-question">Is there a deeper assessment?</div><div class="qa-answer">Yes! The <strong>Full Assessment</strong> gives you a comprehensive breakdown of where you are across all 7 levels, with personalized insights and recommendations.<br><br><a href="https://selfcheck.100levelup.com/assessment.html" target="_blank" style="display:inline-block;padding:12px 20px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;">📋 Take Full Assessment</a></div></div>
 <div class="qa-item"><div class="qa-question">How can I share this game?</div><div class="qa-answer">Share with friends who might benefit from seeing their patterns!<br><br><button onclick="if(navigator.share){navigator.share({title:'Level Up - 7 Levels of Self',text:'See the patterns that quietly run your life.',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:12px 20px;background:var(--card);border:2px solid var(--pink);border-radius:10px;color:var(--text);font-size:14px;font-weight:600;cursor:pointer;">📤 Share This Game</button></div></div>
-<div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+<div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;padding-top:8px;">
 <button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('founderModal').classList.add('active');" style="padding:14px;background:var(--card);border:2px solid var(--gold);border-radius:12px;color:var(--text);font-size:15px;font-weight:600;cursor:pointer;">👤 Meet the Founder</button>
 <button id="resetBtn" style="padding:14px;background:transparent;border:2px solid var(--red);border-radius:12px;color:var(--red);font-size:14px;font-weight:600;cursor:pointer;">🔄 Reset All Progress</button>
 </div>
@@ -907,7 +948,9 @@ After 10 years of deep transformational work—Landmark, MITT, Insight Seminars,
 <script src="decision-level5-society.js" onerror="console.warn('Failed to load decision-level5-society.js')"></script>
 <script src="decision-level6-world.js" onerror="console.warn('Failed to load decision-level6-world.js')"></script>
 <script src="decision-level7-generations.js" onerror="console.warn('Failed to load decision-level7-generations.js')"></script>
-<!-- NEW: Enhanced Deep Insight System -->
+<!-- Pattern Analysis Engine -->
+<script src="pattern-analysis.js" onerror="console.warn('Failed to load pattern-analysis.js')"></script>
+<!-- Enhanced Deep Insight System -->
 <script src="enhanced-deep-insight.js" onerror="console.warn('Failed to load enhanced-deep-insight.js')"></script>
 <script>
 // Combine all Mirror scenarios
@@ -927,6 +970,21 @@ const DECISION_SCENARIOS_EXPANDED=[
 // Override DECISION_SCENARIOS with expanded version
 if(DECISION_SCENARIOS_EXPANDED.length>0){window.DECISION_SCENARIOS=DECISION_SCENARIOS_EXPANDED;}
 const LEVELS=[{id:1,name:'Individual',color:'#FF6B35',desc:'Your relationship with yourself'},{id:2,name:'Family',color:'#FF3CAC',desc:'Your closest relationships'},{id:3,name:'Groups',color:'#784BA0',desc:'Teams, friends, communities'},{id:4,name:'Community',color:'#2F80ED',desc:'Your role in the larger whole'},{id:5,name:'Society',color:'#00D26A',desc:'Systems, culture, nation'},{id:6,name:'World',color:'#F7C948',desc:'Global connection'},{id:7,name:'Generations',color:'#C0C0C0',desc:'Legacy that outlasts you'}];
+
+// ============ NEW: PATTERN PROTOCOLS FOR DYNAMIC WHATSAPP ============
+const PATTERN_PROTOCOLS={
+  boundary:{name:'The Boundary Reset Protocol',short:'Boundaries',msg:"Hi Arthur, I just finished playing Level Up and my dominant pattern is BOUNDARIES. I keep saying yes when I mean no, and I'm ready to break this pattern."},
+  control:{name:'The Control Release Protocol',short:'Control',msg:"Hi Arthur, I just finished playing Level Up and my dominant pattern is CONTROL. I'm exhausted from trying to manage everything, and I'm ready to let go."},
+  worth:{name:'The Worthiness Integration Protocol',short:'Self-Worth',msg:"Hi Arthur, I just finished playing Level Up and my dominant pattern is SELF-WORTH. No matter what I achieve, it never feels like enough. I'm ready to change this."},
+  authenticity:{name:'The Authenticity Emergence Protocol',short:'Authenticity',msg:"Hi Arthur, I just finished playing Level Up and my dominant pattern is AUTHENTICITY. I wear masks and perform for others. I'm ready to be real."},
+  fear:{name:'The Fear Transmutation Protocol',short:'Fear',msg:"Hi Arthur, I just finished playing Level Up and my dominant pattern is FEAR. I've been avoiding instead of facing. I'm ready to move through this."},
+  trust:{name:'The Trust Restoration Protocol',short:'Trust',msg:"Hi Arthur, I just finished playing Level Up and my dominant pattern is TRUST. I struggle to let people in. I'm ready to rebuild my capacity to trust."},
+  default:{name:'Personalized Pattern Analysis',short:'Patterns',msg:"Hi Arthur, I've been playing Level Up and I keep seeing the same patterns. Can we talk about what's really going on?"}
+};
+
+// ============ NEW: GLOBAL STATS (simulated - in production from backend) ============
+const GLOBAL_STATS={1:{pct:68},2:{pct:73},3:{pct:61},4:{pct:54},5:{pct:47},6:{pct:42},7:{pct:38}};
+
 const XP_PER_LEVEL=500;
 let music=document.getElementById('music');music.volume=0.4;
 let musicOn=false,soundOn=true,currentCombo=0;
@@ -936,17 +994,108 @@ if(!data.seenScenarios)data.seenScenarios={mirror:[],agreement:[],decision:[]};
 if(!data.favoriteInsights)data.favoriteInsights=[];
 if(!data.firstTimeHints)data.firstTimeHints={deepInsight:false,insights:false,pattern:false};
 if(!data.unlockTimestamps)data.unlockTimestamps={};
-let game={mode:null,scenarios:[],idx:0,answers:[],timer:null,timeLeft:15,useTimer:true,timerDuration:15,levelFilter:null,endlessMode:false,sessionXP:0,sessionInsights:0,sessionGames:0};
+// NEW: Level balance for Tree of Life
+if(!data.levelBalance)data.levelBalance={1:0,2:0,3:0,4:0,5:0,6:0,7:0};
+// NEW: Pattern themes for enhanced coaching bridge
+if(!data.patternThemes)data.patternThemes={boundary:0,control:0,worth:0,authenticity:0,fear:0,trust:0};
+let game={mode:null,scenarios:[],idx:0,answers:[],timer:null,timeLeft:15,useTimer:true,timerDuration:15,levelFilter:null,endlessMode:false,sessionXP:0,sessionInsights:0,sessionGames:0,currentLevel:1};
 
-// Haptic feedback for mobile
+// Haptic feedback for mobile - SAFE: wrapped in API check to prevent browser errors
 function haptic(style='light'){
-  if(navigator.vibrate){
-    if(style==='light')navigator.vibrate(10);
-    else if(style==='medium')navigator.vibrate(25);
-    else if(style==='heavy')navigator.vibrate([50,30,50]);
-    else if(style==='success')navigator.vibrate([10,50,10,50,10]);
-    else if(style==='error')navigator.vibrate(100);
+  if(typeof navigator!=='undefined'&&'vibrate'in navigator){
+    try{
+      if(style==='light')navigator.vibrate(10);
+      else if(style==='medium')navigator.vibrate(25);
+      else if(style==='heavy')navigator.vibrate([50,30,50]);
+      else if(style==='success')navigator.vibrate([10,50,10,50,10]);
+      else if(style==='error')navigator.vibrate(100);
+    }catch(e){
+      // Silently fail if vibration not allowed or not supported
+    }
   }
+}
+
+// ============ GLOBAL ACCEPTANCE RATE ============
+function showGlobalStat(levelId){
+  const el=document.getElementById('globalStat');
+  if(!el)return;
+  const stats=GLOBAL_STATS[levelId]||{pct:50};
+  const variance=Math.floor(Math.random()*7)-3;
+  const pct=Math.max(25,Math.min(85,stats.pct+variance));
+  document.getElementById('globalPercent').textContent=pct+'%';
+  el.style.display='flex';
+  el.style.opacity='0';
+  setTimeout(()=>{el.style.transition='opacity 0.3s ease';el.style.opacity='1'},300);
+}
+function hideGlobalStat(){
+  const el=document.getElementById('globalStat');
+  if(el)el.style.display='none';
+}
+
+// ============ NEW: ATMOSPHERIC LEVEL BACKGROUNDS ============
+function setLevelAtmosphere(levelId){
+  const atm=document.getElementById('gameAtmosphere');
+  if(!atm)return;
+  for(let i=1;i<=7;i++)atm.classList.remove('level-'+i);
+  atm.classList.add('level-'+levelId);
+  atm.classList.add('active');
+  game.currentLevel=levelId;
+}
+function clearAtmosphere(){
+  const atm=document.getElementById('gameAtmosphere');
+  if(atm)atm.classList.remove('active');
+}
+
+// ============ NEW: ENHANCED COACHING BRIDGE WITH PATTERN REVEAL ============
+function checkCoachingBridgeEnhanced(){
+  if(data.games<10)return;
+  if(data.bridgeDismissed&&Date.now()-data.bridgeDismissed<86400000*3)return;
+  
+  const themes=data.patternThemes||{};
+  const sorted=Object.entries(themes).filter(t=>t[1]>0).sort((a,b)=>b[1]-a[1]);
+  const top=sorted[0];
+  
+  if(top&&top[1]>=3){
+    const protocol=PATTERN_PROTOCOLS[top[0]]||PATTERN_PROTOCOLS.default;
+    
+    // Update bridge UI with pattern-specific content
+    document.getElementById('bridgeTitle').textContent="You've identified "+top[1]+' patterns related to "'+protocol.short+'"';
+    document.getElementById('bridgePatternText').textContent=protocol.short+' pattern appeared '+top[1]+' times recently';
+    document.getElementById('bridgeProtocolName').textContent=protocol.name;
+    
+    // Dynamic WhatsApp URL with pre-filled pattern message
+    const waUrl='https://wa.me/+18184399770?text='+encodeURIComponent(protocol.msg);
+    document.getElementById('bridgeWhatsAppBtn').href=waUrl;
+    document.getElementById('bridgeWhatsAppBtn').textContent='View '+protocol.short+' Protocol →';
+    
+    document.getElementById('coachingBridge').classList.add('show');
+    haptic('medium');
+  }
+}
+
+// ============ NEW: TRACK PATTERN THEMES ============
+function trackPatternTheme(insight){
+  if(!data.patternThemes)data.patternThemes={boundary:0,control:0,worth:0,authenticity:0,fear:0,trust:0};
+  const txt=(insight||'').toLowerCase();
+  const keywords={
+    boundary:['boundary','boundaries','no','yes','peace','please','avoid','conflict','protect','limit','refuse'],
+    control:['control','perfect','right','wrong','should','must','fix','order','plan','anxious','worry'],
+    worth:['worth','deserve','enough','value','matter','good enough','worthy','self-esteem','confidence','imposter','prove','validation'],
+    authenticity:['authentic','real','true','mask','pretend','fake','hide','show','reveal','vulnerable','honest'],
+    fear:['fear','afraid','scared','anxiety','panic','worry','dread','avoid','escape','danger'],
+    trust:['trust','faith','believe','betray','doubt','suspicious','reliable','depend','let down','disappointed','safe','unsafe']
+  };
+  Object.entries(keywords).forEach(([theme,words])=>{
+    if(words.some(w=>txt.includes(w))){
+      data.patternThemes[theme]=(data.patternThemes[theme]||0)+1;
+    }
+  });
+}
+
+// ============ NEW: UPDATE LEVEL BALANCE FOR TREE ============
+function updateLevelBalance(levelId){
+  if(!data.levelBalance)data.levelBalance={1:0,2:0,3:0,4:0,5:0,6:0,7:0};
+  data.levelBalance[levelId]=(data.levelBalance[levelId]||0)+1;
 }
 
 // Track seen scenarios to prioritize fresh content
@@ -2097,23 +2246,26 @@ function checkCoachingBridge() {
   if (data.games < 10) return;
   if (data.bridgeDismissed && new Date().getTime() - data.bridgeDismissed < 86400000 * 3) return; // 3 day cooldown
   
-  // Check for repeating patterns
-  let insights = data.insightsCollection || [];
-  let recentInsights = insights.slice(-20);
+  // Use the new pattern themes tracking
+  const themes = data.patternThemes || {};
+  const sorted = Object.entries(themes).filter(t => t[1] > 0).sort((a, b) => b[1] - a[1]);
+  const top = sorted[0];
   
-  let themes = { boundary: 0, control: 0, worth: 0 };
-  recentInsights.forEach(i => {
-    let text = (i.text || '').toLowerCase();
-    if (text.includes('boundary') || text.includes('no ') || text.includes('yes ')) themes.boundary++;
-    if (text.includes('control') || text.includes('perfect') || text.includes('fix')) themes.control++;
-    if (text.includes('worth') || text.includes('enough') || text.includes('deserve')) themes.worth++;
-  });
-  
-  let topTheme = Object.entries(themes).sort((a,b) => b[1] - a[1])[0];
-  if (topTheme && topTheme[1] >= 3) {
-    let themeNames = { boundary: 'Boundary', control: 'Control', worth: 'Self-worth' };
-    document.getElementById('bridgePatternText').textContent = themeNames[topTheme[0]] + ' pattern appeared ' + topTheme[1] + ' times recently';
+  if (top && top[1] >= 3) {
+    const protocol = PATTERN_PROTOCOLS[top[0]] || PATTERN_PROTOCOLS.default;
+    
+    // Update bridge UI with pattern-specific content (Pattern Reveal)
+    document.getElementById('bridgeTitle').textContent = "You've identified " + top[1] + ' patterns related to "' + protocol.short + '"';
+    document.getElementById('bridgePatternText').textContent = protocol.short + ' pattern appeared ' + top[1] + ' times recently';
+    document.getElementById('bridgeProtocolName').textContent = protocol.name;
+    
+    // Dynamic WhatsApp URL with pre-filled pattern message
+    const waUrl = 'https://wa.me/+18184399770?text=' + encodeURIComponent(protocol.msg);
+    document.getElementById('bridgeWhatsAppBtn').href = waUrl;
+    document.getElementById('bridgeWhatsAppBtn').textContent = 'View ' + protocol.short + ' Protocol →';
+    
     document.getElementById('coachingBridge').classList.add('show');
+    haptic('medium');
   }
 }
 
@@ -2181,6 +2333,10 @@ function showMirrorScenario(){
   document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;
   let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');
   document.getElementById('scenarioText').textContent=s.text;
+  // NEW: Set atmospheric background for current level
+  setLevelAtmosphere(s.level);
+  // NEW: Show global acceptance rate
+  showGlobalStat(s.level);
   let c=document.getElementById('choices');c.innerHTML='';
   [{text:"That's Me",value:true},{text:"That's Not Me",value:false}].forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectMirrorChoice(ch,b,s);c.appendChild(b)});
 }
@@ -2188,6 +2344,10 @@ function selectMirrorChoice(ch,btn,sc){
   document.querySelectorAll('.choice').forEach(b=>b.disabled=true);btn.classList.add('selected');
   game.answers.push({recognized:ch.value,insight:sc.insight,text:sc.text,level:sc.level});
   addInsight(sc.insight,sc.level);
+  // NEW: Track pattern theme for coaching bridge
+  trackPatternTheme(sc.insight);
+  // NEW: Update level balance for Tree of Life
+  updateLevelBalance(sc.level);
   // Mirror mode: no combos (no right/wrong answer), reduced XP for reflection
   data.mirrorTotal++;if(ch.value)data.mirrorRecognized++;positiveSound();coinSound();addXP(5);maybeBonus();
   // Track seen scenario
@@ -2202,6 +2362,10 @@ function showAgreementScenario(){
   document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;
   let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');
   document.getElementById('scenarioText').textContent=s.scenario;
+  // NEW: Set atmospheric background for current level
+  setLevelAtmosphere(s.level);
+  // NEW: Show global acceptance rate
+  showGlobalStat(s.level);
   let c=document.getElementById('choices');c.innerHTML='';
   shuffle(s.choices).forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectAgreementChoice(ch,b,s);c.appendChild(b)});
   if(game.useTimer)startTimer();
@@ -2209,6 +2373,9 @@ function showAgreementScenario(){
 function selectAgreementChoice(ch,btn,sc){
   if(game.timer)clearInterval(game.timer);document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
   let isAcc=ch.type==='acceptance';game.answers.push({type:ch.type,isAcceptance:isAcc,insight:ch.insight,level:sc.level});
+  // NEW: Track pattern theme and level balance
+  trackPatternTheme(ch.insight);
+  updateLevelBalance(sc.level);
   if(isAcc){btn.classList.add('correct');data.agreementAccepted++;positiveSound();multiCoinSound(2);addXP(10);addInsight(ch.insight,sc.level);addCombo()}
   else{btn.classList.add('wrong');let acc=sc.choices.find(c=>c.type==='acceptance');document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(2);resetCombo()}
   // Track seen scenario
@@ -2223,7 +2390,8 @@ function showDecisionScenario(){
   let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');
   document.getElementById('scenarioText').textContent=s.text;
   let c=document.getElementById('choices');c.innerHTML='';
-  s.choices.forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectDecisionChoice(ch,b,s);c.appendChild(b)});
+  // Shuffle choices so correct answer position varies
+  shuffle(s.choices).forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectDecisionChoice(ch,b,s);c.appendChild(b)});
   if(game.useTimer)startTimer();
 }
 function selectDecisionChoice(ch,btn,sc){
@@ -2247,6 +2415,9 @@ document.getElementById('nextBtn').onclick=function(){document.getElementById('f
 function endGame(){
   console.log('endGame called with mode:', game.mode, 'answers:', game.answers.length);
   if(game.timer)clearInterval(game.timer);data.games++;
+  // NEW: Clear atmospheric background and global stat
+  clearAtmosphere();
+  hideGlobalStat();
   let score=0,total=game.answers.length;
   
   // Reset results screen state
