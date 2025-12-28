@@ -64,6 +64,7 @@ body::-webkit-scrollbar{display:none}
 /* Solid overlay - prevents any content bleed-through */
 body.hook-active{overflow:hidden;position:fixed;width:100%;height:100%;touch-action:none}
 body.hook-active .app{visibility:hidden;pointer-events:none}
+body.game-active{overflow:hidden}
 .hook{position:fixed;inset:0;background:#0d0a1a;display:flex;align-items:center;justify-content:center;z-index:9999;text-align:center;padding:24px;overflow:hidden;-webkit-overflow-scrolling:touch;isolation:isolate;overscroll-behavior:none}
 .hook::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);z-index:-2}
 .hook::before{content:'';position:absolute;top:-30%;left:-30%;width:160%;height:160%;background:radial-gradient(circle at 30% 30%,rgba(255,107,53,0.12) 0%,transparent 50%),radial-gradient(circle at 70% 70%,rgba(120,75,160,0.15) 0%,transparent 50%);pointer-events:none;animation:ambientFloat 20s ease-in-out infinite;z-index:-1}
@@ -381,7 +382,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .footer-btn:hover{background:rgba(255,60,172,0.15);transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,60,172,0.2)}
 .footer-btn.primary{background:var(--grad-primary);border:none;color:#fff}
 .footer-btn.primary:hover{box-shadow:0 4px 20px rgba(255,60,172,0.4)}
-.game{display:none}
+.game{display:none;position:fixed;inset:0;background:var(--bg);z-index:1000;overflow-y:auto;padding:16px;padding-bottom:40px}
+.game::before{content:'';position:fixed;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);z-index:-1}
 .game.active{display:block}
 .home.hidden{display:none}
 .game-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
@@ -408,7 +410,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .choice.correct{border-color:var(--green);background:rgba(0,210,106,0.15);box-shadow:0 0 15px rgba(0,210,106,0.2)}
 .choice.wrong{border-color:var(--red);background:rgba(255,71,87,0.15);box-shadow:0 0 15px rgba(255,71,87,0.2)}
 .choice.dim{opacity:0.25}
-.results{display:none;text-align:center;padding-top:40px;padding-bottom:100px}
+.results{display:none;position:fixed;inset:0;background:var(--bg);z-index:1000;overflow-y:auto;text-align:center;padding:40px 16px 100px}
+.results::before{content:'';position:fixed;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);z-index:-1}
 .results.active{display:block}
 .results h2{font-size:26px;margin-bottom:16px;font-weight:800;background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .score{font-size:72px;font-weight:900;color:var(--text);margin:20px 0;text-shadow:0 0 40px rgba(255,60,172,0.3);animation:scoreBounce 1s ease}
@@ -2132,7 +2135,7 @@ function startMirrorGame(lf){
   let questionCount=game.endlessMode?Math.min(pool.length,25):15;
   // Use smartShuffle to prioritize unseen scenarios
   game.scenarios=smartShuffle(pool,'mirror').slice(0,questionCount);
-  document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
+  document.body.classList.add('game-active');document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
   document.getElementById('gameMode').textContent=game.endlessMode?'♾️ Mirror (Endless)':'Mirror Game';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.add('hidden');
   showMirrorScenario();
 }
@@ -2152,7 +2155,7 @@ function startAgreementGame(lf){
   let questionCount=game.endlessMode?Math.min(pool.length,25):15;
   // Use smartShuffle to prioritize unseen scenarios
   game.scenarios=smartShuffle(pool,'agreement').slice(0,questionCount);
-  document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
+  document.body.classList.add('game-active');document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
   document.getElementById('gameMode').textContent=game.endlessMode?'♾️ Agreement (Endless)':'Agreement Game';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.remove('hidden');
   showAgreementScenario();
 }
@@ -2164,7 +2167,7 @@ function startDecisionGame(){
   for(let l=1;l<=7;l++){if(window.SCENARIOS[l])all=all.concat(window.SCENARIOS[l].map(s=>({...s,level:l})))}
   for(let i=0;i<3&&i<all.length;i++){let idx=(seed+i*31337)%all.length;game.scenarios.push(all[idx]);seed=(seed*31337)&0xFFFFFF}
   if(game.scenarios.length===0){showToast('No scenarios');return}
-  document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
+  document.body.classList.add('game-active');document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
   document.getElementById('gameMode').textContent='Worldwide Challenge';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.remove('hidden');
   showDecisionScenario();
 }
@@ -2433,7 +2436,7 @@ function endGame(){
   }
 }
 
-document.getElementById('homeBtn').onclick=function(){game.mode=null;game.scenarios=[];game.answers=[];game.idx=0;game.endlessMode=false;game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;document.getElementById('results').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
+document.getElementById('homeBtn').onclick=function(){game.mode=null;game.scenarios=[];game.answers=[];game.idx=0;game.endlessMode=false;game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;document.body.classList.remove('game-active');document.getElementById('results').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
 
 // Keep Playing button - continue same mode with 10 more questions
 document.getElementById('keepPlayingBtn').onclick=function(){
@@ -2465,7 +2468,7 @@ document.getElementById('endlessModeBtn').onclick=function(){
     startMixedGame(lf);
   }
 };
-document.getElementById('quitBtn').onclick=function(){if(game.timer)clearInterval(game.timer);game.mode=null;game.scenarios=[];game.answers=[];game.idx=0;game.endlessMode=false;game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;document.getElementById('game').classList.remove('active');document.getElementById('feedbackModal').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
+document.getElementById('quitBtn').onclick=function(){if(game.timer)clearInterval(game.timer);game.mode=null;game.scenarios=[];game.answers=[];game.idx=0;game.endlessMode=false;game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;document.body.classList.remove('game-active');document.getElementById('game').classList.remove('active');document.getElementById('feedbackModal').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
 document.getElementById('musicBtn').onclick=function(){if(musicOn){music.pause();musicOn=false;this.classList.remove('on')}else{music.play().then(()=>{musicOn=true;this.classList.add('on')}).catch(()=>{})}};
 document.getElementById('soundBtn').onclick=function(){soundOn=!soundOn;this.classList.toggle('on',soundOn);if(soundOn)coinSound()};
 document.getElementById('qaBtn').onclick=function(){document.getElementById('qaModal').classList.add('active')};
@@ -2513,7 +2516,7 @@ function startMixedGame(levelFilter){
   let totalCount=game.endlessMode?25:15;
   game.scenarios=shuffle(combined).slice(0,totalCount);
   if(game.scenarios.length===0){showToast('No scenarios available!');return}
-  document.getElementById('home').classList.add('hidden');document.getElementById('game').classList.add('active');
+  document.body.classList.add('game-active');document.getElementById('home').classList.add('hidden');document.getElementById('game').classList.add('active');
   document.getElementById('gameMode').textContent=game.endlessMode?'♾️ Mixed (Endless)':'Mixed';document.getElementById('timerBar').classList.remove('hidden');
   showMixedScenario();
 }
