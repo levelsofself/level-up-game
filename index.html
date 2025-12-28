@@ -418,6 +418,9 @@ body.game-active{overflow:hidden}
 .game-combo{font-size:12px;color:var(--gold);font-weight:700;display:flex;align-items:center;gap:4px}
 .quit{width:40px;height:40px;border-radius:50%;background:rgba(255,71,87,0.15);border:2px solid var(--red);color:var(--red);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition-fast)}
 .quit:hover{transform:rotate(90deg);background:rgba(255,71,87,0.25)}
+.music-toggle{width:36px;height:36px;border-radius:50%;background:rgba(120,75,160,0.15);border:2px solid var(--purple);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition-fast);margin-right:8px}
+.music-toggle:hover{background:rgba(120,75,160,0.3)}
+.music-toggle.playing{background:rgba(0,210,106,0.15);border-color:var(--green)}
 .timer{height:6px;background:var(--border);border-radius:3px;margin-bottom:16px;overflow:hidden;position:relative}
 .timer.hidden{display:none}
 .timer-fill{height:100%;width:100%;background:var(--green);transition:width 0.1s linear;position:relative}
@@ -427,6 +430,8 @@ body.game-active{overflow:hidden}
 .scenario{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px;position:relative}
 .scenario-cat{display:inline-block;background:var(--border);padding:5px 10px;border-radius:16px;font-size:10px;text-transform:uppercase;margin-bottom:12px;font-weight:600;letter-spacing:0.5px}
 .scenario-text{font-size:16px;line-height:1.6}
+.scenario-text.loading{color:var(--muted);animation:textPulse 1.5s ease-in-out infinite}
+@keyframes textPulse{0%,100%{opacity:0.4}50%{opacity:1}}
 .choices{display:flex;flex-direction:column;gap:10px}
 .choice{width:100%;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;text-align:left;cursor:pointer;line-height:1.5;transition:var(--transition-fast);box-shadow:var(--shadow-sm)}
 .choice:hover{border-color:var(--pink);transform:translateX(4px);box-shadow:0 4px 12px rgba(255,60,172,0.15)}
@@ -730,7 +735,7 @@ body.game-active{overflow:hidden}
 </div>
 </div>
 
-<div class="game" id="game"><div class="game-header"><div class="game-info"><div class="game-mode" id="gameMode">Mirror</div><div id="gameProgress">1/5</div><div class="game-combo" id="gameCombo"></div></div><button class="quit" id="quitBtn">✕</button></div><div class="timer" id="timerBar"><div class="timer-fill" id="timerFill"></div></div><div class="scenario"><div class="scenario-cat" id="scenarioCat">Level 1: Individual</div><div class="scenario-text" id="scenarioText">Loading...</div>
+<div class="game" id="game"><div class="game-header"><div class="game-info"><div class="game-mode" id="gameMode">Mirror</div><div id="gameProgress">1/5</div><div class="game-combo" id="gameCombo"></div></div><button class="music-toggle" id="gameMusicToggle" onclick="toggleMusic()" title="Toggle music">🔇</button><button class="quit" id="quitBtn">✕</button></div><div class="timer" id="timerBar"><div class="timer-fill" id="timerFill"></div></div><div class="scenario"><div class="scenario-cat" id="scenarioCat">Level 1: Individual</div><div class="scenario-text loading" id="scenarioText">Loading...</div>
 <!-- Global Acceptance Rate -->
 <div class="global-stat" id="globalStat" style="display:none;">
 <span class="global-stat-icon">🌍</span>
@@ -1296,7 +1301,8 @@ function addInsight(text,level){if(text&&!data.insightsCollection.some(i=>i.text
 
 function updateHome(){
   updateXPBar();checkDailyLogin();checkStreakWarning();checkCoachingBridge();checkMilestones();checkFirstTimeHints();
-  document.getElementById('statPlayed').textContent=data.games;
+  
+  document.getElementById('statPlayed').textContent=data.games||0;
   document.getElementById('statInsights').textContent=data.insightsCollection?data.insightsCollection.length:0;
   document.getElementById('statStreak').textContent=data.streak||0;
   
@@ -2332,7 +2338,7 @@ function showMirrorScenario(){
   let s=game.scenarios[game.idx];if(!s){endGame();return}
   document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;
   let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');
-  document.getElementById('scenarioText').textContent=s.text;
+  let scenarioEl=document.getElementById('scenarioText');scenarioEl.textContent=s.text;scenarioEl.classList.remove('loading');
   // NEW: Set atmospheric background for current level
   setLevelAtmosphere(s.level);
   // NEW: Show global acceptance rate
@@ -2361,7 +2367,7 @@ function showAgreementScenario(){
   let s=game.scenarios[game.idx];if(!s){endGame();return}
   document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;
   let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');
-  document.getElementById('scenarioText').textContent=s.scenario;
+  let scenarioEl=document.getElementById('scenarioText');scenarioEl.textContent=s.scenario;scenarioEl.classList.remove('loading');
   // NEW: Set atmospheric background for current level
   setLevelAtmosphere(s.level);
   // NEW: Show global acceptance rate
@@ -2388,7 +2394,7 @@ function showDecisionScenario(){
   let s=game.scenarios[game.idx];if(!s){endGame();return}
   document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;
   let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');
-  document.getElementById('scenarioText').textContent=s.text;
+  let scenarioEl=document.getElementById('scenarioText');scenarioEl.textContent=s.text;scenarioEl.classList.remove('loading');
   let c=document.getElementById('choices');c.innerHTML='';
   // Shuffle choices so correct answer position varies
   shuffle(s.choices).forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectDecisionChoice(ch,b,s);c.appendChild(b)});
@@ -2465,11 +2471,16 @@ function endGame(){
   let insights=document.getElementById('insightsList');
   if(game.mode==='mirror'){
     document.getElementById('resultsTitle').textContent=game.endlessMode?'♾️ Mirror Endless':'Mirror Complete';document.getElementById('finalScore').textContent=total+' Reflections';
-    document.getElementById('resultMsg').textContent='Honest self-reflection is the first step.';
+    let recognized=game.answers.filter(a=>a.recognized).length;
+    let recPct=Math.round((recognized/total)*100);
+    let resultMsg=recPct>=80?'High self-recognition. You see yourself clearly—that\'s rare and powerful.':recPct>=60?'Strong awareness. You\'re willing to look at what others avoid.':recPct>=40?'Selective recognition. Some patterns are easier to see than others.':'Low recognition. Either you\'re different, or there\'s a blind spot worth exploring.';
+    document.getElementById('resultMsg').textContent=resultMsg;
     insights.innerHTML='';game.answers.slice(0,10).forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.innerHTML='<span style="color:'+(a.recognized?'var(--green)':'var(--muted)')+';">'+(a.recognized?'✓ That\'s Me':'✗ Not Me')+'</span><div style="margin-top:4px;">"'+a.text+'"</div>';insights.appendChild(div)});
   }else if(game.mode==='agreement'){
     document.getElementById('resultsTitle').textContent=game.endlessMode?'♾️ Agreement Endless':'Agreement Complete';document.getElementById('finalScore').textContent=score+'/'+total;
-    document.getElementById('resultMsg').textContent=score>=8?'Strong acceptance!':score>=5?'Growing awareness.':'Keep practicing.';
+    let accPct=Math.round((score/total)*100);
+    let resultMsg=accPct>=90?'Exceptional. You chose acceptance almost every time.':accPct>=70?'Strong acceptance. You\'re rewiring your default response.':accPct>=50?'Growing awareness. Notice when judgment feels safer.':'Judgment is your current default. That\'s not wrong—it\'s information.';
+    document.getElementById('resultMsg').textContent=resultMsg;
     insights.innerHTML='';game.answers.slice(0,5).forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.textContent=(a.isAcceptance?'✓ ':'⚖️ ')+a.insight;insights.appendChild(div)});
     if(score===total&&total>=10){triggerConfetti();showToast('🎉 Perfect! +25 XP');addXP(25)}
   }else if(game.mode==='mixed'){
@@ -2643,8 +2654,23 @@ document.getElementById('endlessModeBtn').onclick=function(){
     startMixedGame(lf);
   }
 };
-document.getElementById('quitBtn').onclick=function(){if(game.timer)clearInterval(game.timer);game.mode=null;game.scenarios=[];game.answers=[];game.idx=0;game.endlessMode=false;game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;document.body.classList.remove('game-active');document.getElementById('game').classList.remove('active');document.getElementById('feedbackModal').classList.remove('active');document.getElementById('home').classList.remove('hidden');updateHome()};
-document.getElementById('musicBtn').onclick=function(){if(musicOn){music.pause();musicOn=false;this.classList.remove('on')}else{music.play().then(()=>{musicOn=true;this.classList.add('on')}).catch(()=>{})}};
+document.getElementById('quitBtn').onclick=function(){if(game.timer)clearInterval(game.timer);game.mode=null;game.scenarios=[];game.answers=[];game.idx=0;game.endlessMode=false;game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;document.body.classList.remove('game-active');document.getElementById('game').classList.remove('active');document.getElementById('feedbackModal').classList.remove('active');document.getElementById('home').classList.remove('hidden');clearAtmosphere();hideGlobalStat();updateHome()};
+function toggleMusic(){
+  let musicBtn=document.getElementById('musicBtn');
+  let gameMusicBtn=document.getElementById('gameMusicToggle');
+  if(musicOn){
+    music.pause();musicOn=false;
+    if(musicBtn)musicBtn.classList.remove('on');
+    if(gameMusicBtn){gameMusicBtn.textContent='🔇';gameMusicBtn.classList.remove('playing');}
+  }else{
+    music.play().then(()=>{
+      musicOn=true;
+      if(musicBtn)musicBtn.classList.add('on');
+      if(gameMusicBtn){gameMusicBtn.textContent='🎵';gameMusicBtn.classList.add('playing');}
+    }).catch(()=>{});
+  }
+}
+document.getElementById('musicBtn').onclick=toggleMusic;
 document.getElementById('soundBtn').onclick=function(){soundOn=!soundOn;this.classList.toggle('on',soundOn);if(soundOn)coinSound()};
 document.getElementById('qaBtn').onclick=function(){document.getElementById('qaModal').classList.add('active')};
 document.getElementById('qaClose').onclick=function(){document.getElementById('qaModal').classList.remove('active')};
@@ -2764,7 +2790,7 @@ function showInsightsModal(filterLevel){
   let list=document.getElementById('insightsListModal');
   list.innerHTML='';
   if(!data.insightsCollection||data.insightsCollection.length===0){
-    list.innerHTML='<p style="color:var(--muted);text-align:center;padding:20px;">No insights yet. Play Mirror Game to collect insights about yourself!</p>';
+    list.innerHTML='<p style="color:var(--muted);text-align:center;padding:20px;">No insights yet. Play Mirror Game or Worldwide Challenge to start collecting insights!</p>';
   }else{
     let filtered;
     if(filterLevel==='favorites'){
@@ -2918,6 +2944,5 @@ function dismissHint(elementId){
 if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
 setInterval(updateTimer,1000);
 </script>
-<script src="pattern-analysis.js" onerror="console.warn('Failed to load pattern-analysis.js')"></script>
 </body>
 </html>
