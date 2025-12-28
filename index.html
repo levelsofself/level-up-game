@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Level Up Game v9.5 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
-<!-- v9.5: Player count display + Quick Mode toggle (⚡) -->
+<!-- Level Up Game v9.7 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
+<!-- v9.7: Fix login bonus click, remove sound btn from header, add sound toggle to FAQ -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -277,8 +277,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .login-bonus:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,215,0,0.3)}
 .login-bonus.show{display:block;animation:glow 2s ease-in-out infinite}
 @keyframes glow{0%,100%{box-shadow:0 0 5px var(--gold)}50%{box-shadow:0 0 20px var(--gold)}}
-.login-title{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:4px;text-shadow:0 0 8px rgba(255,215,0,0.3)}
-.login-sub{font-size:12px;color:var(--muted);transition:var(--transition-fast)}
+.login-title{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:4px;text-shadow:0 0 8px rgba(255,215,0,0.3);pointer-events:none}
+.login-sub{font-size:12px;color:var(--muted);transition:var(--transition-fast);pointer-events:none}
 .login-bonus:hover .login-sub{color:var(--text)}
 .streak-warning{background:linear-gradient(135deg,rgba(255,71,87,0.2),rgba(255,107,53,0.2));border:2px solid var(--red);border-radius:12px;padding:12px;margin-bottom:16px;text-align:center;display:none;animation:shake 0.5s ease;cursor:pointer;transition:var(--transition-fast)}
 .streak-warning:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,71,87,0.3)}
@@ -753,7 +753,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 
 <div class="app">
 <div class="home" id="home">
-<div class="header"><div class="logo">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="quickModeBtn" title="Quick Mode">⚡</button><button class="ctrl-btn" id="musicBtn">🎵</button><button class="ctrl-btn on" id="soundBtn">🔊</button><button class="ctrl-btn heart-btn" id="aiBtn">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn">❓</button><button class="ctrl-btn founder-btn" id="founderBtn">👤</button></div></div>
+<div class="header"><div class="logo">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="quickModeBtn" title="Quick Mode">⚡</button><button class="ctrl-btn" id="musicBtn">🎵</button><button class="ctrl-btn heart-btn" id="aiBtn">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn">❓</button><button class="ctrl-btn founder-btn" id="founderBtn">👤</button></div></div>
 
 <div class="login-bonus" id="loginBonus"><div class="login-title">🎁 Daily Login Bonus!</div><div class="login-sub">Tap to claim <span id="loginReward">+20 XP</span></div></div>
 <div class="streak-warning" id="streakWarning"><div class="streak-warning-text">⚠️ Play today or lose your <span id="streakCount">0</span>-day streak!</div></div>
@@ -782,7 +782,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 
 <div class="hero"><h1>See Your Patterns</h1><p>The game that reveals what's really running your life.</p></div>
 
-<div class="challenge" id="dailyCard"><div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div><h2>Worldwide Challenge</h2><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="player-count"><span class="player-dot"></span><span id="playerCountNum">--</span> playing today</div><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer">Resets in --:--:--</span></div></div>
+<div class="challenge" id="dailyCard"><div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div><h2>Worldwide Challenge</h2><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="player-count"><span class="player-dot"></span><span id="playerCountNum">--</span> playing now</div><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer">Resets in --:--:--</span></div></div>
 
 <div class="xp-container"><div class="xp-header"><div class="xp-level" id="playerLevel">Level 1</div><div class="xp-coins">🪙 <span id="coinCount">0</span></div></div><div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div><div class="xp-text"><span id="xpCurrent">0</span> / <span id="xpNeeded">500</span> XP</div></div>
 
@@ -846,6 +846,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="qa-item"><div class="qa-question">Can I work with Arthur directly?</div><div class="qa-answer"><strong style="color:var(--pink);">Yes!</strong> Arthur offers 1-on-1 integration sessions for people who are ready to go deeper.<br><br><strong style="color:var(--gold);">$500</strong>/session<br><br><em style="color:var(--muted);">If you need a discount, just ask.</em><br><br><button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('coachingModal').classList.add('active');" style="padding:12px 20px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">💬 Book a Session</button></div></div>
 <div class="qa-item"><div class="qa-question">Is there a deeper assessment?</div><div class="qa-answer">Yes! The <strong>Full Assessment</strong> gives you a comprehensive breakdown of where you are across all 7 levels, with personalized insights and recommendations.<br><br><a href="https://selfcheck.100levelup.com/assessment.html" target="_blank" style="display:inline-block;padding:12px 20px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;">📋 Take Full Assessment</a></div></div>
 <div class="qa-item"><div class="qa-question">How can I share this game?</div><div class="qa-answer">Share with friends who might benefit from seeing their patterns!<br><br><button onclick="if(navigator.share){navigator.share({title:'Level Up - 7 Levels of Self',text:'See the patterns that quietly run your life.',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:12px 20px;background:var(--card);border:2px solid var(--pink);border-radius:10px;color:var(--text);font-size:14px;font-weight:600;cursor:pointer;">📤 Share This Game</button></div></div>
+<div class="qa-item"><div class="qa-question">What is Quick Mode (⚡)?</div><div class="qa-answer"><strong style="color:var(--yellow);">For power users!</strong> Quick Mode shortens scenario text and speeds up animations.<br><br>Perfect for:<br>• Replaying familiar scenarios faster<br>• Building streaks efficiently<br>• When you're short on time<br><br>Tap the ⚡ button in the header to toggle it on/off.</div></div>
+<div class="qa-item"><div class="qa-question">Can I turn off sound effects?</div><div class="qa-answer">Sound effects are on by default to enhance your experience. To toggle them:<br><br><button onclick="soundOn=!soundOn;this.textContent=soundOn?'🔊 Sounds ON':'🔇 Sounds OFF';this.style.background=soundOn?'var(--green)':'var(--card)';this.style.borderColor=soundOn?'var(--green)':'var(--border)'" style="padding:12px 20px;background:var(--green);border:2px solid var(--green);border-radius:10px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;">🔊 Sounds ON</button><br><br><em style="color:var(--muted);">This setting resets when you refresh the page.</em></div></div>
 <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
 <button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('founderModal').classList.add('active');" style="padding:14px;background:var(--card);border:2px solid var(--gold);border-radius:12px;color:var(--text);font-size:15px;font-weight:600;cursor:pointer;">👤 Meet the Founder</button>
 <button id="resetBtn" style="padding:14px;background:transparent;border:2px solid var(--red);border-radius:12px;color:var(--red);font-size:14px;font-weight:600;cursor:pointer;">🔄 Reset All Progress</button>
@@ -9027,6 +9029,10 @@ const LEVELS=[{id:1,name:'Individual',color:'#FF6B35',desc:'Your relationship wi
 const XP_PER_LEVEL=500;
 let music=document.getElementById('music');music.volume=0.4;
 let musicOn=false,soundOn=true,quickMode=false,currentCombo=0;
+function truncateText(text,maxLen=80){
+  if(!quickMode||!text||text.length<=maxLen)return text;
+  return text.substring(0,maxLen).trim()+'...';
+}
 let data=JSON.parse(localStorage.getItem('levelup_v7'))||{xp:0,level:1,coins:0,games:0,mirrorRecognized:0,mirrorTotal:0,agreementAccepted:0,agreementTotal:0,streak:0,lastDaily:null,lastLogin:null,loginDay:0,unlockedLevels:[1],unlockedAgreement:false,seenIntro:false,insightsCollection:[],newlyUnlockedLevels:[],seenAgreementUnlock:false,seenScenarios:{mirror:[],agreement:[],decision:[]},favoriteInsights:[],firstTimeHints:{deepInsight:false,insights:false,pattern:false},unlockTimestamps:{}};
 // Migrate old data if needed
 if(!data.seenScenarios)data.seenScenarios={mirror:[],agreement:[],decision:[]};
@@ -10316,7 +10322,7 @@ function showMirrorScenario(){
   let s=game.scenarios[game.idx];if(!s){endGame();return}
   document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;
   let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');
-  let scenarioEl=document.getElementById('scenarioText');scenarioEl.textContent=s.text;scenarioEl.classList.remove('loading');
+  let scenarioEl=document.getElementById('scenarioText');scenarioEl.textContent=truncateText(s.text);scenarioEl.classList.remove('loading');
   let c=document.getElementById('choices');c.innerHTML='';
   [{text:"That's Me",value:true},{text:"That's Not Me",value:false}].forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectMirrorChoice(ch,b,s);c.appendChild(b)});
 }
@@ -10337,7 +10343,7 @@ function showAgreementScenario(){
   let s=game.scenarios[game.idx];if(!s){endGame();return}
   document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;
   let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');
-  let scenarioEl=document.getElementById('scenarioText');scenarioEl.textContent=s.scenario;scenarioEl.classList.remove('loading');
+  let scenarioEl=document.getElementById('scenarioText');scenarioEl.textContent=truncateText(s.scenario);scenarioEl.classList.remove('loading');
   let c=document.getElementById('choices');c.innerHTML='';
   shuffle(s.choices).forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectAgreementChoice(ch,b,s);c.appendChild(b)});
   if(game.useTimer)startTimer();
@@ -10357,7 +10363,7 @@ function showDecisionScenario(){
   let s=game.scenarios[game.idx];if(!s){endGame();return}
   document.getElementById('gameProgress').textContent=(game.idx+1)+'/'+game.scenarios.length;
   let lv=LEVELS.find(l=>l.id===s.level);document.getElementById('scenarioCat').textContent='Level '+s.level+': '+(lv?lv.name:'');
-  let scenarioEl=document.getElementById('scenarioText');scenarioEl.textContent=s.text;scenarioEl.classList.remove('loading');
+  let scenarioEl=document.getElementById('scenarioText');scenarioEl.textContent=truncateText(s.text);scenarioEl.classList.remove('loading');
   let c=document.getElementById('choices');c.innerHTML='';
   shuffle(s.choices).forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectDecisionChoice(ch,b,s);c.appendChild(b)});
   if(game.useTimer)startTimer();
@@ -10637,7 +10643,6 @@ function toggleMusic(){
     }).catch(()=>{});
   }
 }
-document.getElementById('soundBtn').onclick=function(){soundOn=!soundOn;this.classList.toggle('on',soundOn);if(soundOn)coinSound()};
 document.getElementById('quickModeBtn').onclick=function(){
   quickMode=!quickMode;
   this.classList.toggle('on',quickMode);
@@ -10702,18 +10707,18 @@ function showMixedScenario(){
   let scenarioEl=document.getElementById('scenarioText');
   if(s.gameType==='mirror'){
     document.getElementById('scenarioCat').textContent='🪞 Level '+s.level+': '+(lv?lv.name:'');
-    scenarioEl.textContent=s.text;scenarioEl.classList.remove('loading');
+    scenarioEl.textContent=truncateText(s.text);scenarioEl.classList.remove('loading');
     let c=document.getElementById('choices');c.innerHTML='';
     [{text:"That's Me",value:true},{text:"That's Not Me",value:false}].forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectMixedMirror(ch,b,s);c.appendChild(b)});
   }else if(s.gameType==='agreement'){
     document.getElementById('scenarioCat').textContent='⚖️ Level '+s.level+': '+(lv?lv.name:'');
-    scenarioEl.textContent=s.scenario;scenarioEl.classList.remove('loading');
+    scenarioEl.textContent=truncateText(s.scenario);scenarioEl.classList.remove('loading');
     let c=document.getElementById('choices');c.innerHTML='';
     shuffle(s.choices).forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectMixedAgreement(ch,b,s);c.appendChild(b)});
     if(game.useTimer)startTimer();
   }else if(s.gameType==='decision'){
     document.getElementById('scenarioCat').textContent='🎯 Level '+s.level+': '+(lv?lv.name:'');
-    scenarioEl.textContent=s.text;scenarioEl.classList.remove('loading');
+    scenarioEl.textContent=truncateText(s.text);scenarioEl.classList.remove('loading');
     let c=document.getElementById('choices');c.innerHTML='';
     shuffle(s.choices).forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectMixedDecision(ch,b,s);c.appendChild(b)});
     if(game.useTimer)startTimer();
