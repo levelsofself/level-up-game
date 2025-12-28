@@ -669,6 +669,9 @@ body.game-active{overflow:hidden}
 </div>
 <div class="pattern-tap">Tap for full profile →</div>
 </div>
+<div style="text-align:center;margin-top:12px;margin-bottom:8px;">
+<span style="font-size:12px;color:var(--muted);">Seeing it is step one. </span><span style="font-size:12px;color:var(--pink);cursor:pointer;font-weight:600;" onclick="document.getElementById('coachingModal').classList.add('active')">Breaking it is step two →</span>
+</div>
 
 <div class="modes"><div class="mode" id="mirrorMode"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">🪞</div><div class="mode-name">Mirror Game</div><div class="mode-desc">See yourself honestly</div><div class="mode-unlock" id="mirrorUnlock"></div></div><div class="mode" id="agreementMode"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">⚖️</div><div class="mode-name">Agreement Game</div><div class="mode-desc">Acceptance vs Judgment</div><div class="mode-unlock" id="agreementUnlock"></div></div></div>
 
@@ -876,7 +879,8 @@ After 10 years of deep transformational work—Landmark, MITT, Insight Seminars,
 <h2 class="coaching-offer-title">Integrate with Arthur</h2>
 <p class="coaching-offer-subtitle">1-on-1 Integration</p>
 </div>
-<p style="font-size:18px;color:var(--text);text-align:center;margin:20px 0 24px;">
+<p style="font-size:14px;color:var(--muted);text-align:center;margin:16px 0 8px;">60 minutes to see what's really running your life—and start breaking it.</p>
+<p style="font-size:18px;color:var(--text);text-align:center;margin:12px 0 24px;">
 <strong style="color:var(--gold);">$500</strong>/session
 </p>
 <a href="https://wa.me/+18184399770?text=Hi%20Arthur%2C%20I%27ve%20been%20playing%20Level%20Up%20and%20I%27m%20ready%20to%20go%20deeper.%20I%27m%20interested%20in%20integration." class="coaching-cta" id="coachingBtn" target="_blank">💬 Book a Session</a>
@@ -2423,10 +2427,10 @@ function endGame(){
     document.getElementById('resultMsg').textContent='Great job!';
   }
   
-  // Show coaching CTA on results (after Mirror/Mixed games OR after 5+ games played)
+  // Show coaching CTA on results (after Mirror/Mixed games always, others after 5+ games)
   let coachingCta=document.getElementById('resultsCoachingCta');
   if(coachingCta){
-    if((game.mode==='mirror'||game.mode==='mixed')&&data.games>=3){
+    if(game.mode==='mirror'||game.mode==='mixed'){
       coachingCta.style.display='block';
     }else if(data.games>=5){
       coachingCta.style.display='block';
