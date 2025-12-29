@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Level Up Game v9.7 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
-<!-- v9.7: Fix login bonus click, remove sound btn from header, add sound toggle to FAQ -->
+<!-- Level Up Game v9.8 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
+<!-- v9.8: Fix hook-logo black box on iOS, add sequential onboarding tooltips for new users -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -76,7 +76,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .hook-screen-scrollable{justify-content:flex-start;padding-top:20px;padding-bottom:40px}
 @keyframes screenFadeIn{to{opacity:1;transform:translateY(0)}}
 .hook-line{font-size:clamp(24px,6vw,38px);font-weight:800;line-height:1.2;margin-bottom:4px;opacity:0;transform:translateY(30px);background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;padding:0 8px}
-.hook-logo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(200px,60vw,320px);opacity:0;transition:opacity 0.8s ease}
+.hook-logo{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(200px,60vw,320px);opacity:0;transition:opacity 0.8s ease;z-index:10;pointer-events:none}
 .hook-logo img{width:100%;height:auto}
 .hook-line.show{animation:lineFadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards}
 @keyframes lineFadeUp{to{opacity:1;transform:translateY(0)}}
@@ -275,13 +275,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .ctrl-btn.qa-btn{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:none;box-shadow:0 2px 8px rgba(120,75,160,0.4)}
 .ctrl-btn.heart-btn{background:linear-gradient(135deg,#FF4757,#FF6B81);color:#fff;border:none;box-shadow:0 2px 8px rgba(255,71,87,0.4)}
 .ctrl-btn.founder-btn{background:linear-gradient(135deg,var(--gold),var(--orange));color:#fff;border:none;box-shadow:0 2px 8px rgba(255,215,0,0.4)}
-.login-bonus{background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.15));border:2px solid var(--gold);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center;cursor:pointer;display:none;transition:var(--transition-fast);width:100%;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.login-bonus{background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.15));border:2px solid var(--gold);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center;cursor:pointer;display:none;transition:var(--transition-fast)}
 .login-bonus:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,215,0,0.3)}
 .login-bonus.show{display:block;animation:glow 2s ease-in-out infinite}
 @keyframes glow{0%,100%{box-shadow:0 0 5px var(--gold)}50%{box-shadow:0 0 20px var(--gold)}}
-.login-title{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:4px;text-shadow:0 0 8px rgba(255,215,0,0.3)}
-.login-sub{font-size:12px;color:var(--muted);transition:var(--transition-fast)}
-.login-bonus *{pointer-events:none}
+.login-title{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:4px;text-shadow:0 0 8px rgba(255,215,0,0.3);pointer-events:none}
+.login-sub{font-size:12px;color:var(--muted);transition:var(--transition-fast);pointer-events:none}
 .login-bonus:hover .login-sub{color:var(--text)}
 .streak-warning{background:linear-gradient(135deg,rgba(255,71,87,0.2),rgba(255,107,53,0.2));border:2px solid var(--red);border-radius:12px;padding:12px;margin-bottom:16px;text-align:center;display:none;animation:shake 0.5s ease;cursor:pointer;transition:var(--transition-fast)}
 .streak-warning:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,71,87,0.3)}
@@ -422,13 +421,6 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .scroll-bottom-btn{width:44px;height:44px;border-radius:50%;background:var(--card);border:2px solid var(--pink);color:var(--pink);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:all 0.3s ease;margin:0 auto 16px}
 .scroll-bottom-btn:hover{transform:translateY(3px);box-shadow:0 6px 20px rgba(255,60,172,0.4)}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-/* First-time hint tooltip */
-.hint-tooltip{position:absolute;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:600;max-width:200px;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.3);animation:hintPop 0.4s ease-out}
-.hint-tooltip::after{content:'';position:absolute;border:8px solid transparent}
-.hint-tooltip.bottom::after{top:-16px;left:50%;transform:translateX(-50%);border-bottom-color:var(--purple)}
-.hint-tooltip.left::after{right:-16px;top:50%;transform:translateY(-50%);border-left-color:var(--pink)}
-@keyframes hintPop{0%{opacity:0;transform:scale(0.8)}100%{opacity:1;transform:scale(1)}}
-.hint-dismiss{margin-top:8px;font-size:11px;opacity:0.8;cursor:pointer;text-decoration:underline}
 .mode-icon{font-size:40px;margin-bottom:12px;line-height:1;transition:var(--transition-fast)}
 .mode:hover .mode-icon{transform:scale(1.1)}
 .mode-name{font-size:16px;font-weight:700;margin-bottom:6px;transition:var(--transition-fast)}
@@ -634,6 +626,21 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .hidden{display:none!important}
 .fade-in{animation:fadeIn 0.5s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ========== ONBOARDING TOOLTIPS ========== */
+.onboard-tooltip{position:absolute;background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:600;z-index:1000;opacity:0;transform:translateY(10px);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);pointer-events:none;max-width:200px;text-align:center;box-shadow:0 4px 20px rgba(255,60,172,0.4)}
+.onboard-tooltip.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.onboard-tooltip::after{content:'';position:absolute;width:0;height:0;border:8px solid transparent}
+.onboard-tooltip.arrow-up::after{top:-16px;left:50%;transform:translateX(-50%);border-bottom-color:var(--orange)}
+.onboard-tooltip.arrow-down::after{bottom:-16px;left:50%;transform:translateX(-50%);border-top-color:var(--pink)}
+.onboard-tooltip.arrow-left::after{left:-16px;top:50%;transform:translateY(-50%);border-right-color:var(--orange)}
+.onboard-tooltip.arrow-right::after{right:-16px;top:50%;transform:translateY(-50%);border-left-color:var(--pink)}
+.onboard-tooltip-btn{display:inline-block;margin-top:10px;padding:8px 16px;background:rgba(255,255,255,0.2);border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s}
+.onboard-tooltip-btn:hover{background:rgba(255,255,255,0.3)}
+.onboard-overlay{position:fixed;inset:0;background:rgba(13,10,26,0.7);z-index:999;opacity:0;transition:opacity 0.3s ease;pointer-events:none}
+.onboard-overlay.show{opacity:1;pointer-events:auto}
+.onboard-highlight{position:relative;z-index:1001;animation:highlightPulse 1.5s ease-in-out infinite}
+@keyframes highlightPulse{0%,100%{box-shadow:0 0 0 4px rgba(255,60,172,0.4)}50%{box-shadow:0 0 0 8px rgba(255,60,172,0.2)}}
 </style>
 </head>
 <body>
@@ -665,9 +672,9 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="levelup-popup" id="levelupPopup"><div class="levelup-content"><div class="levelup-icon" id="levelupIcon">⭐</div><div class="levelup-title">LEVEL UP!</div><div class="levelup-sub" id="levelupText">You're now Level 2</div><div class="levelup-unlock" id="levelupUnlock"></div><div style="display:flex;gap:10px;width:100%;"><button class="levelup-btn" id="levelupBtn" style="flex:1;">Continue</button><button class="levelup-btn" id="levelupShareBtn" style="flex:1;background:linear-gradient(135deg,var(--green),#00B85D);">📤 Share</button></div></div></div>
 
 <div class="hook" id="hook">
-<div class="hook-container">
-<!-- Logo Splash -->
+<!-- Logo Splash - positioned relative to hook overlay, not container -->
 <div class="hook-logo" id="hookLogo"><img src="logo_edited.png" alt="Levels of Self"></div>
+<div class="hook-container">
 <!-- Screen 1: The Hook -->
 <div class="hook-screen active" id="hookScreen1">
 <div class="hook-line" id="line1">See the patterns</div>
@@ -757,10 +764,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 </div>
 
 <div class="app">
+<!-- Onboarding Overlay -->
+<div class="onboard-overlay" id="onboardOverlay"></div>
 <div class="home" id="home">
 <div class="header"><div class="logo">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="quickModeBtn" title="Quick Mode">⚡</button><button class="ctrl-btn" id="musicBtn">🎵</button><button class="ctrl-btn heart-btn" id="aiBtn">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn">❓</button><button class="ctrl-btn founder-btn" id="founderBtn">👤</button></div></div>
 
-<button class="login-bonus" id="loginBonus" onclick="claimLoginBonus()"><div class="login-title">🎁 Daily Login Bonus!</div><div class="login-sub">Tap to claim <span id="loginReward">+20 XP</span></div></button>
+<div class="login-bonus" id="loginBonus"><div class="login-title">🎁 Daily Login Bonus!</div><div class="login-sub">Tap to claim <span id="loginReward">+20 XP</span></div></div>
 <div class="streak-warning" id="streakWarning"><div class="streak-warning-text">⚠️ Play today or lose your <span id="streakCount">0</span>-day streak!</div></div>
 
 <!-- Coaching Bridge (injected dynamically) -->
@@ -809,7 +818,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="section-title">Your Journey</div>
 <div class="levels" id="levelMap"></div>
 
-<div class="action-btns"><a class="action-btn assess" href="https://selfcheck.100levelup.com/assessment.html" target="_blank" rel="noopener"><span class="action-btn-icon">📋</span><span class="action-btn-text">Full Assessment</span></a><button class="action-btn share" id="shareBtn"><span class="action-btn-icon">🔗</span><span class="action-btn-text">Share</span></button></div>
+<div class="action-btns"><a class="action-btn assess" id="assessBtn" href="https://selfcheck.100levelup.com/assessment.html" target="_blank" rel="noopener"><span class="action-btn-icon">📋</span><span class="action-btn-text">Full Assessment</span></a><button class="action-btn share" id="shareBtn"><span class="action-btn-icon">🔗</span><span class="action-btn-text">Share</span></button></div>
 
 <div class="footer">
 <div class="footer-btns">
@@ -837,6 +846,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="modal-title" style="margin-top:8px;">Questions & Answers</div>
 <button class="scroll-bottom-btn" onclick="document.getElementById('qaBottom').scrollIntoView({behavior:'smooth'})">↓</button>
 <div class="qa-item"><div class="qa-question">What is the 7 Levels framework?</div><div class="qa-answer">The 7 Levels of Self maps human growth across 7 dimensions: Individual (self), Family (close relationships), Groups (teams/friends), Community (local impact), Society (systems/culture), World (global connection), and Generations (legacy). You can't skip levels - each must be mastered before climbing higher.</div></div>
+<div class="qa-item"><div class="qa-question">What's on the home screen?</div><div class="qa-answer">Here's everything available on your home screen:<br><br><strong style="color:var(--yellow);">⚡ Quick Mode</strong> — Faster gameplay for power users<br><br><strong style="color:var(--pink);">🎵 Music</strong> — Toggle background music on/off<br><br><strong style="color:var(--red);">❤️ Deep Insights</strong> — See your patterns analyzed (unlocks after 10 games)<br><br><strong style="color:var(--purple);">❓ Questions</strong> — You're here! Get help and learn more<br><br><strong style="color:var(--gold);">👤 Meet the Founder</strong> — Learn about Arthur and the 7 Levels story<br><br><strong style="color:var(--green);">🌍 Worldwide Challenge</strong> — Same 3 scenarios for everyone on Earth, resets daily<br><br><strong style="color:var(--pink);">💡 Insights Stat</strong> — Tap to review all your collected insights<br><br><strong style="color:var(--pink);">🪞 Mirror Game</strong> — See yourself honestly, no right or wrong<br><br><strong style="color:var(--purple);">⚖️ Agreement Game</strong> — Train acceptance over judgment (unlocks at Level 2)<br><br><strong style="color:var(--orange);">🎯 Your Journey</strong> — Tap any level to practice specific scenarios<br><br><strong style="color:var(--blue);">📋 Full Assessment</strong> — Get a complete breakdown across all 7 levels</div></div>
 <div class="qa-item"><div class="qa-question">What's the difference between the 3 games?</div><div class="qa-answer"><strong style="color:var(--pink);">🪞 Mirror Game:</strong> Self-reflection. See patterns honestly. No right/wrong - just recognition.<br><br><strong style="color:var(--purple);">⚖️ Agreement Game:</strong> Train yourself to choose acceptance over judgment. Timed to build instinct.<br><br><strong style="color:var(--orange);">🌍 Worldwide Challenge:</strong> Same 3 scenarios for everyone globally. One chance daily. Builds streak.</div></div>
 <div class="qa-item"><div class="qa-question">How does scoring and leveling work?</div><div class="qa-answer"><strong>XP System:</strong> Every answer earns XP. Correct/accepting answers earn more. Combos add bonus XP!<br><br><strong>Level Up:</strong> Every 500 XP = 1 level. Levels unlock new game modes and framework levels.<br><br><strong>Unlocks:</strong><br>• Level 2: Agreement Game + Family<br>• Level 3: Groups<br>• Level 5: Community<br>• Level 7: Society<br>• Level 10: World<br>• Level 15: Generations</div></div>
 <div class="qa-item"><div class="qa-question">What does "Acceptance ≠ Agreement" mean?</div><div class="qa-answer">This is the core philosophy. <strong>Acceptance</strong> means acknowledging reality as it is. <strong>Agreement</strong> means endorsing it.<br><br>You can accept that something IS without agreeing it SHOULD BE. Acceptance is the first step to change - you can't transform what you won't acknowledge.</div></div>
@@ -9044,6 +9054,7 @@ if(!data.seenScenarios)data.seenScenarios={mirror:[],agreement:[],decision:[]};
 if(!data.favoriteInsights)data.favoriteInsights=[];
 if(!data.firstTimeHints)data.firstTimeHints={deepInsight:false,insights:false,pattern:false};
 if(!data.unlockTimestamps)data.unlockTimestamps={};
+if(typeof data.seenOnboarding==='undefined')data.seenOnboarding=false;
 let game={mode:null,scenarios:[],idx:0,answers:[],timer:null,timeLeft:15,useTimer:true,timerDuration:15,levelFilter:null,endlessMode:false,sessionXP:0,sessionInsights:0,sessionGames:0};
 
 // Haptic feedback for mobile
@@ -9251,11 +9262,9 @@ function checkDailyLogin(){
     document.getElementById('loginBonus').classList.add('show');
   }else{document.getElementById('loginBonus').classList.remove('show')}
 }
-function claimLoginBonus(){
-  let rewards=[10,15,20,25,30,40,50];multiCoinSound(data.loginDay);addXP(rewards[data.loginDay-1]);showToast('+'+rewards[data.loginDay-1]+' XP!');document.getElementById('loginBonus').classList.remove('show');triggerConfetti();
-}
-document.getElementById('loginBonus').addEventListener('touchstart',function(e){e.preventDefault();claimLoginBonus()},{passive:false});
-document.getElementById('loginBonus').addEventListener('click',claimLoginBonus);
+document.getElementById('loginBonus').onclick=function(){
+  let rewards=[10,15,20,25,30,40,50];multiCoinSound(data.loginDay);addXP(rewards[data.loginDay-1]);showToast('+'+rewards[data.loginDay-1]+' XP!');this.classList.remove('show');triggerConfetti();
+};
 
 function checkStreakWarning(){
   if(data.streak>0&&data.lastDaily!==new Date().toDateString()){document.getElementById('streakCount').textContent=data.streak;document.getElementById('streakWarning').classList.add('show')}
@@ -9275,7 +9284,7 @@ function updatePlayerCount(){
 }
 function updateHome(){
   updatePlayerCount();
-  updateXPBar();checkDailyLogin();checkStreakWarning();checkCoachingBridge();checkMilestones();checkFirstTimeHints();
+  updateXPBar();checkDailyLogin();checkStreakWarning();checkCoachingBridge();checkMilestones();
   document.getElementById('statPlayed').textContent=data.games;
   document.getElementById('statInsights').textContent=data.insightsCollection?data.insightsCollection.length:0;
   document.getElementById('statStreak').textContent=data.streak||0;
@@ -10193,6 +10202,8 @@ document.getElementById('startGameBtn').onclick = function() {
   document.body.classList.remove('hook-active');
   document.getElementById('hook').classList.add('hidden');
   updateHome();
+  // Start onboarding tour for new users
+  if(!data.seenOnboarding) setTimeout(startOnboardingTour, 600);
 };
 
 // Shareable Pattern Card Functions
@@ -10882,57 +10893,6 @@ window.addEventListener('scroll',function(){
   else{btn.classList.remove('show')}
 });
 
-// First-time feature hints
-function checkFirstTimeHints(){
-  if(!data.firstTimeHints)data.firstTimeHints={};
-  // Show Deep Insight hint after 5+ games
-  if(data.games>=5&&!data.firstTimeHints.deepInsight){
-    setTimeout(()=>showFeatureHint('aiBtn','Tap here to see your Deep Insight analysis based on your gameplay!','left'),2000);
-  }
-  // Show Insights collection hint after 10+ insights
-  if((data.insightsCollection||[]).length>=10&&!data.firstTimeHints.insights){
-    setTimeout(()=>showFeatureHint('insightsStat','Tap to review all your collected insights!','bottom'),3000);
-  }
-}
-
-function showFeatureHint(elementId,text,position){
-  let el=document.getElementById(elementId);
-  if(!el)return;
-  // Remove any existing hints
-  document.querySelectorAll('.hint-tooltip').forEach(h=>h.remove());
-  
-  let hint=document.createElement('div');
-  hint.className='hint-tooltip '+position;
-  hint.innerHTML=text+'<div class="hint-dismiss" onclick="dismissHint(\''+elementId+'\')">Got it!</div>';
-  
-  let rect=el.getBoundingClientRect();
-  hint.style.position='fixed';
-  hint.style.zIndex='9999';
-  
-  if(position==='bottom'){
-    hint.style.top=(rect.bottom+12)+'px';
-    hint.style.left=(rect.left+rect.width/2)+'px';
-    hint.style.transform='translateX(-50%)';
-  }else if(position==='left'){
-    hint.style.top=(rect.top+rect.height/2)+'px';
-    hint.style.right=(window.innerWidth-rect.left+12)+'px';
-    hint.style.transform='translateY(-50%)';
-  }
-  
-  document.body.appendChild(hint);
-  haptic('light');
-  
-  // Auto-dismiss after 8 seconds
-  setTimeout(()=>{if(hint.parentNode)hint.remove()},8000);
-}
-
-function dismissHint(elementId){
-  document.querySelectorAll('.hint-tooltip').forEach(h=>h.remove());
-  if(elementId==='aiBtn')data.firstTimeHints.deepInsight=true;
-  if(elementId==='insightsStat')data.firstTimeHints.insights=true;
-  save();
-}
-
 // Service Worker Registration
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -10944,6 +10904,100 @@ if ('serviceWorker' in navigator) {
 
 if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
 setInterval(updateTimer,1000);
+
+// ========== ONBOARDING TOOLTIP SYSTEM ==========
+const ONBOARD_STEPS = [
+  { target: 'quickModeBtn', text: '⚡ Quick Mode — Faster gameplay for power users', position: 'bottom' },
+  { target: 'musicBtn', text: '🎵 Toggle Music — Set the mood', position: 'bottom' },
+  { target: 'aiBtn', text: '❤️ Deep Insights — See your patterns analyzed after 10 games', position: 'bottom' },
+  { target: 'qaBtn', text: '❓ Questions — Get help & learn more', position: 'bottom' },
+  { target: 'founderBtn', text: '👤 Meet the Founder — Learn about Arthur', position: 'bottom' },
+  { target: 'dailyCard', text: '🌍 Worldwide Challenge — Same 3 scenarios for everyone on Earth. Resets daily!', position: 'top' },
+  { target: 'insightsStat', text: '💡 Your Insights — Every pattern you recognize gets saved here', position: 'top' },
+  { target: 'mirrorMode', text: '🪞 Mirror Game — See yourself honestly. No right or wrong answers.', position: 'top' },
+  { target: 'levelMap', text: '🎯 Level 1: Individual — Start here! Your relationship with yourself.', position: 'top', selector: '.level' },
+  { target: 'assessBtn', text: '📋 Full Assessment — Get a complete breakdown across all 7 levels', position: 'top' }
+];
+let onboardStep = 0;
+let currentTooltip = null;
+
+function startOnboardingTour() {
+  if (data.seenOnboarding || data.games > 0) return;
+  onboardStep = 0;
+  showOnboardStep();
+}
+
+function showOnboardStep() {
+  // Clean up previous
+  if (currentTooltip) currentTooltip.remove();
+  document.querySelectorAll('.onboard-highlight').forEach(el => el.classList.remove('onboard-highlight'));
+  
+  if (onboardStep >= ONBOARD_STEPS.length) {
+    // Tour complete
+    document.getElementById('onboardOverlay').classList.remove('show');
+    data.seenOnboarding = true;
+    save();
+    return;
+  }
+  
+  const step = ONBOARD_STEPS[onboardStep];
+  // Support selector option for targeting child elements (like first .level in levelMap)
+  let target;
+  if (step.selector) {
+    const parent = document.getElementById(step.target);
+    target = parent ? parent.querySelector(step.selector) : null;
+  } else {
+    target = document.getElementById(step.target);
+  }
+  if (!target) {
+    onboardStep++;
+    showOnboardStep();
+    return;
+  }
+  
+  // Show overlay
+  document.getElementById('onboardOverlay').classList.add('show');
+  
+  // Highlight target
+  target.classList.add('onboard-highlight');
+  
+  // Create tooltip
+  currentTooltip = document.createElement('div');
+  currentTooltip.className = 'onboard-tooltip arrow-' + (step.position === 'bottom' ? 'up' : 'down');
+  currentTooltip.innerHTML = step.text + '<br><button class="onboard-tooltip-btn" onclick="nextOnboardStep()">' + 
+    (onboardStep === ONBOARD_STEPS.length - 1 ? 'Got it!' : 'Next →') + '</button>';
+  document.body.appendChild(currentTooltip);
+  
+  // Position tooltip
+  const rect = target.getBoundingClientRect();
+  if (step.position === 'bottom') {
+    currentTooltip.style.top = (rect.bottom + 12) + 'px';
+    currentTooltip.style.left = Math.max(16, Math.min(window.innerWidth - 216, rect.left + rect.width/2 - 100)) + 'px';
+  } else {
+    currentTooltip.style.top = (rect.top - 12) + 'px';
+    currentTooltip.style.left = Math.max(16, Math.min(window.innerWidth - 216, rect.left + rect.width/2 - 100)) + 'px';
+    currentTooltip.style.transform = 'translateY(-100%)';
+  }
+  
+  // Show with animation
+  setTimeout(() => currentTooltip.classList.add('show'), 50);
+}
+
+function nextOnboardStep() {
+  onboardStep++;
+  showOnboardStep();
+}
+
+function skipOnboarding() {
+  if (currentTooltip) currentTooltip.remove();
+  document.querySelectorAll('.onboard-highlight').forEach(el => el.classList.remove('onboard-highlight'));
+  document.getElementById('onboardOverlay').classList.remove('show');
+  data.seenOnboarding = true;
+  save();
+}
+
+// Allow clicking overlay to skip
+document.getElementById('onboardOverlay').addEventListener('click', skipOnboarding);
 </script>
 <script>
 // ============================================================
