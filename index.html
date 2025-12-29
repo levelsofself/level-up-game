@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Level Up Game v9.8 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
-<!-- v9.8: Fix hook-logo black box on iOS, add sequential onboarding tooltips for new users -->
+<!-- Level Up Game v9.9 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
+<!-- v9.9: Auto-scroll to onboarding tooltip targets (fixes Full Assessment being off-screen) -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -10957,29 +10957,34 @@ function showOnboardStep() {
   // Show overlay
   document.getElementById('onboardOverlay').classList.add('show');
   
+  // Scroll target into view if needed
+  target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  
   // Highlight target
   target.classList.add('onboard-highlight');
   
-  // Create tooltip
-  currentTooltip = document.createElement('div');
-  currentTooltip.className = 'onboard-tooltip arrow-' + (step.position === 'bottom' ? 'up' : 'down');
-  currentTooltip.innerHTML = step.text + '<br><button class="onboard-tooltip-btn" onclick="nextOnboardStep()">' + 
-    (onboardStep === ONBOARD_STEPS.length - 1 ? 'Got it!' : 'Next →') + '</button>';
-  document.body.appendChild(currentTooltip);
-  
-  // Position tooltip
-  const rect = target.getBoundingClientRect();
-  if (step.position === 'bottom') {
-    currentTooltip.style.top = (rect.bottom + 12) + 'px';
-    currentTooltip.style.left = Math.max(16, Math.min(window.innerWidth - 216, rect.left + rect.width/2 - 100)) + 'px';
-  } else {
-    currentTooltip.style.top = (rect.top - 12) + 'px';
-    currentTooltip.style.left = Math.max(16, Math.min(window.innerWidth - 216, rect.left + rect.width/2 - 100)) + 'px';
-    currentTooltip.style.transform = 'translateY(-100%)';
-  }
-  
-  // Show with animation
-  setTimeout(() => currentTooltip.classList.add('show'), 50);
+  // Create tooltip after scroll completes
+  setTimeout(() => {
+    currentTooltip = document.createElement('div');
+    currentTooltip.className = 'onboard-tooltip arrow-' + (step.position === 'bottom' ? 'up' : 'down');
+    currentTooltip.innerHTML = step.text + '<br><button class="onboard-tooltip-btn" onclick="nextOnboardStep()">' + 
+      (onboardStep === ONBOARD_STEPS.length - 1 ? 'Got it!' : 'Next →') + '</button>';
+    document.body.appendChild(currentTooltip);
+    
+    // Position tooltip
+    const rect = target.getBoundingClientRect();
+    if (step.position === 'bottom') {
+      currentTooltip.style.top = (rect.bottom + 12) + 'px';
+      currentTooltip.style.left = Math.max(16, Math.min(window.innerWidth - 216, rect.left + rect.width/2 - 100)) + 'px';
+    } else {
+      currentTooltip.style.top = (rect.top - 12) + 'px';
+      currentTooltip.style.left = Math.max(16, Math.min(window.innerWidth - 216, rect.left + rect.width/2 - 100)) + 'px';
+      currentTooltip.style.transform = 'translateY(-100%)';
+    }
+    
+    // Show with animation
+    setTimeout(() => currentTooltip.classList.add('show'), 50);
+  }, 350); // Wait for scroll animation to complete
 }
 
 function nextOnboardStep() {
