@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- Level Up Game v9.9 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
-<!-- v9.9: Auto-scroll to onboarding tooltip targets (fixes Full Assessment being off-screen) -->
+<!-- v9.9: Fix tooltip positioning (use position:fixed), auto-scroll to targets, fix CSS class conflict -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -628,7 +628,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 /* ========== ONBOARDING TOOLTIPS ========== */
-.onboard-tooltip{position:absolute;background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:600;z-index:1000;opacity:0;transform:translateY(10px);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);pointer-events:none;max-width:200px;text-align:center;box-shadow:0 4px 20px rgba(255,60,172,0.4)}
+.onboard-tooltip{position:fixed;background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:600;z-index:1000;opacity:0;transform:translateY(10px);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);pointer-events:none;max-width:200px;text-align:center;box-shadow:0 4px 20px rgba(255,60,172,0.4)}
 .onboard-tooltip.show{opacity:1;transform:translateY(0);pointer-events:auto}
 .onboard-tooltip::after{content:'';position:absolute;width:0;height:0;border:8px solid transparent}
 .onboard-tooltip.arrow-up::after{top:-16px;left:50%;transform:translateX(-50%);border-bottom-color:var(--orange)}
@@ -639,7 +639,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .onboard-tooltip-btn:hover{background:rgba(255,255,255,0.3)}
 .onboard-overlay{position:fixed;inset:0;background:rgba(13,10,26,0.7);z-index:999;opacity:0;transition:opacity 0.3s ease;pointer-events:none}
 .onboard-overlay.show{opacity:1;pointer-events:auto}
-.onboard-highlight{position:relative;z-index:1001;animation:highlightPulse 1.5s ease-in-out infinite}
+.tour-highlight{position:relative;z-index:1001;animation:highlightPulse 1.5s ease-in-out infinite}
 @keyframes highlightPulse{0%,100%{box-shadow:0 0 0 4px rgba(255,60,172,0.4)}50%{box-shadow:0 0 0 8px rgba(255,60,172,0.2)}}
 </style>
 </head>
@@ -10929,7 +10929,7 @@ function startOnboardingTour() {
 function showOnboardStep() {
   // Clean up previous
   if (currentTooltip) currentTooltip.remove();
-  document.querySelectorAll('.onboard-highlight').forEach(el => el.classList.remove('onboard-highlight'));
+  document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
   
   if (onboardStep >= ONBOARD_STEPS.length) {
     // Tour complete
@@ -10961,7 +10961,7 @@ function showOnboardStep() {
   target.scrollIntoView({ behavior: 'smooth', block: 'center' });
   
   // Highlight target
-  target.classList.add('onboard-highlight');
+  target.classList.add('tour-highlight');
   
   // Create tooltip after scroll completes
   setTimeout(() => {
@@ -10994,7 +10994,7 @@ function nextOnboardStep() {
 
 function skipOnboarding() {
   if (currentTooltip) currentTooltip.remove();
-  document.querySelectorAll('.onboard-highlight').forEach(el => el.classList.remove('onboard-highlight'));
+  document.querySelectorAll('.tour-highlight').forEach(el => el.classList.remove('tour-highlight'));
   document.getElementById('onboardOverlay').classList.remove('show');
   data.seenOnboarding = true;
   save();
