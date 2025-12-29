@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Level Up Game v9.9 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
-<!-- v9.9: Fix tooltip positioning (use position:fixed), auto-scroll to targets, fix CSS class conflict -->
+<!-- Level Up Game v9.10 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
+<!-- v9.10: Fix Safari rendering issues (remove isolation:isolate, fix overlay visibility) -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -65,7 +65,7 @@ body::-webkit-scrollbar{display:none}
 /* Solid overlay - prevents any content bleed-through */
 body.hook-active{overflow:hidden;position:fixed;width:100%;height:100%;touch-action:none}
 body.hook-active .app{visibility:hidden;pointer-events:none}
-.hook{position:fixed;inset:0;background:#0d0a1a;display:flex;align-items:center;justify-content:center;z-index:9999;text-align:center;padding:24px;overflow:hidden;-webkit-overflow-scrolling:touch;isolation:isolate;overscroll-behavior:none}
+.hook{position:fixed;inset:0;background:#0d0a1a;display:flex;align-items:center;justify-content:center;z-index:9999;text-align:center;padding:24px;overflow:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:none}
 .hook::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);z-index:-2}
 .hook::before{content:'';position:absolute;top:-30%;left:-30%;width:160%;height:160%;background:radial-gradient(circle at 30% 30%,rgba(255,107,53,0.12) 0%,transparent 50%),radial-gradient(circle at 70% 70%,rgba(120,75,160,0.15) 0%,transparent 50%);pointer-events:none;animation:ambientFloat 20s ease-in-out infinite;z-index:-1}
 @keyframes ambientFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-2%,2%)}}
@@ -637,8 +637,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .onboard-tooltip.arrow-right::after{right:-16px;top:50%;transform:translateY(-50%);border-left-color:var(--pink)}
 .onboard-tooltip-btn{display:inline-block;margin-top:10px;padding:8px 16px;background:rgba(255,255,255,0.2);border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s}
 .onboard-tooltip-btn:hover{background:rgba(255,255,255,0.3)}
-.onboard-overlay{position:fixed;inset:0;background:rgba(13,10,26,0.7);z-index:999;opacity:0;transition:opacity 0.3s ease;pointer-events:none}
-.onboard-overlay.show{opacity:1;pointer-events:auto}
+.onboard-overlay{position:fixed;inset:0;background:rgba(13,10,26,0.7);z-index:999;opacity:0;visibility:hidden;transition:opacity 0.3s ease,visibility 0.3s ease;pointer-events:none}
+.onboard-overlay.show{opacity:1;visibility:visible;pointer-events:auto}
 .tour-highlight{position:relative;z-index:1001;animation:highlightPulse 1.5s ease-in-out infinite}
 @keyframes highlightPulse{0%,100%{box-shadow:0 0 0 4px rgba(255,60,172,0.4)}50%{box-shadow:0 0 0 8px rgba(255,60,172,0.2)}}
 </style>
