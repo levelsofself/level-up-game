@@ -9052,7 +9052,6 @@ let data=JSON.parse(localStorage.getItem('levelup_v7'))||{xp:0,level:1,coins:0,g
 // Migrate old data if needed
 if(!data.seenScenarios)data.seenScenarios={mirror:[],agreement:[],decision:[]};
 if(!data.favoriteInsights)data.favoriteInsights=[];
-if(!data.firstTimeHints)data.firstTimeHints={deepInsight:false,insights:false,pattern:false};
 if(!data.unlockTimestamps)data.unlockTimestamps={};
 if(typeof data.seenOnboarding==='undefined')data.seenOnboarding=false;
 let game={mode:null,scenarios:[],idx:0,answers:[],timer:null,timeLeft:15,useTimer:true,timerDuration:15,levelFilter:null,endlessMode:false,sessionXP:0,sessionInsights:0,sessionGames:0};
