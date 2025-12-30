@@ -484,6 +484,9 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .level-name{font-size:15px;font-weight:600;transition:var(--transition-fast)}
 .level:hover .level-name{color:var(--pink)}
 .level-desc{font-size:12px;color:var(--muted);margin-top:2px;transition:var(--transition-fast)}
+.level-progress{height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:6px;overflow:hidden}
+.level-progress-bar{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:2px;transition:width 0.5s ease}
+.level-progress-text{font-size:10px;color:var(--green);margin-top:3px;font-weight:600}
 .level:hover .level-desc{color:var(--text)}
 .action-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .action-btn{animation:fadeIn 0.3s ease backwards}
@@ -886,13 +889,13 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="modal-title" style="margin-top:8px;">Help & FAQ</div>
 <div class="qa-item"><div class="qa-question">What is the 7 Levels framework?</div><div class="qa-answer">The 7 Levels of Self maps human growth across 7 dimensions: Individual (self), Family (close relationships), Groups (teams/friends), Community (local impact), Society (systems/culture), World (global connection), and Generations (legacy). You can't skip levels - each must be mastered before climbing higher.</div></div>
 <div class="qa-item"><div class="qa-question">What's the difference between the 3 games?</div><div class="qa-answer"><strong style="color:var(--pink);">🪞 Mirror Game:</strong> Self-reflection. See patterns honestly. No right/wrong - just recognition.<br><br><strong style="color:var(--purple);">⚖️ Agreement Game:</strong> Train yourself to choose acceptance over judgment. Timed to build instinct.<br><br><strong style="color:var(--orange);">🌍 Worldwide Challenge:</strong> Same 3 scenarios for everyone globally. One chance daily. Builds streak.</div></div>
-<div class="qa-item"><div class="qa-question">How do XP, levels, streaks & bonuses work?</div><div class="qa-answer"><strong>XP & Leveling:</strong> Every answer earns XP. 500 XP = 1 level. Levels unlock new game modes and framework levels.<br><br><strong>Unlocks:</strong> Level 2 → Agreement Game + Family, Level 3 → Groups, Level 5 → Community, Level 7 → Society, Level 10 → World, Level 15 → Generations<br><br><strong>Coins:</strong> Earn coins (50% of XP) and tap them to open the Reward Shop. Redeem coins for workshop discounts, or save up for a FREE 1-on-1 session with Arthur!<br><br><strong>Streaks:</strong> Complete the Worldwide Challenge daily. Miss a day and it resets!<br><br><strong>Combos:</strong> Multiple correct answers in a row = bonus XP (5x = +15 XP, 10x = +40 XP).<br><br><strong>Daily Login:</strong> Claim increasing XP rewards each day (up to 100 XP on day 7).<br><br><strong>Quick Mode ⚡:</strong> Tap the lightning bolt in the header for faster gameplay - shorter text and quicker transitions.</div></div>
+<div class="qa-item"><div class="qa-question">How do XP, levels, streaks & bonuses work?</div><div class="qa-answer"><strong>XP & Leveling:</strong> Every answer earns XP. 500 XP = 1 level. Levels unlock new game modes and framework levels.<br><br><strong>Unlocks:</strong> Level 2 → Agreement Game + Family, Level 3 → Groups, Level 5 → Community, Level 7 → Society, Level 10 → World, Level 15 → Generations<br><br><strong>Coins:</strong> Earn coins (50% of XP) and tap them to open the Reward Shop. Redeem coins for workshop discounts, or save up for a FREE 1-on-1 session with Arthur!<br><br><strong>Streaks:</strong> Complete the Worldwide Challenge daily. Miss a day and it resets!<br><br><strong>Combos:</strong> Multiple correct answers in a row = bonus XP (5x = +15 XP, 10x = +40 XP).<br><br><strong>Daily Login:</strong> Claim increasing XP rewards each day (up to 100 XP on day 7).</div></div>
 <div class="qa-item"><div class="qa-question">What does "Acceptance ≠ Agreement" mean?</div><div class="qa-answer">This is the core philosophy. <strong>Acceptance</strong> means acknowledging reality as it is. <strong>Agreement</strong> means endorsing it.<br><br>You can accept that something IS without agreeing it SHOULD BE. Acceptance is the first step to change - you can't transform what you won't acknowledge.</div></div>
 <div class="qa-item"><div class="qa-question">What are Insights, Deep Insights & Archetypes?</div><div class="qa-answer"><strong>💡 Insights:</strong> Every pattern you recognize gets saved. Tap the Insights stat to review them over time.<br><br><strong>❤️ Deep Insights:</strong> After 10 games, unlock AI-powered analysis showing your growth pattern, self-awareness scores, recurring themes, and recommended practice.<br><br><strong>🎭 Archetypes:</strong> Based on your gameplay patterns, you're matched with one of these growth personalities:<br><br><div style="background:var(--card);border-radius:10px;padding:12px;margin-top:8px;"><div style="margin-bottom:10px;"><strong style="color:#FF6B35;">🔥 The Boundary Builder</strong><br><span style="font-size:12px;color:var(--muted);">Learning to protect your energy and say no</span></div><div style="margin-bottom:10px;"><strong style="color:#784BA0;">🔮 The Pattern Seeker</strong><br><span style="font-size:12px;color:var(--muted);">Seeing connections others miss</span></div><div style="margin-bottom:10px;"><strong style="color:#2F80ED;">🌊 The Flow Finder</strong><br><span style="font-size:12px;color:var(--muted);">Releasing control to find peace</span></div><div style="margin-bottom:10px;"><strong style="color:#00D26A;">🌱 The Growth Gardener</strong><br><span style="font-size:12px;color:var(--muted);">Nurturing steady, patient progress</span></div><div style="margin-bottom:10px;"><strong style="color:#F7C948;">⚡ The Truth Teller</strong><br><span style="font-size:12px;color:var(--muted);">Embracing radical honesty with self and others</span></div><div><strong style="color:#FF3CAC;">💫 The Integration Master</strong><br><span style="font-size:12px;color:var(--muted);">Balancing all dimensions of growth</span></div></div></div></div>
 <div class="qa-item"><div class="qa-question">Is this a substitute for therapy?</div><div class="qa-answer"><strong style="color:var(--yellow);">No.</strong> This game is for self-reflection and personal growth—not therapy, diagnosis, or treatment.<br><br><strong style="color:var(--green);">🆘 Crisis Resources:</strong> 988 Suicide & Crisis Lifeline (US), Crisis Text Line: text HOME to 741741, International: <a href="https://findahelpline.com" target="_blank" style="color:var(--blue);">findahelpline.com</a><br><br><em style="color:var(--muted);">You are not alone. Help is available.</em></div></div>
 <div class="qa-item"><div class="qa-question">Is my data private?</div><div class="qa-answer"><strong style="color:var(--green);">Yes.</strong> All data is stored locally on your device only. Nothing is sent to any server. Clearing browser data will reset progress.</div></div>
 <div class="qa-item"><div class="qa-question">Can I work with Arthur directly?</div><div class="qa-answer" style="text-align:center;"><strong style="color:var(--pink);">Yes!</strong> Arthur offers 1-on-1 integration sessions for people ready to go deeper.<br><br><strong style="color:var(--gold);font-size:18px;">$500</strong>/session<br><em style="color:var(--muted);font-size:12px;">(discounts available - just ask)</em><br><br><button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('coachingModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">💬 Book a Session</button></div></div>
-<div class="qa-item"><div class="qa-question">More options</div><div class="qa-answer" style="text-align:center;"><strong>📋 Full Assessment:</strong><br>Get a comprehensive breakdown across all 7 levels.<br><a href="https://selfcheck.100levelup.com/assessment.html" target="_blank" style="display:inline-block;padding:10px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;margin:8px 0;">Take Assessment</a><br><br><strong>📤 Share:</strong><br><button onclick="if(navigator.share){navigator.share({title:'Level Up',text:'See the patterns that quietly run your life.',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:10px 16px;background:var(--card);border:2px solid var(--pink);border-radius:8px;color:var(--text);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">Share Game</button><br><br><strong>🔊 Sound:</strong><br><button onclick="soundOn=!soundOn;this.textContent=soundOn?'ON':'OFF';this.style.background=soundOn?'var(--green)':'var(--card)'" style="padding:8px 16px;background:var(--green);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">ON</button></div></div>
+<div class="qa-item"><div class="qa-question">More options</div><div class="qa-answer" style="text-align:center;"><strong>💀 Hard Mode:</strong><br>5 second timer on ALL games<br><button id="faqHardMode" onclick="hardMode=!hardMode;this.textContent=hardMode?'ON':'OFF';this.style.background=hardMode?'var(--red)':'var(--card)';this.style.border=hardMode?'none':'2px solid var(--red)';this.style.color=hardMode?'#fff':'var(--red)'" style="padding:8px 16px;background:var(--card);border:2px solid var(--red);border-radius:8px;color:var(--red);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">OFF</button><br><br><strong>⚡ Quick Mode:</strong><br>Faster text and transitions<br><button id="faqQuickMode" onclick="quickMode=!quickMode;document.getElementById('quickModeBtn').classList.toggle('on',quickMode);this.textContent=quickMode?'ON':'OFF';this.style.background=quickMode?'var(--orange)':'var(--card)';this.style.border=quickMode?'none':'2px solid var(--orange)';this.style.color=quickMode?'#fff':'var(--orange)'" style="padding:8px 16px;background:var(--card);border:2px solid var(--orange);border-radius:8px;color:var(--orange);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">OFF</button><br><br><strong>🔊 Sound:</strong><br><button onclick="soundOn=!soundOn;this.textContent=soundOn?'ON':'OFF';this.style.background=soundOn?'var(--green)':'var(--card)';this.style.border=soundOn?'none':'2px solid var(--green)';this.style.color=soundOn?'#fff':'var(--green)'" style="padding:8px 16px;background:var(--green);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">ON</button><br><br><strong>📋 Full Assessment:</strong><br>Get a comprehensive breakdown across all 7 levels.<br><a href="https://selfcheck.100levelup.com/assessment.html" target="_blank" style="display:inline-block;padding:10px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;margin:8px 0;">Take Assessment</a><br><br><strong>📤 Share:</strong><br><button onclick="if(navigator.share){navigator.share({title:'Level Up',text:'See the patterns that quietly run your life.',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:10px 16px;background:var(--card);border:2px solid var(--pink);border-radius:8px;color:var(--text);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">Share Game</button></div></div>
 <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;">
 <button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('founderModal').classList.add('active');" style="padding:14px;background:var(--card);border:2px solid var(--gold);border-radius:12px;color:var(--text);font-size:15px;font-weight:600;cursor:pointer;">👤 Meet the Founder</button>
 <button id="resetBtn" style="padding:14px;background:transparent;border:2px solid var(--red);border-radius:12px;color:var(--red);font-size:14px;font-weight:600;cursor:pointer;">🔄 Reset All Progress</button>
@@ -9192,7 +9195,7 @@ if(DECISION_SCENARIOS_EXPANDED.length>0){window.DECISION_SCENARIOS=DECISION_SCEN
 const LEVELS=[{id:1,name:'Individual',color:'#FF6B35',desc:'Your relationship with yourself'},{id:2,name:'Family',color:'#FF3CAC',desc:'Your closest relationships'},{id:3,name:'Groups',color:'#784BA0',desc:'Teams, friends, communities'},{id:4,name:'Community',color:'#2F80ED',desc:'Your role in the larger whole'},{id:5,name:'Society',color:'#00D26A',desc:'Systems, culture, nation'},{id:6,name:'World',color:'#F7C948',desc:'Global connection'},{id:7,name:'Generations',color:'#C0C0C0',desc:'Legacy that outlasts you'}];
 const XP_PER_LEVEL=500;
 let music=document.getElementById('music');music.volume=0.4;
-let musicOn=false,soundOn=true,quickMode=false,currentCombo=0;
+let musicOn=false,soundOn=true,quickMode=false,hardMode=false,currentCombo=0;
 function truncateText(text,maxLen=80){
   if(!quickMode||!text||text.length<=maxLen)return text;
   return text.substring(0,maxLen).trim()+'...';
@@ -9741,13 +9744,42 @@ function updateHome(){
   else{agreementEl.classList.add('locked');agreementEl.classList.remove('newly-unlocked');document.getElementById('agreementUnlock').textContent='Reach Level 2'}
   let map=document.getElementById('levelMap');map.innerHTML='';
   const UNLOCK_LEVELS={1:1,2:2,3:3,4:5,5:7,6:10,7:15};
+  
+  // Calculate progress per level
+  function getLevelProgress(levelId) {
+    if (!data.seenScenarios) return { seen: 0, total: 0, pct: 0 };
+    let seen = 0;
+    let total = 0;
+    // Count mirror scenarios for this level
+    if (typeof MIRROR_SCENARIOS !== 'undefined') {
+      let levelScenarios = MIRROR_SCENARIOS.filter(s => s.level === levelId);
+      total += levelScenarios.length;
+      levelScenarios.forEach(s => {
+        if (data.seenScenarios.mirror && data.seenScenarios.mirror.includes(s.text)) seen++;
+      });
+    }
+    // Count decision/agreement scenarios for this level
+    if (typeof DECISION_SCENARIOS !== 'undefined') {
+      let levelDecision = DECISION_SCENARIOS.filter(s => s.level === levelId);
+      total += levelDecision.length;
+      levelDecision.forEach(s => {
+        if (data.seenScenarios.agreement && data.seenScenarios.agreement.includes(s.scenario)) seen++;
+        if (data.seenScenarios.decision && data.seenScenarios.decision.includes(s.scenario)) seen++;
+      });
+    }
+    let pct = total > 0 ? Math.round((seen / total) * 100) : 0;
+    return { seen, total, pct };
+  }
+  
   LEVELS.forEach(lv=>{
     let unlocked=data.unlockedLevels.includes(lv.id);
     let isNew=unlocked&&data.newlyUnlockedLevels&&data.newlyUnlockedLevels.includes(lv.id);
+    let progress = unlocked ? getLevelProgress(lv.id) : null;
     let div=document.createElement('div');div.className='level'+(unlocked?' unlocked':' locked')+(isNew?' newly-unlocked':'');
     div.style.position='relative';
     let unlockText='Reach Player Level '+UNLOCK_LEVELS[lv.id];
-    div.innerHTML='<div class="level-num" style="background:'+lv.color+'">'+lv.id+'</div><div class="level-info"><div class="level-name">'+lv.name+(unlocked?'':' 🔒')+'</div><div class="level-desc">'+(unlocked?lv.desc:unlockText)+'</div></div>';
+    let progressHtml = unlocked && progress && progress.total > 0 ? '<div class="level-progress"><div class="level-progress-bar" style="width:'+progress.pct+'%"></div></div><div class="level-progress-text">'+progress.pct+'% explored</div>' : '';
+    div.innerHTML='<div class="level-num" style="background:'+lv.color+'">'+lv.id+'</div><div class="level-info"><div class="level-name">'+lv.name+(unlocked?'':' 🔒')+'</div><div class="level-desc">'+(unlocked?lv.desc:unlockText)+'</div>'+progressHtml+'</div>';
     // Add NEW badge for recently unlocked levels
     if(isNew&&data.unlockTimestamps&&data.unlockTimestamps['level'+lv.id]){
       let daysSince=(Date.now()-data.unlockTimestamps['level'+lv.id])/(1000*60*60*24);
@@ -10731,7 +10763,7 @@ function dismissCoachingBridge() {
 // Entry flow hookBtn handler is defined above - this line removed to prevent override
 
 function startMirrorGame(lf){
-  game.mode='mirror';game.idx=0;game.answers=[];game.useTimer=false;game.levelFilter=lf||null;currentCombo=0;
+  game.mode='mirror';game.idx=0;game.answers=[];game.useTimer=hardMode;game.levelFilter=lf||null;currentCombo=0;
   if(!game.endlessMode){game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;}
   game.sessionGames++;
   // First-time instruction
@@ -10748,7 +10780,7 @@ function startMirrorGame(lf){
   // Use smartShuffle to prioritize unseen scenarios
   game.scenarios=smartShuffle(pool,'mirror').slice(0,questionCount);
   document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
-  document.getElementById('gameMode').textContent=game.endlessMode?'♾️ Mirror (Endless)':'Mirror Game';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.add('hidden');
+  document.getElementById('gameMode').textContent=game.endlessMode?'♾️ Mirror (Endless)':(hardMode?'💀 Mirror (Hard)':'Mirror Game');document.getElementById('gameCombo').textContent='';if(hardMode){document.getElementById('timerBar').classList.remove('hidden')}else{document.getElementById('timerBar').classList.add('hidden')};
   showMirrorScenario();
 }
 function startAgreementGame(lf){
@@ -10845,7 +10877,7 @@ function selectDecisionChoice(ch,btn,sc){
 }
 function showDecisionFeedback(ch,isCorr){document.getElementById('fbIcon').textContent=isCorr?'✓':'💡';document.getElementById('fbIcon').style.color=isCorr?'var(--green)':'var(--yellow)';document.getElementById('fbTitle').textContent=isCorr?'Correct!':'Not Quite';document.getElementById('fbLabel').textContent='Insight';document.getElementById('fbText').textContent=ch.fb;document.getElementById('feedbackModal').classList.add('active')}
 
-function startTimer(){let duration=game.timerDuration||15;game.timeLeft=duration;if(game.timer)clearInterval(game.timer);game.timer=setInterval(()=>{game.timeLeft-=0.1;let pct=(game.timeLeft/duration)*100,fill=document.getElementById('timerFill');fill.style.width=pct+'%';fill.classList.remove('warn','danger');if(game.timeLeft<=5)fill.classList.add('danger');else if(game.timeLeft<=duration*0.66)fill.classList.add('warn');if(game.timeLeft<=0){clearInterval(game.timer);timeUp()}},100)}
+function startTimer(){let duration=hardMode?5:(game.timerDuration||15);game.timeLeft=duration;if(game.timer)clearInterval(game.timer);game.timer=setInterval(()=>{game.timeLeft-=0.1;let pct=(game.timeLeft/duration)*100,fill=document.getElementById('timerFill');fill.style.width=pct+'%';fill.classList.remove('warn','danger');if(game.timeLeft<=5)fill.classList.add('danger');else if(game.timeLeft<=duration*0.66)fill.classList.add('warn');if(game.timeLeft<=0){clearInterval(game.timer);timeUp()}},100)}
 function timeUp(){
   let s=game.scenarios[game.idx];document.querySelectorAll('.choice').forEach(b=>b.disabled=true);resetCombo();
   if(game.mode==='agreement'||(game.mode==='mixed'&&s.gameType==='agreement')){let acc=s.choices.find(c=>c.type==='acceptance');game.answers.push({type:'timeout',isAcceptance:false,level:s.level});data.agreementTotal++;document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else b.classList.add('dim')});neutralSound();setTimeout(()=>{document.getElementById('fbIcon').textContent='⏰';document.getElementById('fbTitle').textContent="Time's Up";document.getElementById('fbLabel').textContent='The accepting response';document.getElementById('fbText').textContent=acc.insight;document.getElementById('feedbackModal').classList.add('active')},500)}
