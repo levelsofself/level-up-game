@@ -660,7 +660,9 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
   .onboard-title{font-size:24px}
   .hero h1{font-size:22px}
   .score{font-size:56px}
-  .stats{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:repeat(4,1fr);gap:6px}
+  .stat-val{font-size:18px}
+  .stat-label{font-size:9px}
   .action-btns{grid-template-columns:1fr}
 }
 @media(min-width:768px){
@@ -846,7 +848,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 
 <div class="hero">
 <div id="welcomeMessage" style="display:none;font-size:14px;font-weight:600;color:var(--gold);margin-bottom:8px;"></div>
-<h1>See Your Patterns</h1><p>The game that reveals what's really running your life.</p></div>
+<h1>See Your Patterns</h1><p style="white-space:nowrap;">The game that reveals what's really running your life.</p></div>
 
 <div class="challenge" id="dailyCard" role="button" aria-label="Play Worldwide Challenge - Same 3 scenarios for everyone on Earth"><div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div><h2>Worldwide Challenge</h2><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="player-count"><span class="player-dot"></span><span id="playerCountNum">--</span> playing now</div><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer">Resets in --:--:--</span></div></div>
 
@@ -905,6 +907,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="qa-item"><div class="qa-question">Is my data private?</div><div class="qa-answer"><strong style="color:var(--green);">Yes.</strong> All data is stored locally on your device only. Nothing is sent to any server. Clearing browser data will reset progress.</div></div>
 <div class="qa-item"><div class="qa-question">Can I work with Arthur directly?</div><div class="qa-answer" style="text-align:center;"><strong style="color:var(--pink);">Yes!</strong> Arthur offers 1-on-1 integration sessions for people ready to go deeper.<br><br><strong style="color:var(--gold);font-size:18px;">$500</strong>/session<br><em style="color:var(--muted);font-size:12px;">(discounts available - just ask)</em><br><br><button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('coachingModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">💬 Book a Session</button></div></div>
 <div class="qa-item"><div class="qa-question">More options</div><div class="qa-answer" style="text-align:center;"><strong>💀 Hard Mode:</strong><br>5 second timer on ALL games<br><button id="faqHardMode" onclick="hardMode=!hardMode;this.textContent=hardMode?'ON':'OFF';this.style.background=hardMode?'var(--red)':'var(--card)';this.style.border=hardMode?'none':'2px solid var(--red)';this.style.color=hardMode?'#fff':'var(--red)'" style="padding:8px 16px;background:var(--card);border:2px solid var(--red);border-radius:8px;color:var(--red);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">OFF</button><br><br><strong>⚡ Quick Mode:</strong><br>Faster text and transitions<br><button id="faqQuickMode" onclick="quickMode=!quickMode;document.getElementById('quickModeBtn').classList.toggle('on',quickMode);this.textContent=quickMode?'ON':'OFF';this.style.background=quickMode?'var(--orange)':'var(--card)';this.style.border=quickMode?'none':'2px solid var(--orange)';this.style.color=quickMode?'#fff':'var(--orange)'" style="padding:8px 16px;background:var(--card);border:2px solid var(--orange);border-radius:8px;color:var(--orange);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">OFF</button><br><br><strong>🔊 Sound:</strong><br><button onclick="soundOn=!soundOn;this.textContent=soundOn?'ON':'OFF';this.style.background=soundOn?'var(--green)':'var(--card)';this.style.border=soundOn?'none':'2px solid var(--green)';this.style.color=soundOn?'#fff':'var(--green)'" style="padding:8px 16px;background:var(--green);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">ON</button><br><br><strong>📋 Full Assessment:</strong><br>Get a comprehensive breakdown across all 7 levels.<br><a href="https://selfcheck.100levelup.com/assessment.html" target="_blank" style="display:inline-block;padding:10px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;margin:8px 0;">Take Assessment</a><br><br><strong>📤 Share:</strong><br><button onclick="if(navigator.share){navigator.share({title:'Level Up',text:'See the patterns that quietly run your life.',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:10px 16px;background:var(--card);border:2px solid var(--pink);border-radius:8px;color:var(--text);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">Share Game</button></div></div>
+<div class="qa-item"><div class="qa-question">⌨️ Keyboard shortcuts</div><div class="qa-answer"><strong style="color:var(--cyan);">Home Screen:</strong><br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">M</span> Start Mirror game<br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">A</span> Start Agreement game<br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">D</span> Daily Challenge<br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">?</span> Open Help<br><br><strong style="color:var(--pink);">During Game:</strong><br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">1</span> <span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">2</span> <span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">3</span> <span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">4</span> Select answer<br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">Esc</span> Quit game<br><br><strong style="color:var(--green);">Anywhere:</strong><br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">Esc</span> Close modal<br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">Enter</span> Confirm / Continue</div></div>
 <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;">
 <button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('founderModal').classList.add('active');" style="padding:14px;background:var(--card);border:2px solid var(--gold);border-radius:12px;color:var(--text);font-size:15px;font-weight:600;cursor:pointer;">👤 Meet the Founder</button>
 <button id="resetBtn" style="padding:14px;background:transparent;border:2px solid var(--red);border-radius:12px;color:var(--red);font-size:14px;font-weight:600;cursor:pointer;">🔄 Reset All Progress</button>
@@ -11704,6 +11707,86 @@ try {
   console.error('Initialization error:', e);
 }
 
+// ========== KEYBOARD NAVIGATION ==========
+document.addEventListener('keydown', function(e) {
+  // Don't interfere with typing in inputs
+  if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  
+  // Game screen controls
+  let gameActive = document.getElementById('game').classList.contains('active');
+  if(gameActive) {
+    let choices = document.querySelectorAll('.choice:not(:disabled)');
+    // 1-4 keys select choices
+    if(e.key >= '1' && e.key <= '4') {
+      let idx = parseInt(e.key) - 1;
+      if(choices[idx]) choices[idx].click();
+    }
+    // Escape quits game
+    if(e.key === 'Escape') {
+      document.getElementById('quitBtn').click();
+    }
+    return;
+  }
+  
+  // Modal controls
+  let activeModal = document.querySelector('.modal.active');
+  if(activeModal) {
+    // Escape closes modal
+    if(e.key === 'Escape') {
+      activeModal.classList.remove('active');
+    }
+    // Enter clicks primary button
+    if(e.key === 'Enter') {
+      let btn = activeModal.querySelector('.modal-btn, button[style*="gradient"]');
+      if(btn) btn.click();
+    }
+    return;
+  }
+  
+  // Results screen
+  let resultsActive = document.getElementById('results').classList.contains('active');
+  if(resultsActive) {
+    if(e.key === 'Enter' || e.key === ' ') {
+      let keepPlaying = document.getElementById('keepPlayingBtn');
+      if(keepPlaying.style.display !== 'none') keepPlaying.click();
+      else document.getElementById('homeBtn').click();
+    }
+    if(e.key === 'Escape') {
+      document.getElementById('homeBtn').click();
+    }
+    return;
+  }
+  
+  // Hook screen
+  let hookActive = document.body.classList.contains('hook-active');
+  if(hookActive) {
+    if(e.key === 'Enter' || e.key === ' ') {
+      let hookBtn = document.getElementById('hookBtn');
+      if(hookBtn.classList.contains('show')) hookBtn.click();
+    }
+    return;
+  }
+  
+  // Home screen shortcuts
+  if(e.key === 'm' || e.key === 'M') {
+    // Start Mirror game
+    document.getElementById('mirrorMode')?.click();
+  }
+  if(e.key === 'a' || e.key === 'A') {
+    // Start Agreement game
+    let agreementBtn = document.getElementById('agreementMode');
+    if(agreementBtn && !agreementBtn.classList.contains('locked')) agreementBtn.click();
+  }
+  if(e.key === 'd' || e.key === 'D') {
+    // Daily challenge
+    document.getElementById('dailyCard')?.click();
+  }
+  if(e.key === '?') {
+    // Help
+    document.getElementById('qaBtn')?.click();
+  }
+});
+
 // ========== ONBOARDING TOOLTIP SYSTEM ==========
 const ONBOARD_STEPS = [
   { target: 'quickModeBtn', text: '⚡ Quick Mode — Faster gameplay for power users', position: 'bottom' },
@@ -11804,8 +11887,8 @@ function skipOnboarding() {
   save();
 }
 
-// Allow clicking overlay to skip
-document.getElementById('onboardOverlay').addEventListener('click', skipOnboarding);
+// Tour can only be advanced with the Next button - no click-away
+// document.getElementById('onboardOverlay').addEventListener('click', skipOnboarding);
 </script>
 <script>
 // ============================================================
