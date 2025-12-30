@@ -39,6 +39,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="shortcut icon" href="icon-192.png">
 <link rel="manifest" href="manifest.json">
+<!-- Preload critical images -->
+<link rel="preload" href="logo_edited.png" as="image">
 <title>Level Up - See Your Patterns | 7 Levels of Self</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -841,7 +843,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 
 <div class="challenge" id="dailyCard" role="button" aria-label="Play Worldwide Challenge - Same 3 scenarios for everyone on Earth"><div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div><h2>Worldwide Challenge</h2><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="player-count"><span class="player-dot"></span><span id="playerCountNum">--</span> playing now</div><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer">Resets in --:--:--</span></div></div>
 
-<div class="xp-container" onclick="showXpDetails()" style="cursor:pointer;"><div class="xp-header"><div class="xp-level" id="playerLevel">Level 1</div><div class="xp-coins" onclick="event.stopPropagation();showCoinShop();"><span id="coinCount">0</span> coins</div></div><div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div><div class="xp-text"><span id="xpCurrent">0</span> / <span id="xpNeeded">500</span> XP</div></div>
+<div class="xp-container" onclick="showXpDetails()" style="cursor:pointer;"><div class="xp-header"><div class="xp-level" id="playerLevel">Level 1</div><div class="xp-coins" onclick="event.stopPropagation();showCoinShop();"><span id="coinCount">0</span> <span style="color:var(--gold);">coins</span></div></div><div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div><div class="xp-text"><span id="xpCurrent">0</span> / <span id="xpNeeded">500</span> XP</div></div>
 
 <div class="stats"><div class="stat" onclick="showStatDetails('played')" style="cursor:pointer;"><div class="stat-val" id="statPlayed">0</div><div class="stat-label">Played</div></div><div class="stat" onclick="showStatDetails('streak')" style="cursor:pointer;"><div class="stat-val" id="statStreak">0</div><div class="stat-label">Streak</div></div><div class="stat" onclick="showStatDetails('acceptance')" style="cursor:pointer;"><div class="stat-val" id="statAcceptRate">0%</div><div class="stat-label">Acceptance</div></div><div class="stat insights-stat" id="insightsStat"><div class="stat-val" id="statInsights">0</div><div class="stat-label">Insights</div></div></div>
 
@@ -881,7 +883,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 
 <div class="game" id="game"><div class="game-header"><div class="game-info"><div class="game-mode" id="gameMode">Mirror</div><div id="gameProgress">1/5</div><div class="game-combo" id="gameCombo"></div></div><button class="music-toggle" id="gameMusicToggle" title="Toggle music">🎵</button><button class="quit" id="quitBtn">✕</button></div><div class="timer" id="timerBar"><div class="timer-fill" id="timerFill"></div></div><div class="scenario"><div class="scenario-cat" id="scenarioCat">Level 1: Individual</div><div class="scenario-text loading" id="scenarioText">Loading...</div></div><div class="choices" id="choices"></div></div>
 
-<div class="results" id="results"><h2 id="resultsTitle">Game Complete</h2><div class="score" id="finalScore">0</div><div class="results-xp" id="resultsXP" style="display:none;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin:12px 0;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--gold);">+<span id="sessionXP">0</span> XP</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">This session</div></div><p class="result-msg" id="resultMsg">Keep going!</p><div class="insights-list" id="insightsList"></div><div class="results-actions" style="display:flex;flex-direction:column;gap:10px;margin-top:16px;"><button class="results-btn" id="keepPlayingBtn" style="background:linear-gradient(135deg,var(--green),#00B85D);display:none;">🔄 Keep Playing (+10 more)</button><button class="results-btn" id="endlessModeBtn" style="background:linear-gradient(135deg,var(--purple),var(--blue));display:none;">♾️ Endless Mode</button><button class="results-btn" id="homeBtn" style="background:var(--card);border:2px solid var(--pink);">🏠 Back to Home</button></div><div class="share-platform-grid"><button class="share-platform-btn" onclick="shareWhatsApp()"><span class="icon">💬</span><span class="label">WhatsApp</span></button><button class="share-platform-btn" onclick="shareTwitter()"><span class="icon">𝕏</span><span class="label">Twitter</span></button><button class="share-platform-btn" onclick="copyShareLink()"><span class="icon">📋</span><span class="label">Copy</span></button><button class="share-platform-btn" onclick="shareNative()"><span class="icon">📤</span><span class="label">More</span></button></div><div id="resultsCoachingCta" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);text-align:center;"><p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Ready to break these patterns for good?</p><a href="https://wa.me/+18184399770?text=Hi%20Arthur%2C%20I%27ve%20been%20playing%20Level%20Up%20and%20I%27m%20ready%20to%20go%20deeper.%20I%27m%20interested%20in%20integration." target="_blank" style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;">✨ Integrate with Arthur</a></div></div>
+<div class="results" id="results"><h2 id="resultsTitle">Game Complete</h2><div class="score" id="finalScore">0</div><div class="results-xp" id="resultsXP" style="display:none;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin:12px 0;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--gold);">+<span id="sessionXP">0</span> XP</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">This session</div></div><p class="result-msg" id="resultMsg">Keep going!</p><div class="insights-list" id="insightsList"></div><div id="deepestInsight" style="display:none;background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));border:1px solid var(--pink);border-radius:12px;padding:16px;margin:16px 0;text-align:center;"><div style="font-size:12px;color:var(--pink);font-weight:600;margin-bottom:8px;">💡 Pattern that stood out</div><div id="deepestInsightText" style="font-size:15px;color:var(--text);font-style:italic;line-height:1.5;margin-bottom:12px;"></div><div style="display:flex;gap:10px;justify-content:center;"><button onclick="saveDeepestInsight()" style="padding:8px 16px;background:var(--card);border:1px solid var(--pink);border-radius:8px;color:var(--pink);font-size:13px;font-weight:600;cursor:pointer;">❤️ Save</button><button onclick="shareDeepestInsight()" style="padding:8px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;">📤 Share</button></div></div><div class="results-actions" style="display:flex;flex-direction:column;gap:10px;margin-top:16px;"><button class="results-btn" id="keepPlayingBtn" style="background:linear-gradient(135deg,var(--green),#00B85D);display:none;">🔄 Keep Playing (+10 more)</button><button class="results-btn" id="endlessModeBtn" style="background:linear-gradient(135deg,var(--purple),var(--blue));display:none;">♾️ Endless Mode</button><button class="results-btn" id="homeBtn" style="background:var(--card);border:2px solid var(--pink);">🏠 Back to Home</button></div><div class="share-platform-grid"><button class="share-platform-btn" onclick="shareWhatsApp()"><span class="icon">💬</span><span class="label">WhatsApp</span></button><button class="share-platform-btn" onclick="shareTwitter()"><span class="icon">𝕏</span><span class="label">Twitter</span></button><button class="share-platform-btn" onclick="copyShareLink()"><span class="icon">📋</span><span class="label">Copy</span></button><button class="share-platform-btn" onclick="shareNative()"><span class="icon">📤</span><span class="label">More</span></button></div><div id="resultsCoachingCta" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);text-align:center;"><p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Ready to break these patterns for good?</p><a href="https://wa.me/+18184399770?text=Hi%20Arthur%2C%20I%27ve%20been%20playing%20Level%20Up%20and%20I%27m%20ready%20to%20go%20deeper.%20I%27m%20interested%20in%20integration." target="_blank" style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;">✨ Integrate with Arthur</a></div></div>
 </div>
 
 <div class="modal" id="qaModal"><div class="modal-content" id="qaContent" style="max-height:85vh;overflow-y:auto;position:relative;scroll-behavior:smooth;">
@@ -1132,6 +1134,38 @@ Earn coins by playing games (50% of XP earned).<br>Redeem for real discounts on 
 <div style="display:flex;gap:10px;">
 <button onclick="document.getElementById('milestoneShareModal').classList.remove('active')" style="flex:1;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;color:var(--muted);font-size:15px;font-weight:600;cursor:pointer;">Maybe Later</button>
 <button onclick="shareMilestone();document.getElementById('milestoneShareModal').classList.remove('active')" style="flex:1;padding:14px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;">📤 Share Now</button>
+</div>
+</div></div>
+
+<!-- Take a Break Modal -->
+<div class="modal" id="takeBreakModal"><div class="modal-content" style="text-align:center;">
+<div style="font-size:48px;margin-bottom:12px;">🌿</div>
+<div class="modal-title" style="color:var(--green);">You've been reflecting deeply</div>
+<div style="color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:20px;">Take a moment to breathe.<br>This work isn't meant to be rushed.<br><br><em style="color:var(--text);">What you've uncovered today will still be here tomorrow.</em></div>
+<div style="display:flex;gap:10px;">
+<button onclick="document.getElementById('takeBreakModal').classList.remove('active');goHome();" style="flex:1;padding:14px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;">🌿 Take a Break</button>
+<button onclick="document.getElementById('takeBreakModal').classList.remove('active');sessionBreakShown=true;" style="flex:1;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;color:var(--muted);font-size:15px;font-weight:600;cursor:pointer;">Keep Going</button>
+</div>
+</div></div>
+
+<!-- Weekly Summary Modal -->
+<div class="modal" id="weeklySummaryModal"><div class="modal-content" style="text-align:center;">
+<div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Your Week in Patterns</div>
+<div style="font-size:14px;color:var(--text);margin-bottom:16px;" id="weeklyDateRange"></div>
+<div style="background:var(--card);border-radius:12px;padding:16px;margin-bottom:16px;text-align:left;">
+<div style="display:flex;justify-content:space-between;margin-bottom:12px;"><span style="color:var(--muted);font-size:13px;">Scenarios explored</span><span style="color:var(--text);font-weight:700;" id="weeklyScenarios">0</span></div>
+<div style="display:flex;justify-content:space-between;margin-bottom:12px;"><span style="color:var(--muted);font-size:13px;">New insights collected</span><span style="color:var(--text);font-weight:700;" id="weeklyInsights">0</span></div>
+<div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);font-size:13px;">Acceptance rate</span><span style="color:var(--text);font-weight:700;" id="weeklyAcceptance">--%</span></div>
+</div>
+<div style="background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));border:1px solid var(--pink);border-radius:12px;padding:16px;margin-bottom:16px;">
+<div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Your growth theme this week</div>
+<div style="font-size:24px;margin-bottom:4px;" id="weeklyThemeIcon">🛡️</div>
+<div style="font-size:18px;font-weight:700;color:var(--pink);" id="weeklyThemeName">BOUNDARIES</div>
+<div style="font-size:13px;color:var(--muted);font-style:italic;" id="weeklyThemeDesc">Learning when to say no</div>
+</div>
+<div style="display:flex;gap:10px;">
+<button onclick="shareWeeklySummary()" style="flex:1;padding:14px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;">📤 Share</button>
+<button onclick="dismissWeeklySummary()" style="flex:1;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;color:var(--muted);font-size:15px;font-weight:600;cursor:pointer;">Continue</button>
 </div>
 </div></div>
 
@@ -9200,6 +9234,27 @@ function truncateText(text,maxLen=80){
   if(!quickMode||!text||text.length<=maxLen)return text;
   return text.substring(0,maxLen).trim()+'...';
 }
+
+// UI Version - increment this to force UI refresh for all users
+const UI_VERSION = 11;
+let storedUIVersion = parseInt(localStorage.getItem('levelup_ui_version') || '0');
+
+// Check if user needs UI refresh (keeps their progress, just refreshes UI state)
+if(storedUIVersion < UI_VERSION){
+  // Clear UI-specific flags but keep progress
+  localStorage.removeItem('installDismissed');
+  localStorage.removeItem('tourComplete');
+  localStorage.setItem('levelup_ui_version', UI_VERSION.toString());
+  
+  // If user has old data, migrate their seenIntro to false to show new onboarding
+  let existingData = JSON.parse(localStorage.getItem('levelup_v7') || 'null');
+  if(existingData && existingData.games > 0){
+    // Returning user - keep their progress but let them see updated UI
+    existingData.seenOnboarding = false; // Reset onboarding flag for new flow
+    localStorage.setItem('levelup_v7', JSON.stringify(existingData));
+  }
+}
+
 let data=JSON.parse(localStorage.getItem('levelup_v7'))||{xp:0,level:1,coins:0,games:0,mirrorRecognized:0,mirrorTotal:0,agreementAccepted:0,agreementTotal:0,streak:0,lastDaily:null,lastLogin:null,loginDay:0,unlockedLevels:[1],unlockedAgreement:false,seenIntro:false,insightsCollection:[],newlyUnlockedLevels:[],seenAgreementUnlock:false,seenScenarios:{mirror:[],agreement:[],decision:[]},favoriteInsights:[],firstTimeHints:{deepInsight:false,insights:false,pattern:false},unlockTimestamps:{}};
 // Migrate old data if needed
 if(!data.seenScenarios)data.seenScenarios={mirror:[],agreement:[],decision:[]};
@@ -9207,6 +9262,9 @@ if(!data.favoriteInsights)data.favoriteInsights=[];
 if(!data.unlockTimestamps)data.unlockTimestamps={};
 if(typeof data.seenOnboarding==='undefined')data.seenOnboarding=false;
 let game={mode:null,scenarios:[],idx:0,answers:[],timer:null,timeLeft:15,useTimer:true,timerDuration:15,levelFilter:null,endlessMode:false,sessionXP:0,sessionInsights:0,sessionGames:0};
+let sessionStartTime=Date.now();
+let sessionBreakShown=false;
+let currentDeepestInsight=null;
 
 // Haptic feedback for mobile
 function haptic(style='light'){
@@ -9649,7 +9707,7 @@ function checkStreakWarning(){
   else{document.getElementById('streakWarning').classList.remove('show')}
 }
 
-function addInsight(text,level){if(text&&!data.insightsCollection.some(i=>i.text===text)){data.insightsCollection.push({text:text,level:level||1,date:new Date().toLocaleDateString()});game.sessionInsights++;if(data.insightsCollection.length>200)data.insightsCollection=data.insightsCollection.slice(-200);save();
+function addInsight(text,level){if(text&&!data.insightsCollection.some(i=>i.text===text)){data.insightsCollection.push({text:text,level:level||1,date:new Date().toLocaleDateString()});game.sessionInsights++;if(data.insightsCollection.length>200)data.insightsCollection=data.insightsCollection.slice(-200);if(data.weeklyStats)data.weeklyStats.insightsGained++;save();
 // 4. Pulse insights stat when new insight added
 let insightsStat=document.getElementById('insightsStat');
 insightsStat.classList.add('new-insight');
@@ -9668,7 +9726,7 @@ function updatePlayerCount(){
 }
 function updateHome(){
   updatePlayerCount();
-  updateXPBar();checkDailyLogin();checkStreakWarning();checkCoachingBridge();checkMilestones();
+  updateXPBar();checkDailyLogin();checkStreakWarning();checkCoachingBridge();checkMilestones();checkWeeklySummary();
   
   // 1. Welcome message based on streak/games
   let welcomeEl = document.getElementById('welcomeMessage');
@@ -9857,6 +9915,103 @@ function shareMilestone(){
   }
   pendingMilestoneShare=null;
 }
+
+// ============ WEEKLY SUMMARY SYSTEM ============
+const GROWTH_THEMES=[
+  {id:'boundaries',icon:'🛡️',name:'BOUNDARIES',desc:'Learning when to say no',keywords:['boundary','boundaries','no','yes','protect','energy','drain','limit']},
+  {id:'worth',icon:'💎',name:'SELF-WORTH',desc:'Knowing you are enough',keywords:['worth','enough','deserve','value','matter','worthy']},
+  {id:'honesty',icon:'🪞',name:'HONESTY',desc:'Seeing yourself clearly',keywords:['truth','honest','lie','pretend','real','fake','mask']},
+  {id:'control',icon:'🎯',name:'CONTROL',desc:'Releasing what you can\'t hold',keywords:['control','perfect','fix','should','must','right','wrong']},
+  {id:'connection',icon:'💞',name:'CONNECTION',desc:'Letting people in',keywords:['alone','lonely','connect','love','trust','vulnerable']},
+  {id:'rest',icon:'🌿',name:'REST',desc:'Honoring your needs',keywords:['rest','tired','exhausted','sleep','care','heal']},
+  {id:'acceptance',icon:'☯️',name:'ACCEPTANCE',desc:'Embracing what is',keywords:['accept','resist','fight','peace','let go']}
+];
+
+function checkWeeklySummary(){
+  if(!data.weeklyStats)data.weeklyStats={startDate:Date.now(),gamesPlayed:0,insightsGained:0,acceptanceChoices:0,totalChoices:0};
+  
+  let daysSinceStart=(Date.now()-data.weeklyStats.startDate)/(1000*60*60*24);
+  let lastSummaryShown=data.lastWeeklySummary||0;
+  let daysSinceSummary=(Date.now()-lastSummaryShown)/(1000*60*60*24);
+  
+  // Show weekly summary if 7+ days since last shown AND played 5+ games that week
+  if(daysSinceSummary>=7&&data.weeklyStats.gamesPlayed>=5){
+    showWeeklySummary();
+  }
+}
+
+function showWeeklySummary(){
+  // Calculate date range
+  let startDate=new Date(data.weeklyStats.startDate);
+  let endDate=new Date();
+  let dateRange=startDate.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' - '+endDate.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  document.getElementById('weeklyDateRange').textContent=dateRange;
+  
+  // Fill in stats
+  document.getElementById('weeklyScenarios').textContent=data.weeklyStats.gamesPlayed*5||0;
+  document.getElementById('weeklyInsights').textContent=data.weeklyStats.insightsGained||0;
+  let accRate=data.weeklyStats.totalChoices>0?Math.round((data.weeklyStats.acceptanceChoices/data.weeklyStats.totalChoices)*100):0;
+  document.getElementById('weeklyAcceptance').textContent=accRate+'%';
+  
+  // Determine growth theme from recent insights
+  let recentInsights=(data.insightsCollection||[]).slice(-20);
+  let themeScores={};
+  GROWTH_THEMES.forEach(t=>{themeScores[t.id]=0;});
+  
+  recentInsights.forEach(insight=>{
+    let text=(insight.text||'').toLowerCase();
+    GROWTH_THEMES.forEach(theme=>{
+      theme.keywords.forEach(kw=>{
+        if(text.includes(kw))themeScores[theme.id]++;
+      });
+    });
+  });
+  
+  // Find top theme
+  let topTheme=GROWTH_THEMES[0];
+  let topScore=0;
+  GROWTH_THEMES.forEach(t=>{
+    if(themeScores[t.id]>topScore){
+      topScore=themeScores[t.id];
+      topTheme=t;
+    }
+  });
+  
+  document.getElementById('weeklyThemeIcon').textContent=topTheme.icon;
+  document.getElementById('weeklyThemeName').textContent=topTheme.name;
+  document.getElementById('weeklyThemeDesc').textContent=topTheme.desc;
+  
+  document.getElementById('weeklySummaryModal').classList.add('active');
+}
+
+function dismissWeeklySummary(){
+  document.getElementById('weeklySummaryModal').classList.remove('active');
+  data.lastWeeklySummary=Date.now();
+  // Reset weekly stats for next week
+  data.weeklyStats={startDate:Date.now(),gamesPlayed:0,insightsGained:0,acceptanceChoices:0,totalChoices:0};
+  save();
+}
+
+function shareWeeklySummary(){
+  let theme=document.getElementById('weeklyThemeName').textContent;
+  let scenarios=document.getElementById('weeklyScenarios').textContent;
+  let insights=document.getElementById('weeklyInsights').textContent;
+  
+  let text='📊 My Week in Patterns\n\n';
+  text+='✨ '+scenarios+' scenarios explored\n';
+  text+='💡 '+insights+' insights collected\n';
+  text+='🎯 Growth theme: '+theme+'\n\n';
+  text+='What patterns are running YOUR life?\n';
+  text+='100levelup.com';
+  
+  if(navigator.share){
+    navigator.share({title:'My Week in Patterns',text:text,url:'https://100levelup.com'}).catch(()=>copyToClipboard(text));
+  }else{
+    copyToClipboard(text);
+  }
+  dismissWeeklySummary();
+}
+
 function updateTimer(){let now=new Date(),tom=new Date(now);tom.setDate(tom.getDate()+1);tom.setHours(0,0,0,0);let d=tom-now,h=String(Math.floor(d/3600000)).padStart(2,'0'),m=String(Math.floor((d%3600000)/60000)).padStart(2,'0'),s=String(Math.floor((d%60000)/1000)).padStart(2,'0');document.getElementById('dailyTimer').textContent='Resets in '+h+':'+m+':'+s}
 
 // ============ PATTERN ANALYSIS SYSTEM ============
@@ -10349,16 +10504,31 @@ function shareNative(){selectSound();if(navigator.share){navigator.share({title:
 function showHook(){
   document.body.classList.add('hook-active');
   let logo=document.getElementById('hookLogo');
-  // Fade in logo
-  setTimeout(()=>{logo.style.opacity='1'},100);
-  // Fade out logo
-  setTimeout(()=>{logo.style.opacity='0'},1500);
-  // Show text after logo fades
-  setTimeout(()=>document.getElementById('line1').classList.add('show'),2000);
-  setTimeout(()=>document.getElementById('line2').classList.add('show'),2700);
-  setTimeout(()=>{let sub=document.getElementById('hookSub');sub.classList.add('show');sub.style.opacity='1'},3600);
-  setTimeout(()=>{let btn=document.getElementById('hookBtn');btn.classList.add('show');btn.style.opacity='1';btn.style.transform='translateY(0)'},4300);
-  setTimeout(()=>{let t=document.querySelector('.hook-time');if(t){t.classList.add('show');t.style.opacity='1'}},4900);
+  let logoImg=logo.querySelector('img');
+  
+  // Wait for logo image to be loaded before showing
+  function showLogoSequence(){
+    // Fade in logo
+    setTimeout(()=>{logo.style.opacity='1'},100);
+    // Fade out logo
+    setTimeout(()=>{logo.style.opacity='0'},1500);
+    // Show text after logo fades
+    setTimeout(()=>document.getElementById('line1').classList.add('show'),2000);
+    setTimeout(()=>document.getElementById('line2').classList.add('show'),2700);
+    setTimeout(()=>{let sub=document.getElementById('hookSub');sub.classList.add('show');sub.style.opacity='1'},3600);
+    setTimeout(()=>{let btn=document.getElementById('hookBtn');btn.classList.add('show');btn.style.opacity='1';btn.style.transform='translateY(0)'},4300);
+    setTimeout(()=>{let t=document.querySelector('.hook-time');if(t){t.classList.add('show');t.style.opacity='1'}},4900);
+  }
+  
+  // If image already loaded (cached), show immediately
+  if(logoImg.complete){
+    showLogoSequence();
+  }else{
+    // Wait for image to load
+    logoImg.onload=showLogoSequence;
+    // Fallback in case onload doesn't fire
+    setTimeout(showLogoSequence,500);
+  }
 }
 
 // Entry Flow State
@@ -10851,6 +11021,8 @@ function showAgreementScenario(){
 function selectAgreementChoice(ch,btn,sc){
   if(game.timer)clearInterval(game.timer);document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
   let isAcc=ch.type==='acceptance';game.answers.push({type:ch.type,isAcceptance:isAcc,insight:ch.insight,level:sc.level});
+  // Track weekly acceptance stats
+  if(data.weeklyStats){data.weeklyStats.totalChoices++;if(isAcc)data.weeklyStats.acceptanceChoices++;}
   if(isAcc){btn.classList.add('correct');data.agreementAccepted++;positiveSound();multiCoinSound(2);addXP(10, 'Agreement Game');addInsight(ch.insight,sc.level);addCombo()}
   else{btn.classList.add('wrong');let acc=sc.choices.find(c=>c.type==='acceptance');document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(2, 'Partial Credit');resetCombo()}
   // Track seen scenario
@@ -10889,6 +11061,11 @@ document.getElementById('nextBtn').onclick=function(){document.getElementById('f
 function endGame(){
   console.log('endGame called with mode:', game.mode, 'answers:', game.answers.length);
   if(game.timer)clearInterval(game.timer);data.games++;
+  
+  // Track weekly stats
+  if(!data.weeklyStats)data.weeklyStats={startDate:Date.now(),gamesPlayed:0,insightsGained:0,acceptanceChoices:0,totalChoices:0};
+  data.weeklyStats.gamesPlayed++;
+  
   let score=0,total=game.answers.length;
   
   // Reset results screen state
@@ -11084,6 +11261,62 @@ function endGame(){
       coachingCta.style.display='block';
     }else{
       coachingCta.style.display='none';
+    }
+  }
+  
+  // Find deepest insight from this session (only for mirror/mixed)
+  let deepestInsightEl=document.getElementById('deepestInsight');
+  if((game.mode==='mirror'||game.mode==='mixed')&&game.answers.length>0){
+    // Find a recognized insight with good text
+    let recognizedInsights=game.answers.filter(a=>a.recognized&&a.insight&&a.insight.length>20);
+    if(recognizedInsights.length>0){
+      // Pick the one with most impactful keywords
+      let impactWords=['never','always','afraid','hurt','love','pain','worth','enough','alone','hide','truth','lie','pretend'];
+      let scored=recognizedInsights.map(a=>{
+        let score=impactWords.filter(w=>a.insight.toLowerCase().includes(w)).length;
+        return {insight:a.insight,score:score};
+      }).sort((a,b)=>b.score-a.score);
+      currentDeepestInsight=scored[0].insight;
+      document.getElementById('deepestInsightText').textContent='"'+currentDeepestInsight+'"';
+      deepestInsightEl.style.display='block';
+    }else{
+      deepestInsightEl.style.display='none';
+    }
+  }else{
+    deepestInsightEl.style.display='none';
+  }
+  
+  // Check if user should take a break (20+ min OR 5+ games this session)
+  let sessionMinutes=(Date.now()-sessionStartTime)/(1000*60);
+  if(!sessionBreakShown&&(sessionMinutes>=20||game.sessionGames>=5)&&game.mode!=='decision'){
+    setTimeout(()=>{
+      document.getElementById('takeBreakModal').classList.add('active');
+    },1500);
+  }
+}
+
+// Deepest insight functions
+function saveDeepestInsight(){
+  if(currentDeepestInsight){
+    if(!data.favoriteInsights)data.favoriteInsights=[];
+    if(!data.favoriteInsights.includes(currentDeepestInsight)){
+      data.favoriteInsights.push(currentDeepestInsight);
+      save();
+      showToast('❤️ Saved to favorites!');
+    }else{
+      showToast('Already saved!');
+    }
+  }
+}
+
+function shareDeepestInsight(){
+  if(currentDeepestInsight){
+    let shareText='"'+currentDeepestInsight+'"\n\nWhat pattern is running YOUR life?\n100levelup.com';
+    if(navigator.share){
+      navigator.share({title:'My Pattern',text:shareText,url:'https://100levelup.com'});
+    }else{
+      navigator.clipboard.writeText(shareText);
+      showToast('📋 Copied to clipboard!');
     }
   }
 }
