@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Level Up Game v9.9 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
-<!-- v9.9: Fixed sound consistency (shared AudioContext), consolidated FAQs (18→9) -->
+<!-- Level Up Game v10.0 | Built by Arthur Palyan | 7 Levels of Self | Dec 2025 -->
+<!-- v10.0: Validation hint on Screen 2, back buttons on Screens 3-4, centered FAQ options -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -43,7 +43,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 html{background:#0d0a1a;min-height:100%;min-height:-webkit-fill-available}
 :root{
   --bg:#0d0a1a;--card:rgba(30,26,46,0.95);--border:#3d3655;--text:#f5f0ff;--muted:#b8b0cc;
@@ -107,6 +107,10 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .recognition-item:hover{border-color:var(--pink);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
 .recognition-item.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.15),rgba(120,75,160,0.15));box-shadow:0 0 0 3px rgba(255,60,172,0.2),0 8px 24px rgba(255,60,172,0.15)}
 .recognition-item.selected::after{content:'✓';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--pink);font-weight:700;font-size:16px}
+.validation-hint{font-size:13px;color:var(--pink);text-align:center;margin-top:12px;opacity:0;transition:opacity 0.3s;font-weight:500}
+.validation-hint.show{opacity:1}
+.hook-back{background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;padding:8px 12px;margin-bottom:8px;transition:color 0.2s}
+.hook-back:hover{color:var(--text)}
 .voice-options{display:flex;flex-direction:column;gap:10px;width:100%;margin-bottom:24px}
 .voice-option{animation:fadeIn 0.3s ease backwards}
 .voice-option:nth-child(1){animation-delay:0.05s}
@@ -181,8 +185,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .share-btn-icon{font-size:20px}
 .share-btn-secondary{width:100%;padding:14px 24px;background:transparent;border:2px solid var(--border);border-radius:14px;font-size:15px;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.25s ease}
 .share-btn-secondary:hover{border-color:var(--pink);color:var(--text);background:rgba(255,60,172,0.1)}
-.start-playing-btn{padding:16px 48px;background:transparent;border:none;font-size:16px;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.25s ease}
-.start-playing-btn:hover{color:var(--text)}
+.start-playing-btn{padding:16px 48px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:14px;font-size:17px;font-weight:700;color:#fff;cursor:pointer;transition:all 0.25s ease;box-shadow:0 4px 20px rgba(247,201,72,0.4)}
+.start-playing-btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(247,201,72,0.5)}
 /* Shareable Card Modal */
 .share-card-modal{position:fixed;inset:0;background:rgba(13,10,26,0.95);display:none;align-items:center;justify-content:center;z-index:400;padding:24px;opacity:0;transition:opacity 0.3s ease}
 .share-card-modal.active{display:flex;animation:modalFadeIn 0.4s cubic-bezier(0.16,1,0.3,1) forwards}
@@ -589,7 +593,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .qa-question::after{content:'+';color:var(--pink);font-size:20px;font-weight:700;width:28px;height:28px;background:rgba(255,60,172,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition-normal)}
 .qa-item.open .qa-question::after{content:'−';background:rgba(255,60,172,0.3)}
 .qa-answer{font-size:13px;color:var(--muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1),padding 0.3s ease,opacity 0.3s ease;opacity:0}
-.qa-item.open .qa-answer{max-height:500px;padding-top:12px;opacity:1}
+.qa-item.open .qa-answer{max-height:800px;padding-top:12px;opacity:1}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:1000}
 .install-banner{position:fixed;bottom:0;left:0;right:0;background:var(--grad-secondary);padding:16px 20px;display:none;align-items:center;justify-content:space-between;gap:12px;z-index:600;box-shadow:0 -4px 20px rgba(0,0,0,0.4);animation:slideUp 0.3s ease}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
@@ -628,8 +632,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 /* ========== ONBOARDING TOOLTIPS ========== */
-.onboard-tooltip{position:absolute;background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:600;z-index:1000;opacity:0;transform:translateY(10px);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);pointer-events:none;max-width:200px;text-align:center;box-shadow:0 4px 20px rgba(255,60,172,0.4)}
-.onboard-tooltip.show{opacity:1;transform:translateY(0);pointer-events:auto}
+.onboard-tooltip{position:fixed;background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:600;z-index:1000;opacity:0;transition:opacity 0.3s cubic-bezier(0.16,1,0.3,1);pointer-events:none;max-width:200px;text-align:center;box-shadow:0 4px 20px rgba(255,60,172,0.4)}
+.onboard-tooltip.show{opacity:1;pointer-events:auto}
 .onboard-tooltip::after{content:'';position:absolute;width:0;height:0;border:8px solid transparent}
 .onboard-tooltip.arrow-up::after{top:-16px;left:50%;transform:translateX(-50%);border-bottom-color:var(--orange)}
 .onboard-tooltip.arrow-down::after{bottom:-16px;left:50%;transform:translateX(-50%);border-top-color:var(--pink)}
@@ -694,10 +698,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="recognition-item" data-pattern="more" onclick="toggleRecognition(this)">There has to be more to life than this?</div>
 <div class="recognition-item" data-pattern="dying-inside" onclick="toggleRecognition(this)">Everyone thinks you're doing great... but you're dying inside?</div>
 </div>
-<button class="hook-btn show" onclick="showHookScreen(3)">Continue</button>
+<button class="hook-btn show" onclick="continueFromRecognition()">Continue</button>
+<div class="validation-hint" id="recognitionHint">Please select at least one</div>
 </div>
 <!-- Screen 3: Inner Voice -->
 <div class="hook-screen" id="hookScreen3">
+<button class="hook-back" onclick="showHookScreen(2)">← Back</button>
 <div class="hook-progress"><span class="h-dot done"></span><span class="h-dot active"></span><span class="h-dot"></span></div>
 <div class="hook-question-title">Do you ever ask yourself...</div>
 <div class="hook-question-sub">Select all that resonate with you</div>
@@ -709,9 +715,11 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="voice-option" data-voice="all-there-is" onclick="toggleVoice(this)">"Is this really all there is?"</div>
 </div>
 <button class="hook-btn show" onclick="continueFromVoice()">Continue</button>
+<div class="validation-hint" id="voiceHint">Please select at least one</div>
 </div>
 <!-- Screen 4: The Explanation -->
 <div class="hook-screen hook-screen-scrollable" id="hookScreen4">
+<button class="hook-back" onclick="showHookScreen(3)">← Back</button>
 <div class="hook-progress"><span class="h-dot done"></span><span class="h-dot done"></span><span class="h-dot active"></span><span class="h-dot"></span></div>
 <div class="hook-question-title">This isn't a flaw.</div>
 <div class="hook-question-sub">It's a signal you're solving the problem at the wrong level.</div>
@@ -798,7 +806,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 
 <div class="challenge" id="dailyCard"><div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div><h2>Worldwide Challenge</h2><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="player-count"><span class="player-dot"></span><span id="playerCountNum">--</span> playing now</div><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer">Resets in --:--:--</span></div></div>
 
-<div class="xp-container"><div class="xp-header"><div class="xp-level" id="playerLevel">Level 1</div><div class="xp-coins">🪙 <span id="coinCount">0</span></div></div><div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div><div class="xp-text"><span id="xpCurrent">0</span> / <span id="xpNeeded">500</span> XP</div></div>
+<div class="xp-container" onclick="showXpDetails()" style="cursor:pointer;"><div class="xp-header"><div class="xp-level" id="playerLevel">Level 1</div><div class="xp-coins">🪙 <span id="coinCount">0</span></div></div><div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div><div class="xp-text"><span id="xpCurrent">0</span> / <span id="xpNeeded">500</span> XP <span style="font-size:10px;color:var(--muted);">ⓘ</span></div></div>
 
 <div class="stats"><div class="stat"><div class="stat-val" id="statPlayed">0</div><div class="stat-label">Played</div></div><div class="stat"><div class="stat-val" id="statStreak">0</div><div class="stat-label">Streak</div></div><div class="stat"><div class="stat-val" id="statAcceptRate">0%</div><div class="stat-label">Acceptance</div></div><div class="stat insights-stat" id="insightsStat"><div class="stat-val" id="statInsights">0</div><div class="stat-label">Insights</div></div></div>
 
@@ -841,19 +849,18 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="results" id="results"><h2 id="resultsTitle">Game Complete</h2><div class="score" id="finalScore">0</div><div class="results-xp" id="resultsXP" style="display:none;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin:12px 0;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--gold);">+<span id="sessionXP">0</span> XP</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">This session</div></div><p class="result-msg" id="resultMsg">Keep going!</p><div class="insights-list" id="insightsList"></div><div class="results-actions" style="display:flex;flex-direction:column;gap:10px;margin-top:16px;"><button class="results-btn" id="keepPlayingBtn" style="background:linear-gradient(135deg,var(--green),#00B85D);display:none;">🔄 Keep Playing (+10 more)</button><button class="results-btn" id="endlessModeBtn" style="background:linear-gradient(135deg,var(--purple),var(--blue));display:none;">♾️ Endless Mode</button><button class="results-btn" id="homeBtn" style="background:var(--card);border:2px solid var(--pink);">🏠 Back to Home</button></div><div class="share-platform-grid"><button class="share-platform-btn" onclick="shareWhatsApp()"><span class="icon">💬</span><span class="label">WhatsApp</span></button><button class="share-platform-btn" onclick="shareTwitter()"><span class="icon">𝕏</span><span class="label">Twitter</span></button><button class="share-platform-btn" onclick="copyShareLink()"><span class="icon">📋</span><span class="label">Copy</span></button><button class="share-platform-btn" onclick="shareNative()"><span class="icon">📤</span><span class="label">More</span></button></div><div id="resultsCoachingCta" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);text-align:center;"><p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Ready to break these patterns for good?</p><a href="https://wa.me/+18184399770?text=Hi%20Arthur%2C%20I%27ve%20been%20playing%20Level%20Up%20and%20I%27m%20ready%20to%20go%20deeper.%20I%27m%20interested%20in%20integration." target="_blank" style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;">✨ Integrate with Arthur</a></div></div>
 </div>
 
-<div class="modal" id="qaModal"><div class="modal-content" id="qaContent" style="max-height:80vh;overflow-y:auto;position:relative;scroll-behavior:smooth;">
+<div class="modal" id="qaModal"><div class="modal-content" id="qaContent" style="max-height:85vh;overflow-y:auto;position:relative;scroll-behavior:smooth;">
 <button onclick="document.getElementById('qaModal').classList.remove('active')" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;">✕</button>
-<div class="modal-title" style="margin-top:8px;">Questions & Answers</div>
-<button class="scroll-bottom-btn" onclick="document.getElementById('qaBottom').scrollIntoView({behavior:'smooth'})">↓</button>
+<div class="modal-title" style="margin-top:8px;">Help & FAQ</div>
 <div class="qa-item"><div class="qa-question">What is the 7 Levels framework?</div><div class="qa-answer">The 7 Levels of Self maps human growth across 7 dimensions: Individual (self), Family (close relationships), Groups (teams/friends), Community (local impact), Society (systems/culture), World (global connection), and Generations (legacy). You can't skip levels - each must be mastered before climbing higher.</div></div>
 <div class="qa-item"><div class="qa-question">What's the difference between the 3 games?</div><div class="qa-answer"><strong style="color:var(--pink);">🪞 Mirror Game:</strong> Self-reflection. See patterns honestly. No right/wrong - just recognition.<br><br><strong style="color:var(--purple);">⚖️ Agreement Game:</strong> Train yourself to choose acceptance over judgment. Timed to build instinct.<br><br><strong style="color:var(--orange);">🌍 Worldwide Challenge:</strong> Same 3 scenarios for everyone globally. One chance daily. Builds streak.</div></div>
 <div class="qa-item"><div class="qa-question">How do XP, levels, streaks & bonuses work?</div><div class="qa-answer"><strong>XP & Leveling:</strong> Every answer earns XP. 500 XP = 1 level. Levels unlock new game modes and framework levels.<br><br><strong>Unlocks:</strong> Level 2 → Agreement Game + Family, Level 3 → Groups, Level 5 → Community, Level 7 → Society, Level 10 → World, Level 15 → Generations<br><br><strong>Streaks:</strong> Complete the Worldwide Challenge daily. Miss a day and it resets!<br><br><strong>Combos:</strong> Multiple correct answers in a row = bonus XP (5x = +15 XP, 10x = +40 XP).<br><br><strong>Daily Login:</strong> Claim increasing XP rewards each day (up to 100 XP on day 7).</div></div>
 <div class="qa-item"><div class="qa-question">What does "Acceptance ≠ Agreement" mean?</div><div class="qa-answer">This is the core philosophy. <strong>Acceptance</strong> means acknowledging reality as it is. <strong>Agreement</strong> means endorsing it.<br><br>You can accept that something IS without agreeing it SHOULD BE. Acceptance is the first step to change - you can't transform what you won't acknowledge.</div></div>
-<div class="qa-item"><div class="qa-question">What are Insights, Deep Insights & Archetypes?</div><div class="qa-answer"><strong>💡 Insights:</strong> Every pattern you recognize gets saved. Tap the Insights stat to review them over time.<br><br><strong>❤️ Deep Insights:</strong> After 10 games, unlock AI-powered analysis showing your growth pattern, self-awareness scores, recurring themes, and recommended practice.<br><br><strong>🎭 Archetypes:</strong> You're matched with a growth personality like The Boundary Builder 🔥, The Pattern Seeker 🔮, The Flow Finder 🌊, The Growth Gardener 🌱, The Truth Teller ⚡, or The Integration Master 💫.</div></div>
+<div class="qa-item"><div class="qa-question">What are Insights, Deep Insights & Archetypes?</div><div class="qa-answer"><strong>💡 Insights:</strong> Every pattern you recognize gets saved. Tap the Insights stat to review them over time.<br><br><strong>❤️ Deep Insights:</strong> After 10 games, unlock AI-powered analysis showing your growth pattern, self-awareness scores, recurring themes, and recommended practice.<br><br><strong>🎭 Archetypes:</strong> Based on your gameplay patterns, you're matched with one of these growth personalities:<br><br><div style="background:var(--card);border-radius:10px;padding:12px;margin-top:8px;"><div style="margin-bottom:10px;"><strong style="color:#FF6B35;">🔥 The Boundary Builder</strong><br><span style="font-size:12px;color:var(--muted);">Learning to protect your energy and say no</span></div><div style="margin-bottom:10px;"><strong style="color:#784BA0;">🔮 The Pattern Seeker</strong><br><span style="font-size:12px;color:var(--muted);">Seeing connections others miss</span></div><div style="margin-bottom:10px;"><strong style="color:#2F80ED;">🌊 The Flow Finder</strong><br><span style="font-size:12px;color:var(--muted);">Releasing control to find peace</span></div><div style="margin-bottom:10px;"><strong style="color:#00D26A;">🌱 The Growth Gardener</strong><br><span style="font-size:12px;color:var(--muted);">Nurturing steady, patient progress</span></div><div style="margin-bottom:10px;"><strong style="color:#F7C948;">⚡ The Truth Teller</strong><br><span style="font-size:12px;color:var(--muted);">Embracing radical honesty with self and others</span></div><div><strong style="color:#FF3CAC;">💫 The Integration Master</strong><br><span style="font-size:12px;color:var(--muted);">Balancing all dimensions of growth</span></div></div></div></div>
 <div class="qa-item"><div class="qa-question">Is this a substitute for therapy?</div><div class="qa-answer"><strong style="color:var(--yellow);">No.</strong> This game is for self-reflection and personal growth—not therapy, diagnosis, or treatment.<br><br><strong style="color:var(--green);">🆘 Crisis Resources:</strong> 988 Suicide & Crisis Lifeline (US), Crisis Text Line: text HOME to 741741, International: <a href="https://findahelpline.com" target="_blank" style="color:var(--blue);">findahelpline.com</a><br><br><em style="color:var(--muted);">You are not alone. Help is available.</em></div></div>
 <div class="qa-item"><div class="qa-question">Is my data private?</div><div class="qa-answer"><strong style="color:var(--green);">Yes.</strong> All data is stored locally on your device only. Nothing is sent to any server. Clearing browser data will reset progress.</div></div>
-<div class="qa-item"><div class="qa-question">Can I work with Arthur directly?</div><div class="qa-answer"><strong style="color:var(--pink);">Yes!</strong> Arthur offers 1-on-1 integration sessions for people ready to go deeper. <strong style="color:var(--gold);">$500</strong>/session <em style="color:var(--muted);">(discounts available - just ask)</em><br><br><button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('coachingModal').classList.add('active');" style="padding:12px 20px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">💬 Book a Session</button></div></div>
-<div class="qa-item"><div class="qa-question">More options</div><div class="qa-answer"><strong>📋 Full Assessment:</strong> Get a comprehensive breakdown across all 7 levels.<br><a href="https://selfcheck.100levelup.com/assessment.html" target="_blank" style="display:inline-block;padding:10px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;margin:8px 0;">Take Assessment</a><br><br><strong>📤 Share:</strong> <button onclick="if(navigator.share){navigator.share({title:'Level Up',text:'See the patterns that quietly run your life.',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:10px 16px;background:var(--card);border:2px solid var(--pink);border-radius:8px;color:var(--text);font-size:13px;font-weight:600;cursor:pointer;">Share Game</button><br><br><strong>🔊 Sound:</strong> <button onclick="soundOn=!soundOn;this.textContent=soundOn?'ON':'OFF';this.style.background=soundOn?'var(--green)':'var(--card)'" style="padding:8px 16px;background:var(--green);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;">ON</button></div></div>
+<div class="qa-item"><div class="qa-question">Can I work with Arthur directly?</div><div class="qa-answer" style="text-align:center;"><strong style="color:var(--pink);">Yes!</strong> Arthur offers 1-on-1 integration sessions for people ready to go deeper.<br><br><strong style="color:var(--gold);font-size:18px;">$500</strong>/session<br><em style="color:var(--muted);font-size:12px;">(discounts available - just ask)</em><br><br><button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('coachingModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">💬 Book a Session</button></div></div>
+<div class="qa-item"><div class="qa-question">More options</div><div class="qa-answer" style="text-align:center;"><strong>📋 Full Assessment:</strong><br>Get a comprehensive breakdown across all 7 levels.<br><a href="https://selfcheck.100levelup.com/assessment.html" target="_blank" style="display:inline-block;padding:10px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;margin:8px 0;">Take Assessment</a><br><br><strong>📤 Share:</strong><br><button onclick="if(navigator.share){navigator.share({title:'Level Up',text:'See the patterns that quietly run your life.',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:10px 16px;background:var(--card);border:2px solid var(--pink);border-radius:8px;color:var(--text);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">Share Game</button><br><br><strong>🔊 Sound:</strong><br><button onclick="soundOn=!soundOn;this.textContent=soundOn?'ON':'OFF';this.style.background=soundOn?'var(--green)':'var(--card)'" style="padding:8px 16px;background:var(--green);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">ON</button></div></div>
 <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;">
 <button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('founderModal').classList.add('active');" style="padding:14px;background:var(--card);border:2px solid var(--gold);border-radius:12px;color:var(--text);font-size:15px;font-weight:600;cursor:pointer;">👤 Meet the Founder</button>
 <button id="resetBtn" style="padding:14px;background:transparent;border:2px solid var(--red);border-radius:12px;color:var(--red);font-size:14px;font-weight:600;cursor:pointer;">🔄 Reset All Progress</button>
@@ -950,6 +957,24 @@ After 10 years of deep transformational work—Landmark, MITT, Insight Seminars,
 <div id="archetypeTraits" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;"></div>
 </div>
 <button class="modal-btn" id="archetypeClose">Amazing!</button>
+</div></div>
+
+<!-- XP Details Modal -->
+<div class="modal" id="xpDetailsModal"><div class="modal-content" style="max-height:80vh;overflow-y:auto;">
+<div class="modal-title">XP Breakdown</div>
+<div id="xpDetailsContent" style="text-align:left;"></div>
+<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);text-align:center;">
+<div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Ways to earn XP:</div>
+<div style="font-size:12px;color:var(--text);line-height:1.8;text-align:left;background:var(--card);padding:12px;border-radius:8px;">
+• <strong>Mirror Game:</strong> 10-15 XP per answer<br>
+• <strong>Agreement Game:</strong> 15-25 XP per answer<br>
+• <strong>Worldwide Challenge:</strong> 20-30 XP per answer<br>
+• <strong>Combos:</strong> +5 to +40 XP bonus<br>
+• <strong>Daily Login:</strong> 15-100 XP<br>
+• <strong>Streaks:</strong> Bonus multipliers
+</div>
+</div>
+<button class="modal-btn" onclick="document.getElementById('xpDetailsModal').classList.remove('active')" style="margin-top:16px;">Close</button>
 </div></div>
 
 <div class="modal" id="resetModal"><div class="modal-content" style="text-align:center;">
@@ -9126,9 +9151,13 @@ function wrongSound(){if(!soundOn)return;haptic('medium');playSound(220,0.25);se
 function tickSound(){if(!soundOn)return;try{let c=getAudioContext();if(!c)return;let o=c.createOscillator(),g=c.createGain();o.type='square';o.frequency.value=800;o.connect(g);g.connect(c.destination);g.gain.setValueAtTime(0.05,c.currentTime);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.03);o.start();o.stop(c.currentTime+0.03)}catch(e){}}
 function selectSound(){if(!soundOn)return;playSound(660,0.05)}
 
-function addXP(amount){
+function addXP(amount, source){
   data.xp+=amount;data.coins+=Math.floor(amount/2);
   game.sessionXP+=amount; // Track session XP
+  // Track XP history
+  if(!data.xpHistory) data.xpHistory = [];
+  data.xpHistory.push({amount: amount, source: source || 'Game', date: Date.now()});
+  if(data.xpHistory.length > 100) data.xpHistory = data.xpHistory.slice(-100); // Keep last 100
   let newLevel=Math.floor(data.xp/XP_PER_LEVEL)+1;
   if(newLevel>data.level){
     data.level=newLevel;levelUpSound();triggerConfetti();
@@ -9202,16 +9231,50 @@ function addCombo(){
     let el=document.getElementById('comboDisplay');el.textContent='🔥 '+currentCombo+'x COMBO!';el.classList.add('show');comboSound(currentCombo);
     setTimeout(()=>el.classList.remove('show'),1500);
     // Reduced combo bonuses for balanced progression
-    if(currentCombo===5){showBonusPopup('🔥 +10 XP Combo!');addXP(10);}
-    else if(currentCombo===10){showBonusPopup('🔥🔥 +20 XP Mega Combo!');addXP(20);}
-    else if(currentCombo===15){showBonusPopup('🔥🔥🔥 +30 XP Ultra Combo!');addXP(30);triggerConfetti();}
-    else if(currentCombo===20){showBonusPopup('⭐ +50 XP LEGENDARY!');addXP(50);triggerConfetti();}
+    if(currentCombo===5){showBonusPopup('🔥 +10 XP Combo!');addXP(10, '5x Combo');}
+    else if(currentCombo===10){showBonusPopup('🔥🔥 +20 XP Mega Combo!');addXP(20, '10x Combo');}
+    else if(currentCombo===15){showBonusPopup('🔥🔥🔥 +30 XP Ultra Combo!');addXP(30, '15x Combo');triggerConfetti();}
+    else if(currentCombo===20){showBonusPopup('⭐ +50 XP LEGENDARY!');addXP(50, '20x Combo');triggerConfetti();}
   }
   document.getElementById('gameCombo').textContent=currentCombo>1?'🔥'+currentCombo+'x':'';
 }
 function resetCombo(){currentCombo=0;document.getElementById('gameCombo').textContent='';}
 
 function showToast(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
+
+function showXpDetails() {
+  const content = document.getElementById('xpDetailsContent');
+  const history = data.xpHistory || [];
+  const recentHistory = history.slice(-20).reverse();
+  
+  let html = '<div style="margin-bottom:16px;">';
+  html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
+  html += '<span style="font-size:24px;font-weight:700;color:var(--gold);">' + data.xp + ' XP</span>';
+  html += '<span style="font-size:14px;color:var(--muted);">Level ' + data.level + '</span>';
+  html += '</div>';
+  html += '<div style="font-size:12px;color:var(--muted);">' + (500 - (data.xp % 500)) + ' XP to next level</div>';
+  html += '</div>';
+  
+  if (recentHistory.length > 0) {
+    html += '<div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--text);">Recent Activity</div>';
+    html += '<div style="max-height:200px;overflow-y:auto;">';
+    recentHistory.forEach(item => {
+      const date = new Date(item.date);
+      const timeStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      html += '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;">';
+      html += '<span style="color:var(--text);">' + (item.source || 'Game') + '</span>';
+      html += '<span style="color:var(--green);font-weight:600;">+' + item.amount + ' XP</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+  } else {
+    html += '<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px;">Play games to start earning XP!</div>';
+  }
+  
+  content.innerHTML = html;
+  document.getElementById('xpDetailsModal').classList.add('active');
+}
+
 function showBonusPopup(text){document.getElementById('bonusText').textContent=text;document.getElementById('bonusPopup').classList.add('show');bonusSound();setTimeout(()=>document.getElementById('bonusPopup').classList.remove('show'),2500)}
 function maybeBonus(){
   // Base chance 12%, but increases with combo and endless mode
@@ -9261,7 +9324,7 @@ function checkDailyLogin(){
   }else{document.getElementById('loginBonus').classList.remove('show')}
 }
 document.getElementById('loginBonus').onclick=function(){
-  let rewards=[10,15,20,25,30,40,50];multiCoinSound(data.loginDay);addXP(rewards[data.loginDay-1]);showToast('+'+rewards[data.loginDay-1]+' XP!');this.classList.remove('show');triggerConfetti();
+  let rewards=[10,15,20,25,30,40,50];multiCoinSound(data.loginDay);addXP(rewards[data.loginDay-1], 'Daily Login');showToast('+'+rewards[data.loginDay-1]+' XP!');this.classList.remove('show');triggerConfetti();
 };
 
 function checkStreakWarning(){
@@ -9943,10 +10006,22 @@ function toggleRecognition(el) {
     entryAnswers.recognition.push(pattern);
     // Subtle selection sound
     if(soundOn) playSound(660, 0.08);
+    // Hide validation hint when something is selected
+    document.getElementById('recognitionHint').classList.remove('show');
   } else {
     entryAnswers.recognition = entryAnswers.recognition.filter(p => p !== pattern);
     if(soundOn) playSound(440, 0.06);
   }
+}
+
+function continueFromRecognition() {
+  const selected = document.querySelectorAll('.recognition-item.selected');
+  if (selected.length === 0) {
+    document.getElementById('recognitionHint').classList.add('show');
+    return;
+  }
+  document.getElementById('recognitionHint').classList.remove('show');
+  showHookScreen(3);
 }
 
 function toggleLevelInfo(el, levelNum) {
@@ -9977,6 +10052,8 @@ function toggleVoice(el) {
     entryAnswers.voices.push(voice);
     entryAnswers.voice = voice; // Keep primary for pattern matching
     if(soundOn) playSound(523, 0.1);
+    // Hide validation hint when something is selected
+    document.getElementById('voiceHint').classList.remove('show');
   } else {
     entryAnswers.voices = (entryAnswers.voices || []).filter(v => v !== voice);
     // Update primary voice to another selected one, or null
@@ -9991,9 +10068,10 @@ function continueFromVoice() {
   // Require at least one selection
   const selectedCount = document.querySelectorAll('.voice-option.selected').length;
   if (selectedCount === 0) {
-    showToast('Please select at least one');
+    document.getElementById('voiceHint').classList.add('show');
     return;
   }
+  document.getElementById('voiceHint').classList.remove('show');
   
   // Use first selected voice for pattern matching
   if (!entryAnswers.voice && entryAnswers.voices && entryAnswers.voices.length > 0) {
@@ -10353,7 +10431,7 @@ function selectMirrorChoice(ch,btn,sc){
   game.answers.push({recognized:ch.value,insight:sc.insight,text:sc.text,level:sc.level});
   addInsight(sc.insight,sc.level);
   // Mirror mode: no combos (no right/wrong answer), reduced XP for reflection
-  data.mirrorTotal++;if(ch.value)data.mirrorRecognized++;positiveSound();coinSound();addXP(5);maybeBonus();
+  data.mirrorTotal++;if(ch.value)data.mirrorRecognized++;positiveSound();coinSound();addXP(5, 'Mirror Game');maybeBonus();
   // Track seen scenario
   markScenarioSeen('mirror',sc.text);
   save();
@@ -10373,8 +10451,8 @@ function showAgreementScenario(){
 function selectAgreementChoice(ch,btn,sc){
   if(game.timer)clearInterval(game.timer);document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
   let isAcc=ch.type==='acceptance';game.answers.push({type:ch.type,isAcceptance:isAcc,insight:ch.insight,level:sc.level});
-  if(isAcc){btn.classList.add('correct');data.agreementAccepted++;positiveSound();multiCoinSound(2);addXP(10);addInsight(ch.insight,sc.level);addCombo()}
-  else{btn.classList.add('wrong');let acc=sc.choices.find(c=>c.type==='acceptance');document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(2);resetCombo()}
+  if(isAcc){btn.classList.add('correct');data.agreementAccepted++;positiveSound();multiCoinSound(2);addXP(10, 'Agreement Game');addInsight(ch.insight,sc.level);addCombo()}
+  else{btn.classList.add('wrong');let acc=sc.choices.find(c=>c.type==='acceptance');document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(2, 'Partial Credit');resetCombo()}
   // Track seen scenario
   markScenarioSeen('agreement',sc.scenario);
   data.agreementTotal++;maybeBonus();setTimeout(()=>showAgreementFeedback(ch,isAcc),500);
@@ -10393,8 +10471,8 @@ function showDecisionScenario(){
 function selectDecisionChoice(ch,btn,sc){
   if(game.timer)clearInterval(game.timer);document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
   let isCorr=ch.correct===true;game.answers.push({correct:isCorr,feedback:ch.fb,level:sc.level});
-  if(isCorr){btn.classList.add('correct');positiveSound();multiCoinSound(3);addXP(12);addInsight(ch.fb,sc.level);addCombo()}
-  else{btn.classList.add('wrong');let corr=sc.choices.find(c=>c.correct===true);document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===corr.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(2);resetCombo()}
+  if(isCorr){btn.classList.add('correct');positiveSound();multiCoinSound(3);addXP(12, 'Mixed Mode');addInsight(ch.fb,sc.level);addCombo()}
+  else{btn.classList.add('wrong');let corr=sc.choices.find(c=>c.correct===true);document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===corr.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(2, 'Partial Credit');resetCombo()}
   maybeBonus();setTimeout(()=>showDecisionFeedback(ch,isCorr),500);
 }
 function showDecisionFeedback(ch,isCorr){document.getElementById('fbIcon').textContent=isCorr?'✓':'💡';document.getElementById('fbIcon').style.color=isCorr?'var(--green)':'var(--yellow)';document.getElementById('fbTitle').textContent=isCorr?'Correct!':'Not Quite';document.getElementById('fbLabel').textContent='Insight';document.getElementById('fbText').textContent=ch.fb;document.getElementById('feedbackModal').classList.add('active')}
@@ -10752,15 +10830,15 @@ function selectMixedMirror(ch,btn,sc){
   game.answers.push({recognized:ch.value,insight:sc.insight,text:sc.text,level:sc.level});
   addInsight(sc.insight,sc.level);
   // Mirror mode: no combos (no right/wrong answer), reduced XP
-  data.mirrorTotal++;if(ch.value)data.mirrorRecognized++;positiveSound();coinSound();addXP(5);maybeBonus();save();
+  data.mirrorTotal++;if(ch.value)data.mirrorRecognized++;positiveSound();coinSound();addXP(5, 'Mirror Game');maybeBonus();save();
   setTimeout(()=>{document.getElementById('fbIcon').textContent='💡';document.getElementById('fbIcon').style.color='var(--pink)';document.getElementById('fbTitle').textContent='Reflection';document.getElementById('fbLabel').textContent=ch.value?'✓ That\'s Me':'✗ Not Me';document.getElementById('fbText').innerHTML='<div style="font-size:14px;margin-bottom:10px;color:var(--text);">"'+sc.text+'"</div><div style="font-size:13px;color:var(--muted);font-style:italic;">'+sc.insight+'</div>';document.getElementById('feedbackModal').classList.add('active')},400);
 }
 
 function selectMixedAgreement(ch,btn,sc){
   if(game.timer)clearInterval(game.timer);document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
   let isAcc=ch.type==='acceptance';game.answers.push({type:ch.type,isAcceptance:isAcc,insight:ch.insight,level:sc.level,gameType:'agreement'});
-  if(isAcc){btn.classList.add('correct');data.agreementAccepted++;positiveSound();multiCoinSound(2);addXP(10);addInsight(ch.insight,sc.level);addCombo()}
-  else{btn.classList.add('wrong');let acc=sc.choices.find(c=>c.type==='acceptance');document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(2);resetCombo()}
+  if(isAcc){btn.classList.add('correct');data.agreementAccepted++;positiveSound();multiCoinSound(2);addXP(10, 'Agreement Game');addInsight(ch.insight,sc.level);addCombo()}
+  else{btn.classList.add('wrong');let acc=sc.choices.find(c=>c.type==='acceptance');document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===acc.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(2, 'Partial Credit');resetCombo()}
   data.agreementTotal++;maybeBonus();
   setTimeout(()=>{document.getElementById('fbIcon').textContent=isAcc?'✓':'⚖️';document.getElementById('fbIcon').style.color=isAcc?'var(--green)':'var(--yellow)';document.getElementById('fbTitle').textContent=isAcc?'Acceptance':'Judgment';document.getElementById('fbLabel').textContent=isAcc?'Why this works':'Learning opportunity';document.getElementById('fbText').textContent=ch.insight;document.getElementById('feedbackModal').classList.add('active')},500);
 }
@@ -10768,8 +10846,8 @@ function selectMixedAgreement(ch,btn,sc){
 function selectMixedDecision(ch,btn,sc){
   if(game.timer)clearInterval(game.timer);document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
   let isCorr=ch.correct===true;game.answers.push({correct:isCorr,feedback:ch.fb,text:sc.text,level:sc.level,gameType:'decision'});
-  if(isCorr){btn.classList.add('correct');positiveSound();multiCoinSound(3);addXP(12);addInsight(ch.fb,sc.level);addCombo()}
-  else{btn.classList.add('wrong');let corr=sc.choices.find(c=>c.correct===true);document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===corr.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(2);resetCombo()}
+  if(isCorr){btn.classList.add('correct');positiveSound();multiCoinSound(3);addXP(12, 'Mixed Mode');addInsight(ch.fb,sc.level);addCombo()}
+  else{btn.classList.add('wrong');let corr=sc.choices.find(c=>c.correct===true);document.querySelectorAll('.choice').forEach(b=>{if(b.textContent===corr.text)b.classList.add('correct');else if(b!==btn)b.classList.add('dim')});neutralSound();addXP(2, 'Partial Credit');resetCombo()}
   maybeBonus();
   setTimeout(()=>{document.getElementById('fbIcon').textContent=isCorr?'✓':'💡';document.getElementById('fbIcon').style.color=isCorr?'var(--green)':'var(--yellow)';document.getElementById('fbTitle').textContent=isCorr?'Correct!':'Not Quite';document.getElementById('fbLabel').textContent='Insight';document.getElementById('fbText').textContent=ch.fb;document.getElementById('feedbackModal').classList.add('active')},500);
 }
@@ -10900,6 +10978,56 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// Fresh UI reset on app load - closes modals, resets temporary states, keeps game data
+function freshUIReset() {
+  // Close all modals
+  document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+  
+  // Reset game session state
+  if (typeof game !== 'undefined') {
+    game.mode = null;
+    game.scenarios = [];
+    game.answers = [];
+    game.idx = 0;
+    game.endlessMode = false;
+    game.sessionXP = 0;
+    game.sessionInsights = 0;
+    game.sessionGames = 0;
+  }
+  
+  // Hide game/results screens, show home
+  document.getElementById('game').classList.remove('active');
+  document.getElementById('results').classList.remove('active');
+  
+  // Reset any expanded FAQ items
+  document.querySelectorAll('.qa-item.open').forEach(item => item.classList.remove('open'));
+  
+  // Reset any selected onboarding items (but keep data)
+  document.querySelectorAll('.recognition-item.selected').forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll('.voice-option.selected').forEach(el => el.classList.remove('selected'));
+  
+  // Clear any validation hints
+  const recHint = document.getElementById('recognitionHint');
+  const voiceHint = document.getElementById('voiceHint');
+  if (recHint) recHint.classList.remove('show');
+  if (voiceHint) voiceHint.classList.remove('show');
+  
+  // Reset combo display
+  const comboDisplay = document.getElementById('comboDisplay');
+  if (comboDisplay) comboDisplay.classList.remove('show');
+  
+  // Reset any popups
+  const bonusPopup = document.getElementById('bonusPopup');
+  const levelupPopup = document.getElementById('levelupPopup');
+  if (bonusPopup) bonusPopup.classList.remove('show');
+  if (levelupPopup) levelupPopup.classList.remove('show');
+  
+  console.log('Fresh UI reset complete');
+}
+
+// Run fresh reset on load
+freshUIReset();
+
 if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
 setInterval(updateTimer,1000);
 
@@ -10958,26 +11086,31 @@ function showOnboardStep() {
   // Highlight target
   target.classList.add('onboard-highlight');
   
-  // Create tooltip
+  // Scroll target into view (instant to guarantee position)
+  target.scrollIntoView({ behavior: 'instant', block: 'center' });
+  
+  // Create tooltip immediately after instant scroll
+  var rect = target.getBoundingClientRect();
+  
   currentTooltip = document.createElement('div');
   currentTooltip.className = 'onboard-tooltip arrow-' + (step.position === 'bottom' ? 'up' : 'down');
   currentTooltip.innerHTML = step.text + '<br><button class="onboard-tooltip-btn" onclick="nextOnboardStep()">' + 
-    (onboardStep === ONBOARD_STEPS.length - 1 ? 'Got it!' : 'Next →') + '</button>';
+    (onboardStep === ONBOARD_STEPS.length - 1 ? 'Got it!' : 'Next') + '</button>';
   document.body.appendChild(currentTooltip);
   
-  // Position tooltip
-  const rect = target.getBoundingClientRect();
+  // Measure tooltip after adding to DOM
+  var tooltipRect = currentTooltip.getBoundingClientRect();
+  
+  // Position using viewport coords (fixed positioning)
   if (step.position === 'bottom') {
     currentTooltip.style.top = (rect.bottom + 12) + 'px';
-    currentTooltip.style.left = Math.max(16, Math.min(window.innerWidth - 216, rect.left + rect.width/2 - 100)) + 'px';
   } else {
-    currentTooltip.style.top = (rect.top - 12) + 'px';
-    currentTooltip.style.left = Math.max(16, Math.min(window.innerWidth - 216, rect.left + rect.width/2 - 100)) + 'px';
-    currentTooltip.style.transform = 'translateY(-100%)';
+    currentTooltip.style.top = (rect.top - tooltipRect.height - 12) + 'px';
   }
+  currentTooltip.style.left = Math.max(16, Math.min(window.innerWidth - 216, rect.left + rect.width/2 - 100)) + 'px';
   
   // Show with animation
-  setTimeout(() => currentTooltip.classList.add('show'), 50);
+  setTimeout(function() { currentTooltip.classList.add('show'); }, 50);
 }
 
 function nextOnboardStep() {
