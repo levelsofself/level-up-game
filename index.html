@@ -38,7 +38,8 @@
 <link rel="icon" type="image/png" sizes="16x16" href="icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="shortcut icon" href="icon-192.png">
-<link rel="manifest" href="manifest.json">
+<link rel="canonical" href="https://100levelup.com/" />
+    <link rel="manifest" href="manifest.json">
 <!-- Preload critical images -->
 <link rel="preload" href="logo_edited.png" as="image">
 <title>Level Up - See Your Patterns | 7 Levels of Self</title>
@@ -895,18 +896,20 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="results" id="results"><h2 id="resultsTitle">Game Complete</h2><div class="score" id="finalScore">0</div><div class="results-xp" id="resultsXP" style="display:none;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin:12px 0;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--gold);">+<span id="sessionXP">0</span> XP</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">This session</div></div><p class="result-msg" id="resultMsg">Keep going!</p><div class="insights-list" id="insightsList"></div><div id="deepestInsight" style="display:none;background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));border:1px solid var(--pink);border-radius:12px;padding:16px;margin:16px 0;text-align:center;"><div style="font-size:12px;color:var(--pink);font-weight:600;margin-bottom:8px;">💡 Pattern that stood out</div><div id="deepestInsightText" style="font-size:15px;color:var(--text);font-style:italic;line-height:1.5;margin-bottom:12px;"></div><div style="display:flex;gap:10px;justify-content:center;"><button onclick="saveDeepestInsight()" style="padding:8px 16px;background:var(--card);border:1px solid var(--pink);border-radius:8px;color:var(--pink);font-size:13px;font-weight:600;cursor:pointer;">❤️ Save</button><button onclick="shareDeepestInsight()" style="padding:8px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;">📤 Share</button></div></div><div class="results-actions" style="display:flex;flex-direction:column;gap:10px;margin-top:16px;"><button class="results-btn" id="keepPlayingBtn" style="background:linear-gradient(135deg,var(--green),#00B85D);display:none;" aria-label="Keep playing 10 more scenarios">🔄 Keep Playing (+10 more)</button><button class="results-btn" id="endlessModeBtn" style="background:linear-gradient(135deg,var(--purple),var(--blue));display:none;" aria-label="Start endless mode">♾️ Endless Mode</button><button class="results-btn" id="homeBtn" style="background:var(--card);border:2px solid var(--pink);" aria-label="Return to home screen">🏠 Back to Home</button></div><div class="share-platform-grid"><button class="share-platform-btn" onclick="shareWhatsApp()" aria-label="Share on WhatsApp"><span class="icon">💬</span><span class="label">WhatsApp</span></button><button class="share-platform-btn" onclick="shareTwitter()" aria-label="Share on Twitter"><span class="icon">𝕏</span><span class="label">Twitter</span></button><button class="share-platform-btn" onclick="copyShareLink()" aria-label="Copy link to clipboard"><span class="icon">📋</span><span class="label">Copy</span></button><button class="share-platform-btn" onclick="shareNative()" aria-label="More sharing options"><span class="icon">📤</span><span class="label">More</span></button></div><div id="resultsCoachingCta" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);text-align:center;"><p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Ready to break these patterns for good?</p><a href="https://wa.me/+18184399770?text=Hi%20Arthur%2C%20I%27ve%20been%20playing%20Level%20Up%20and%20I%27m%20ready%20to%20go%20deeper.%20I%27m%20interested%20in%20integration." target="_blank" style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;">✨ Integrate with Arthur</a></div></div>
 </div>
 
-<div class="modal" id="qaModal"><div class="modal-content" id="qaContent" style="max-height:85vh;overflow-y:auto;position:relative;scroll-behavior:smooth;">
+<div class="modal" id="qaModal" role="dialog" aria-label="Help and FAQ"><div class="modal-content" id="qaContent" style="max-height:85vh;overflow-y:auto;position:relative;scroll-behavior:smooth;">
 <button onclick="document.getElementById('qaModal').classList.remove('active')" style="position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;">✕</button>
 <div class="modal-title" style="margin-top:8px;">Help & FAQ</div>
-<div class="qa-item"><div class="qa-question">What is the 7 Levels framework?</div><div class="qa-answer">The 7 Levels of Self maps human growth across 7 dimensions: Individual (self), Family (close relationships), Groups (teams/friends), Community (local impact), Society (systems/culture), World (global connection), and Generations (legacy). You can't skip levels - each must be mastered before climbing higher.</div></div>
+<div class="qa-item"><div class="qa-question">What is the 7 Levels framework?</div><div class="qa-answer">The 7 Levels of Self maps human growth across 7 dimensions: <strong>Individual</strong> (self), <strong>Family</strong> (close relationships), <strong>Groups</strong> (teams/friends), <strong>Community</strong> (local impact), <strong>Society</strong> (systems/culture), <strong>World</strong> (global connection), and <strong>Generations</strong> (legacy). You can't skip levels - each must be mastered before climbing higher.<br><br><strong style="color:var(--pink);">3,000+ scenarios</strong> across all 7 levels, each designed to surface the patterns quietly running your life.</div></div>
+<div class="qa-item"><div class="qa-question">What wounds and themes does this address?</div><div class="qa-answer">This game was built to help heal real human pain. The scenarios address:<br><br><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;"><div style="background:var(--card);padding:10px;border-radius:8px;"><strong style="color:var(--pink);">Core Wounds</strong><br><span style="font-size:12px;color:var(--muted);">Addiction • Abuse • Self-harm • Not being enough • Not belonging • Loneliness</span></div><div style="background:var(--card);padding:10px;border-radius:8px;"><strong style="color:var(--orange);">16 Themes Tracked</strong><br><span style="font-size:12px;color:var(--muted);">🛡️ Boundaries • 💎 Self-Worth • 🪞 Honesty • 🎯 Control • 💞 Connection • 🌿 Rest • ☯️ Acceptance • 🔒 Withholding</span></div></div><div style="background:var(--card);padding:10px;border-radius:8px;margin-top:8px;"><span style="font-size:12px;color:var(--muted);">🚪 Abandonment • 🗡️ Betrayal • 🔥 Resentment • ✨ Perfectionism • 🎭 People-Pleasing • 🙈 Avoidance • 🥀 Grief • 🔗 Codependency</span></div><br><em style="color:var(--muted);">If you know someone struggling with any of these, share this game. It might be exactly what they need.</em></div></div>
 <div class="qa-item"><div class="qa-question">What's the difference between the 3 games?</div><div class="qa-answer"><strong style="color:var(--pink);">🪞 Mirror Game:</strong> Self-reflection. See patterns honestly. No right/wrong - just recognition.<br><br><strong style="color:var(--purple);">⚖️ Agreement Game:</strong> Train yourself to choose acceptance over judgment. Timed to build instinct.<br><br><strong style="color:var(--orange);">🌍 Worldwide Challenge:</strong> Same 3 scenarios for everyone globally. One chance daily. Builds streak.</div></div>
 <div class="qa-item"><div class="qa-question">How do XP, levels, streaks & bonuses work?</div><div class="qa-answer"><strong>XP & Leveling:</strong> Every answer earns XP. 500 XP = 1 level. Levels unlock new game modes and framework levels.<br><br><strong>Unlocks:</strong> Level 2 → Agreement Game + Family, Level 3 → Groups, Level 5 → Community, Level 7 → Society, Level 10 → World, Level 15 → Generations<br><br><strong>Coins:</strong> Earn coins (50% of XP) and tap them to open the Reward Shop. Redeem coins for workshop discounts, or save up for a FREE 1-on-1 session with Arthur!<br><br><strong>Streaks:</strong> Complete the Worldwide Challenge daily. Miss a day and it resets!<br><br><strong>Combos:</strong> Multiple correct answers in a row = bonus XP (5x = +15 XP, 10x = +40 XP).<br><br><strong>Daily Login:</strong> Claim increasing XP rewards each day (up to 100 XP on day 7).</div></div>
 <div class="qa-item"><div class="qa-question">What does "Acceptance ≠ Agreement" mean?</div><div class="qa-answer">This is the core philosophy. <strong>Acceptance</strong> means acknowledging reality as it is. <strong>Agreement</strong> means endorsing it.<br><br>You can accept that something IS without agreeing it SHOULD BE. Acceptance is the first step to change - you can't transform what you won't acknowledge.</div></div>
 <div class="qa-item"><div class="qa-question">What are Insights, Deep Insights & Archetypes?</div><div class="qa-answer"><strong>💡 Insights:</strong> Every pattern you recognize gets saved. Tap the Insights stat to review them over time.<br><br><strong>❤️ Deep Insights:</strong> After 10 games, unlock AI-powered analysis showing your growth pattern, self-awareness scores, recurring themes, and recommended practice.<br><br><strong>🎭 Archetypes:</strong> Based on your gameplay patterns, you're matched with one of these growth personalities:<br><br><div style="background:var(--card);border-radius:10px;padding:12px;margin-top:8px;"><div style="margin-bottom:10px;"><strong style="color:#FF6B35;">🔥 The Boundary Builder</strong><br><span style="font-size:12px;color:var(--muted);">Learning to protect your energy and say no</span></div><div style="margin-bottom:10px;"><strong style="color:#784BA0;">🔮 The Pattern Seeker</strong><br><span style="font-size:12px;color:var(--muted);">Seeing connections others miss</span></div><div style="margin-bottom:10px;"><strong style="color:#2F80ED;">🌊 The Flow Finder</strong><br><span style="font-size:12px;color:var(--muted);">Releasing control to find peace</span></div><div style="margin-bottom:10px;"><strong style="color:#00D26A;">🌱 The Growth Gardener</strong><br><span style="font-size:12px;color:var(--muted);">Nurturing steady, patient progress</span></div><div style="margin-bottom:10px;"><strong style="color:#F7C948;">⚡ The Truth Teller</strong><br><span style="font-size:12px;color:var(--muted);">Embracing radical honesty with self and others</span></div><div><strong style="color:#FF3CAC;">💫 The Integration Master</strong><br><span style="font-size:12px;color:var(--muted);">Balancing all dimensions of growth</span></div></div></div></div>
+<div class="qa-item"><div class="qa-question">Why should I share this?</div><div class="qa-answer"><strong style="color:var(--pink);">Because someone you know needs this.</strong><br><br>Think about it - who in your life is:<br>• Stuck in the same patterns year after year?<br>• Struggling with boundaries or people-pleasing?<br>• Dealing with family trauma or relationship issues?<br>• Carrying grief, resentment, or shame they won't talk about?<br><br>This game helps people see themselves without judgment. It's free, private, and takes 2 minutes to play.<br><br><strong>Share it.</strong> You might change someone's year.<br><br><button onclick="if(navigator.share){navigator.share({title:'Level Up',text:'See the patterns quietly running your life. Free game, 2 min/day.',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">📤 Share Now</button></div></div>
 <div class="qa-item"><div class="qa-question">Is this a substitute for therapy?</div><div class="qa-answer"><strong style="color:var(--yellow);">No.</strong> This game is for self-reflection and personal growth—not therapy, diagnosis, or treatment.<br><br><strong style="color:var(--green);">🆘 Crisis Resources:</strong> 988 Suicide & Crisis Lifeline (US), Crisis Text Line: text HOME to 741741, International: <a href="https://findahelpline.com" target="_blank" style="color:var(--blue);">findahelpline.com</a><br><br><em style="color:var(--muted);">You are not alone. Help is available.</em></div></div>
 <div class="qa-item"><div class="qa-question">Is my data private?</div><div class="qa-answer"><strong style="color:var(--green);">Yes.</strong> All data is stored locally on your device only. Nothing is sent to any server. Clearing browser data will reset progress.</div></div>
 <div class="qa-item"><div class="qa-question">Can I work with Arthur directly?</div><div class="qa-answer" style="text-align:center;"><strong style="color:var(--pink);">Yes!</strong> Arthur offers 1-on-1 integration sessions for people ready to go deeper.<br><br><strong style="color:var(--gold);font-size:18px;">$500</strong>/session<br><em style="color:var(--muted);font-size:12px;">(discounts available - just ask)</em><br><br><button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('coachingModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">💬 Book a Session</button></div></div>
-<div class="qa-item"><div class="qa-question">More options</div><div class="qa-answer" style="text-align:center;"><strong>💀 Hard Mode:</strong><br>5 second timer on ALL games<br><button id="faqHardMode" onclick="hardMode=!hardMode;this.textContent=hardMode?'ON':'OFF';this.style.background=hardMode?'var(--red)':'var(--card)';this.style.border=hardMode?'none':'2px solid var(--red)';this.style.color=hardMode?'#fff':'var(--red)'" style="padding:8px 16px;background:var(--card);border:2px solid var(--red);border-radius:8px;color:var(--red);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">OFF</button><br><br><strong>⚡ Quick Mode:</strong><br>Faster text and transitions<br><button id="faqQuickMode" onclick="quickMode=!quickMode;document.getElementById('quickModeBtn').classList.toggle('on',quickMode);this.textContent=quickMode?'ON':'OFF';this.style.background=quickMode?'var(--orange)':'var(--card)';this.style.border=quickMode?'none':'2px solid var(--orange)';this.style.color=quickMode?'#fff':'var(--orange)'" style="padding:8px 16px;background:var(--card);border:2px solid var(--orange);border-radius:8px;color:var(--orange);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">OFF</button><br><br><strong>🔊 Sound:</strong><br><button onclick="soundOn=!soundOn;this.textContent=soundOn?'ON':'OFF';this.style.background=soundOn?'var(--green)':'var(--card)';this.style.border=soundOn?'none':'2px solid var(--green)';this.style.color=soundOn?'#fff':'var(--green)'" style="padding:8px 16px;background:var(--green);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">ON</button><br><br><strong>📋 Full Assessment:</strong><br>Get a comprehensive breakdown across all 7 levels.<br><a href="https://selfcheck.100levelup.com/assessment.html" target="_blank" style="display:inline-block;padding:10px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;margin:8px 0;">Take Assessment</a><br><br><strong>📤 Share:</strong><br><button onclick="if(navigator.share){navigator.share({title:'Level Up',text:'See the patterns that quietly run your life.',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:10px 16px;background:var(--card);border:2px solid var(--pink);border-radius:8px;color:var(--text);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">Share Game</button></div></div>
+<div class="qa-item"><div class="qa-question">More options</div><div class="qa-answer" style="text-align:center;"><strong>💀 Hard Mode:</strong><br>5 second timer on ALL games<br><button id="faqHardMode" onclick="hardMode=!hardMode;this.textContent=hardMode?'ON':'OFF';this.style.background=hardMode?'var(--red)':'var(--card)';this.style.border=hardMode?'none':'2px solid var(--red)';this.style.color=hardMode?'#fff':'var(--red)'" style="padding:8px 16px;background:var(--card);border:2px solid var(--red);border-radius:8px;color:var(--red);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">OFF</button><br><br><strong>⚡ Quick Mode:</strong><br>Faster text and transitions<br><button id="faqQuickMode" onclick="quickMode=!quickMode;document.getElementById('quickModeBtn').classList.toggle('on',quickMode);this.textContent=quickMode?'ON':'OFF';this.style.background=quickMode?'var(--orange)':'var(--card)';this.style.border=quickMode?'none':'2px solid var(--orange)';this.style.color=quickMode?'#fff':'var(--orange)'" style="padding:8px 16px;background:var(--card);border:2px solid var(--orange);border-radius:8px;color:var(--orange);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">OFF</button><br><br><strong>🔊 Sound:</strong><br><button onclick="soundOn=!soundOn;this.textContent=soundOn?'ON':'OFF';this.style.background=soundOn?'var(--green)':'var(--card)';this.style.border=soundOn?'none':'2px solid var(--green)';this.style.color=soundOn?'#fff':'var(--green)'" style="padding:8px 16px;background:var(--green);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">ON</button><br><br><strong>🖨️ Print Progress:</strong><br>Print or save as PDF<br><button onclick="window.print()" style="padding:8px 16px;background:var(--card);border:2px solid var(--cyan);border-radius:8px;color:var(--cyan);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">Print</button><br><br><strong>📋 Assessments:</strong><br><a href="https://selfcheck.100levelup.com/assessment.html" target="_blank" style="display:inline-block;padding:10px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;margin:8px 0;">Take Full Assessment</a><br><a href="https://selfcheck.100levelup.com/quick.html" target="_blank" style="display:inline-block;padding:10px 16px;background:var(--card);border:2px solid var(--purple);border-radius:8px;color:var(--purple);font-size:13px;font-weight:700;text-decoration:none;margin:8px 0;">1 Minute Self Assessment</a><br><br><strong>📤 Share:</strong><br><button onclick="if(navigator.share){navigator.share({title:'Level Up',text:'See the patterns that quietly run your life.',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:10px 16px;background:var(--card);border:2px solid var(--pink);border-radius:8px;color:var(--text);font-size:13px;font-weight:600;cursor:pointer;margin:8px 0;">Share Game</button></div></div>
 <div class="qa-item"><div class="qa-question">⌨️ Keyboard shortcuts</div><div class="qa-answer"><strong style="color:var(--cyan);">Home Screen:</strong><br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">M</span> Start Mirror game<br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">A</span> Start Agreement game<br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">D</span> Daily Challenge<br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">?</span> Open Help<br><br><strong style="color:var(--pink);">During Game:</strong><br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">1</span> <span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">2</span> <span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">3</span> <span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">4</span> Select answer<br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">Esc</span> Quit game<br><br><strong style="color:var(--green);">Anywhere:</strong><br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">Esc</span> Close modal<br><span style="display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:monospace;margin:2px;">Enter</span> Confirm / Continue</div></div>
 <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;">
 <button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('founderModal').classList.add('active');" style="padding:14px;background:var(--card);border:2px solid var(--gold);border-radius:12px;color:var(--text);font-size:15px;font-weight:600;cursor:pointer;">👤 Meet the Founder</button>
@@ -917,7 +920,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 
 <div class="modal" id="feedbackModal"><div class="modal-content"><div class="modal-icon" id="fbIcon">💡</div><div class="modal-title" id="fbTitle">Insight</div><div class="feedback-box"><div class="feedback-label" id="fbLabel">Reflection</div><div class="feedback-text" id="fbText">...</div></div><button class="modal-btn" id="nextBtn">Next</button></div></div>
 
-<div class="modal" id="insightsModal"><div class="modal-content" id="insightsContent" style="max-height:80vh;overflow-y:auto;scroll-behavior:smooth;"><div class="modal-title">Your Insights</div>
+<div class="modal" id="insightsModal" role="dialog" aria-label="Your collected insights"><div class="modal-content" id="insightsContent" style="max-height:80vh;overflow-y:auto;scroll-behavior:smooth;"><div class="modal-title">Your Insights</div>
 <div id="insightsFilter" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;justify-content:center;"></div>
 <button class="scroll-bottom-btn" onclick="document.getElementById('insightsBottom').scrollIntoView({behavior:'smooth'})">↓</button>
 <div id="insightsListModal" style="text-align:left;"></div><div id="insightsBottom"></div><div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);"><button class="modal-btn" id="insightsClose">Close</button></div></div></div>
@@ -1210,7 +1213,7 @@ Earn coins by playing games (50% of XP earned).<br>Redeem for real discounts on 
 </div>
 
 <!-- Coaching Offer Modal -->
-<div class="modal" id="coachingModal"><div class="modal-content coaching-modal-content">
+<div class="modal" id="coachingModal" role="dialog" aria-label="Work with Arthur"><div class="modal-content coaching-modal-content">
 <button class="modal-close-x" onclick="document.getElementById('coachingModal').classList.remove('active')">✕</button>
 <div style="text-align:center;">
 <span class="coaching-offer-label">Ready to Go Deeper?</span>
@@ -1562,7 +1565,145 @@ const LEVEL_1_INDIVIDUAL = [
   { text: "You've accepted this is as good as it gets", level: 1, insight: "Acceptance without surrender. There's always another level." },
   { text: "You know there's another level waiting", level: 1, insight: "There always is. Keep climbing." },
   { text: "You've stopped fighting for your own life", level: 1, insight: "Your life is worth fighting for." },
-  { text: "You show up for yourself every single day", level: 1, insight: "This is everything. This is the work." }
+  { text: "You show up for yourself every single day", level: 1, insight: "This is everything. This is the work." },
+
+  // ========== WITHHOLDING (25) ==========
+  { text: "You withhold your true feelings from yourself", level: 1, insight: "What you won't feel, you can't heal." },
+  { text: "You hold back tears that need to fall", level: 1, insight: "Unshed tears become invisible weights." },
+  { text: "You refuse to give yourself permission to rest", level: 1, insight: "Rest isn't earned. It's required." },
+  { text: "You withhold compassion from yourself", level: 1, insight: "You deserve the kindness you give others." },
+  { text: "You won't let yourself feel proud of your progress", level: 1, insight: "Celebrating yourself isn't arrogance. It's acknowledgment." },
+  { text: "You hold back from fully committing to anything", level: 1, insight: "Half-in keeps you half-alive." },
+  { text: "You refuse to forgive yourself for past mistakes", level: 1, insight: "Self-punishment doesn't undo anything. It just extends the sentence." },
+  { text: "You withhold joy from yourself as punishment", level: 1, insight: "Denying yourself happiness doesn't make you more worthy of it." },
+  { text: "You won't admit what you really want", level: 1, insight: "Unnamed desires still drive you. They just drive blind." },
+  { text: "You hold back from fully experiencing the present", level: 1, insight: "Being half-present is being half-alive." },
+  { text: "You suppress parts of yourself to feel acceptable", level: 1, insight: "The parts you hide don't disappear. They just go underground." },
+  { text: "You refuse to acknowledge your own needs", level: 1, insight: "Unacknowledged needs don't go away. They go sideways." },
+  { text: "You withhold self-care as if you don't deserve it", level: 1, insight: "Self-care isn't selfish. Neglecting yourself is." },
+  { text: "You won't let yourself grieve what you've lost", level: 1, insight: "Ungrieved losses stay present forever." },
+  { text: "You hold back your authentic expression", level: 1, insight: "Your unexpressed self becomes your unlived life." },
+  { text: "You refuse to let yourself be seen", level: 1, insight: "Invisibility feels safe but costs connection." },
+  { text: "You withhold your truth to keep the peace", level: 1, insight: "Peace built on silence isn't peace. It's a ceasefire." },
+  { text: "You won't let yourself be vulnerable", level: 1, insight: "Invulnerability is just loneliness with armor." },
+  { text: "You keep your dreams small so disappointment stays small", level: 1, insight: "Small dreams are just pre-disappointments in disguise." },
+  { text: "You withhold your full effort to have an excuse if you fail", level: 1, insight: "Half-trying guarantees half-results." },
+  { text: "You refuse to let yourself be happy until conditions are perfect", level: 1, insight: "Conditions are never perfect. Happiness doesn't wait." },
+  { text: "You hold back compliments for yourself", level: 1, insight: "You'd never talk to a friend the way you talk to yourself." },
+  { text: "You won't celebrate wins because something might go wrong", level: 1, insight: "Anticipated disaster steals present joy." },
+  { text: "You suppress your intuition because it's inconvenient", level: 1, insight: "Your gut knows. Your mind just argues." },
+  { text: "You withhold permission to change your mind", level: 1, insight: "Changing your mind isn't weakness. It's growth." },
+
+  // ========== ABANDONMENT (8) ==========
+  { text: "You leave before you can be left", level: 1, insight: "Preemptive abandonment is still abandonment. You're just doing it to yourself." },
+  { text: "You push people away to test if they'll stay", level: 1, insight: "Tests of loyalty often produce the failure they fear." },
+  { text: "You abandon yourself when things get hard", level: 1, insight: "Self-abandonment is the original wound. Everyone else just echoes it." },
+  { text: "You expect everyone to eventually leave", level: 1, insight: "Expected abandonment creates the distance that makes it happen." },
+  { text: "You've already mentally left every relationship you're in", level: 1, insight: "One foot out the door means you're never fully in." },
+  { text: "You don't unpack because you might have to leave", level: 1, insight: "Temporary living becomes permanent impermanence." },
+  { text: "You sabotage good things before they can disappoint you", level: 1, insight: "Self-sabotage is just rejection you control." },
+  { text: "You never let yourself need anyone", level: 1, insight: "Independence as armor is just loneliness rebranded." },
+  { text: "You're always waiting for the other shoe to drop", level: 1, insight: "Waiting for disaster is living in disaster." },
+  { text: "You prepare for abandonment by never fully arriving", level: 1, insight: "Half-arrived is already half-gone." },
+
+  // ========== BETRAYAL (8) ==========
+  { text: "You betray yourself to keep others comfortable", level: 1, insight: "Self-betrayal is the betrayal that hurts longest." },
+  { text: "You break promises to yourself constantly", level: 1, insight: "Broken self-promises erode self-trust completely." },
+  { text: "You trust no one because you were betrayed once", level: 1, insight: "One betrayal punishing everyone is still letting them win." },
+  { text: "You betray your values when it's convenient", level: 1, insight: "Convenient betrayals have inconvenient consequences." },
+  { text: "You lie to yourself and call it optimism", level: 1, insight: "Self-deception isn't hope. It's avoidance in disguise." },
+  { text: "You sold out your dreams for security", level: 1, insight: "Traded dreams haunt from the shadows of safe choices." },
+  { text: "You let yourself down more than anyone else ever has", level: 1, insight: "Self-disappointment is the deepest cut." },
+  { text: "You can't trust yourself to follow through", level: 1, insight: "Self-trust is rebuilt one kept promise at a time." },
+
+  // ========== RESENTMENT (8) ==========
+  { text: "You keep score of every wrong done to you", level: 1, insight: "Score-keeping is a full-time job that pays in bitterness." },
+  { text: "You hold grudges like trophies", level: 1, insight: "Grudges are heavy. Put them down." },
+  { text: "You replay old hurts to stay angry", level: 1, insight: "Replayed wounds never heal. They just stay fresh." },
+  { text: "You resent people for not reading your mind", level: 1, insight: "Unspoken expectations are premeditated resentments." },
+  { text: "You're angry at yourself for wasting years", level: 1, insight: "Years resented are years still being wasted." },
+  { text: "You resent your past self for decisions you made", level: 1, insight: "Past you did the best they could with what they knew." },
+  { text: "Bitterness has become your baseline", level: 1, insight: "Bitterness as default poisons everything new." },
+  { text: "You can't let go of what should have been", level: 1, insight: "Should-have-been thinking traps you in never-was." },
+
+  // ========== PERFECTIONISM (7) ==========
+  { text: "You won't start until you can do it perfectly", level: 1, insight: "Perfect conditions never arrive. Start messy." },
+  { text: "You destroy good work because it's not perfect", level: 1, insight: "Good destroyed for perfect leaves you with nothing." },
+  { text: "You see only flaws in everything you create", level: 1, insight: "Flaw-focused vision misses the whole picture." },
+  { text: "Nothing you do is ever good enough for you", level: 1, insight: "The finish line keeps moving because you keep moving it." },
+  { text: "You procrastinate because imperfect action terrifies you", level: 1, insight: "Procrastination is perfectionism in pajamas." },
+  { text: "You compare your first draft to others' final version", level: 1, insight: "Unfair comparisons guarantee unfair conclusions." },
+  { text: "You quit when you can't be the best", level: 1, insight: "Best-or-nothing thinking usually gets nothing." },
+
+  // ========== PEOPLE-PLEASING (7) ==========
+  { text: "You say yes when everything in you screams no", level: 1, insight: "Yes said against yourself is a betrayal, not a gift." },
+  { text: "You don't know what you want because you only know what others want", level: 1, insight: "Lost in others' desires, your own become strangers." },
+  { text: "You exhaust yourself making everyone else comfortable", level: 1, insight: "Everyone comfortable except you isn't balance. It's sacrifice." },
+  { text: "You apologize for existing", level: 1, insight: "You don't need permission to take up space." },
+  { text: "You shape-shift to fit whoever you're with", level: 1, insight: "Chameleons survive but never belong." },
+  { text: "You'd rather suffer than disappoint someone", level: 1, insight: "Your suffering isn't a gift to anyone." },
+  { text: "You've lost yourself trying to be what everyone needs", level: 1, insight: "You can't pour from an empty self." },
+
+  // ========== AVOIDANCE (7) ==========
+  { text: "You avoid hard conversations until they become crises", level: 1, insight: "Avoided conversations don't disappear. They compound." },
+  { text: "You distract yourself from feelings you don't want to feel", level: 1, insight: "Distracted feelings don't leave. They wait." },
+  { text: "You run from conflict even when running costs more", level: 1, insight: "Conflict avoided becomes conflict multiplied." },
+  { text: "You numb yourself to avoid pain", level: 1, insight: "Numbed pain is still pain. Just unfelt." },
+  { text: "You stay busy to avoid being alone with your thoughts", level: 1, insight: "Busy avoidance is productive-looking escapism." },
+  { text: "You sleep to escape reality", level: 1, insight: "Sleep as escape creates exhausted waking." },
+  { text: "You scroll endlessly to avoid your life", level: 1, insight: "Digital escape is still escape." },
+
+  // ========== GRIEF (6) ==========
+  { text: "You carry unprocessed grief from years ago", level: 1, insight: "Unfelt grief doesn't expire. It just goes underground." },
+  { text: "You never properly mourned what you lost", level: 1, insight: "Unmourned losses stay present forever." },
+  { text: "You grieve who you could have been", level: 1, insight: "Unlived lives deserve mourning too." },
+  { text: "You lost yourself somewhere along the way", level: 1, insight: "Lost selves can be found. Start looking." },
+  { text: "You grieve innocence you can't get back", level: 1, insight: "Lost innocence makes room for wisdom." },
+  { text: "You've never let yourself fully cry about it", level: 1, insight: "Unshed tears become invisible weight." },
+
+  // ========== CODEPENDENCY (6) ==========
+  { text: "You feel responsible for other people's emotions", level: 1, insight: "Their feelings are theirs. You can't carry them without dropping your own." },
+  { text: "You lose yourself completely in relationships", level: 1, insight: "Lost selves don't make better partners. They make empty ones." },
+  { text: "You can't be happy unless everyone else is happy first", level: 1, insight: "Happiness held hostage isn't happiness." },
+  { text: "You fix others to avoid fixing yourself", level: 1, insight: "Other-fixing is self-avoidance with good intentions." },
+  { text: "Your worth comes from being needed", level: 1, insight: "Needed for worth isn't connection. It's transaction." },
+  { text: "You can't tell where your feelings end and others' begin", level: 1, insight: "Emotional enmeshment isn't empathy. It's erosion." },
+  // People-Pleasing scenarios
+  { text: "You say yes when everything in you screams no", level: 1, insight: "People-pleasing is self-abandonment in a friendly costume." },
+  { text: "You apologize for things that aren't your fault", level: 1, insight: "Compulsive apologizing is people-pleasing in disguise." },
+  { text: "You change your opinion to match whoever you're with", level: 1, insight: "People-pleasing erases you one opinion at a time." },
+  { text: "You feel responsible for other people's emotions", level: 1, insight: "Their feelings are theirs. You're not that powerful." },
+  { text: "You'd rather be liked than respected", level: 1, insight: "People-pleasing trades respect for temporary approval." },
+  { text: "You exhaust yourself making sure everyone else is comfortable", level: 1, insight: "Your comfort matters too. People-pleasing says it doesn't." },
+  { text: "You can't enjoy yourself if someone nearby is unhappy", level: 1, insight: "Absorbing others' moods isn't empathy. It's people-pleasing." },
+  { text: "You've lost track of what you actually want", level: 1, insight: "People-pleasing buries your desires so deep you forget they exist." },
+  // Codependency scenarios  
+  { text: "You need someone else to feel complete", level: 1, insight: "Codependency calls incompleteness love." },
+  { text: "You lose yourself in relationships", level: 1, insight: "Codependency is self-abandonment labeled as devotion." },
+  { text: "You stay in relationships that hurt because leaving feels worse", level: 1, insight: "Codependency makes pain feel safer than freedom." },
+  { text: "You fix others to avoid fixing yourself", level: 1, insight: "Codependency is a distraction from your own work." },
+  { text: "You confuse being needed with being loved", level: 1, insight: "Codependency mistakes utility for intimacy." },
+  { text: "You can't be happy unless they're happy", level: 1, insight: "Codependency ties your joy to someone else's mood." },
+  { text: "You've made someone else your higher power", level: 1, insight: "Codependency worships people who can't save you." },
+  { text: "You give until there's nothing left, then resent it", level: 1, insight: "Codependent giving isn't generous. It's a setup for resentment." },
+  // Addiction scenarios
+  { text: "You use something to feel normal", level: 1, insight: "Addiction redefines normal until you can't find it without help." },
+  { text: "You tell yourself you could stop anytime but never do", level: 1, insight: "Addiction whispers 'you're in control' while holding the wheel." },
+  { text: "You hide how much you really use", level: 1, insight: "Addiction thrives in secrecy. Light kills it." },
+  { text: "You've broken promises to yourself about stopping", level: 1, insight: "Addiction makes liars of us to ourselves first." },
+  { text: "You use when you're stressed, sad, happy, or bored", level: 1, insight: "When every emotion leads to using, addiction has hijacked your coping." },
+  { text: "You've lost things that mattered because of your habit", level: 1, insight: "Addiction takes payment in things you didn't agree to give." },
+  { text: "You minimize how bad it's gotten", level: 1, insight: "Addiction's first defense is denial dressed as perspective." },
+  { text: "You can't imagine life without it", level: 1, insight: "Addiction makes freedom look like a prison." },
+  // Abuse scenarios
+  { text: "You accept treatment you'd never allow for someone you love", level: 1, insight: "Self-worth decides what treatment you accept. Abuse erodes both." },
+  { text: "You make excuses for people who hurt you", level: 1, insight: "Explaining away abuse keeps you in it." },
+  { text: "You think you deserve the bad things that happen to you", level: 1, insight: "Abuse teaches victims they deserve it. That's the biggest lie." },
+  { text: "You walk on eggshells around someone", level: 1, insight: "If you're always careful around them, the relationship isn't safe." },
+  { text: "You've normalized behavior that horrifies you when you describe it", level: 1, insight: "Abuse becomes invisible when you live in it long enough." },
+  { text: "You blame yourself for how others treat you", level: 1, insight: "Abuse makes you the problem. You're not the problem." },
+  { text: "You confuse intensity with love", level: 1, insight: "Abuse often feels intense. Intensity isn't intimacy." },
+  { text: "You're afraid to leave even though staying hurts", level: 1, insight: "Fear of leaving is abuse's final lock on the door." }
 ];
 
 // Export for use
@@ -1887,7 +2028,93 @@ const LEVEL_2_FAMILY = [
   { text: "You never eat together anymore", level: 2, insight: "Eating together is the oldest bonding ritual." },
   { text: "You make time to share meals", level: 2, insight: "Meals together change everything." },
   { text: "Home feels like just another obligation", level: 2, insight: "Home should be refuge, not duty." },
-  { text: "Home is where you actually want to be", level: 2, insight: "This is the measure of success." }
+  { text: "Home is where you actually want to be", level: 2, insight: "This is the measure of success." },
+
+  // ========== WITHHOLDING (25) ==========
+  { text: "You withhold affection to punish your partner", level: 2, insight: "Punishment creates distance, not change." },
+  { text: "You hold back 'I love you' until they say it first", level: 2, insight: "Love isn't a competition. Someone has to go first." },
+  { text: "You refuse to apologize even when you know you're wrong", level: 2, insight: "Pride costs more than an apology ever could." },
+  { text: "You withhold forgiveness to maintain power", level: 2, insight: "Unforgiveness is a prison you built for yourself." },
+  { text: "You won't tell them what you actually need", level: 2, insight: "Unexpressed needs become unmet needs." },
+  { text: "You hold back praise because they should 'just know'", level: 2, insight: "Assumed appreciation isn't felt appreciation." },
+  { text: "You withhold information to control the situation", level: 2, insight: "Information control is manipulation with better branding." },
+  { text: "You refuse to share your struggles with family", level: 2, insight: "Isolation doesn't protect them. It disconnects you." },
+  { text: "You won't let your parents see the real you", level: 2, insight: "They raised who you were. They deserve to know who you became." },
+  { text: "You withhold your time as currency", level: 2, insight: "Time given grudgingly isn't presence. It's absence with a body." },
+  { text: "You hold back physical affection to make a point", level: 2, insight: "Touch withheld wounds deeper than words." },
+  { text: "You refuse to share your successes with family", level: 2, insight: "Hidden victories are lonely victories." },
+  { text: "You won't ask for help from the people closest to you", level: 2, insight: "Refusing help isn't strength. It's isolation in disguise." },
+  { text: "You withhold your truth to avoid family conflict", level: 2, insight: "Avoided conflict becomes stored resentment." },
+  { text: "You hold back vulnerability with your children", level: 2, insight: "Children learn emotional courage from watching you be brave." },
+  { text: "You refuse to share family history with the next generation", level: 2, insight: "Untold stories die with the teller." },
+  { text: "You won't tell your partner when something hurts", level: 2, insight: "Silent wounds fester. Spoken wounds heal." },
+  { text: "You withhold engagement to stay emotionally safe", level: 2, insight: "Emotional safety without emotional presence isn't intimacy." },
+  { text: "You hold back your true opinion to keep peace", level: 2, insight: "False peace is just delayed war." },
+  { text: "You refuse to acknowledge family members' growth", level: 2, insight: "People grow when witnessed. They shrink when ignored." },
+  { text: "You won't share your fears with those who love you", level: 2, insight: "Unshared fear becomes unnecessary loneliness." },
+  { text: "You withhold support when you're angry", level: 2, insight: "Conditional support is conditional love." },
+  { text: "You hold back enthusiasm to seem cool or unaffected", level: 2, insight: "Performed indifference kills joy twice." },
+  { text: "You refuse to share resources with struggling family", level: 2, insight: "What you hoard, you lose. What you give, returns." },
+  { text: "You won't let family see you fail", level: 2, insight: "Hidden failures mean hidden humanity." },
+
+  // ========== ABANDONMENT (4) ==========
+  { text: "You were abandoned by a parent and it shaped everything", level: 2, insight: "Parental absence leaves a presence of its own." },
+  { text: "You abandon ship at the first sign of family conflict", level: 2, insight: "Conflict fled is connection severed." },
+  { text: "You fear your partner will leave like everyone else did", level: 2, insight: "Past abandonment haunting present love keeps you half-in." },
+  { text: "You emotionally abandon your family while physically present", level: 2, insight: "Present bodies with absent hearts is abandonment with an alibi." },
+
+  // ========== BETRAYAL (4) ==========
+  { text: "A family member's betrayal broke something in you", level: 2, insight: "Family betrayal cuts deepest because home should be safe." },
+  { text: "You keep secrets that would devastate your partner", level: 2, insight: "Kept secrets are ticking time bombs." },
+  { text: "You feel betrayed by family expectations you never chose", level: 2, insight: "Unchosen expectations still bind. Until you choose to cut them." },
+  { text: "You betrayed a family member and haven't faced it", level: 2, insight: "Unfaced betrayals poison both sides." },
+
+  // ========== RESENTMENT (7) ==========
+  { text: "You resent a family member and they have no idea", level: 2, insight: "Silent resentment speaks loudly in other ways." },
+  { text: "You keep a mental list of everything your partner does wrong", level: 2, insight: "Scorecards don't belong in love." },
+  { text: "You resent how much you sacrificed for family", level: 2, insight: "Resentful sacrifice isn't generosity. It's debt collection waiting." },
+  { text: "You resent your siblings for who got what", level: 2, insight: "Sibling scorekeeping extends childhood into adulthood." },
+  { text: "You resent your parents for who they couldn't be", level: 2, insight: "Parents are people who failed at an impossible job." },
+  { text: "You resent your partner for changing", level: 2, insight: "People change. Resenting it doesn't stop it." },
+  { text: "You keep old family wounds fresh", level: 2, insight: "Fresh wounds from years ago are self-inflicted now." },
+
+  // ========== PERFECTIONISM (6) ==========
+  { text: "You demand perfection from family members", level: 2, insight: "Perfect families don't exist. Present ones do." },
+  { text: "You criticize your partner constantly to help them improve", level: 2, insight: "Constant criticism doesn't improve. It erodes." },
+  { text: "You're ashamed of your family because they're not perfect", level: 2, insight: "Imperfect families are all families. Including the ones that look perfect." },
+  { text: "You expect your children to be who you couldn't be", level: 2, insight: "Children aren't second chances at your life." },
+  { text: "Nothing your family does is ever good enough", level: 2, insight: "Good enough rejected becomes nothing at all." },
+  { text: "You can't accept compliments from your partner", level: 2, insight: "Rejected compliments reject the giver too." },
+
+  // ========== PEOPLE-PLEASING (6) ==========
+  { text: "You became who your family needed instead of who you are", level: 2, insight: "Family roles aren't identities unless you let them be." },
+  { text: "You can't say no to family even when it destroys you", level: 2, insight: "Family love doesn't require self-destruction." },
+  { text: "You keep the peace at any cost to yourself", level: 2, insight: "Peace-at-any-cost costs everything eventually." },
+  { text: "You absorb your family's moods", level: 2, insight: "Absorbing others' moods leaves no room for yours." },
+  { text: "You manage everyone's emotions except your own", level: 2, insight: "Family emotional manager is an exhausting unpaid job." },
+  { text: "You put everyone's needs before your own automatically", level: 2, insight: "Automatic self-sacrifice isn't generosity. It's programming." },
+
+  // ========== AVOIDANCE (6) ==========
+  { text: "You avoid going home because it's too painful", level: 2, insight: "Avoided homes stay exactly as painful as you left them." },
+  { text: "You avoid hard conversations with aging parents", level: 2, insight: "Time is running out for conversations you're avoiding." },
+  { text: "You avoid your partner when something's wrong", level: 2, insight: "Avoided partners become estranged ones." },
+  { text: "You leave the room instead of facing conflict", level: 2, insight: "Left rooms don't resolve what's in them." },
+  { text: "You change the subject when family gets real", level: 2, insight: "Changed subjects stay unresolved." },
+  { text: "You use work to avoid being present at home", level: 2, insight: "Work as escape builds careers and ruins families." },
+
+  // ========== GRIEF (5) ==========
+  { text: "You never grieved the family you wished you had", level: 2, insight: "Fantasy families must die for real acceptance to live." },
+  { text: "You carry grief for a family member you lost", level: 2, insight: "Carried grief becomes part of you. Honor it." },
+  { text: "You grieve the relationship you used to have", level: 2, insight: "Changed relationships deserve mourning." },
+  { text: "You haven't processed your parents' divorce", level: 2, insight: "Unprocessed divorce lives on in your relationships." },
+  { text: "You grieve the parent who was physically present but emotionally gone", level: 2, insight: "Present absence wounds differently. Still wounds." },
+
+  // ========== CODEPENDENCY (5) ==========
+  { text: "You fix everyone in your family except yourself", level: 2, insight: "Family fixer who neglects self helps no one long-term." },
+  { text: "You can't tell where you end and your partner begins", level: 2, insight: "Merged identities aren't intimacy. They're disappearance." },
+  { text: "You enable family members' destructive behavior", level: 2, insight: "Enabling isn't helping. It's participating." },
+  { text: "Your mood depends entirely on your partner's mood", level: 2, insight: "Borrowed moods aren't felt. They're performed." },
+  { text: "You need your family to need you", level: 2, insight: "Needed for purpose isn't love. It's dependency." }
 ];
 
 // Export for use
@@ -2212,7 +2439,90 @@ const LEVEL_3_GROUPS = [
   { text: "You treat some people as beneath you", level: 3, insight: "Beneath-you thinking shrinks you." },
   { text: "You treat everyone as worth knowing", level: 3, insight: "Worth-knowing thinking expands you." },
   { text: "You network only when desperate", level: 3, insight: "Desperate networking doesn't work." },
-  { text: "You build relationships before you need them", level: 3, insight: "Preparation beats desperation." }
+  { text: "You build relationships before you need them", level: 3, insight: "Preparation beats desperation." },
+
+  // ========== WITHHOLDING (25) ==========
+  { text: "You withhold your true opinions in group settings", level: 3, insight: "Unspoken opinions are still present. Just unexamined by others." },
+  { text: "You hold back your skills to avoid standing out", level: 3, insight: "Dimming your light doesn't help anyone see." },
+  { text: "You refuse to share credit with the team", level: 3, insight: "Hoarded credit becomes isolated success." },
+  { text: "You withhold feedback that could help someone grow", level: 3, insight: "Kindness without honesty isn't kindness. It's comfort." },
+  { text: "You won't introduce friends to each other", level: 3, insight: "Connection scarcity mindset limits everyone." },
+  { text: "You hold back from fully participating in groups", level: 3, insight: "Partial presence is partial belonging." },
+  { text: "You refuse to share resources with colleagues", level: 3, insight: "Information hoarding is just insecurity with a strategy." },
+  { text: "You withhold enthusiasm to seem professional", level: 3, insight: "Professional doesn't mean dead. Passion is professional." },
+  { text: "You won't share your network with people who helped you", level: 3, insight: "Closed doors you walked through should open for others." },
+  { text: "You hold back your authentic personality at work", level: 3, insight: "Work-you and real-you split creates exhaustion." },
+  { text: "You refuse to celebrate others' wins publicly", level: 3, insight: "Their success isn't your failure. Celebration is free." },
+  { text: "You withhold institutional knowledge when leaving", level: 3, insight: "Burned bridges still smell like smoke." },
+  { text: "You won't recommend people even when they're qualified", level: 3, insight: "Recommendation scarcity helps no one, including you." },
+  { text: "You hold back ideas in meetings to avoid rejection", level: 3, insight: "Unshared ideas are already rejected." },
+  { text: "You refuse to mentor because nobody mentored you", level: 3, insight: "Breaking cycles sometimes means going first." },
+  { text: "You withhold trust until people 'earn' it", level: 3, insight: "Trust withheld creates exactly what you feared." },
+  { text: "You won't share struggles with teammates", level: 3, insight: "Invisible struggles create visible distance." },
+  { text: "You hold back compliments because people might get arrogant", level: 3, insight: "Withheld praise never prevented arrogance. It prevents connection." },
+  { text: "You refuse to acknowledge when someone does better than you", level: 3, insight: "Denial of excellence doesn't create equality. It creates resentment." },
+  { text: "You withhold your full effort in collaborative projects", level: 3, insight: "Half-effort protects nothing. It just guarantees mediocrity." },
+  { text: "You won't share opportunities because there aren't enough", level: 3, insight: "Scarcity thinking creates the scarcity it fears." },
+  { text: "You hold back your real questions to appear knowledgeable", level: 3, insight: "Unasked questions remain unanswered. Forever." },
+  { text: "You refuse to admit when a friend helped you succeed", level: 3, insight: "Solo success stories are usually team efforts unacknowledged." },
+  { text: "You withhold your presence from groups that need you", level: 3, insight: "Needed and not there is a kind of abandonment." },
+  { text: "You won't bring your full self to any group", level: 3, insight: "Partial selves create partial belonging everywhere." },
+
+  // ========== ABANDONMENT (3) ==========
+  { text: "You disappear from friend groups without explanation", level: 3, insight: "Silent exits leave friends wondering what they did wrong." },
+  { text: "You abandon projects when the group needs you most", level: 3, insight: "Abandoned teams remember who disappeared." },
+  { text: "You've been abandoned by a friend group and never recovered", level: 3, insight: "Group rejection wounds differently. It's personal made public." },
+
+  // ========== BETRAYAL (3) ==========
+  { text: "A friend betrayed your trust and now you trust no friends", level: 3, insight: "One betrayal punishing all friendships multiplies the loss." },
+  { text: "You gossip about friends behind their backs", level: 3, insight: "Gossip is betrayal on the installment plan." },
+  { text: "You've stolen someone's idea and passed it off as your own", level: 3, insight: "Stolen credit is borrowed shame. Interest compounds." },
+
+  // ========== RESENTMENT (6) ==========
+  { text: "You resent more successful friends", level: 3, insight: "Friend resentment poisons the friendship and your own joy." },
+  { text: "You resent doing more than your fair share in groups", level: 3, insight: "Resentful over-functioning isn't virtue. It's a setup." },
+  { text: "You keep track of who owes you in friendships", level: 3, insight: "Friendship ledgers create debtor dynamics, not connection." },
+  { text: "You resent friends who moved on without you", level: 3, insight: "People growing at different rates isn't abandonment." },
+  { text: "You secretly hope competitive friends fail", level: 3, insight: "Wished failure reveals your own insecurity, not their worth." },
+  { text: "You resent how easy it seems for others", level: 3, insight: "Easy-looking often means hidden struggle." },
+
+  // ========== PERFECTIONISM (6) ==========
+  { text: "You avoid groups because you can't be the best", level: 3, insight: "Groups don't need your best. They need your presence." },
+  { text: "You critique every group's flaws instead of contributing", level: 3, insight: "Criticism from the sidelines helps no one." },
+  { text: "You only join groups where you'll excel", level: 3, insight: "Comfort-zone groups never grow you." },
+  { text: "You won't post in groups unless it's perfect", level: 3, insight: "Perfect silence isn't better than imperfect presence." },
+  { text: "You judge group members who don't meet your standards", level: 3, insight: "Standard-judging isolates the judge." },
+  { text: "You quit teams rather than be mediocre", level: 3, insight: "Mediocre presence beats perfect absence." },
+
+  // ========== PEOPLE-PLEASING (6) ==========
+  { text: "You agree with the group even when you disagree", level: 3, insight: "False agreement is false presence." },
+  { text: "You exhaust yourself being everything to every friend", level: 3, insight: "Everything to everyone is nothing to yourself." },
+  { text: "You change your personality for different friend groups", level: 3, insight: "Chameleon friendships are exhausting and lonely." },
+  { text: "You volunteer for everything so people will like you", level: 3, insight: "Overcommitment for approval leads to resentful collapse." },
+  { text: "You laugh at jokes that aren't funny to fit in", level: 3, insight: "Fake laughs build fake belonging." },
+  { text: "You never share contrary opinions in groups", level: 3, insight: "Hidden disagreement hides you." },
+
+  // ========== AVOIDANCE (6) ==========
+  { text: "You avoid reunions because you're ashamed of your life", level: 3, insight: "Comparison-based avoidance limits connection forever." },
+  { text: "You ghost people instead of having hard conversations", level: 3, insight: "Ghosting is conflict avoidance that haunts everyone." },
+  { text: "You avoid introducing friends from different groups", level: 3, insight: "Compartmentalized friendships stay shallow." },
+  { text: "You skip events where you might run into certain people", level: 3, insight: "Life organized around avoidance shrinks continuously." },
+  { text: "You avoid deep conversations by keeping things light", level: 3, insight: "Perpetually light keeps you permanently superficial." },
+  { text: "You avoid groups where you'd have to be vulnerable", level: 3, insight: "Vulnerability-free zones are connection-free zones." },
+
+  // ========== GRIEF (5) ==========
+  { text: "You lost a friend and the group was never the same", level: 3, insight: "Group grief is complicated. Everyone mourns differently." },
+  { text: "You grieve friendships that faded without closure", level: 3, insight: "Faded friendships deserve mourning too." },
+  { text: "A falling out ended a friendship you thought would last forever", level: 3, insight: "Forever friendships ending is its own kind of death." },
+  { text: "Your friend group dissolved and no one talks about it", level: 3, insight: "Undiscussed dissolution stays unresolved." },
+  { text: "You miss who your friends used to be", level: 3, insight: "Changed friends are still friends. Different ones." },
+
+  // ========== CODEPENDENCY (5) ==========
+  { text: "You need your friend group's approval for every decision", level: 3, insight: "Outsourced decisions aren't really yours." },
+  { text: "Your identity is entirely based on your group membership", level: 3, insight: "Group identity without personal identity is disappearance." },
+  { text: "You take on everyone's problems in the group", level: 3, insight: "Group fixer loses themselves in others' issues." },
+  { text: "You can't have fun unless your friends are having fun", level: 3, insight: "Borrowed fun isn't felt." },
+  { text: "You need your friends to need you", level: 3, insight: "Needed for worth isn't friendship. It's transaction." }
 ];
 
 // Export for use
@@ -2537,7 +2847,87 @@ const LEVEL_4_COMMUNITY = [
   { text: "You see community as optional", level: 4, insight: "Optional community is optional purpose." },
   { text: "You see community as essential", level: 4, insight: "Essential community is essential life." },
   { text: "You still don't know where you fit", level: 4, insight: "Unknown fitting is unexplored fitting." },
-  { text: "You've found your place and help others find theirs", level: 4, insight: "Found place shared is multiplied belonging." }
+  { text: "You've found your place and help others find theirs", level: 4, insight: "Found place shared is multiplied belonging." },
+
+  // ========== WITHHOLDING (25) ==========
+  { text: "You withhold your vote because it won't matter", level: 4, insight: "Withheld votes create the outcomes they blame." },
+  { text: "You hold back from community involvement", level: 4, insight: "Uninvolved citizens create the community they complain about." },
+  { text: "You refuse to share local knowledge with newcomers", level: 4, insight: "Gatekept knowledge builds walls, not community." },
+  { text: "You withhold support from local businesses", level: 4, insight: "Unsupported local businesses become empty storefronts." },
+  { text: "You won't volunteer because others should step up", level: 4, insight: "Waiting for others creates the gap you're waiting for them to fill." },
+  { text: "You hold back from speaking at community meetings", level: 4, insight: "Silent community members get communities they didn't choose." },
+  { text: "You refuse to share your professional skills pro bono", level: 4, insight: "Hoarded skills help no one, including you." },
+  { text: "You withhold your story from community causes", level: 4, insight: "Untold stories leave movements without faces." },
+  { text: "You won't donate because you can't give enough", level: 4, insight: "Small gifts refused means no gifts at all." },
+  { text: "You hold back from welcoming new neighbors", level: 4, insight: "Unwelcomed neighbors stay strangers forever." },
+  { text: "You refuse to participate in local democracy", level: 4, insight: "Non-participation is still participation. In your absence." },
+  { text: "You withhold complaint when something's wrong", level: 4, insight: "Unreported problems remain unsolved problems." },
+  { text: "You won't share your space with community groups", level: 4, insight: "Private spaces hoarded mean public spaces strained." },
+  { text: "You hold back from supporting community arts", level: 4, insight: "Unsupported artists leave. Then everyone wonders why it's boring here." },
+  { text: "You refuse to engage with people different from you", level: 4, insight: "Homogeneous bubbles aren't communities. They're echoes." },
+  { text: "You withhold your presence from neighborhood events", level: 4, insight: "Empty chairs at events are people who chose not to belong." },
+  { text: "You won't share your garden's abundance", level: 4, insight: "Rotting excess is generosity refused." },
+  { text: "You hold back from helping neighbors in need", level: 4, insight: "Help withheld becomes help you won't receive." },
+  { text: "You refuse to share childcare resources with other parents", level: 4, insight: "Parenting alone when community exists is chosen isolation." },
+  { text: "You withhold your expertise from community projects", level: 4, insight: "Expertise hoarded improves nothing." },
+  { text: "You won't speak up when community norms go wrong", level: 4, insight: "Silent witnesses become complicit bystanders." },
+  { text: "You hold back investment in your local area", level: 4, insight: "Money sent elsewhere builds elsewhere." },
+  { text: "You refuse to teach what you know to the next generation", level: 4, insight: "Untaught skills die with their holders." },
+  { text: "You withhold trust from community institutions", level: 4, insight: "Distrusted institutions become untrustworthy. Prophecy fulfilled." },
+  { text: "You won't show up consistently for causes you claim to believe in", level: 4, insight: "Inconsistent presence is unreliable support." },
+
+  // ========== ABANDONMENT (3) ==========
+  { text: "You abandon communities when they need you most", level: 4, insight: "Fair-weather community members aren't really members." },
+  { text: "Your neighborhood feels abandoned by those who could help", level: 4, insight: "Community abandonment is collective wound." },
+  { text: "You move away and never look back", level: 4, insight: "Places that raised you deserve acknowledgment." },
+
+  // ========== BETRAYAL (3) ==========
+  { text: "Community leaders betrayed your trust", level: 4, insight: "Betrayed by leaders, we stop trusting leadership. Including our own." },
+  { text: "You've broken promises to your community", level: 4, insight: "Community promises broken ripple outward." },
+  { text: "You betray local businesses for convenience", level: 4, insight: "Convenience-driven betrayal builds the community you don't want." },
+
+  // ========== RESENTMENT (6) ==========
+  { text: "You resent your community for not being what you need", level: 4, insight: "Communities reflect their members. Including you." },
+  { text: "You resent newcomers changing your neighborhood", level: 4, insight: "Change resisted doesn't stop change. It embitters the resister." },
+  { text: "You resent paying for community services", level: 4, insight: "Resented contributions build resentful communities." },
+  { text: "You resent how some community members get more than they give", level: 4, insight: "Community scorekeeping poisons community spirit." },
+  { text: "You resent having to deal with local problems", level: 4, insight: "Local problems ignored become local crises." },
+  { text: "You resent that community building falls to you", level: 4, insight: "Resentful builders build resentful structures." },
+
+  // ========== PERFECTIONISM (5) ==========
+  { text: "You criticize community efforts instead of improving them", level: 4, insight: "Critics who don't contribute are just noise." },
+  { text: "You won't join imperfect community organizations", level: 4, insight: "Perfect organizations don't exist. Improved ones do." },
+  { text: "You wait for someone else to start community initiatives", level: 4, insight: "Everyone waiting means nothing starts." },
+  { text: "You expect community events to be professionally organized", level: 4, insight: "Volunteer efforts judged by professional standards wither." },
+  { text: "Nothing your community does meets your standards", level: 4, insight: "Standards that preclude participation just preclude you." },
+
+  // ========== PEOPLE-PLEASING (5) ==========
+  { text: "You overcommit to every community request", level: 4, insight: "Overcommitted community members burn out and disappear." },
+  { text: "You can't say no to community obligations", level: 4, insight: "Obligated participation isn't community. It's duty without joy." },
+  { text: "You say yes to community roles you don't want", level: 4, insight: "Resentful yes becomes resentful service." },
+  { text: "You let pushy community members walk all over you", level: 4, insight: "Walked-over members eventually leave." },
+  { text: "You suppress your opinions to keep community harmony", level: 4, insight: "Suppressed opinions don't create harmony. They create explosions." },
+
+  // ========== AVOIDANCE (5) ==========
+  { text: "You avoid community involvement because of one bad experience", level: 4, insight: "One bad experience generalizing to all keeps you isolated." },
+  { text: "You avoid local issues because they're depressing", level: 4, insight: "Avoided local issues become unavoidable eventually." },
+  { text: "You avoid neighbors who might ask for something", level: 4, insight: "Avoided asks become avoided connections." },
+  { text: "You hide when community members come to the door", level: 4, insight: "Hidden residents aren't part of community." },
+  { text: "You avoid community meetings because they're tedious", level: 4, insight: "Tedium avoided is influence surrendered." },
+
+  // ========== GRIEF (5) ==========
+  { text: "You grieve what your community used to be", level: 4, insight: "Nostalgia can honor the past or imprison the present." },
+  { text: "Your community is grieving a loss and no one talks about it", level: 4, insight: "Unspoken community grief becomes community depression." },
+  { text: "You grieve community spaces that closed", level: 4, insight: "Lost spaces take communities with them." },
+  { text: "You grieve the death of local businesses you loved", level: 4, insight: "Business deaths are community deaths." },
+  { text: "You mourn the community leaders who are gone", level: 4, insight: "Lost leaders leave holes only new leaders can fill." },
+
+  // ========== CODEPENDENCY (5) ==========
+  { text: "Your identity is completely wrapped up in your community role", level: 4, insight: "Role-based identity crumbles when roles change." },
+  { text: "You fix community problems so you feel needed", level: 4, insight: "Need-to-be-needed isn't service. It's dependency in disguise." },
+  { text: "You feel responsible for everyone in your community", level: 4, insight: "Over-responsibility exhausts and eventually resents." },
+  { text: "You can't enjoy your community unless it's thriving", level: 4, insight: "Conditional enjoyment is no enjoyment." },
+  { text: "You measure your worth by your community contributions", level: 4, insight: "Contribution-based worth fluctuates with capacity." }
 ];
 
 // Export for use
@@ -2862,7 +3252,90 @@ const LEVEL_5_SOCIETY = [
   { text: "You've never educated yourself about injustice", level: 5, insight: "Uneducated opinion is uninformed opinion." },
   { text: "You continuously learn about justice issues", level: 5, insight: "Continuous learning is continuous growth." },
   { text: "You wait for others to fix injustice", level: 5, insight: "Waiting for others is waiting forever." },
-  { text: "You do your part in the work of justice", level: 5, insight: "Your part is essential." }
+  { text: "You do your part in the work of justice", level: 5, insight: "Your part is essential." },
+
+  // ========== WITHHOLDING (25) ==========
+  { text: "You withhold your voice from public discourse", level: 5, insight: "Silent majorities get loud minorities' outcomes." },
+  { text: "You hold back from participating in democracy", level: 5, insight: "Non-voters still get governments. Just not chosen ones." },
+  { text: "You refuse to share accurate information", level: 5, insight: "Truth withheld lets lies spread unchallenged." },
+  { text: "You withhold support from movements you believe in", level: 5, insight: "Private beliefs don't create public change." },
+  { text: "You won't pay your fair share of taxes", level: 5, insight: "Tax avoidance is just outsourcing your responsibilities." },
+  { text: "You hold back from jury duty and civic responsibilities", level: 5, insight: "Avoided civic duties weaken the system for everyone." },
+  { text: "You refuse to engage with opposing viewpoints", level: 5, insight: "Echo chambers feel safe but create blind spots." },
+  { text: "You withhold resources from systemic solutions", level: 5, insight: "Individual hoarding can't solve collective problems." },
+  { text: "You won't use your privilege to open doors for others", level: 5, insight: "Privilege unused for good is privilege wasted." },
+  { text: "You hold back your story from policy discussions", level: 5, insight: "Policies without stories lack human faces." },
+  { text: "You refuse to call out systemic injustice when you see it", level: 5, insight: "Witnessed injustice unchallenged is injustice enabled." },
+  { text: "You withhold effort from making systems better", level: 5, insight: "Systems stay broken when people stop trying." },
+  { text: "You won't share your platform with marginalized voices", level: 5, insight: "Hoarded platforms amplify only the already-loud." },
+  { text: "You hold back from voting because both sides are bad", level: 5, insight: "Perfect candidates don't exist. Progress requires participation anyway." },
+  { text: "You refuse to teach civic engagement to young people", level: 5, insight: "Uncivically educated youth become disengaged adults." },
+  { text: "You withhold your expertise from public service", level: 5, insight: "Expertise hoarded from public good serves only private interests." },
+  { text: "You won't contribute to social safety nets", level: 5, insight: "Uncontributed safety nets fray for everyone." },
+  { text: "You hold back from defending institutions that work", level: 5, insight: "Undefended institutions fall to those who attack them." },
+  { text: "You refuse to acknowledge historical wrongs", level: 5, insight: "Unacknowledged history repeats with new victims." },
+  { text: "You withhold compassion from people in other social classes", level: 5, insight: "Class-limited compassion isn't compassion. It's convenience." },
+  { text: "You won't engage with problems that don't affect you directly", level: 5, insight: "Indirect problems become direct eventually." },
+  { text: "You hold back from building bridges across divides", level: 5, insight: "Unbridged divides become chasms." },
+  { text: "You refuse to question the systems that benefit you", level: 5, insight: "Unquestioned benefit might be someone else's burden." },
+  { text: "You withhold your attention from societal issues", level: 5, insight: "Ignored problems grow in the dark of inattention." },
+  { text: "You won't imagine a better society because this one is comfortable", level: 5, insight: "Comfort-limited imagination guarantees comfort-limited progress." },
+
+  // ========== ABANDONMENT (3) ==========
+  { text: "Society abandoned people like you and you haven't forgiven it", level: 5, insight: "Societal abandonment wounds shape political identity." },
+  { text: "You've given up on society improving", level: 5, insight: "Given-up citizens get the society they stopped fighting for." },
+  { text: "You feel abandoned by institutions that were supposed to protect you", level: 5, insight: "Institutional abandonment breaks social trust for generations." },
+
+  // ========== BETRAYAL (6) ==========
+  { text: "You feel betrayed by leaders you trusted", level: 5, insight: "Betrayed trust in leaders becomes cynicism toward all leadership." },
+  { text: "Society promised equality but delivered hierarchy", level: 5, insight: "Broken social promises create justified anger." },
+  { text: "You betrayed your values for social acceptance", level: 5, insight: "Belonging bought by betrayal costs your integrity." },
+  { text: "Institutions you believed in failed you", level: 5, insight: "Institutional failure wounds institutionally." },
+  { text: "You trusted the system and it let you down", level: 5, insight: "System trust broken breeds system cynicism." },
+  { text: "You betrayed marginalized groups to protect your position", level: 5, insight: "Safety bought by others' suffering is borrowed shame." },
+
+  // ========== RESENTMENT (6) ==========
+  { text: "You resent the system for your circumstances", level: 5, insight: "System resentment is valid. System paralysis isn't." },
+  { text: "You resent people who benefited from unfair advantages", level: 5, insight: "Resentment of advantage doesn't create equity. Action does." },
+  { text: "You resent having to fight for things others were given", level: 5, insight: "The fight is real. Resentment is optional." },
+  { text: "You resent how society is structured", level: 5, insight: "Structural resentment without structural work changes nothing." },
+  { text: "You resent that others don't see what you see", level: 5, insight: "Resentment of the unaware doesn't create awareness." },
+  { text: "You resent having to care about societal problems", level: 5, insight: "Problems don't care about your resentment." },
+
+  // ========== PERFECTIONISM (5) ==========
+  { text: "You won't support imperfect progress", level: 5, insight: "Progress refused until perfect is progress refused forever." },
+  { text: "You criticize every social movement for not being enough", level: 5, insight: "Perfect movements don't exist. Better ones do." },
+  { text: "You demand purity from activists", level: 5, insight: "Purity demands paralyze movements." },
+  { text: "You won't engage because you can't fix everything", level: 5, insight: "Something unfixed is better than everything unfixed." },
+  { text: "You reject allies who aren't perfect", level: 5, insight: "Perfect allies don't exist. Growing ones do." },
+
+  // ========== PEOPLE-PLEASING (5) ==========
+  { text: "You stay silent on injustice to keep social approval", level: 5, insight: "Approval bought by silence costs integrity." },
+  { text: "You agree with the majority even when the majority is wrong", level: 5, insight: "Majority agreement isn't moral compass." },
+  { text: "You hide your politics to fit in", level: 5, insight: "Hidden politics are still present. Just dishonest." },
+  { text: "You follow societal expectations that make you miserable", level: 5, insight: "Societal expectations aren't laws. They're suggestions." },
+  { text: "You perform outrage you don't feel to fit in", level: 5, insight: "Performed outrage is hollow activism." },
+
+  // ========== AVOIDANCE (5) ==========
+  { text: "You avoid news because it's too overwhelming", level: 5, insight: "Avoided news becomes unavoidable crisis." },
+  { text: "You avoid political conversations to stay comfortable", level: 5, insight: "Political avoidance is political choice. Just unconscious." },
+  { text: "You avoid hard truths about society", level: 5, insight: "Avoided truths stay true. Just unaddressed." },
+  { text: "You distract yourself from societal problems", level: 5, insight: "Distracted citizens get the society they ignore." },
+  { text: "You tune out because you feel powerless", level: 5, insight: "Powerlessness felt doesn't mean powerlessness real." },
+
+  // ========== GRIEF (5) ==========
+  { text: "You grieve the society you thought you lived in", level: 5, insight: "Revealed reality is painful. Illusion was comfortable." },
+  { text: "Society is grieving collectively and no one knows how", level: 5, insight: "Collective grief unprocessed becomes collective trauma." },
+  { text: "You grieve the future that was promised", level: 5, insight: "Promised futures unprovided deserve mourning." },
+  { text: "You mourn the death of institutions you believed in", level: 5, insight: "Institutional death requires institutional mourning." },
+  { text: "You grieve the social fabric that's fraying", level: 5, insight: "Fraying fabric can be rewoven. By hands that show up." },
+
+  // ========== CODEPENDENCY (5) ==========
+  { text: "You need society to validate your choices", level: 5, insight: "Societally-validated choices aren't necessarily yours." },
+  { text: "Your worth is entirely tied to social status", level: 5, insight: "Status-dependent worth fluctuates with external metrics." },
+  { text: "You can't feel good unless society is fixed", level: 5, insight: "Waiting for societal healing to feel okay means never feeling okay." },
+  { text: "You take on society's problems as your personal responsibility", level: 5, insight: "Personal responsibility for systemic problems leads to burnout." },
+  { text: "You measure yourself by societal success metrics", level: 5, insight: "Societal metrics measure societal values. Not human worth." }
 ];
 
 // Export for use
@@ -3187,7 +3660,97 @@ const LEVEL_6_WORLD = [
   { text: "You see only division in the world", level: 6, insight: "Division-only seeing misses connection." },
   { text: "You see both division and connection in humanity", level: 6, insight: "Both-seeing is complete seeing." },
   { text: "You think your worldview is the only valid one", level: 6, insight: "Only-valid thinking is closed thinking." },
-  { text: "You hold your worldview while respecting others", level: 6, insight: "Respectful holding is mature worldview." }
+  { text: "You hold your worldview while respecting others", level: 6, insight: "Respectful holding is mature worldview." },
+
+  // ========== WITHHOLDING (25) ==========
+  { text: "You withhold care for people in other countries", level: 6, insight: "Border-limited compassion isn't compassion. It's geography." },
+  { text: "You hold back resources from global causes", level: 6, insight: "Global problems need global contributions." },
+  { text: "You refuse to learn about other cultures", level: 6, insight: "Cultural ignorance by choice is chosen limitation." },
+  { text: "You withhold your skills from global problems", level: 6, insight: "Skills withheld from global good serve only local ego." },
+  { text: "You won't acknowledge your country's mistakes", level: 6, insight: "Unacknowledged national wrongs become repeated national wrongs." },
+  { text: "You hold back from supporting international cooperation", level: 6, insight: "Global problems mock national borders." },
+  { text: "You refuse to reduce your consumption for the planet", level: 6, insight: "Individual excess becomes collective crisis." },
+  { text: "You withhold empathy for refugees and displaced people", level: 6, insight: "Their crisis could be yours. Circumstances separate you." },
+  { text: "You won't learn languages to connect across cultures", level: 6, insight: "Monolingual by choice is connection refused." },
+  { text: "You hold back from supporting fair trade practices", level: 6, insight: "Cheap prices often hide expensive human costs." },
+  { text: "You refuse to see how your lifestyle affects others globally", level: 6, insight: "Invisible impact is still impact." },
+  { text: "You withhold your voice from global conversations", level: 6, insight: "Silent in global discussions means others speak for you." },
+  { text: "You won't donate to international aid", level: 6, insight: "Proximity doesn't determine worthiness of help." },
+  { text: "You hold back from understanding global economics", level: 6, insight: "Economic ignorance doesn't protect you from economic forces." },
+  { text: "You refuse to travel or learn about other ways of living", level: 6, insight: "Untraveled minds think their normal is the only normal." },
+  { text: "You withhold respect for non-Western knowledge", level: 6, insight: "Wisdom doesn't respect borders. Why should you?" },
+  { text: "You won't consider global perspectives in your decisions", level: 6, insight: "Local decisions have global ripples." },
+  { text: "You hold back from celebrating human achievements everywhere", level: 6, insight: "Human progress anywhere is human progress everywhere." },
+  { text: "You refuse to acknowledge your privilege on a global scale", level: 6, insight: "Global privilege unacknowledged is responsibility avoided." },
+  { text: "You withhold interest in global history", level: 6, insight: "History ignored repeats. Everywhere." },
+  { text: "You won't connect your consumption to global impact", level: 6, insight: "What you buy votes for the world you're building." },
+  { text: "You hold back from imagining global solutions", level: 6, insight: "Unimagined solutions remain unrealized." },
+  { text: "You refuse to see yourself as a global citizen", level: 6, insight: "National identity alone is incomplete identity." },
+  { text: "You withhold hope for humanity's future", level: 6, insight: "Hopelessness becomes self-fulfilling prophecy." },
+  { text: "You won't act because you're just one person", level: 6, insight: "Every movement started with one person who didn't think that way." },
+
+  // ========== ABANDONMENT (3) ==========
+  { text: "You've given up on humanity", level: 6, insight: "Given-up humans create the humanity they gave up on." },
+  { text: "The world abandoned people who look like you", level: 6, insight: "Global abandonment wounds shape worldviews for generations." },
+  { text: "You feel abandoned by global institutions", level: 6, insight: "Institutional abandonment creates global distrust." },
+
+  // ========== BETRAYAL (7) ==========
+  { text: "You feel betrayed by nations that promised better", level: 6, insight: "National promises broken become national wounds." },
+  { text: "Humanity has betrayed the planet", level: 6, insight: "Collective betrayal requires collective repair." },
+  { text: "You betrayed your global values for national convenience", level: 6, insight: "Values abandoned at borders aren't really values." },
+  { text: "International institutions betrayed their missions", level: 6, insight: "Institutional betrayal at scale wounds at scale." },
+  { text: "You feel betrayed by humanity's choices", level: 6, insight: "Humanity's failures aren't just theirs. They're ours." },
+  { text: "You betrayed people in other countries for cheaper goods", level: 6, insight: "Low prices often hide high human costs." },
+  { text: "Leaders betrayed global cooperation for national gain", level: 6, insight: "Short-term national gain is long-term global loss." },
+
+  // ========== RESENTMENT (7) ==========
+  { text: "You resent wealthy nations for their consumption", level: 6, insight: "Resentment without action is just bitter observation." },
+  { text: "You resent having to care about global problems", level: 6, insight: "Global problems don't care about your resentment." },
+  { text: "You resent people who don't share your global concerns", level: 6, insight: "Resentment of the unaware doesn't create awareness." },
+  { text: "You resent how some countries have more than others", level: 6, insight: "Global inequality resented doesn't become global equality." },
+  { text: "You resent that progress is so slow globally", level: 6, insight: "Resenting slow progress doesn't speed it up." },
+  { text: "You resent the generation that created these global problems", level: 6, insight: "Generational resentment inherits the problems without solving them." },
+  { text: "You resent being part of problems you didn't create", level: 6, insight: "Inherited problems are still ours to solve." },
+
+  // ========== PERFECTIONISM (6) ==========
+  { text: "You won't support imperfect global solutions", level: 6, insight: "Perfect solutions don't exist. Better ones do." },
+  { text: "You criticize every international effort for falling short", level: 6, insight: "Criticized effort without better effort is just noise." },
+  { text: "You demand perfect understanding before acting globally", level: 6, insight: "Perfect understanding is impossible. Imperfect action isn't." },
+  { text: "You won't help because you can't help enough", level: 6, insight: "Enough is defined by action, not outcome." },
+  { text: "You reject global movements that aren't pure enough", level: 6, insight: "Purity tests paralyze movements." },
+  { text: "You expect global problems to have clean solutions", level: 6, insight: "Messy problems require messy, persistent solutions." },
+
+  // ========== PEOPLE-PLEASING (6) ==========
+  { text: "You follow global trends to fit in", level: 6, insight: "Global conformity isn't global citizenship." },
+  { text: "You perform global awareness without actually caring", level: 6, insight: "Performed awareness is hollow activism." },
+  { text: "You post about global issues for approval, not action", level: 6, insight: "Approval-seeking activism isn't activism. It's performance." },
+  { text: "You adapt your global views to whoever you're with", level: 6, insight: "Flexible global values aren't values. They're weather vanes." },
+  { text: "You can't discuss global issues without seeking agreement", level: 6, insight: "Agreement-seeking prevents honest global dialogue." },
+  { text: "You stay silent on global injustice to avoid conflict", level: 6, insight: "Comfortable silence is complicit silence." },
+
+  // ========== AVOIDANCE (6) ==========
+  { text: "You avoid global news because it's overwhelming", level: 6, insight: "Avoided global news becomes unavoidable global crisis." },
+  { text: "You avoid thinking about suffering in other countries", level: 6, insight: "Distance doesn't reduce suffering. Just your awareness of it." },
+  { text: "You avoid conversations about global responsibility", level: 6, insight: "Responsibility avoided is responsibility denied." },
+  { text: "You numb yourself to global suffering", level: 6, insight: "Numbed compassion is lost compassion." },
+  { text: "You avoid learning about global history", level: 6, insight: "History ignored repeats. Globally." },
+  { text: "You distract yourself from climate anxiety", level: 6, insight: "Climate anxiety avoided becomes climate crisis unaddressed." },
+
+  // ========== GRIEF (6) ==========
+  { text: "You grieve for a world that might have been", level: 6, insight: "Grief for lost futures can fuel work for possible ones." },
+  { text: "The world is grieving and has nowhere to put it", level: 6, insight: "Collective global grief needs collective global processing." },
+  { text: "You grieve species going extinct", level: 6, insight: "Extinction grief is appropriate. And motivating." },
+  { text: "You mourn the planet's dying ecosystems", level: 6, insight: "Ecological grief is a sane response to insane losses." },
+  { text: "You grieve global events you witness but can't change", level: 6, insight: "Witnessed suffering deserves grief. And response." },
+  { text: "You carry grief for humanity's failures", level: 6, insight: "Grief for failure can become fuel for change." },
+
+  // ========== CODEPENDENCY (6) ==========
+  { text: "You need global validation for your identity", level: 6, insight: "Global approval-seeking is exhausting and impossible." },
+  { text: "Your sense of worth depends on being globally relevant", level: 6, insight: "Local impact is global impact. Scale isn't everything." },
+  { text: "You feel responsible for solving global problems alone", level: 6, insight: "Global problems need global solutions. Not individual saviors." },
+  { text: "You can't enjoy life while the world suffers", level: 6, insight: "Joy doesn't require a perfect world. Or permit paralysis." },
+  { text: "You measure your worth by global contribution", level: 6, insight: "Worth isn't measured in global metrics." },
+  { text: "You feel guilty for any happiness while others suffer", level: 6, insight: "Guilt that paralyzes helps no one. Action does." }
 ];
 
 // Export for use
@@ -3564,7 +4127,92 @@ const LEVEL_7_GENERATIONS = [
   { text: "You think legacy is for special people", level: 7, insight: "Everyone leaves legacy. Choose yours." },
   { text: "You know your life matters for what comes after", level: 7, insight: "Mattering-for-after is mattering completely." },
   { text: "You've never felt part of the chain of generations", level: 7, insight: "Unchained feeling is disconnected feeling." },
-  { text: "You feel yourself as one link in an endless chain", level: 7, insight: "Chain-feeling is belonging completely." }
+  { text: "You feel yourself as one link in an endless chain", level: 7, insight: "Chain-feeling is belonging completely." },
+
+  // ========== WITHHOLDING (25) ==========
+  { text: "You withhold your story from those who come after", level: 7, insight: "Untold stories die with their tellers." },
+  { text: "You hold back wisdom you've earned through pain", level: 7, insight: "Hard-won wisdom hoarded helps no one." },
+  { text: "You refuse to document your family's history", level: 7, insight: "Undocumented history becomes lost history." },
+  { text: "You withhold blessings for the next generation", level: 7, insight: "Blessings withheld are curses by omission." },
+  { text: "You won't pass on skills you've mastered", level: 7, insight: "Untaught mastery dies with the master." },
+  { text: "You hold back from creating anything lasting", level: 7, insight: "Nothing created means nothing remains." },
+  { text: "You refuse to think about what you'll leave behind", level: 7, insight: "Unplanned legacies become accidental ones." },
+  { text: "You withhold your full effort from generational work", level: 7, insight: "Half-built bridges help no one cross." },
+  { text: "You won't plant trees whose shade you'll never sit in", level: 7, insight: "Short-term thinking creates short-term legacies." },
+  { text: "You hold back from mentoring younger generations", level: 7, insight: "Unmentored youth reinvent wheels that already exist." },
+  { text: "You refuse to forgive ancestors for their failures", level: 7, insight: "Unforgiven ancestors haunt present generations." },
+  { text: "You withhold acknowledgment of those who came before", level: 7, insight: "Unacknowledged foundations become invisible supports." },
+  { text: "You won't contribute to causes that outlive you", level: 7, insight: "Self-ending contributions end with self." },
+  { text: "You hold back from imagining the future you won't see", level: 7, insight: "Unimagined futures get built by those who do imagine." },
+  { text: "You refuse to sacrifice for future generations", level: 7, insight: "Unsacrificed comfort becomes inherited burden." },
+  { text: "You withhold your vote on decisions affecting future people", level: 7, insight: "Future people have no voice. Only yours speaks for them." },
+  { text: "You won't have hard conversations about death and legacy", level: 7, insight: "Avoided conversations become chaotic inheritances." },
+  { text: "You hold back from building institutions that outlast you", level: 7, insight: "Personal impact ends at death. Institutional impact continues." },
+  { text: "You refuse to invest in things you won't benefit from", level: 7, insight: "Return-on-investment thinking limits generational thinking." },
+  { text: "You withhold your presence from generational gatherings", level: 7, insight: "Missing elders leave gaps in generational memory." },
+  { text: "You won't tell the truth about family patterns", level: 7, insight: "Hidden patterns repeat in hidden ways." },
+  { text: "You hold back from breaking cycles you inherited", level: 7, insight: "Unbroken cycles become passed-down cycles." },
+  { text: "You refuse to hope for generations you'll never meet", level: 7, insight: "Hopelessness for the future is abandonment in advance." },
+  { text: "You withhold the lessons your suffering taught you", level: 7, insight: "Meaningless suffering becomes meaningful when shared." },
+  { text: "You won't be the ancestor you wish you'd had", level: 7, insight: "Someone has to go first. It could be you." },
+
+  // ========== ABANDONMENT (3) ==========
+  { text: "You were abandoned by the generation that should have guided you", level: 7, insight: "Generational abandonment shapes how you parent everything." },
+  { text: "You're abandoning the next generation to problems you could help solve", level: 7, insight: "Passed-down problems become heavier with each generation." },
+  { text: "You feel future generations have already abandoned hope in you", level: 7, insight: "Future judgment imagined shouldn't paralyze present action." },
+
+  // ========== BETRAYAL (7) ==========
+  { text: "Previous generations betrayed the promises they made", level: 7, insight: "Generational betrayal breeds generational cynicism." },
+  { text: "You're betraying future generations for present comfort", level: 7, insight: "Present comfort purchased by future suffering isn't legacy. It's debt." },
+  { text: "You feel betrayed by ancestors who left problems instead of solutions", level: 7, insight: "Inherited problems can become transformed legacies." },
+  { text: "You're betraying your children by not breaking cycles", level: 7, insight: "Cycles unbroken become cycles passed down." },
+  { text: "You betrayed your younger self's dreams", level: 7, insight: "Past dreams betrayed can be reclaimed. Or mourned and released." },
+  { text: "You feel betrayed by the future that never came", level: 7, insight: "Promised futures unprovided deserve grief. Then building." },
+  { text: "You're betraying posterity by giving up", level: 7, insight: "Given-up ancestors leave given-up descendants." },
+
+  // ========== RESENTMENT (7) ==========
+  { text: "You resent what was passed down to you", level: 7, insight: "Inherited resentment doubles the inheritance." },
+  { text: "You resent being responsible for future generations", level: 7, insight: "Resented responsibility is still responsibility. Just heavier." },
+  { text: "You resent ancestors for decisions they made", level: 7, insight: "Ancestral resentment changes nothing except you." },
+  { text: "You resent having to think about mortality", level: 7, insight: "Resented mortality still comes. Just unexamined." },
+  { text: "You resent time passing and youth fading", level: 7, insight: "Time resented passes at the same speed. Just more bitterly." },
+  { text: "You resent younger generations for having it easier", level: 7, insight: "Easier isn't better. Different isn't wrong." },
+  { text: "You resent older generations for not preparing you", level: 7, insight: "Unprepared arrival doesn't prevent present preparation." },
+
+  // ========== PERFECTIONISM (5) ==========
+  { text: "You won't create unless it will last forever", level: 7, insight: "Permanence paralysis prevents all creation." },
+  { text: "You demand perfection from legacy work", level: 7, insight: "Perfect legacies don't exist. Meaningful ones do." },
+  { text: "You won't start family traditions because they might not continue", level: 7, insight: "Traditions begun are better than traditions never attempted." },
+  { text: "You criticize every attempt at leaving something behind", level: 7, insight: "Criticized attempts discourage all attempts." },
+  { text: "Your legacy standards paralyze legacy building", level: 7, insight: "Built imperfectly beats imagined perfectly." },
+
+  // ========== PEOPLE-PLEASING (5) ==========
+  { text: "You live for ancestral approval you'll never receive", level: 7, insight: "Dead ancestors can't approve. Living fully honors them better." },
+  { text: "You sacrifice your life to meet generational expectations", level: 7, insight: "Expectations from the dead shouldn't kill the living." },
+  { text: "You let family expectations define your legacy", level: 7, insight: "Defined by others' expectations isn't your legacy. It's theirs." },
+  { text: "You can't disappoint the dead", level: 7, insight: "The dead feel nothing. The living feel everything." },
+  { text: "You shape your life around what descendants might think", level: 7, insight: "Unknown future judgment shouldn't constrain known present living." },
+
+  // ========== AVOIDANCE (5) ==========
+  { text: "You avoid thinking about death and legacy", level: 7, insight: "Avoided death thinking is avoided life planning." },
+  { text: "You avoid making decisions that affect future generations", level: 7, insight: "Avoided decisions are still decisions. Just unconscious ones." },
+  { text: "You avoid writing a will because that means accepting death", level: 7, insight: "Death arrives regardless of paperwork. Preparation just helps survivors." },
+  { text: "You avoid conversations about what you want to leave behind", level: 7, insight: "Avoided conversations leave chaotic aftermath." },
+  { text: "You distract yourself from aging", level: 7, insight: "Aging distracted from is still aging. Just unconsciously." },
+
+  // ========== GRIEF (5) ==========
+  { text: "You carry unprocessed grief from ancestral trauma", level: 7, insight: "Ancestral grief passed down can be processed now." },
+  { text: "You grieve futures that your ancestors dreamed of but never saw", level: 7, insight: "You might be living their dream. They just couldn't know." },
+  { text: "You grieve the person you never got to become", level: 7, insight: "Ungained selves deserve mourning. Then release." },
+  { text: "You mourn the time already gone", level: 7, insight: "Mourned time honored becomes time well-used remaining." },
+  { text: "You grieve what you won't live to see", level: 7, insight: "Unseen futures can still be built toward." },
+
+  // ========== CODEPENDENCY (5) ==========
+  { text: "Your identity is entirely built on ancestral legacy", level: 7, insight: "Ancestral identity without personal identity is borrowed life." },
+  { text: "You can't make decisions without considering how ancestors would judge", level: 7, insight: "Ancestral voices advising are different from ancestral voices controlling." },
+  { text: "You feel responsible for all future generations", level: 7, insight: "All-generation responsibility creates paralysis, not progress." },
+  { text: "Your worth depends on what you leave behind", level: 7, insight: "Worth measured by legacy measures the wrong thing." },
+  { text: "You can't enjoy the present because of duty to the future", level: 7, insight: "Joyless present building builds joyless futures." }
 ];
 
 // Export for use
@@ -3964,6 +4612,18 @@ window.SCENARIOS[1] = [
 {"id": 298, "text": "You've been living as if you owe the world your suffering.", "choices": [{"text": "Suffering proves you're not getting off easy", "correct": false, "fb": "No one is keeping that ledger. You can stop."}, {"text": "Refuse to suffer at all", "correct": false, "fb": "Some suffering is unavoidable. Needless suffering is optional."}, {"text": "Release the debt you imagined you owed", "correct": true, "fb": "You don't owe suffering to anyone. Live."}]},
 {"id": 299, "text": "You realize you've been alive but not living.", "choices": [{"text": "Existing is enough", "correct": false, "fb": "Existing is baseline. Living is more."}, {"text": "Change everything immediately", "correct": false, "fb": "Dramatic change isn't required."}, {"text": "Add one moment of real living today", "correct": true, "fb": "One real moment is a beginning. Start there."}]},
 {"id": 300, "text": "You understand now: the relationship with yourself is the foundation everything else is built on.", "choices": [{"text": "Relationships with others matter more", "correct": false, "fb": "You bring yourself to every relationship. Foundation matters."}, {"text": "Focus only on yourself forever", "correct": false, "fb": "Self-focus is foundation, not destination."}, {"text": "Build this foundation solid so everything else can stand", "correct": true, "fb": "Level 1 mastered creates stability for all that follows."}]},
+{"id": 301, "text": "You realize you've been abandoning yourself in small ways every day.", "choices": [{"text": "That's just life - you have to put others first", "correct": false, "fb": "Self-abandonment isn't virtue. It's a wound."}, {"text": "Become completely selfish to compensate", "correct": false, "fb": "The opposite of self-abandonment isn't selfishness."}, {"text": "Start showing up for yourself in one small way today", "correct": true, "fb": "Self-loyalty is built in tiny moments."}]},
+{"id": 302, "text": "You keep breaking promises to yourself.", "choices": [{"text": "Promises to yourself don't really count", "correct": false, "fb": "They count most. Self-trust is built here."}, {"text": "Stop making promises entirely", "correct": false, "fb": "Giving up isn't the answer."}, {"text": "Make smaller promises you can actually keep", "correct": true, "fb": "Self-trust rebuilds one kept promise at a time."}]},
+{"id": 303, "text": "You notice you hold grudges against yourself longer than anyone else.", "choices": [{"text": "You deserve it for your mistakes", "correct": false, "fb": "Self-punishment doesn't undo anything."}, {"text": "Force yourself to forget", "correct": false, "fb": "Forced forgetting isn't forgiveness."}, {"text": "Offer yourself the same grace you'd give a friend", "correct": true, "fb": "You deserve your own compassion."}]},
+{"id": 304, "text": "Nothing you do ever feels good enough.", "choices": [{"text": "Push harder until it is", "correct": false, "fb": "The goalpost will keep moving."}, {"text": "Give up trying", "correct": false, "fb": "Defeat isn't the answer."}, {"text": "Question whose voice is saying 'not enough'", "correct": true, "fb": "That critic isn't you. It's a pattern you can change."}]},
+{"id": 305, "text": "You say yes when you mean no, again.", "choices": [{"text": "It's easier than disappointing people", "correct": false, "fb": "Easy now, resentment later."}, {"text": "Blow up and say no to everything", "correct": false, "fb": "Overcorrection isn't boundary-setting."}, {"text": "Practice one honest no this week", "correct": true, "fb": "Every authentic no makes the next one easier."}]},
+{"id": 306, "text": "You realize you've been avoiding a feeling for months.", "choices": [{"text": "If you ignore it, it'll go away", "correct": false, "fb": "Ignored feelings don't leave. They wait."}, {"text": "Force yourself to feel it all at once", "correct": false, "fb": "Flooding yourself isn't healing."}, {"text": "Create a safe space to let it surface gradually", "correct": true, "fb": "Feelings felt in safety can finally move through."}]},
+{"id": 307, "text": "You've been carrying grief you never properly processed.", "choices": [{"text": "Grief should have a time limit", "correct": false, "fb": "Grief has its own timeline. Honor it."}, {"text": "Drown in it completely", "correct": false, "fb": "Drowning isn't processing."}, {"text": "Give your grief the attention it's been asking for", "correct": true, "fb": "Witnessed grief can finally rest."}]},
+{"id": 308, "text": "You feel responsible for everyone else's feelings.", "choices": [{"text": "That's what a good person does", "correct": false, "fb": "Carrying others' feelings isn't helping them."}, {"text": "Stop caring about anyone", "correct": false, "fb": "The answer isn't indifference."}, {"text": "Return their feelings to them with love", "correct": true, "fb": "You can care without carrying."}]},
+{"id": 309, "text": "You withhold your true feelings to keep the peace.", "choices": [{"text": "Peace is more important than honesty", "correct": false, "fb": "False peace is just delayed conflict."}, {"text": "Say everything you've been holding back at once", "correct": false, "fb": "Flooding isn't honesty."}, {"text": "Share one truth you've been holding", "correct": true, "fb": "Real peace includes real you."}]},
+{"id": 310, "text": "You've been waiting for permission to be yourself.", "choices": [{"text": "Keep waiting until it feels safe", "correct": false, "fb": "That permission will never come from outside."}, {"text": "Reject everyone who doesn't accept you", "correct": false, "fb": "Rejection isn't the same as authenticity."}, {"text": "Give yourself the permission you've been waiting for", "correct": true, "fb": "You're the only one who can authorize you."}]},
+{"id": 311, "text": "You realize you've been betraying your own values.", "choices": [{"text": "Values are flexible - adapt", "correct": false, "fb": "Flexible values aren't values. They're preferences."}, {"text": "Shame yourself for being a hypocrite", "correct": false, "fb": "Shame doesn't create alignment."}, {"text": "Realign one action with one value today", "correct": true, "fb": "Integrity is rebuilt one choice at a time."}]},
+{"id": 312, "text": "You keep choosing what's comfortable over what's right for you.", "choices": [{"text": "Comfort is self-care", "correct": false, "fb": "Comfort can be a cage disguised as care."}, {"text": "Make yourself uncomfortable constantly", "correct": false, "fb": "Constant discomfort isn't growth."}, {"text": "Choose one discomfort that leads somewhere good", "correct": true, "fb": "Growth lives just outside the comfort zone."}]}
 ];
 
 // Level 2: Family (300 scenarios)
@@ -4268,6 +4928,14 @@ window.SCENARIOS[2] = [
 {"id": 298, "text": "Your family's love comes with conditions you can't meet.", "choices": [{"text": "Twist yourself to meet their conditions", "correct": false, "fb": "Conditional love met at any cost isn't sustainable."}, {"text": "Abandon the family entirely", "correct": false, "fb": "There may be middle ground."}, {"text": "Be yourself and let them choose how to respond", "correct": true, "fb": "Be who you are. Let them decide about their conditions."}]},
 {"id": 299, "text": "Your partner and children need opposite things from you right now.", "choices": [{"text": "Choose one completely", "correct": false, "fb": "Complete choosing damages the other."}, {"text": "Try to do both perfectly and fail", "correct": false, "fb": "Perfection isn't possible here."}, {"text": "Communicate limits and do what you can for both", "correct": true, "fb": "Imperfect presence is still presence."}]},
 {"id": 300, "text": "You see now: Family relationships require the same honesty you give yourself.", "choices": [{"text": "Family doesn't need as much truth as you need for yourself", "correct": false, "fb": "Family deserves truth too."}, {"text": "Be completely transparent about everything with everyone", "correct": false, "fb": "Wisdom includes discernment about what to share when."}, {"text": "Bring your authentic self to family while respecting their journey", "correct": true, "fb": "Level 2 builds on Level 1. Authentic you, honest relationships."}]},
+{"id": 301, "text": "A parent abandoned you and now wants back in your life.", "choices": [{"text": "Let them in without boundaries", "correct": false, "fb": "Boundaries protect you."}, {"text": "Refuse all contact forever", "correct": false, "fb": "There may be a middle path."}, {"text": "Engage on your terms with clear boundaries", "correct": true, "fb": "Reconciliation happens at your pace."}]},
+{"id": 302, "text": "You withhold affection to punish your partner.", "choices": [{"text": "They deserve it", "correct": false, "fb": "Punishment creates distance, not change."}, {"text": "Force yourself to be affectionate", "correct": false, "fb": "Forced affection is not real."}, {"text": "Name the hurt and address it directly", "correct": true, "fb": "Say what is really wrong."}]},
+{"id": 303, "text": "You expect your family to read your mind.", "choices": [{"text": "If they loved you they would know", "correct": false, "fb": "Love does not grant telepathy."}, {"text": "Stop having expectations", "correct": false, "fb": "No expectations is not the answer."}, {"text": "Ask for what you need directly", "correct": true, "fb": "Spoken needs can be met."}]},
+{"id": 304, "text": "Your family is grieving and no one talks about it.", "choices": [{"text": "Follow their silence", "correct": false, "fb": "Unspoken grief stays stuck."}, {"text": "Force everyone to process together", "correct": false, "fb": "People grieve differently."}, {"text": "Share your grief and create space for theirs", "correct": true, "fb": "Someone has to go first."}]},
+{"id": 305, "text": "You have become codependent with a family member.", "choices": [{"text": "That is just what family does", "correct": false, "fb": "Enmeshment is not love."}, {"text": "Cut them off completely", "correct": false, "fb": "Boundaries do not require abandonment."}, {"text": "Untangle slowly with support", "correct": true, "fb": "Healthy separation strengthens connection."}]},
+{"id": 306, "text": "You feel betrayed by a family member.", "choices": [{"text": "Never trust them again", "correct": false, "fb": "Permanent distrust keeps you stuck."}, {"text": "Pretend it did not happen", "correct": false, "fb": "Pretending does not heal."}, {"text": "Address it directly and decide about trust", "correct": true, "fb": "Trust can be rebuilt."}]},
+{"id": 307, "text": "You resent how much you sacrificed for family.", "choices": [{"text": "Keep sacrificing and resenting", "correct": false, "fb": "Resentful sacrifice helps no one."}, {"text": "Stop helping entirely", "correct": false, "fb": "Overcorrection is not balance."}, {"text": "Give from fullness not depletion", "correct": true, "fb": "Sustainable giving."}]},
+{"id": 308, "text": "You people-please your family at the cost of yourself.", "choices": [{"text": "Family comes first always", "correct": false, "fb": "Always means never for yourself."}, {"text": "Put yourself first always", "correct": false, "fb": "Balance exists."}, {"text": "Practice small disappointments", "correct": true, "fb": "Authentic relationships include no."}]}
 ];
 
 // Level 3: Groups (300 scenarios)
@@ -4572,6 +5240,14 @@ window.SCENARIOS[3] = [
 {"id": 298, "text": "Your colleague needs something from you that you don't want to give.", "choices": [{"text": "Give it resentfully", "correct": false, "fb": "Resentful giving isn't generous."}, {"text": "Refuse without explanation", "correct": false, "fb": "Unexplained refusal seems cold."}, {"text": "Explain your position and offer what you can", "correct": true, "fb": "Honest limit. Alternative offer."}]},
 {"id": 299, "text": "A friend group has changed but you're still connected to individuals.", "choices": [{"text": "Try to reunite the group", "correct": false, "fb": "Groups evolve. Can't force reunion."}, {"text": "Abandon all connections", "correct": false, "fb": "Individual connections remain valuable."}, {"text": "Maintain individual relationships that still serve you both", "correct": true, "fb": "Individual connections survive group changes."}]},
 {"id": 300, "text": "You see now: In groups, authenticity matters more than fitting in.", "choices": [{"text": "Perform to fit every group", "correct": false, "fb": "Performance exhausts and disconnects."}, {"text": "Refuse to adapt to any group", "correct": false, "fb": "Zero adaptation is isolation."}, {"text": "Be authentically yourself while respecting group dynamics", "correct": true, "fb": "Real you, navigating real groups. Level 3 complete."}]},
+{"id": 301, "text": "A friend group abandoned you after a disagreement.", "choices": [{"text": "Beg them to take you back", "correct": false, "fb": "Begging diminishes you."}, {"text": "Hate them forever", "correct": false, "fb": "Hatred keeps you connected to pain."}, {"text": "Grieve the loss and find your people", "correct": true, "fb": "Some groups are not your people. That is okay."}]},
+{"id": 302, "text": "You betrayed a friend trust and they found out.", "choices": [{"text": "Deny everything", "correct": false, "fb": "Denial compounds betrayal."}, {"text": "Over-apologize and beg forgiveness", "correct": false, "fb": "Excessive apologizing centers your guilt."}, {"text": "Take responsibility and give them space to decide", "correct": true, "fb": "Own it. Let them choose what is next."}]},
+{"id": 303, "text": "You resent a friend success.", "choices": [{"text": "Hide it and pretend to be happy", "correct": false, "fb": "Hidden resentment leaks out."}, {"text": "Distance yourself from successful friends", "correct": false, "fb": "Isolation is not the answer."}, {"text": "Examine what their success triggers in you", "correct": true, "fb": "Their success reveals your unmet desires."}]},
+{"id": 304, "text": "You are a perfectionist at work and it is exhausting.", "choices": [{"text": "That is what excellence requires", "correct": false, "fb": "Perfection and excellence are not the same."}, {"text": "Stop caring about quality entirely", "correct": false, "fb": "The opposite is not the answer."}, {"text": "Learn to ship good-enough work", "correct": true, "fb": "Done is better than perfect."}]},
+{"id": 305, "text": "You people-please in your friend group constantly.", "choices": [{"text": "That is how you keep friends", "correct": false, "fb": "Friends kept through pleasing are not kept for you."}, {"text": "Become confrontational about everything", "correct": false, "fb": "Overcorrection is not authenticity."}, {"text": "Practice expressing one real preference today", "correct": true, "fb": "Real friends want real you."}]},
+{"id": 306, "text": "You have been avoiding a friend who needs support.", "choices": [{"text": "Their problems are too heavy", "correct": false, "fb": "Avoidance feels like abandonment to them."}, {"text": "Take on all their problems", "correct": false, "fb": "Carrying is not helping."}, {"text": "Show up with the capacity you have", "correct": true, "fb": "Present with limits beats absent."}]},
+{"id": 307, "text": "A friend group is grieving a loss together.", "choices": [{"text": "Avoid the group until it passes", "correct": false, "fb": "Absence during grief is noted."}, {"text": "Try to cheer everyone up", "correct": false, "fb": "Forced cheer dismisses grief."}, {"text": "Be present with the pain alongside them", "correct": true, "fb": "Witnessed grief heals together."}]},
+{"id": 308, "text": "You have become codependent with a friend.", "choices": [{"text": "That is just close friendship", "correct": false, "fb": "Codependence is not closeness."}, {"text": "End the friendship", "correct": false, "fb": "Distance does not require ending."}, {"text": "Create healthy space while staying connected", "correct": true, "fb": "Healthy boundaries strengthen friendship."}]}
 ];
 
 // Level 4: Community (300 scenarios)
@@ -4876,6 +5552,14 @@ window.SCENARIOS[4] = [
 {"id": 298, "text": "Your community is being asked to host something that benefits the broader area.", "choices": [{"text": "Refuse to host anything", "correct": false, "fb": "Refusing everything is isolationist."}, {"text": "Accept without negotiating for community", "correct": false, "fb": "Accepting without negotiation may leave community worse off."}, {"text": "Negotiate for community benefit while contributing to broader good", "correct": true, "fb": "Community benefit AND broader contribution."}]},
 {"id": 299, "text": "A professional community is at a turning point in its evolution.", "choices": [{"text": "Let others decide the direction", "correct": false, "fb": "Letting others decide surrenders your voice."}, {"text": "Try to control the direction yourself", "correct": false, "fb": "Solo control isn't community."}, {"text": "Participate actively in shaping the future together", "correct": true, "fb": "Your voice in collective direction."}]},
 {"id": 300, "text": "You see now: Community is where you belong beyond personal relationships.", "choices": [{"text": "Stay focused only on personal relationships", "correct": false, "fb": "Personal relationships alone miss broader belonging."}, {"text": "Sacrifice personal relationships for community", "correct": false, "fb": "Community shouldn't cost personal relationships."}, {"text": "Integrate community belonging with personal growth and relationships", "correct": true, "fb": "Level 4 complete: Community is where you find your role and respect others' roles."}]},
+{"id": 301, "text": "Your community feels abandoned by those who moved away.", "choices": [{"text": "Resent everyone who left", "correct": false, "fb": "Resentment poisons remaining community."}, {"text": "Accept the abandonment silently", "correct": false, "fb": "Unaddressed feelings fester."}, {"text": "Build bridges with those who left while strengthening who stayed", "correct": true, "fb": "Connection across distance is possible."}]},
+{"id": 302, "text": "A community leader betrayed the community trust.", "choices": [{"text": "Defend them because they did good things", "correct": false, "fb": "Good deeds do not erase betrayal."}, {"text": "Destroy their entire legacy", "correct": false, "fb": "Destruction does not heal."}, {"text": "Hold them accountable while preserving what they built", "correct": true, "fb": "Accountability AND continuation."}]},
+{"id": 303, "text": "You resent newer community members.", "choices": [{"text": "Gate-keep to keep them out", "correct": false, "fb": "Gate-keeping shrinks community."}, {"text": "Pretend resentment does not exist", "correct": false, "fb": "Hidden resentment leaks."}, {"text": "Examine what the resentment is really about", "correct": true, "fb": "Resentment reveals something about you."}]},
+{"id": 304, "text": "Your community demands perfection from leaders.", "choices": [{"text": "Maintain impossible standards", "correct": false, "fb": "Impossible standards mean no leaders."}, {"text": "Accept any behavior from leaders", "correct": false, "fb": "No standards means no accountability."}, {"text": "Expect humanity from leaders with clear accountability", "correct": true, "fb": "Human leaders held accountable."}]},
+{"id": 305, "text": "You people-please in community roles to stay liked.", "choices": [{"text": "That is how community works", "correct": false, "fb": "Pleasing is not serving."}, {"text": "Stop caring what anyone thinks", "correct": false, "fb": "Indifference is not the answer."}, {"text": "Serve the community mission even when it is unpopular", "correct": true, "fb": "Mission over popularity."}]},
+{"id": 306, "text": "Your community avoids difficult conversations about its future.", "choices": [{"text": "Keep avoiding to keep peace", "correct": false, "fb": "Avoided conversations become crises."}, {"text": "Force conversations no one is ready for", "correct": false, "fb": "Forced conversations backfire."}, {"text": "Create safe space for hard conversations gradually", "correct": true, "fb": "Safe space enables hard conversations."}]},
+{"id": 307, "text": "Your community is grieving but has no rituals for it.", "choices": [{"text": "Let grief go unacknowledged", "correct": false, "fb": "Unacknowledged grief becomes depression."}, {"text": "Impose rituals on others", "correct": false, "fb": "Imposed rituals feel empty."}, {"text": "Help create space for collective mourning", "correct": true, "fb": "Communities need grief rituals."}]},
+{"id": 308, "text": "Community members are codependent on a single leader.", "choices": [{"text": "Let the leader carry everything", "correct": false, "fb": "Single-leader dependency is fragile."}, {"text": "Remove the leader entirely", "correct": false, "fb": "Removal without replacement creates vacuum."}, {"text": "Distribute leadership while honoring the original leader", "correct": true, "fb": "Distributed leadership builds resilience."}]}
 ];
 
 // Level 5: Society (300 scenarios)
@@ -5180,6 +5864,14 @@ window.SCENARIOS[5] = [
 {"id": 298, "text": "Your society has debates about the role of technology in democracy.", "choices": [{"text": "Let technology shape democracy without guidance", "correct": false, "fb": "Unguided tech can undermine democracy."}, {"text": "Reject all technology in democratic processes", "correct": false, "fb": "Rejection misses opportunities."}, {"text": "Shape technology to serve democratic values", "correct": true, "fb": "Technology serving democracy."}]},
 {"id": 299, "text": "Your nation faces challenges that cross borders.", "choices": [{"text": "Focus only on national solutions", "correct": false, "fb": "National-only can't solve cross-border problems."}, {"text": "Abandon national interest for global", "correct": false, "fb": "Abandoning national interest isn't sustainable."}, {"text": "Integrate national and global approaches for shared challenges", "correct": true, "fb": "National AND global."}]},
 {"id": 300, "text": "You see now: Society is the systems we build together across communities.", "choices": [{"text": "Accept all societal systems as they are", "correct": false, "fb": "Acceptance without engagement surrenders your voice."}, {"text": "Reject all societal systems as corrupt", "correct": false, "fb": "Rejection removes you from participation."}, {"text": "Engage as citizen in shaping systems toward justice", "correct": true, "fb": "Level 5 complete: Engaged citizenship shaping society toward justice."}]},
+{"id": 301, "text": "Society feels like it has abandoned certain groups.", "choices": [{"text": "That is their own fault", "correct": false, "fb": "Blame does not address abandonment."}, {"text": "Feel guilty but do nothing", "correct": false, "fb": "Guilt without action changes nothing."}, {"text": "Work to include abandoned groups in social fabric", "correct": true, "fb": "Inclusion requires action."}]},
+{"id": 302, "text": "You feel betrayed by societal institutions.", "choices": [{"text": "Trust nothing ever again", "correct": false, "fb": "Total distrust paralyzes."}, {"text": "Pretend the betrayal did not happen", "correct": false, "fb": "Pretending does not heal."}, {"text": "Work to reform institutions while managing expectations", "correct": true, "fb": "Reform with realistic expectations."}]},
+{"id": 303, "text": "You resent having to care about societal problems.", "choices": [{"text": "Opt out of caring entirely", "correct": false, "fb": "Opt-out is privilege that not everyone has."}, {"text": "Carry the weight of all problems", "correct": false, "fb": "Carrying everything leads to burnout."}, {"text": "Choose your battles and engage sustainably", "correct": true, "fb": "Strategic caring is sustainable caring."}]},
+{"id": 304, "text": "Society demands perfect activists.", "choices": [{"text": "Meet impossible standards or stay silent", "correct": false, "fb": "Perfectionism silences voices."}, {"text": "Ignore all criticism", "correct": false, "fb": "Ignoring criticism prevents growth."}, {"text": "Model imperfect activism and continuous growth", "correct": true, "fb": "Imperfect action beats perfect inaction."}]},
+{"id": 305, "text": "You please the mainstream to avoid social punishment.", "choices": [{"text": "Conformity is necessary for survival", "correct": false, "fb": "Conformity has costs too."}, {"text": "Rebel against everything mainstream", "correct": false, "fb": "Rebellion for its own sake is not freedom."}, {"text": "Choose authenticity where it matters most to you", "correct": true, "fb": "Strategic authenticity preserves self."}]},
+{"id": 306, "text": "Society avoids discussing its failures.", "choices": [{"text": "Let failures stay hidden", "correct": false, "fb": "Hidden failures repeat."}, {"text": "Expose everything without care", "correct": false, "fb": "Exposure without care can cause more harm."}, {"text": "Create space for honest reckoning with the past", "correct": true, "fb": "Honest reckoning enables healing."}]},
+{"id": 307, "text": "Society is grieving collectively and has no outlet.", "choices": [{"text": "Ignore collective grief", "correct": false, "fb": "Ignored grief becomes collective trauma."}, {"text": "Force everyone to grieve the same way", "correct": false, "fb": "Forced grief is not real grief."}, {"text": "Support diverse ways of processing collective loss", "correct": true, "fb": "Many paths through collective grief."}]},
+{"id": 308, "text": "Society is codependent on systems that harm it.", "choices": [{"text": "Accept harmful systems as necessary", "correct": false, "fb": "Acceptance perpetuates harm."}, {"text": "Destroy all systems immediately", "correct": false, "fb": "Destruction without replacement creates chaos."}, {"text": "Build alternatives while transitioning away from harmful systems", "correct": true, "fb": "Build new while phasing out old."}]}
 ];
 
 // Level 6: World (300 scenarios)
@@ -5484,6 +6176,14 @@ window.SCENARIOS[6] = [
 {"id": 298, "text": "Tourism sometimes exploits local cultures.", "choices": [{"text": "Maximize revenue regardless", "correct": false, "fb": "Exploitation harms cultures."}, {"text": "Stop all cultural tourism", "correct": false, "fb": "Tourism can benefit."}, {"text": "Support tourism respecting and benefiting cultures", "correct": true, "fb": "Respectful AND beneficial."}]},
 {"id": 299, "text": "Organ trafficking is a global problem.", "choices": [{"text": "Accept trade without regulation", "correct": false, "fb": "Unregulated enables exploitation."}, {"text": "Ban all transplants across borders", "correct": false, "fb": "Ban can deny treatment."}, {"text": "Support ethical transplant systems globally", "correct": true, "fb": "Ethical systems."}]},
 {"id": 300, "text": "You see now: The world is one interconnected human family.", "choices": [{"text": "Focus only on your own nation", "correct": false, "fb": "Global challenges need global response."}, {"text": "Abandon national identity entirely", "correct": false, "fb": "Both identities have value."}, {"text": "Embrace both national and global citizenship", "correct": true, "fb": "Level 6 complete: Global citizen while rooted locally."}]},
+{"id": 301, "text": "You feel abandoned by the global community during crisis.", "choices": [{"text": "Retreat into nationalism", "correct": false, "fb": "Retreat does not solve global problems."}, {"text": "Give up on global cooperation", "correct": false, "fb": "Giving up ensures abandonment continues."}, {"text": "Build solidarity networks that work", "correct": true, "fb": "Better systems replace failed ones."}]},
+{"id": 302, "text": "Wealthy nations have betrayed climate commitments.", "choices": [{"text": "Accept betrayal as inevitable", "correct": false, "fb": "Acceptance enables continued betrayal."}, {"text": "Give up on climate action", "correct": false, "fb": "Giving up guarantees failure."}, {"text": "Hold betrayers accountable while continuing to act", "correct": true, "fb": "Accountability AND action."}]},
+{"id": 303, "text": "You resent countries that cause global problems.", "choices": [{"text": "Hate entire populations", "correct": false, "fb": "Hate targets wrong people."}, {"text": "Ignore the resentment", "correct": false, "fb": "Ignored resentment poisons."}, {"text": "Direct anger at systems while maintaining human connection", "correct": true, "fb": "Systems are the problem. People are the solution."}]},
+{"id": 304, "text": "Global institutions demand perfection from poor countries.", "choices": [{"text": "Maintain double standards", "correct": false, "fb": "Double standards are unjust."}, {"text": "Abandon all standards", "correct": false, "fb": "No standards means no accountability."}, {"text": "Apply fair standards that account for context", "correct": true, "fb": "Fair standards for all."}]},
+{"id": 305, "text": "You perform global awareness without real action.", "choices": [{"text": "Performance is enough", "correct": false, "fb": "Performance without action changes nothing."}, {"text": "Stop talking about global issues", "correct": false, "fb": "Silence is not the answer."}, {"text": "Align your actions with your stated values", "correct": true, "fb": "Actions speak louder."}]},
+{"id": 306, "text": "The world avoids facing its collective failures.", "choices": [{"text": "Let failures be forgotten", "correct": false, "fb": "Forgotten failures repeat."}, {"text": "Dwell on failures without action", "correct": false, "fb": "Dwelling without action is paralysis."}, {"text": "Learn from failures and build better systems", "correct": true, "fb": "Failure is data for improvement."}]},
+{"id": 307, "text": "The world is grieving species extinction together.", "choices": [{"text": "Ignore the loss", "correct": false, "fb": "Ignored loss leads to more loss."}, {"text": "Be paralyzed by grief", "correct": false, "fb": "Paralysis does not help remaining species."}, {"text": "Let grief fuel protection of what remains", "correct": true, "fb": "Grief into action."}]},
+{"id": 308, "text": "Nations are codependent on harmful global systems.", "choices": [{"text": "Accept harmful interdependence", "correct": false, "fb": "Acceptance perpetuates harm."}, {"text": "Cut all global ties", "correct": false, "fb": "Isolation is not possible or helpful."}, {"text": "Transform interdependence toward mutual benefit", "correct": true, "fb": "Better interdependence not less."}]}
 ];
 
 // Level 7: Generations (300 scenarios)
@@ -5787,7 +6487,15 @@ window.SCENARIOS[7] = [
 {"id": 297, "text": "You consider whether you're ready to let go.", "choices": [{"text": "Cling to everything", "correct": false, "fb": "Everything must eventually be released."}, {"text": "Let go before it's time", "correct": false, "fb": "Some things are still yours to hold."}, {"text": "Let go when it's time, not before", "correct": true, "fb": "Let go in time."}]},
 {"id": 298, "text": "You face the end of the game and the beginning beyond.", "choices": [{"text": "Fear what comes next", "correct": false, "fb": "Fear doesn't prepare."}, {"text": "Pretend nothing comes next", "correct": false, "fb": "Mystery remains."}, {"text": "Face what comes with openness", "correct": true, "fb": "Open to what comes."}]},
 {"id": 299, "text": "You realize the seven levels have been one journey.", "choices": [{"text": "See levels as separate achievements", "correct": false, "fb": "They form one path."}, {"text": "Dismiss the levels as meaningless", "correct": false, "fb": "Each level taught something."}, {"text": "Integrate all levels into one whole self", "correct": true, "fb": "One integrated self."}]},
-{"id": 300, "text": "You see now: All seven levels are one. Individual, Family, Groups, Community, Society, World, Generations - all connected, all you.", "choices": [{"text": "Stay at one level", "correct": false, "fb": "All levels are home."}, {"text": "Transcend all levels", "correct": false, "fb": "Transcendence includes, doesn't escape."}, {"text": "Live fully at all levels, integrated and whole", "correct": true, "fb": "GAME COMPLETE: You are Individual, Family member, Group participant, Community citizen, Society shaper, World inhabitant, and link in the chain of Generations. All seven levels. One whole you."}]},
+{"id": 300, "text": "You see now: All seven levels are one. Individual, Family, Groups, Community, Society, World, Generations - all connected, all you.", "choices": [{"text": "Stay at one level", "correct": false, "fb": "All levels are home."}, {"text": "Transcend all levels", "correct": false, "fb": "Transcendence includes, doesn't escape."}, {"text": "Live fully at all levels, integrated and whole", "correct": true, "fb": "GAME COMPLETE: You are Individual, Family member, Group participant, Community citizen, Society shaper, World inhabitant, and link in the chain of Generations. All seven levels. One whole you."}]}
+,{"id": 301, "text": "You fear being abandoned by those who come after.", "choices": [{"text": "Control how you are remembered", "correct": false, "fb": "Control is impossible."}, {"text": "Give up on being remembered", "correct": false, "fb": "Some legacy is inevitable."}, {"text": "Live well and let memory take its course", "correct": true, "fb": "Good living is good legacy."}]},
+{"id": 302, "text": "Previous generations betrayed the future.", "choices": [{"text": "Hate previous generations", "correct": false, "fb": "Hatred poisons."}, {"text": "Excuse all past failures", "correct": false, "fb": "Excuses enable repetition."}, {"text": "Learn from failures and do better", "correct": true, "fb": "Learning breaks cycles."}]},
+{"id": 303, "text": "You resent having to fix what others broke.", "choices": [{"text": "Refuse to fix anything", "correct": false, "fb": "Refusal guarantees inheritance of problems."}, {"text": "Carry all resentment while fixing", "correct": false, "fb": "Resentful fixing is exhausting."}, {"text": "Fix what you can and release resentment", "correct": true, "fb": "Fix AND release."}]},
+{"id": 304, "text": "You demand perfection from your legacy.", "choices": [{"text": "Perfect legacy or nothing", "correct": false, "fb": "Nothing results from perfect-or-nothing."}, {"text": "Give up on legacy entirely", "correct": false, "fb": "Some legacy is unavoidable."}, {"text": "Accept imperfect legacy that still matters", "correct": true, "fb": "Imperfect legacy beats no legacy."}]},
+{"id": 305, "text": "You live only for imagined future approval.", "choices": [{"text": "Keep seeking unknowable approval", "correct": false, "fb": "Unknowable approval is chasing wind."}, {"text": "Ignore future entirely", "correct": false, "fb": "Ignoring future is irresponsible."}, {"text": "Do what is right now and trust the future", "correct": true, "fb": "Right action now."}]},
+{"id": 306, "text": "You avoid thinking about your own death.", "choices": [{"text": "Never think about death", "correct": false, "fb": "Avoided death catches up."}, {"text": "Obsess about death constantly", "correct": false, "fb": "Obsession steals present life."}, {"text": "Face mortality to clarify what matters", "correct": true, "fb": "Death awareness creates life focus."}]},
+{"id": 307, "text": "You carry grief for generations that never existed.", "choices": [{"text": "Ignore unlived futures", "correct": false, "fb": "Unacknowledged grief persists."}, {"text": "Drown in grief for what might have been", "correct": false, "fb": "Drowning helps no one."}, {"text": "Honor the grief and focus on possible futures", "correct": true, "fb": "Grieve AND build."}]},
+{"id": 308, "text": "You feel codependent on ancestral approval.", "choices": [{"text": "Live only for ancestral approval", "correct": false, "fb": "Ancestors cannot approve."}, {"text": "Reject all ancestral influence", "correct": false, "fb": "Rejection loses wisdom."}, {"text": "Honor ancestors while living your own life", "correct": true, "fb": "Honor AND live."}]}
 ];
 
 // LEVEL UP - DECISION MODE (Acceptance vs Judgment)
@@ -9951,7 +10659,16 @@ const GROWTH_THEMES=[
   {id:'control',icon:'🎯',name:'CONTROL',desc:'Releasing what you can\'t hold',keywords:['control','perfect','fix','should','must','right','wrong']},
   {id:'connection',icon:'💞',name:'CONNECTION',desc:'Letting people in',keywords:['alone','lonely','connect','love','trust','vulnerable']},
   {id:'rest',icon:'🌿',name:'REST',desc:'Honoring your needs',keywords:['rest','tired','exhausted','sleep','care','heal']},
-  {id:'acceptance',icon:'☯️',name:'ACCEPTANCE',desc:'Embracing what is',keywords:['accept','resist','fight','peace','let go']}
+  {id:'acceptance',icon:'☯️',name:'ACCEPTANCE',desc:'Embracing what is',keywords:['accept','resist','fight','peace','let go']},
+  {id:'withholding',icon:'🔒',name:'WITHHOLDING',desc:'What you hold back holds you back',keywords:['withhold','hold back','refuse','punish','silent','hide','suppress','keep','won\'t']},
+  {id:'abandonment',icon:'🚪',name:'ABANDONMENT',desc:'The fear of being left',keywords:['abandon','leave','left','disappear','gone','stay','test']},
+  {id:'betrayal',icon:'🗡️',name:'BETRAYAL',desc:'Trust broken and rebuilt',keywords:['betray','broke','promise','trust','secret','loyal']},
+  {id:'resentment',icon:'🔥',name:'RESENTMENT',desc:'Releasing what you carry',keywords:['resent','grudge','score','bitter','angry','unfair']},
+  {id:'perfectionism',icon:'✨',name:'PERFECTIONISM',desc:'Good enough is good enough',keywords:['perfect','flaw','mistake','fail','critic','never good']},
+  {id:'peoplepleasing',icon:'🎭',name:'PEOPLE-PLEASING',desc:'Finding yourself again',keywords:['please','agree','yes','approve','everyone','exhaust']},
+  {id:'avoidance',icon:'🙈',name:'AVOIDANCE',desc:'Facing what you flee',keywords:['avoid','run','escape','ignore','later','someday']},
+  {id:'grief',icon:'🥀',name:'GRIEF',desc:'Honoring what was lost',keywords:['grief','mourn','loss','lost','miss','gone','death']},
+  {id:'codependency',icon:'🔗',name:'CODEPENDENCY',desc:'Where you end and others begin',keywords:['codepend','fix','save','responsible','merge','identity','need']}
 ];
 
 function checkWeeklySummary(){
