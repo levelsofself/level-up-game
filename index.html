@@ -64,6 +64,13 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:linear-gr
 body::-webkit-scrollbar{display:none}
 *{scrollbar-width:none}
 .app{max-width:500px;margin:0 auto;padding:16px;padding-top:20px;padding-bottom:40px}
+/* Desktop optimization - center and constrain on large screens */
+@media (min-width:768px){
+  body{display:flex;justify-content:center;align-items:flex-start;padding:20px}
+  .app{box-shadow:0 0 60px rgba(0,0,0,0.5);border-radius:24px;background:linear-gradient(180deg,rgba(26,16,53,0.95),rgba(13,10,26,0.98));min-height:calc(100vh - 40px);max-height:none}
+  .game,.results{max-width:100%}
+  .modal{backdrop-filter:blur(8px)}
+}
 /* Solid overlay - prevents any content bleed-through */
 body.hook-active{overflow:hidden;position:fixed;width:100%;height:100%;touch-action:none}
 body.hook-active .app{visibility:hidden;pointer-events:none}
@@ -684,12 +691,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <body>
 <canvas id="confetti"></canvas>
 <div class="install-banner" id="installBanner">
-<button class="install-banner-close" id="installClose">×</button>
+<button class="install-banner-close" id="installClose" aria-label="Close install banner">×</button>
 <div class="install-banner-text">
 <div class="install-banner-title">📲 Add to Home Screen</div>
 <div class="install-banner-sub">Play daily without opening browser</div>
 </div>
-<button class="install-banner-btn" id="installBtn">Install</button>
+<button class="install-banner-btn" id="installBtn" aria-label="Install Level Up app">Install</button>
 </div>
 <div class="ios-modal" id="iosModal">
 <div class="ios-modal-content">
@@ -707,7 +714,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="toast" id="toast">+10 XP!</div>
 <div class="combo-display" id="comboDisplay">🔥 3x COMBO!</div>
 <div class="bonus-popup" id="bonusPopup"><div class="bonus-icon">🎁</div><div class="bonus-title">BONUS!</div><div class="bonus-sub" id="bonusText">+25 XP</div></div>
-<div class="levelup-popup" id="levelupPopup"><div class="levelup-content"><div class="levelup-icon" id="levelupIcon">⭐</div><div class="levelup-title">LEVEL UP!</div><div class="levelup-sub" id="levelupText">You're now Level 2</div><div class="levelup-unlock" id="levelupUnlock"></div><div style="display:flex;gap:10px;width:100%;"><button class="levelup-btn" id="levelupBtn" style="flex:1;">Continue</button><button class="levelup-btn" id="levelupShareBtn" style="flex:1;background:linear-gradient(135deg,var(--green),#00B85D);">📤 Share</button></div></div></div>
+<div class="levelup-popup" id="levelupPopup"><div class="levelup-content"><div class="levelup-icon" id="levelupIcon">⭐</div><div class="levelup-title">LEVEL UP!</div><div class="levelup-sub" id="levelupText">You're now Level 2</div><div class="levelup-unlock" id="levelupUnlock"></div><div style="display:flex;gap:10px;width:100%;"><button class="levelup-btn" id="levelupBtn" style="flex:1;" aria-label="Continue playing">Continue</button><button class="levelup-btn" id="levelupShareBtn" style="flex:1;background:linear-gradient(135deg,var(--green),#00B85D);" aria-label="Share your level up">📤 Share</button></div></div></div>
 
 <div class="hook" id="hook">
 <!-- Logo Splash - positioned relative to hook overlay, not container -->
@@ -718,7 +725,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="hook-line" id="line1">See the patterns</div>
 <div class="hook-line" id="line2">that quietly run your life.</div>
 <div class="hook-sub" id="hookSub">Discover why you keep repeating<br>the same mistakes.</div>
-<button class="hook-btn" id="hookBtn">Prove it</button>
+<button class="hook-btn" id="hookBtn" aria-label="Start the experience">Prove it</button>
 </div>
 <!-- Screen 2: Recognition -->
 <div class="hook-screen" id="hookScreen2">
@@ -881,9 +888,9 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 </div>
 </div>
 
-<div class="game" id="game"><div class="game-header"><div class="game-info"><div class="game-mode" id="gameMode">Mirror</div><div id="gameProgress">1/5</div><div class="game-combo" id="gameCombo"></div></div><button class="music-toggle" id="gameMusicToggle" title="Toggle music">🎵</button><button class="quit" id="quitBtn">✕</button></div><div class="timer" id="timerBar"><div class="timer-fill" id="timerFill"></div></div><div class="scenario"><div class="scenario-cat" id="scenarioCat">Level 1: Individual</div><div class="scenario-text loading" id="scenarioText">Loading...</div></div><div class="choices" id="choices"></div></div>
+<div class="game" id="game" role="main" aria-label="Game screen"><div class="game-header"><div class="game-info"><div class="game-mode" id="gameMode">Mirror</div><div id="gameProgress" aria-live="polite">1/5</div><div class="game-combo" id="gameCombo" aria-live="polite"></div></div><button class="music-toggle" id="gameMusicToggle" title="Toggle music" aria-label="Toggle background music">🎵</button><button class="quit" id="quitBtn" aria-label="Quit game and return home">✕</button></div><div class="timer" id="timerBar" role="progressbar" aria-label="Time remaining"><div class="timer-fill" id="timerFill"></div></div><div class="scenario" role="region" aria-label="Current scenario"><div class="scenario-cat" id="scenarioCat">Level 1: Individual</div><div class="scenario-text loading" id="scenarioText" aria-live="polite">Loading...</div></div><div class="choices" id="choices" role="group" aria-label="Answer choices"></div></div>
 
-<div class="results" id="results"><h2 id="resultsTitle">Game Complete</h2><div class="score" id="finalScore">0</div><div class="results-xp" id="resultsXP" style="display:none;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin:12px 0;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--gold);">+<span id="sessionXP">0</span> XP</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">This session</div></div><p class="result-msg" id="resultMsg">Keep going!</p><div class="insights-list" id="insightsList"></div><div id="deepestInsight" style="display:none;background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));border:1px solid var(--pink);border-radius:12px;padding:16px;margin:16px 0;text-align:center;"><div style="font-size:12px;color:var(--pink);font-weight:600;margin-bottom:8px;">💡 Pattern that stood out</div><div id="deepestInsightText" style="font-size:15px;color:var(--text);font-style:italic;line-height:1.5;margin-bottom:12px;"></div><div style="display:flex;gap:10px;justify-content:center;"><button onclick="saveDeepestInsight()" style="padding:8px 16px;background:var(--card);border:1px solid var(--pink);border-radius:8px;color:var(--pink);font-size:13px;font-weight:600;cursor:pointer;">❤️ Save</button><button onclick="shareDeepestInsight()" style="padding:8px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;">📤 Share</button></div></div><div class="results-actions" style="display:flex;flex-direction:column;gap:10px;margin-top:16px;"><button class="results-btn" id="keepPlayingBtn" style="background:linear-gradient(135deg,var(--green),#00B85D);display:none;">🔄 Keep Playing (+10 more)</button><button class="results-btn" id="endlessModeBtn" style="background:linear-gradient(135deg,var(--purple),var(--blue));display:none;">♾️ Endless Mode</button><button class="results-btn" id="homeBtn" style="background:var(--card);border:2px solid var(--pink);">🏠 Back to Home</button></div><div class="share-platform-grid"><button class="share-platform-btn" onclick="shareWhatsApp()"><span class="icon">💬</span><span class="label">WhatsApp</span></button><button class="share-platform-btn" onclick="shareTwitter()"><span class="icon">𝕏</span><span class="label">Twitter</span></button><button class="share-platform-btn" onclick="copyShareLink()"><span class="icon">📋</span><span class="label">Copy</span></button><button class="share-platform-btn" onclick="shareNative()"><span class="icon">📤</span><span class="label">More</span></button></div><div id="resultsCoachingCta" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);text-align:center;"><p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Ready to break these patterns for good?</p><a href="https://wa.me/+18184399770?text=Hi%20Arthur%2C%20I%27ve%20been%20playing%20Level%20Up%20and%20I%27m%20ready%20to%20go%20deeper.%20I%27m%20interested%20in%20integration." target="_blank" style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;">✨ Integrate with Arthur</a></div></div>
+<div class="results" id="results"><h2 id="resultsTitle">Game Complete</h2><div class="score" id="finalScore">0</div><div class="results-xp" id="resultsXP" style="display:none;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin:12px 0;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--gold);">+<span id="sessionXP">0</span> XP</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">This session</div></div><p class="result-msg" id="resultMsg">Keep going!</p><div class="insights-list" id="insightsList"></div><div id="deepestInsight" style="display:none;background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));border:1px solid var(--pink);border-radius:12px;padding:16px;margin:16px 0;text-align:center;"><div style="font-size:12px;color:var(--pink);font-weight:600;margin-bottom:8px;">💡 Pattern that stood out</div><div id="deepestInsightText" style="font-size:15px;color:var(--text);font-style:italic;line-height:1.5;margin-bottom:12px;"></div><div style="display:flex;gap:10px;justify-content:center;"><button onclick="saveDeepestInsight()" style="padding:8px 16px;background:var(--card);border:1px solid var(--pink);border-radius:8px;color:var(--pink);font-size:13px;font-weight:600;cursor:pointer;">❤️ Save</button><button onclick="shareDeepestInsight()" style="padding:8px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;">📤 Share</button></div></div><div class="results-actions" style="display:flex;flex-direction:column;gap:10px;margin-top:16px;"><button class="results-btn" id="keepPlayingBtn" style="background:linear-gradient(135deg,var(--green),#00B85D);display:none;" aria-label="Keep playing 10 more scenarios">🔄 Keep Playing (+10 more)</button><button class="results-btn" id="endlessModeBtn" style="background:linear-gradient(135deg,var(--purple),var(--blue));display:none;" aria-label="Start endless mode">♾️ Endless Mode</button><button class="results-btn" id="homeBtn" style="background:var(--card);border:2px solid var(--pink);" aria-label="Return to home screen">🏠 Back to Home</button></div><div class="share-platform-grid"><button class="share-platform-btn" onclick="shareWhatsApp()" aria-label="Share on WhatsApp"><span class="icon">💬</span><span class="label">WhatsApp</span></button><button class="share-platform-btn" onclick="shareTwitter()" aria-label="Share on Twitter"><span class="icon">𝕏</span><span class="label">Twitter</span></button><button class="share-platform-btn" onclick="copyShareLink()" aria-label="Copy link to clipboard"><span class="icon">📋</span><span class="label">Copy</span></button><button class="share-platform-btn" onclick="shareNative()" aria-label="More sharing options"><span class="icon">📤</span><span class="label">More</span></button></div><div id="resultsCoachingCta" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);text-align:center;"><p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Ready to break these patterns for good?</p><a href="https://wa.me/+18184399770?text=Hi%20Arthur%2C%20I%27ve%20been%20playing%20Level%20Up%20and%20I%27m%20ready%20to%20go%20deeper.%20I%27m%20interested%20in%20integration." target="_blank" style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;">✨ Integrate with Arthur</a></div></div>
 </div>
 
 <div class="modal" id="qaModal"><div class="modal-content" id="qaContent" style="max-height:85vh;overflow-y:auto;position:relative;scroll-behavior:smooth;">
@@ -1221,6 +1228,20 @@ Earn coins by playing games (50% of XP earned).<br>Redeem for real discounts on 
 
 <!-- EMBEDDED SCENARIO DATA -->
 <script>
+// Global Error Handler - Show friendly message instead of broken UI
+window.onerror = function(message, source, lineno, colno, error) {
+  console.error('Level Up Error:', message, source, lineno);
+  // Only show error UI if it's a critical error
+  if(!document.getElementById('errorOverlay')){
+    let overlay = document.createElement('div');
+    overlay.id = 'errorOverlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(13,10,26,0.98);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;color:#f5f0ff;font-family:Inter,sans-serif';
+    overlay.innerHTML = '<div style="font-size:48px;margin-bottom:16px;">🔄</div><div style="font-size:20px;font-weight:700;margin-bottom:8px;">Something went wrong</div><div style="font-size:14px;color:#b8b0cc;margin-bottom:24px;">Don\'t worry - your progress is saved.</div><button onclick="location.reload()" style="padding:14px 32px;background:linear-gradient(135deg,#FF6B35,#FF3CAC);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;">Tap to Refresh</button>';
+    document.body.appendChild(overlay);
+  }
+  return true; // Prevents default error handling
+};
+
 // LEVEL UP - MIRROR MODE
 // LEVEL 1: INDIVIDUAL - Your relationship with yourself
 // 300 gut-punch scenarios with transformational insights
@@ -11675,8 +11696,13 @@ function freshUIReset() {
 // Run fresh reset on load
 freshUIReset();
 
-if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
-setInterval(updateTimer,1000);
+// Initialize app with error handling
+try {
+  if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
+  setInterval(updateTimer,1000);
+} catch(e) {
+  console.error('Initialization error:', e);
+}
 
 // ========== ONBOARDING TOOLTIP SYSTEM ==========
 const ONBOARD_STEPS = [
