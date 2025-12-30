@@ -4,12 +4,12 @@ const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/icon192.png',
-  '/icon512.png',
-  '/appletouchicon.png',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/apple-touch-icon.png',
   '/level-up.mp3',
   '/arthur.jpg',
-  '/oggame.png'
+  '/og-game.png'
 ];
 
 // Install - cache assets and take over immediately
@@ -89,8 +89,8 @@ self.addEventListener('fetch', event => {
 self.addEventListener('push', event => {
   const options = {
     body: event.data ? event.data.text() : 'Your streak is waiting!',
-    icon: '/icon192.png',
-    badge: '/icon192.png',
+    icon: '/icon-192.png',
+    badge: '/icon-192.png',
     vibrate: [100, 50, 100]
   };
   event.waitUntil(self.registration.showNotification('Level Up 🔥', options));
