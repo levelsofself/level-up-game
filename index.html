@@ -332,17 +332,32 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes xpPulse{0%,100%{opacity:0.5;width:12px}50%{opacity:1;width:16px}}
 .xp-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);animation:shimmer 2s infinite}
 @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.xp-coins{display:flex;align-items:center;gap:4px;font-size:14px;color:var(--gold);font-weight:600;transition:var(--transition-fast)}
-.xp-coins:hover{text-shadow:0 0 12px rgba(255,215,0,0.5)}
+.xp-coins{display:flex;align-items:center;gap:4px;font-size:14px;color:var(--gold);font-weight:600;transition:var(--transition-fast);cursor:pointer;padding:4px 8px;border-radius:8px;background:rgba(255,215,0,0.1)}
+.xp-coins:hover{text-shadow:0 0 12px rgba(255,215,0,0.5);background:rgba(255,215,0,0.2)}
+/* Coin Shop Styles */
+.coin-reward{display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--card);border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:var(--transition-fast)}
+.coin-reward:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,215,0,0.2)}
+.coin-reward.affordable{border-color:var(--green);background:rgba(0,210,106,0.05)}
+.coin-reward.affordable:hover{box-shadow:0 4px 15px rgba(0,210,106,0.3)}
+.coin-reward.legendary{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,107,53,0.1))}
+.coin-reward.legendary:hover{box-shadow:0 4px 20px rgba(255,215,0,0.4)}
+.coin-reward.redeemed{opacity:0.5;pointer-events:none}
+.coin-reward-left{display:flex;align-items:center;gap:12px}
+.coin-reward-icon{font-size:24px}
+.coin-reward-info{display:flex;flex-direction:column;gap:2px}
+.coin-reward-name{font-size:14px;font-weight:700;color:var(--text)}
+.coin-reward-desc{font-size:11px;color:var(--muted)}
+.coin-reward-cost{font-size:14px;font-weight:700;color:var(--gold);white-space:nowrap}
+.coin-cost-amount{font-size:16px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
 .stat{animation:fadeIn 0.3s ease backwards}
 .stat:nth-child(1){animation-delay:0.05s}
 .stat:nth-child(2){animation-delay:0.1s}
 .stat:nth-child(3){animation-delay:0.15s}
 .stat:nth-child(4){animation-delay:0.2s}
-.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 6px;text-align:center;transition:var(--transition-fast);box-shadow:var(--shadow-sm);cursor:pointer}
-.stat:hover{border-color:var(--pink);transform:translateY(-2px)}
-.stat:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.stat{background:var(--card);border:2px solid var(--pink);border-radius:12px;padding:14px 6px;text-align:center;transition:var(--transition-fast);box-shadow:0 0 12px rgba(255,60,172,0.2);cursor:pointer}
+.stat:hover{border-color:var(--pink);transform:translateY(-2px);box-shadow:0 0 20px rgba(255,60,172,0.4)}
+.stat:hover{transform:translateY(-4px);box-shadow:0 0 20px rgba(255,60,172,0.4)}
 .stat-val{font-size:24px;font-weight:800;background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .stat-label{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-top:4px;letter-spacing:0.5px}
 .insights-stat{cursor:pointer;border:2px solid var(--pink);box-shadow:0 0 12px rgba(255,60,172,0.3)}
@@ -411,11 +426,25 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .mode.newly-unlocked{border-color:var(--pink);box-shadow:0 0 20px rgba(255,60,172,0.5);animation:unlockPulse 2s ease-in-out infinite}
 .level.newly-unlocked{border:2px solid var(--pink);box-shadow:0 0 15px rgba(255,60,172,0.4);animation:unlockPulse 2s ease-in-out infinite}
 @keyframes unlockPulse{0%,100%{box-shadow:0 0 15px rgba(255,60,172,0.4)}50%{box-shadow:0 0 25px rgba(255,60,172,0.7)}}
+/* First-time user pulse on Mirror Game */
+.mode.start-here{animation:startHerePulse 1.5s ease-in-out infinite;position:relative}
+.mode.start-here::before{content:'Start Here';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:10px;font-weight:700;padding:4px 10px;border-radius:12px;white-space:nowrap;z-index:5}
+@keyframes startHerePulse{0%,100%{box-shadow:0 0 20px rgba(247,201,72,0.5),0 4px 20px rgba(255,60,172,0.15)}50%{box-shadow:0 0 35px rgba(247,201,72,0.8),0 4px 20px rgba(255,60,172,0.15)}}
+/* Deep Insight ready badge */
+.ai-ready{position:relative}
+.ai-ready::after{content:'Ready!';position:absolute;top:-6px;right:-6px;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;font-size:8px;font-weight:700;padding:3px 6px;border-radius:8px;animation:aiBadgePulse 1.5s ease-in-out infinite}
+@keyframes aiBadgePulse{0%,100%{transform:scale(1);box-shadow:0 0 8px rgba(255,60,172,0.5)}50%{transform:scale(1.1);box-shadow:0 0 15px rgba(255,60,172,0.8)}}
+/* Insights stat pulse when new */
+.insights-stat.new-insight{animation:insightPulse 0.6s ease-out}
+@keyframes insightPulse{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
 /* Streak risk pulsing fire */
 .streak-risk{position:absolute;top:-8px;right:-8px;font-size:20px;animation:streakPulse 1s ease-in-out infinite}
 @keyframes streakPulse{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.2);filter:brightness(1.3)}}
 /* NEW badge for recently unlocked content */
 .new-badge{position:absolute;top:-6px;right:-6px;background:linear-gradient(135deg,var(--green),#00B85D);color:#fff;font-size:9px;font-weight:800;padding:3px 6px;border-radius:8px;text-transform:uppercase;letter-spacing:0.5px;animation:newBadgePop 0.5s ease-out,newBadgeGlow 2s ease-in-out infinite 0.5s;z-index:5}
+/* Offline indicator */
+.offline-badge{display:none;position:fixed;top:10px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;z-index:9999;box-shadow:0 4px 15px rgba(255,107,53,0.4)}
+.offline-badge.show{display:block;animation:fadeIn 0.3s ease}
 @keyframes newBadgePop{0%{transform:scale(0);opacity:0}50%{transform:scale(1.2)}100%{transform:scale(1);opacity:1}}
 @keyframes newBadgeGlow{0%,100%{box-shadow:0 0 5px rgba(0,210,106,0.5)}50%{box-shadow:0 0 15px rgba(0,210,106,0.8)}}
 /* Scroll to top button */
@@ -447,7 +476,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .level.unlocked{border:2px solid var(--pink);box-shadow:0 2px 12px rgba(255,60,172,0.25)}
 .level:hover{border-color:var(--pink);transform:translateX(4px);box-shadow:0 4px 12px rgba(0,0,0,0.15)}
 .level:active{transform:scale(0.98)}
-.level.locked{opacity:0.4;cursor:not-allowed}
+.level.locked{opacity:0.5;cursor:pointer}
 .level.locked:hover{transform:none;border-color:var(--border)}
 .level-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#000;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.2);transition:var(--transition-fast)}
 .level:hover .level-num{transform:scale(1.1);box-shadow:0 4px 12px rgba(0,0,0,0.3)}
@@ -771,11 +800,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 </div>
 </div>
 
+<div class="offline-badge" id="offlineBadge">📡 Offline Mode</div>
 <div class="app">
 <!-- Onboarding Overlay -->
 <div class="onboard-overlay" id="onboardOverlay"></div>
 <div class="home" id="home">
-<div class="header"><div class="logo">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="quickModeBtn" title="Quick Mode">⚡</button><button class="ctrl-btn" id="musicBtn">🎵</button><button class="ctrl-btn heart-btn" id="aiBtn">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn">❓</button><button class="ctrl-btn founder-btn" id="founderBtn">👤</button></div></div>
+<div class="header"><div class="logo" role="banner">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="quickModeBtn" title="Quick Mode" aria-label="Toggle Quick Mode">⚡</button><button class="ctrl-btn" id="musicBtn" aria-label="Toggle Music">🎵</button><button class="ctrl-btn heart-btn" id="aiBtn" aria-label="Deep Insight AI Analysis">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn" aria-label="Help and FAQ">❓</button><button class="ctrl-btn founder-btn" id="founderBtn" aria-label="Meet the Founder">👤</button></div></div>
 
 <div class="login-bonus" id="loginBonus"><div class="login-title">🎁 Daily Login Bonus!</div><div class="login-sub">Tap to claim <span id="loginReward">+20 XP</span></div></div>
 <div class="streak-warning" id="streakWarning"><div class="streak-warning-text">⚠️ Play today or lose your <span id="streakCount">0</span>-day streak!</div></div>
@@ -802,13 +832,15 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="bridge-dismiss"><a href="#" onclick="dismissCoachingBridge();return false;">Remind me later</a></div>
 </div>
 
-<div class="hero"><h1>See Your Patterns</h1><p>The game that reveals what's really running your life.</p></div>
+<div class="hero">
+<div id="welcomeMessage" style="display:none;font-size:14px;font-weight:600;color:var(--gold);margin-bottom:8px;"></div>
+<h1>See Your Patterns</h1><p>The game that reveals what's really running your life.</p></div>
 
-<div class="challenge" id="dailyCard"><div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div><h2>Worldwide Challenge</h2><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="player-count"><span class="player-dot"></span><span id="playerCountNum">--</span> playing now</div><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer">Resets in --:--:--</span></div></div>
+<div class="challenge" id="dailyCard" role="button" aria-label="Play Worldwide Challenge - Same 3 scenarios for everyone on Earth"><div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div><h2>Worldwide Challenge</h2><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="player-count"><span class="player-dot"></span><span id="playerCountNum">--</span> playing now</div><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer">Resets in --:--:--</span></div></div>
 
-<div class="xp-container" onclick="showXpDetails()" style="cursor:pointer;"><div class="xp-header"><div class="xp-level" id="playerLevel">Level 1</div><div class="xp-coins">🪙 <span id="coinCount">0</span></div></div><div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div><div class="xp-text"><span id="xpCurrent">0</span> / <span id="xpNeeded">500</span> XP <span style="font-size:10px;color:var(--muted);">ⓘ</span></div></div>
+<div class="xp-container" onclick="showXpDetails()" style="cursor:pointer;"><div class="xp-header"><div class="xp-level" id="playerLevel">Level 1</div><div class="xp-coins" onclick="event.stopPropagation();showCoinShop();"><span id="coinCount">0</span> coins</div></div><div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div><div class="xp-text"><span id="xpCurrent">0</span> / <span id="xpNeeded">500</span> XP</div></div>
 
-<div class="stats"><div class="stat"><div class="stat-val" id="statPlayed">0</div><div class="stat-label">Played</div></div><div class="stat"><div class="stat-val" id="statStreak">0</div><div class="stat-label">Streak</div></div><div class="stat"><div class="stat-val" id="statAcceptRate">0%</div><div class="stat-label">Acceptance</div></div><div class="stat insights-stat" id="insightsStat"><div class="stat-val" id="statInsights">0</div><div class="stat-label">Insights</div></div></div>
+<div class="stats"><div class="stat" onclick="showStatDetails('played')" style="cursor:pointer;"><div class="stat-val" id="statPlayed">0</div><div class="stat-label">Played</div></div><div class="stat" onclick="showStatDetails('streak')" style="cursor:pointer;"><div class="stat-val" id="statStreak">0</div><div class="stat-label">Streak</div></div><div class="stat" onclick="showStatDetails('acceptance')" style="cursor:pointer;"><div class="stat-val" id="statAcceptRate">0%</div><div class="stat-label">Acceptance</div></div><div class="stat insights-stat" id="insightsStat"><div class="stat-val" id="statInsights">0</div><div class="stat-label">Insights</div></div></div>
 
 <div class="pattern-card" id="patternCard">
 <div class="pattern-header"><span class="pattern-icon" id="patternIcon">🔮</span><span class="pattern-label">Your Pattern</span></div>
@@ -821,12 +853,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="pattern-tap">Tap for full profile →</div>
 </div>
 
-<div class="modes"><div class="mode" id="mirrorMode"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">🪞</div><div class="mode-name">Mirror Game</div><div class="mode-desc">See yourself honestly</div><div class="mode-unlock" id="mirrorUnlock"></div></div><div class="mode" id="agreementMode"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">⚖️</div><div class="mode-name">Agreement Game</div><div class="mode-desc">Acceptance vs Judgment</div><div class="mode-unlock" id="agreementUnlock"></div></div></div>
+<div class="modes"><div class="mode" id="mirrorMode" role="button" aria-label="Play Mirror Game - See yourself honestly"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">🪞</div><div class="mode-name">Mirror Game</div><div class="mode-desc" style="color:var(--gold);">See yourself honestly</div><div class="mode-unlock" id="mirrorUnlock"></div></div><div class="mode" id="agreementMode" role="button" aria-label="Play Agreement Game - Practice acceptance vs judgment"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">⚖️</div><div class="mode-name">Agreement Game</div><div class="mode-desc">Acceptance vs Judgment</div><div class="mode-unlock" id="agreementUnlock"></div></div></div>
 
 <div class="section-title">Your Journey</div>
 <div class="levels" id="levelMap"></div>
 
-<div class="action-btns"><a class="action-btn assess" id="assessBtn" href="https://selfcheck.100levelup.com/assessment.html" target="_blank" rel="noopener"><span class="action-btn-icon">📋</span><span class="action-btn-text">Full Assessment</span></a><button class="action-btn share" id="shareBtn"><span class="action-btn-icon">🔗</span><span class="action-btn-text">Share</span></button></div>
+<div class="action-btns"><a class="action-btn assess" id="assessBtn" href="https://selfcheck.100levelup.com/assessment.html" target="_blank" rel="noopener" aria-label="Take Full Assessment"><span class="action-btn-icon">📋</span><span class="action-btn-text">Full Assessment</span></a><button class="action-btn share" id="shareBtn" aria-label="Share this game"><span class="action-btn-icon">🔗</span><span class="action-btn-text">Share</span></button></div>
 
 <div class="footer">
 <div class="footer-btns">
@@ -854,7 +886,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="modal-title" style="margin-top:8px;">Help & FAQ</div>
 <div class="qa-item"><div class="qa-question">What is the 7 Levels framework?</div><div class="qa-answer">The 7 Levels of Self maps human growth across 7 dimensions: Individual (self), Family (close relationships), Groups (teams/friends), Community (local impact), Society (systems/culture), World (global connection), and Generations (legacy). You can't skip levels - each must be mastered before climbing higher.</div></div>
 <div class="qa-item"><div class="qa-question">What's the difference between the 3 games?</div><div class="qa-answer"><strong style="color:var(--pink);">🪞 Mirror Game:</strong> Self-reflection. See patterns honestly. No right/wrong - just recognition.<br><br><strong style="color:var(--purple);">⚖️ Agreement Game:</strong> Train yourself to choose acceptance over judgment. Timed to build instinct.<br><br><strong style="color:var(--orange);">🌍 Worldwide Challenge:</strong> Same 3 scenarios for everyone globally. One chance daily. Builds streak.</div></div>
-<div class="qa-item"><div class="qa-question">How do XP, levels, streaks & bonuses work?</div><div class="qa-answer"><strong>XP & Leveling:</strong> Every answer earns XP. 500 XP = 1 level. Levels unlock new game modes and framework levels.<br><br><strong>Unlocks:</strong> Level 2 → Agreement Game + Family, Level 3 → Groups, Level 5 → Community, Level 7 → Society, Level 10 → World, Level 15 → Generations<br><br><strong>Streaks:</strong> Complete the Worldwide Challenge daily. Miss a day and it resets!<br><br><strong>Combos:</strong> Multiple correct answers in a row = bonus XP (5x = +15 XP, 10x = +40 XP).<br><br><strong>Daily Login:</strong> Claim increasing XP rewards each day (up to 100 XP on day 7).</div></div>
+<div class="qa-item"><div class="qa-question">How do XP, levels, streaks & bonuses work?</div><div class="qa-answer"><strong>XP & Leveling:</strong> Every answer earns XP. 500 XP = 1 level. Levels unlock new game modes and framework levels.<br><br><strong>Unlocks:</strong> Level 2 → Agreement Game + Family, Level 3 → Groups, Level 5 → Community, Level 7 → Society, Level 10 → World, Level 15 → Generations<br><br><strong>Coins:</strong> Earn coins (50% of XP) and tap them to open the Reward Shop. Redeem coins for workshop discounts, or save up for a FREE 1-on-1 session with Arthur!<br><br><strong>Streaks:</strong> Complete the Worldwide Challenge daily. Miss a day and it resets!<br><br><strong>Combos:</strong> Multiple correct answers in a row = bonus XP (5x = +15 XP, 10x = +40 XP).<br><br><strong>Daily Login:</strong> Claim increasing XP rewards each day (up to 100 XP on day 7).<br><br><strong>Quick Mode ⚡:</strong> Tap the lightning bolt in the header for faster gameplay - shorter text and quicker transitions.</div></div>
 <div class="qa-item"><div class="qa-question">What does "Acceptance ≠ Agreement" mean?</div><div class="qa-answer">This is the core philosophy. <strong>Acceptance</strong> means acknowledging reality as it is. <strong>Agreement</strong> means endorsing it.<br><br>You can accept that something IS without agreeing it SHOULD BE. Acceptance is the first step to change - you can't transform what you won't acknowledge.</div></div>
 <div class="qa-item"><div class="qa-question">What are Insights, Deep Insights & Archetypes?</div><div class="qa-answer"><strong>💡 Insights:</strong> Every pattern you recognize gets saved. Tap the Insights stat to review them over time.<br><br><strong>❤️ Deep Insights:</strong> After 10 games, unlock AI-powered analysis showing your growth pattern, self-awareness scores, recurring themes, and recommended practice.<br><br><strong>🎭 Archetypes:</strong> Based on your gameplay patterns, you're matched with one of these growth personalities:<br><br><div style="background:var(--card);border-radius:10px;padding:12px;margin-top:8px;"><div style="margin-bottom:10px;"><strong style="color:#FF6B35;">🔥 The Boundary Builder</strong><br><span style="font-size:12px;color:var(--muted);">Learning to protect your energy and say no</span></div><div style="margin-bottom:10px;"><strong style="color:#784BA0;">🔮 The Pattern Seeker</strong><br><span style="font-size:12px;color:var(--muted);">Seeing connections others miss</span></div><div style="margin-bottom:10px;"><strong style="color:#2F80ED;">🌊 The Flow Finder</strong><br><span style="font-size:12px;color:var(--muted);">Releasing control to find peace</span></div><div style="margin-bottom:10px;"><strong style="color:#00D26A;">🌱 The Growth Gardener</strong><br><span style="font-size:12px;color:var(--muted);">Nurturing steady, patient progress</span></div><div style="margin-bottom:10px;"><strong style="color:#F7C948;">⚡ The Truth Teller</strong><br><span style="font-size:12px;color:var(--muted);">Embracing radical honesty with self and others</span></div><div><strong style="color:#FF3CAC;">💫 The Integration Master</strong><br><span style="font-size:12px;color:var(--muted);">Balancing all dimensions of growth</span></div></div></div></div>
 <div class="qa-item"><div class="qa-question">Is this a substitute for therapy?</div><div class="qa-answer"><strong style="color:var(--yellow);">No.</strong> This game is for self-reflection and personal growth—not therapy, diagnosis, or treatment.<br><br><strong style="color:var(--green);">🆘 Crisis Resources:</strong> 988 Suicide & Crisis Lifeline (US), Crisis Text Line: text HOME to 741741, International: <a href="https://findahelpline.com" target="_blank" style="color:var(--blue);">findahelpline.com</a><br><br><em style="color:var(--muted);">You are not alone. Help is available.</em></div></div>
@@ -879,10 +911,10 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="modal-title" id="levelSelectTitle">Level 1: Individual</div>
 <div style="color:var(--muted);text-align:center;margin-bottom:20px;" id="levelSelectDesc">Your relationship with yourself</div>
 <div style="display:flex;flex-direction:column;gap:12px;">
-<button class="modal-btn" id="levelMirrorBtn" style="background:linear-gradient(135deg,var(--pink),var(--purple));">🪞 Mirror Game<br><span style="font-size:12px;font-weight:400;opacity:0.8;">See yourself honestly</span></button>
-<button class="modal-btn" id="levelAgreementBtn" style="background:linear-gradient(135deg,var(--purple),var(--blue));">⚖️ Agreement Game<br><span style="font-size:12px;font-weight:400;opacity:0.8;">Practice acceptance</span></button>
-<button class="modal-btn" id="levelMixedBtn" style="background:linear-gradient(135deg,var(--orange),var(--pink));">🎲 Mixed Mode<br><span style="font-size:12px;font-weight:400;opacity:0.8;">Both games shuffled</span></button>
-<button class="modal-btn" id="levelInsightsBtn" style="background:linear-gradient(135deg,var(--gold),var(--orange));">💡 Your Insights<br><span style="font-size:12px;font-weight:400;opacity:0.8;" id="levelInsightsCount">0 collected</span></button>
+<button class="modal-btn" id="levelMirrorBtn" style="background:linear-gradient(135deg,var(--gold),var(--orange));border:2px solid var(--pink);box-shadow:0 0 12px rgba(255,60,172,0.3);">🪞 Mirror Game<br><span style="font-size:12px;font-weight:400;opacity:0.9;">See yourself honestly</span></button>
+<button class="modal-btn" id="levelAgreementBtn" style="background:linear-gradient(135deg,var(--gold),var(--orange));border:2px solid var(--border);opacity:0.5;">⚖️ Agreement Game<br><span style="font-size:12px;font-weight:400;opacity:0.8;">Practice acceptance</span></button>
+<button class="modal-btn" id="levelMixedBtn" style="background:linear-gradient(135deg,var(--gold),var(--orange));border:2px solid var(--border);opacity:0.5;">🎲 Mixed Mode<br><span style="font-size:12px;font-weight:400;opacity:0.8;">Both games shuffled</span></button>
+<button class="modal-btn" id="levelInsightsBtn" style="background:linear-gradient(135deg,var(--gold),var(--orange));border:2px solid var(--pink);box-shadow:0 0 12px rgba(255,60,172,0.3);">💡 Your Insights<br><span style="font-size:12px;font-weight:400;opacity:0.9;" id="levelInsightsCount">0 collected</span></button>
 </div>
 <button id="levelSelectClose" style="margin-top:16px;padding:12px;background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--muted);font-size:14px;cursor:pointer;width:100%;">Cancel</button>
 </div></div>
@@ -961,7 +993,7 @@ After 10 years of deep transformational work—Landmark, MITT, Insight Seminars,
 
 <!-- XP Details Modal -->
 <div class="modal" id="xpDetailsModal"><div class="modal-content" style="max-height:80vh;overflow-y:auto;">
-<div class="modal-title">XP Breakdown</div>
+<div style="font-size:24px;font-weight:800;text-align:center;margin-bottom:18px;color:var(--gold);">⭐ XP Breakdown</div>
 <div id="xpDetailsContent" style="text-align:left;"></div>
 <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);text-align:center;">
 <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Ways to earn XP:</div>
@@ -975,6 +1007,107 @@ After 10 years of deep transformational work—Landmark, MITT, Insight Seminars,
 </div>
 </div>
 <button class="modal-btn" onclick="document.getElementById('xpDetailsModal').classList.remove('active')" style="margin-top:16px;">Close</button>
+</div></div>
+
+<!-- Stats Details Modal -->
+<div class="modal" id="statDetailsModal"><div class="modal-content" style="max-height:80vh;overflow-y:auto;">
+<div id="statDetailsTitle" style="font-size:24px;font-weight:800;text-align:center;margin-bottom:18px;color:var(--text);">Stat Details</div>
+<div id="statDetailsContent" style="text-align:left;"></div>
+<button class="modal-btn" onclick="document.getElementById('statDetailsModal').classList.remove('active')" style="margin-top:16px;">Close</button>
+</div></div>
+
+<!-- Coin Shop Modal -->
+<div class="modal" id="coinShopModal"><div class="modal-content" style="max-height:85vh;overflow-y:auto;">
+<div style="font-size:24px;font-weight:800;text-align:center;margin-bottom:8px;color:var(--gold);">Coin Rewards</div>
+<div style="text-align:center;margin-bottom:20px;">
+<div style="font-size:36px;font-weight:800;color:var(--gold);" id="shopCoinCount">0</div>
+<div style="font-size:12px;color:var(--muted);">coins earned</div>
+</div>
+
+<div style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:16px;padding:10px;background:var(--card);border-radius:8px;">
+Earn coins by playing games (50% of XP earned).<br>Redeem for real discounts on workshops & sessions!
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px;">
+
+<!-- Workshop Rewards -->
+<div class="coin-reward" id="reward1" onclick="redeemReward('workshop20', 2000, '20% Off Workshop')">
+<div class="coin-reward-left">
+<div class="coin-reward-icon">🎓</div>
+<div class="coin-reward-info">
+<div class="coin-reward-name">20% Off Workshop</div>
+<div class="coin-reward-desc">Any Level Up workshop</div>
+</div>
+</div>
+<div class="coin-reward-cost"><span class="coin-cost-amount">2,000</span> coins</div>
+</div>
+
+<div class="coin-reward" id="reward2" onclick="redeemReward('workshop50', 5000, '50% Off Workshop')">
+<div class="coin-reward-left">
+<div class="coin-reward-icon">🎓</div>
+<div class="coin-reward-info">
+<div class="coin-reward-name">50% Off Workshop</div>
+<div class="coin-reward-desc">Any Level Up workshop</div>
+</div>
+</div>
+<div class="coin-reward-cost"><span class="coin-cost-amount">5,000</span> coins</div>
+</div>
+
+<div class="coin-reward" id="reward3" onclick="redeemReward('workshopFree', 10000, 'FREE Workshop')">
+<div class="coin-reward-left">
+<div class="coin-reward-icon">🎁</div>
+<div class="coin-reward-info">
+<div class="coin-reward-name">FREE Workshop</div>
+<div class="coin-reward-desc">Any Level Up workshop</div>
+</div>
+</div>
+<div class="coin-reward-cost"><span class="coin-cost-amount">10,000</span> coins</div>
+</div>
+
+<!-- Session Rewards -->
+<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px;text-align:center;">1-on-1 Sessions</div>
+
+<div class="coin-reward" id="reward4" onclick="redeemReward('session20', 10000, '20% Off Session')">
+<div class="coin-reward-left">
+<div class="coin-reward-icon">✨</div>
+<div class="coin-reward-info">
+<div class="coin-reward-name">20% Off Session</div>
+<div class="coin-reward-desc">1-on-1 with Arthur</div>
+</div>
+</div>
+<div class="coin-reward-cost"><span class="coin-cost-amount">10,000</span> coins</div>
+</div>
+
+<div class="coin-reward" id="reward5" onclick="redeemReward('session50', 25000, '50% Off Session')">
+<div class="coin-reward-left">
+<div class="coin-reward-icon">✨</div>
+<div class="coin-reward-info">
+<div class="coin-reward-name">50% Off Session</div>
+<div class="coin-reward-desc">1-on-1 with Arthur</div>
+</div>
+</div>
+<div class="coin-reward-cost"><span class="coin-cost-amount">25,000</span> coins</div>
+</div>
+
+<div class="coin-reward legendary" id="reward6" onclick="redeemReward('sessionFree', 50000, 'FREE Session')">
+<div class="coin-reward-left">
+<div class="coin-reward-icon">👑</div>
+<div class="coin-reward-info">
+<div class="coin-reward-name">FREE Session</div>
+<div class="coin-reward-desc">1-on-1 with Arthur</div>
+</div>
+</div>
+<div class="coin-reward-cost"><span class="coin-cost-amount">50,000</span> coins</div>
+</div>
+
+</div>
+
+<div id="redeemedCodes" style="margin-top:20px;display:none;">
+<div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;">Your Reward Codes:</div>
+<div id="redeemedList" style="font-size:12px;color:var(--muted);"></div>
+</div>
+
+<button class="modal-btn" onclick="document.getElementById('coinShopModal').classList.remove('active')" style="margin-top:16px;">Close</button>
 </div></div>
 
 <div class="modal" id="resetModal"><div class="modal-content" style="text-align:center;">
@@ -9240,7 +9373,7 @@ function addCombo(){
 }
 function resetCombo(){currentCombo=0;document.getElementById('gameCombo').textContent='';}
 
-function showToast(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
+function showToast(msg,duration){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),duration||2000)}
 
 function showXpDetails() {
   const content = document.getElementById('xpDetailsContent');
@@ -9273,6 +9406,187 @@ function showXpDetails() {
   
   content.innerHTML = html;
   document.getElementById('xpDetailsModal').classList.add('active');
+}
+
+function showStatDetails(stat) {
+  const title = document.getElementById('statDetailsTitle');
+  const content = document.getElementById('statDetailsContent');
+  let html = '';
+  
+  if (stat === 'played') {
+    title.textContent = '🎮 Games Played';
+    const mirrorGames = data.mirrorTotal || 0;
+    const agreementGames = data.agreementTotal || 0;
+    const totalGames = data.games || 0;
+    
+    html = '<div style="text-align:center;margin-bottom:20px;">';
+    html += '<div style="font-size:48px;font-weight:700;color:var(--pink);">' + totalGames + '</div>';
+    html += '<div style="color:var(--muted);font-size:14px;">total games completed</div>';
+    html += '</div>';
+    
+    html += '<div style="background:var(--card);border-radius:12px;padding:16px;margin-bottom:16px;">';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:12px;"><span style="color:var(--muted);">🪞 Mirror Game</span><span style="color:var(--text);font-weight:600;">' + mirrorGames + '</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">⚖️ Agreement Game</span><span style="color:var(--text);font-weight:600;">' + agreementGames + '</span></div>';
+    html += '</div>';
+    
+    html += '<div style="font-size:12px;color:var(--muted);text-align:center;line-height:1.6;">';
+    html += 'Every game you complete adds to your growth journey. The more you play, the deeper your self-awareness becomes.';
+    html += '</div>';
+    
+  } else if (stat === 'streak') {
+    title.textContent = '🔥 Daily Streak';
+    const streak = data.streak || 0;
+    const bestStreak = data.bestStreak || streak;
+    
+    html = '<div style="text-align:center;margin-bottom:20px;">';
+    html += '<div style="font-size:48px;font-weight:700;color:var(--orange);">' + streak + '</div>';
+    html += '<div style="color:var(--muted);font-size:14px;">day streak</div>';
+    html += '</div>';
+    
+    html += '<div style="background:var(--card);border-radius:12px;padding:16px;margin-bottom:16px;">';
+    html += '<div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px;">How Streaks Work</div>';
+    html += '<div style="font-size:12px;color:var(--muted);line-height:1.7;">';
+    html += '• Complete the <strong>Worldwide Challenge</strong> daily<br>';
+    html += '• Same 3 scenarios for everyone on Earth<br>';
+    html += '• Miss a day? Streak resets to 0<br>';
+    html += '• Longer streaks = bigger bragging rights';
+    html += '</div></div>';
+    
+    html += '<div style="background:linear-gradient(135deg,rgba(255,107,53,0.15),rgba(255,60,172,0.15));border-radius:12px;padding:16px;text-align:center;">';
+    html += '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Best Streak</div>';
+    html += '<div style="font-size:24px;font-weight:700;color:var(--gold);">' + bestStreak + ' days</div>';
+    html += '</div>';
+    
+  } else if (stat === 'acceptance') {
+    title.textContent = '💚 Acceptance Rate';
+    const accepted = data.agreementAccepted || 0;
+    const total = data.agreementTotal || 0;
+    const rate = total > 0 ? Math.round((accepted / total) * 100) : 0;
+    
+    html = '<div style="text-align:center;margin-bottom:20px;">';
+    html += '<div style="font-size:48px;font-weight:700;color:var(--green);">' + rate + '%</div>';
+    html += '<div style="color:var(--muted);font-size:14px;">acceptance rate</div>';
+    html += '</div>';
+    
+    html += '<div style="background:var(--card);border-radius:12px;padding:16px;margin-bottom:16px;">';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:12px;"><span style="color:var(--muted);">Accepting answers</span><span style="color:var(--green);font-weight:600;">' + accepted + '</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Total scenarios</span><span style="color:var(--text);font-weight:600;">' + total + '</span></div>';
+    html += '</div>';
+    
+    html += '<div style="background:linear-gradient(135deg,rgba(0,210,106,0.1),rgba(0,180,90,0.1));border:1px solid var(--green);border-radius:12px;padding:16px;">';
+    html += '<div style="font-size:13px;font-weight:600;color:var(--green);margin-bottom:8px;">Acceptance ≠ Agreement</div>';
+    html += '<div style="font-size:12px;color:var(--muted);line-height:1.6;">';
+    html += 'Acceptance means acknowledging reality as it is. You can accept something IS without agreeing it SHOULD BE. This is the first step to real change.';
+    html += '</div></div>';
+  }
+  
+  content.innerHTML = html;
+  document.getElementById('statDetailsModal').classList.add('active');
+}
+
+function showCoinShop() {
+  document.getElementById('shopCoinCount').textContent = data.coins.toLocaleString();
+  
+  // Update reward affordability
+  const rewards = [
+    { id: 'reward1', cost: 2000, key: 'workshop20' },
+    { id: 'reward2', cost: 5000, key: 'workshop50' },
+    { id: 'reward3', cost: 10000, key: 'workshopFree' },
+    { id: 'reward4', cost: 10000, key: 'session20' },
+    { id: 'reward5', cost: 25000, key: 'session50' },
+    { id: 'reward6', cost: 50000, key: 'sessionFree' }
+  ];
+  
+  if (!data.redeemedRewards) data.redeemedRewards = [];
+  
+  rewards.forEach(r => {
+    let el = document.getElementById(r.id);
+    el.classList.remove('affordable', 'redeemed');
+    if (data.redeemedRewards.includes(r.key)) {
+      el.classList.add('redeemed');
+    } else if (data.coins >= r.cost) {
+      el.classList.add('affordable');
+    }
+  });
+  
+  // Show redeemed codes
+  updateRedeemedList();
+  
+  document.getElementById('coinShopModal').classList.add('active');
+}
+
+function generateRewardCode(type) {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code = 'LVL-';
+  for (let i = 0; i < 8; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
+
+function redeemReward(key, cost, name) {
+  if (!data.redeemedRewards) data.redeemedRewards = [];
+  if (!data.rewardCodes) data.rewardCodes = {};
+  
+  // Check if already redeemed
+  if (data.redeemedRewards.includes(key)) {
+    showToast('Already redeemed!');
+    return;
+  }
+  
+  // Check if can afford
+  if (data.coins < cost) {
+    let needed = cost - data.coins;
+    showToast('Need ' + needed.toLocaleString() + ' more coins!', 2500);
+    return;
+  }
+  
+  // Confirm redemption
+  if (!confirm('Redeem ' + name + ' for ' + cost.toLocaleString() + ' coins?')) return;
+  
+  // Deduct coins and save
+  data.coins -= cost;
+  let code = generateRewardCode(key);
+  data.redeemedRewards.push(key);
+  data.rewardCodes[key] = { code: code, name: name, date: new Date().toLocaleDateString() };
+  save();
+  
+  // Update UI
+  document.getElementById('shopCoinCount').textContent = data.coins.toLocaleString();
+  document.getElementById('coinCount').textContent = data.coins;
+  document.getElementById(getRewardId(key)).classList.add('redeemed');
+  document.getElementById(getRewardId(key)).classList.remove('affordable');
+  
+  updateRedeemedList();
+  
+  // Show success
+  showToast('🎉 ' + name + ' unlocked!', 3000);
+  triggerConfetti();
+}
+
+function getRewardId(key) {
+  const map = { 'workshop20': 'reward1', 'workshop50': 'reward2', 'workshopFree': 'reward3', 'session20': 'reward4', 'session50': 'reward5', 'sessionFree': 'reward6' };
+  return map[key];
+}
+
+function updateRedeemedList() {
+  if (!data.rewardCodes || Object.keys(data.rewardCodes).length === 0) {
+    document.getElementById('redeemedCodes').style.display = 'none';
+    return;
+  }
+  
+  document.getElementById('redeemedCodes').style.display = 'block';
+  let html = '';
+  for (let key in data.rewardCodes) {
+    let r = data.rewardCodes[key];
+    html += '<div style="background:var(--card);padding:10px;border-radius:8px;margin-bottom:8px;">';
+    html += '<div style="font-weight:600;color:var(--text);">' + r.name + '</div>';
+    html += '<div style="font-family:monospace;font-size:14px;color:var(--gold);margin:4px 0;">' + r.code + '</div>';
+    html += '<div style="font-size:10px;color:var(--muted);">Redeemed ' + r.date + '</div>';
+    html += '</div>';
+  }
+  html += '<div style="font-size:10px;color:var(--muted);margin-top:8px;text-align:center;">Show this code to Arthur to claim your reward</div>';
+  document.getElementById('redeemedList').innerHTML = html;
 }
 
 function showBonusPopup(text){document.getElementById('bonusText').textContent=text;document.getElementById('bonusPopup').classList.add('show');bonusSound();setTimeout(()=>document.getElementById('bonusPopup').classList.remove('show'),2500)}
@@ -9332,7 +9646,13 @@ function checkStreakWarning(){
   else{document.getElementById('streakWarning').classList.remove('show')}
 }
 
-function addInsight(text,level){if(text&&!data.insightsCollection.some(i=>i.text===text)){data.insightsCollection.push({text:text,level:level||1,date:new Date().toLocaleDateString()});game.sessionInsights++;if(data.insightsCollection.length>200)data.insightsCollection=data.insightsCollection.slice(-200);save()}}
+function addInsight(text,level){if(text&&!data.insightsCollection.some(i=>i.text===text)){data.insightsCollection.push({text:text,level:level||1,date:new Date().toLocaleDateString()});game.sessionInsights++;if(data.insightsCollection.length>200)data.insightsCollection=data.insightsCollection.slice(-200);save();
+// 4. Pulse insights stat when new insight added
+let insightsStat=document.getElementById('insightsStat');
+insightsStat.classList.add('new-insight');
+document.getElementById('statInsights').textContent=data.insightsCollection.length;
+setTimeout(()=>insightsStat.classList.remove('new-insight'),600);
+}}
 
 function updatePlayerCount(){
   let hour=new Date().getHours();
@@ -9346,6 +9666,38 @@ function updatePlayerCount(){
 function updateHome(){
   updatePlayerCount();
   updateXPBar();checkDailyLogin();checkStreakWarning();checkCoachingBridge();checkMilestones();
+  
+  // 1. Welcome message based on streak/games
+  let welcomeEl = document.getElementById('welcomeMessage');
+  if(data.streak >= 2) {
+    welcomeEl.textContent = 'Day ' + data.streak + ' 🔥 Keep it going!';
+    welcomeEl.style.display = 'block';
+  } else if(data.games >= 1 && data.games < 5) {
+    welcomeEl.textContent = 'Welcome back! 👋';
+    welcomeEl.style.display = 'block';
+  } else if(data.games >= 5) {
+    welcomeEl.textContent = 'Good to see you! ✨';
+    welcomeEl.style.display = 'block';
+  } else {
+    welcomeEl.style.display = 'none';
+  }
+  
+  // 2. First-time pulse on Mirror Game
+  let mirrorEl = document.getElementById('mirrorMode');
+  if(data.games === 0) {
+    mirrorEl.classList.add('start-here');
+  } else {
+    mirrorEl.classList.remove('start-here');
+  }
+  
+  // 3. Deep Insight ready badge
+  let aiBtn = document.getElementById('aiBtn');
+  if(data.games >= 10 && !data.seenDeepInsight) {
+    aiBtn.classList.add('ai-ready');
+  } else {
+    aiBtn.classList.remove('ai-ready');
+  }
+  
   document.getElementById('statPlayed').textContent=data.games;
   document.getElementById('statInsights').textContent=data.insightsCollection?data.insightsCollection.length:0;
   document.getElementById('statStreak').textContent=data.streak||0;
@@ -9404,7 +9756,9 @@ function updateHome(){
         div.appendChild(badge);
       }
     }
-    if(unlocked){div.onclick=()=>{if(isNew){data.newlyUnlockedLevels=data.newlyUnlockedLevels.filter(x=>x!==lv.id);save();div.classList.remove('newly-unlocked');let b=div.querySelector('.new-badge');if(b)b.remove();}showLevelSelect(lv)};}map.appendChild(div);
+    if(unlocked){div.onclick=()=>{if(isNew){data.newlyUnlockedLevels=data.newlyUnlockedLevels.filter(x=>x!==lv.id);save();div.classList.remove('newly-unlocked');let b=div.querySelector('.new-badge');if(b)b.remove();}showLevelSelect(lv)};}
+    else{div.onclick=()=>{showToast('🔒 Reach Player Level '+UNLOCK_LEVELS[lv.id]+' to unlock '+lv.name);}}
+    map.appendChild(div);
   });
   updateTimer();
   updatePatternCard();
@@ -9816,6 +10170,12 @@ function showAIAnalysis(){
   
   document.getElementById('aiAnalysisContent').innerHTML=content;
   document.getElementById('aiModal').classList.add('active');
+  // Mark deep insight as seen
+  if(data.games >= 10) {
+    data.seenDeepInsight = true;
+    save();
+    document.getElementById('aiBtn').classList.remove('ai-ready');
+  }
 }
 
 function showPatternModal(){
@@ -9887,10 +10247,14 @@ function showLevelSelect(lv){
   let mixBtn=document.getElementById('levelMixedBtn');
   if(data.unlockedAgreement){
     agrBtn.style.opacity='1';agrBtn.style.pointerEvents='auto';
+    agrBtn.style.border='2px solid var(--pink)';agrBtn.style.boxShadow='0 0 12px rgba(255,60,172,0.3)';
     mixBtn.style.opacity='1';mixBtn.style.pointerEvents='auto';
+    mixBtn.style.border='2px solid var(--pink)';mixBtn.style.boxShadow='0 0 12px rgba(255,60,172,0.3)';
   }else{
-    agrBtn.style.opacity='0.4';agrBtn.style.pointerEvents='none';
-    mixBtn.style.opacity='0.4';mixBtn.style.pointerEvents='none';
+    agrBtn.style.opacity='0.5';agrBtn.style.pointerEvents='none';
+    agrBtn.style.border='2px solid var(--border)';agrBtn.style.boxShadow='none';
+    mixBtn.style.opacity='0.5';mixBtn.style.pointerEvents='none';
+    mixBtn.style.border='2px solid var(--border)';mixBtn.style.boxShadow='none';
   }
   document.getElementById('levelSelectModal').classList.add('active');
 }
@@ -10370,6 +10734,8 @@ function startMirrorGame(lf){
   game.mode='mirror';game.idx=0;game.answers=[];game.useTimer=false;game.levelFilter=lf||null;currentCombo=0;
   if(!game.endlessMode){game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;}
   game.sessionGames++;
+  // First-time instruction
+  if(!data.seenMirrorIntro){data.seenMirrorIntro=true;save();showToast('Tap the answer that feels most true for you',3000);}
   // Check if scenarios are loaded
   if(typeof MIRROR_SCENARIOS==='undefined'||MIRROR_SCENARIOS.length===0){
     showToast('⚠️ Loading scenarios...');
@@ -10390,6 +10756,8 @@ function startAgreementGame(lf){
   game.mode='agreement';game.idx=0;game.answers=[];game.useTimer=true;game.levelFilter=lf||null;currentCombo=0;
   if(!game.endlessMode){game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;}
   game.sessionGames++;
+  // First-time instruction
+  if(!data.seenAgreementIntro){data.seenAgreementIntro=true;save();showToast('Choose acceptance over judgment - accept reality as it is',3500);}
   // Check if scenarios are loaded
   if(typeof DECISION_SCENARIOS==='undefined'||DECISION_SCENARIOS.length===0){
     showToast('⚠️ Loading scenarios...');
@@ -10502,6 +10870,7 @@ function endGame(){
     score=game.answers.filter(a=>a.correct).length;
     let today=new Date().toDateString(),yesterday=new Date(Date.now()-86400000).toDateString();
     if(data.lastDaily===yesterday)data.streak++;else if(data.lastDaily!==today)data.streak=1;
+    if(!data.bestStreak || data.streak > data.bestStreak) data.bestStreak = data.streak;
     data.lastDaily=today;
   }
   save();document.getElementById('game').classList.remove('active');document.getElementById('results').classList.add('active');
@@ -10969,6 +11338,19 @@ window.addEventListener('scroll',function(){
   else{btn.classList.remove('show')}
 });
 
+// Offline detection
+function updateOnlineStatus() {
+  const badge = document.getElementById('offlineBadge');
+  if (!navigator.onLine) {
+    badge.classList.add('show');
+  } else {
+    badge.classList.remove('show');
+  }
+}
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+updateOnlineStatus();
+
 // Service Worker Registration
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -11039,8 +11421,9 @@ const ONBOARD_STEPS = [
   { target: 'qaBtn', text: '❓ Questions — Get help & learn more', position: 'bottom' },
   { target: 'founderBtn', text: '👤 Meet the Founder — Learn about Arthur', position: 'bottom' },
   { target: 'dailyCard', text: '🌍 Worldwide Challenge — Same 3 scenarios for everyone on Earth. Resets daily!', position: 'top' },
+  { target: 'coinCount', text: '💰 Coins — Tap to open the Reward Shop. Earn discounts on workshops & sessions!', position: 'bottom', parentTarget: true },
   { target: 'insightsStat', text: '💡 Your Insights — Every pattern you recognize gets saved here', position: 'top' },
-  { target: 'mirrorMode', text: '🪞 Mirror Game — See yourself honestly. No right or wrong answers.', position: 'top' },
+  { target: 'mirrorMode', text: 'Mirror Game — See yourself honestly. No right or wrong answers.', position: 'top' },
   { target: 'levelMap', text: '🎯 Level 1: Individual — Start here! Your relationship with yourself.', position: 'top', selector: '.level' }
 ];
 let onboardStep = 0;
@@ -11071,6 +11454,10 @@ function showOnboardStep() {
   if (step.selector) {
     const parent = document.getElementById(step.target);
     target = parent ? parent.querySelector(step.selector) : null;
+  } else if (step.parentTarget) {
+    // For coins, highlight the parent xp-coins div
+    const el = document.getElementById(step.target);
+    target = el ? el.parentElement : null;
   } else {
     target = document.getElementById(step.target);
   }
