@@ -689,6 +689,17 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .onboard-overlay.show{opacity:1;pointer-events:auto}
 .onboard-highlight{position:relative;z-index:1001;animation:highlightPulse 1.5s ease-in-out infinite}
 @keyframes highlightPulse{0%,100%{box-shadow:0 0 0 4px rgba(255,60,172,0.4)}50%{box-shadow:0 0 0 8px rgba(255,60,172,0.2)}}
+
+/* Press Ticker - Scrolling "As Seen On" */
+.press-ticker{margin-top:24px;overflow:hidden;opacity:0;animation:fadeInTicker 1s ease 2s forwards}
+@keyframes fadeInTicker{to{opacity:1}}
+.press-ticker-label{text-align:center;font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.press-ticker-track{display:flex;width:max-content;animation:tickerScroll 20s linear infinite}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.press-ticker-track:hover{animation-play-state:paused}
+.press-ticker-item{display:flex;align-items:center;justify-content:center;padding:0 30px;height:24px}
+.press-ticker-item img{height:16px;width:auto;filter:brightness(0) invert(1);opacity:0.5;transition:opacity 0.3s}
+.press-ticker-item img:hover{opacity:0.9}
 </style>
 </head>
 <body>
@@ -729,6 +740,19 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="hook-line" id="line2">that quietly run your life.</div>
 <div class="hook-sub" id="hookSub">Discover why you keep repeating<br>the same mistakes.</div>
 <button class="hook-btn" id="hookBtn" aria-label="Start the experience">Prove it</button>
+<div class="press-ticker">
+<div class="press-ticker-label">As Seen On</div>
+<div class="press-ticker-track">
+<div class="press-ticker-item"><img src="ap.svg" alt="AP News" loading="lazy"></div>
+<div class="press-ticker-item"><img src="google.svg" alt="Google News" loading="lazy"></div>
+<div class="press-ticker-item"><img src="yahoo.svg" alt="Yahoo" loading="lazy"></div>
+<div class="press-ticker-item"><img src="bloomberg.svg" alt="Bloomberg" loading="lazy"></div>
+<div class="press-ticker-item"><img src="ap.svg" alt="AP News" loading="lazy"></div>
+<div class="press-ticker-item"><img src="google.svg" alt="Google News" loading="lazy"></div>
+<div class="press-ticker-item"><img src="yahoo.svg" alt="Yahoo" loading="lazy"></div>
+<div class="press-ticker-item"><img src="bloomberg.svg" alt="Bloomberg" loading="lazy"></div>
+</div>
+</div>
 </div>
 <!-- Screen 2: Recognition -->
 <div class="hook-screen" id="hookScreen2">
