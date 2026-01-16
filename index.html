@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- 
   ╔═══════════════════════════════════════════════════════════════════════════╗
-  ║  LEVEL UP - Levels of Self | v10.7.4 FINAL | January 2026                 ║
+  ║  LEVEL UP - Levels of Self | v10.7.5 FINAL | January 2026                 ║
   ║  Built by Arthur Palyan | Best Life Coach California 2025                 ║
   ║  Live on Google Play & iOS App Store | 170+ Countries                     ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
@@ -16,17 +16,15 @@
   ║    • 16 themes: Boundaries, Worth, Control, Abandonment, etc.             ║
   ║    • 6 core wounds: Addiction, Abuse, Self-harm, Not Enough, etc.         ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
-  ║  FEATURES (v10.7.4):                                                      ║
+  ║  FEATURES (v10.7.5):                                                      ║
+  ║    • iOS fix: Robust hidden states for overlays/tooltips                  ║
+  ║    • iOS fix: Solid background fallbacks for gradient elements            ║
+  ║    • UX: Start Playing button moved above share buttons                   ║
   ║    • Expandable archetypes FAQ with descriptions                          ║
   ║    • Aha Moment tracking (scenario counts per theme)                      ║
   ║    • Archetype evolution display                                          ║
   ║    • Core scenario weighting for new players                              ║
   ║    • Foundation peek system (L4-7 previews)                               ║
-  ║    • Agreement Game onboarding (3 screens)                                ║
-  ║    • Milestone coin bonuses (+3,150 potential)                            ║
-  ║    • Mobile touch optimization (44px targets)                             ║
-  ║    • Improved share error handling with fallbacks                         ║
-  ║    • 316 new scenarios: Addiction, Self-worth, Loneliness, Grief          ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
   ║  BUSINESS MODEL:                                                          ║
   ║    • Free game → Lead generation → Coaching/Workshops                     ║
@@ -116,7 +114,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .hook::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);z-index:-2}
 .hook::before{content:'';position:absolute;top:-30%;left:-30%;width:160%;height:160%;background:radial-gradient(circle at 30% 30%,rgba(255,107,53,0.12) 0%,transparent 50%),radial-gradient(circle at 70% 70%,rgba(120,75,160,0.15) 0%,transparent 50%);pointer-events:none;animation:ambientFloat 20s ease-in-out infinite;z-index:-1}
 @keyframes ambientFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-2%,2%)}}
-.hook.hidden{display:none}
+.hook.hidden{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;z-index:-1!important}
 .hook-container{max-width:480px;width:100%;position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-left:16px;padding-right:16px;padding-bottom:15vh}
 .hook-screen{display:none;flex-direction:column;align-items:center;opacity:0;transform:translateY(20px);width:100%;padding:20px 0;flex-shrink:0}
 .hook-screen.active{display:flex;animation:screenFadeIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
@@ -326,14 +324,14 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .ctrl-btn.qa-btn{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:none;box-shadow:0 2px 8px rgba(120,75,160,0.4)}
 .ctrl-btn.heart-btn{background:linear-gradient(135deg,#FF4757,#FF6B81);color:#fff;border:none;box-shadow:0 2px 8px rgba(255,71,87,0.4)}
 .ctrl-btn.founder-btn{background:linear-gradient(135deg,var(--gold),var(--orange));color:#fff;border:none;box-shadow:0 2px 8px rgba(255,215,0,0.4)}
-.login-bonus{background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.15));border:2px solid var(--gold);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center;cursor:pointer;display:none;transition:var(--transition-fast)}
+.login-bonus{background-color:rgba(40,30,20,0.95);background-image:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.15));border:2px solid var(--gold);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center;cursor:pointer;display:none;transition:var(--transition-fast);-webkit-backdrop-filter:none;backdrop-filter:none}
 .login-bonus:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,215,0,0.3)}
 .login-bonus.show{display:block;animation:glow 2s ease-in-out infinite}
 @keyframes glow{0%,100%{box-shadow:0 0 5px var(--gold)}50%{box-shadow:0 0 20px var(--gold)}}
 .login-title{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:4px;text-shadow:0 0 8px rgba(255,215,0,0.3);pointer-events:none}
 .login-sub{font-size:12px;color:var(--muted);transition:var(--transition-fast);pointer-events:none}
 .login-bonus:hover .login-sub{color:var(--text)}
-.streak-warning{background:linear-gradient(135deg,rgba(255,71,87,0.2),rgba(255,107,53,0.2));border:2px solid var(--red);border-radius:12px;padding:12px;margin-bottom:16px;text-align:center;display:none;animation:shake 0.5s ease;cursor:pointer;transition:var(--transition-fast)}
+.streak-warning{background-color:rgba(60,30,30,0.95);background-image:linear-gradient(135deg,rgba(255,71,87,0.2),rgba(255,107,53,0.2));border:2px solid var(--red);border-radius:12px;padding:12px;margin-bottom:16px;text-align:center;display:none;animation:shake 0.5s ease;cursor:pointer;transition:var(--transition-fast)}
 .streak-warning:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,71,87,0.3)}
 .streak-warning.show{display:block}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
@@ -732,8 +730,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 /* ========== ONBOARDING TOOLTIPS ========== */
-.onboard-tooltip{position:fixed;background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:600;z-index:1000;opacity:0;visibility:hidden;transition:opacity 0.3s cubic-bezier(0.16,1,0.3,1),visibility 0.3s;pointer-events:none;max-width:200px;text-align:center;box-shadow:0 4px 20px rgba(255,60,172,0.4)}
-.onboard-tooltip.show{opacity:1;visibility:visible;pointer-events:auto}
+.onboard-tooltip{position:fixed;background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:600;z-index:1000;opacity:0;visibility:hidden;display:none;transition:opacity 0.3s cubic-bezier(0.16,1,0.3,1),visibility 0.3s;pointer-events:none;max-width:200px;text-align:center;box-shadow:0 4px 20px rgba(255,60,172,0.4)}
+.onboard-tooltip.show{opacity:1;visibility:visible;display:block;pointer-events:auto}
 .onboard-tooltip::after{content:'';position:absolute;width:0;height:0;border:8px solid transparent}
 .onboard-tooltip.arrow-up::after{top:-16px;left:50%;transform:translateX(-50%);border-bottom-color:var(--orange)}
 .onboard-tooltip.arrow-down::after{bottom:-16px;left:50%;transform:translateX(-50%);border-top-color:var(--pink)}
@@ -741,8 +739,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .onboard-tooltip.arrow-right::after{right:-16px;top:50%;transform:translateY(-50%);border-left-color:var(--pink)}
 .onboard-tooltip-btn{display:inline-block;margin-top:10px;padding:8px 16px;background:rgba(255,255,255,0.2);border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s}
 .onboard-tooltip-btn:hover{background:rgba(255,255,255,0.3)}
-.onboard-overlay{position:fixed;inset:0;background:rgba(13,10,26,0.7);z-index:999;opacity:0;transition:opacity 0.3s ease;pointer-events:none}
-.onboard-overlay.show{opacity:1;pointer-events:auto}
+.onboard-overlay{position:fixed;inset:0;background:rgba(13,10,26,0.7);z-index:999;opacity:0;visibility:hidden;display:none;transition:opacity 0.3s ease,visibility 0.3s ease;pointer-events:none}
+.onboard-overlay.show{display:block;opacity:1;visibility:visible;pointer-events:auto}
 .onboard-highlight{position:relative;z-index:1001;animation:highlightPulse 1.5s ease-in-out infinite}
 @keyframes highlightPulse{0%,100%{box-shadow:0 0 0 4px rgba(255,60,172,0.4)}50%{box-shadow:0 0 0 8px rgba(255,60,172,0.2)}}
 
@@ -946,19 +944,19 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 </div>
 </div>
 </div>
+<button class="start-playing-btn" id="startGameBtn">Start Playing →</button>
 <div class="share-buttons">
 <button class="share-btn" onclick="shareEntryPattern()"><span class="share-btn-icon">📤</span> Share My Pattern</button>
 <button class="share-btn-secondary" onclick="copyEntryLink()">📋 Copy Link</button>
 </div>
-<button class="start-playing-btn" id="startGameBtn">Start Playing →</button>
 </div>
 </div>
 </div>
 
 <div class="offline-badge" id="offlineBadge">📡 Offline Mode</div>
-<div class="app">
-<!-- Onboarding Overlay -->
+<!-- Onboarding Overlay - outside .app to prevent scroll interference -->
 <div class="onboard-overlay" id="onboardOverlay"></div>
+<div class="app">
 <div class="home" id="home">
 <div class="header"><div class="logo" role="banner">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="quickModeBtn" title="Quick Mode" aria-label="Toggle Quick Mode">⚡</button><button class="ctrl-btn" id="musicBtn" aria-label="Toggle Music">🎵</button><button class="ctrl-btn heart-btn" id="aiBtn" aria-label="Deep Insight AI Analysis">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn" aria-label="Help and FAQ">❓</button><button class="ctrl-btn founder-btn" id="founderBtn" aria-label="Meet the Founder">👤</button></div></div>
 
@@ -11554,14 +11552,23 @@ function markScenarioSeen(type,id){
 
 // Prioritize unseen scenarios in shuffle
 function smartShuffle(arr,type){
+  // DEDUPE: Remove scenarios with duplicate text (keep first occurrence)
+  let seenTexts=new Set();
+  let dedupedArr=arr.filter(s=>{
+    let key=s.text||s.scenario||s.id;
+    if(seenTexts.has(key))return false;
+    seenTexts.add(key);
+    return true;
+  });
+  
   let seen=data.seenScenarios[type]||[];
-  let unseen=arr.filter(s=>!seen.includes(s.text||s.scenario||s.id));
-  let seenArr=arr.filter(s=>seen.includes(s.text||s.scenario||s.id));
+  let unseen=dedupedArr.filter(s=>!seen.includes(s.text||s.scenario||s.id));
+  let seenArr=dedupedArr.filter(s=>seen.includes(s.text||s.scenario||s.id));
   
   // CORE WEIGHTING: For players under 50 games, prioritize first 500 scenarios
   if(data.games < 50 && type === 'mirror') {
-    let coreUnseen = unseen.filter((s, idx) => arr.indexOf(s) < 500);
-    let deepUnseen = unseen.filter((s, idx) => arr.indexOf(s) >= 500);
+    let coreUnseen = unseen.filter((s, idx) => dedupedArr.indexOf(s) < 500);
+    let deepUnseen = unseen.filter((s, idx) => dedupedArr.indexOf(s) >= 500);
     let shuffledCore = shuffle(coreUnseen);
     let shuffledDeep = shuffle(deepUnseen);
     unseen = [...shuffledCore, ...shuffledDeep];
@@ -14324,6 +14331,13 @@ function dismissCoachingBridge() {
 // Entry flow hookBtn handler is defined above - this line removed to prevent override
 
 function startMirrorGame(lf){
+  // Clean up any lingering onboarding elements
+  if(currentTooltip){currentTooltip.remove();currentTooltip=null;}
+  document.querySelectorAll('.onboard-tooltip').forEach(el=>el.remove());
+  document.querySelectorAll('.onboard-highlight').forEach(el=>el.classList.remove('onboard-highlight'));
+  document.getElementById('onboardOverlay').classList.remove('show');
+  tourActive=false;
+  
   game.mode='mirror';game.idx=0;game.answers=[];game.useTimer=hardMode;game.levelFilter=lf||null;currentCombo=0;
   if(!game.endlessMode){game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;}
   game.sessionGames++;
@@ -14393,6 +14407,13 @@ function startAgreementGame(lf){
 }
 
 function startAgreementGameReal(lf){
+  // Clean up any lingering onboarding elements
+  if(currentTooltip){currentTooltip.remove();currentTooltip=null;}
+  document.querySelectorAll('.onboard-tooltip').forEach(el=>el.remove());
+  document.querySelectorAll('.onboard-highlight').forEach(el=>el.classList.remove('onboard-highlight'));
+  document.getElementById('onboardOverlay').classList.remove('show');
+  tourActive=false;
+  
   game.mode='agreement';game.idx=0;game.answers=[];game.useTimer=true;game.levelFilter=lf||null;currentCombo=0;
   if(!game.endlessMode){game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;}
   game.sessionGames++;
@@ -14417,6 +14438,13 @@ function startAgreementGameReal(lf){
 }
 function startDecisionGame(){
   let today=new Date().toDateString();if(data.lastDaily===today){showToast('Already completed!');return}
+  // Clean up any lingering onboarding elements
+  if(currentTooltip){currentTooltip.remove();currentTooltip=null;}
+  document.querySelectorAll('.onboard-tooltip').forEach(el=>el.remove());
+  document.querySelectorAll('.onboard-highlight').forEach(el=>el.classList.remove('onboard-highlight'));
+  document.getElementById('onboardOverlay').classList.remove('show');
+  tourActive=false;
+  
   game.mode='decision';game.idx=0;game.answers=[];game.useTimer=true;game.scenarios=[];currentCombo=0;
   // Mark that they've started playing (hides Start Here, shows Play badges)
   if(!data.hasStartedPlaying){data.hasStartedPlaying=true;save();}
