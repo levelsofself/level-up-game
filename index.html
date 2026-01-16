@@ -230,7 +230,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .share-btn-icon{font-size:20px}
 .share-btn-secondary{width:100%;padding:14px 24px;background:transparent;border:2px solid var(--border);border-radius:14px;font-size:15px;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.25s ease}
 .share-btn-secondary:hover{border-color:var(--pink);color:var(--text);background:rgba(255,60,172,0.1)}
-.start-playing-btn{padding:16px 48px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:14px;font-size:17px;font-weight:700;color:#fff;cursor:pointer;transition:all 0.25s ease;box-shadow:0 4px 20px rgba(247,201,72,0.4)}
+.start-playing-btn{padding:16px 48px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:14px;font-size:17px;font-weight:700;color:#fff;cursor:pointer;transition:all 0.25s ease;box-shadow:0 4px 20px rgba(247,201,72,0.4);margin-bottom:12px}
 .start-playing-btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(247,201,72,0.5)}
 /* Shareable Card Modal */
 .share-card-modal{position:fixed;inset:0;background:rgba(13,10,26,0.95);display:none;align-items:center;justify-content:center;z-index:400;padding:24px;opacity:0;transition:opacity 0.3s ease}
@@ -12404,17 +12404,20 @@ function updateChallengeUI(){
 
 function updateChallengeDisplay(){
   let statEl=document.getElementById('challengeStat');
+  let statTextEl=document.getElementById('statChallenge');
+  // Elements may not exist in current UI version
+  if(!statEl||!statTextEl)return;
   if(!data.challenge||!data.challenge.active){
-    document.getElementById('statChallenge').textContent='Start';
+    statTextEl.textContent='Start';
     statEl.classList.remove('challenge-active');
     return;
   }
   if(data.challenge.completed){
-    document.getElementById('statChallenge').textContent='🏆 Done!';
+    statTextEl.textContent='🏆 Done!';
     statEl.classList.add('challenge-active');
     return;
   }
-  document.getElementById('statChallenge').textContent=data.challenge.breakthroughs+'/100';
+  statTextEl.textContent=data.challenge.breakthroughs+'/100';
   statEl.classList.add('challenge-active');
 }
 
