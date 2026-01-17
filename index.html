@@ -10,9 +10,9 @@
   ║   ╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ║
   ║                                                                           ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
-  ║  LEVEL UP - Levels of Self | v11.5.1 LEGENDARY | January 2026             ║
+  ║  LEVEL UP - Levels of Self | v11.6.0 LEGENDARY | January 2026             ║
   ║  Built by Arthur Palyan | Best Life Coach California 2025                 ║
-  ║  Live on Google Play & iOS App Store | 175 Countries                      ║
+  ║  Live on iOS App Store | 175 Countries                                    ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
   ║                                                                           ║
   ║  THE LEGENDARY DESIGN SYSTEM                                              ║
@@ -556,13 +556,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .logo{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;transition:var(--transition-fast)}
 .logo:hover{transform:scale(1.05);filter:brightness(1.1)}
 .controls{display:flex;gap:8px}
-.ctrl-btn{animation:fadeIn 0.3s ease backwards}
-.ctrl-btn:nth-child(1){animation-delay:0.05s}
-.ctrl-btn:nth-child(2){animation-delay:0.1s}
-.ctrl-btn:nth-child(3){animation-delay:0.15s}
-.ctrl-btn:nth-child(4){animation-delay:0.2s}
-.ctrl-btn:nth-child(5){animation-delay:0.25s}
-.ctrl-btn{width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition-fast);position:relative;overflow:hidden}
+.ctrl-btn{animation:fadeIn 0.3s ease backwards;width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition-fast);position:relative;overflow:hidden}
 .ctrl-btn::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(255,60,172,0.15),transparent 70%);opacity:0;transition:var(--transition-normal)}
 .ctrl-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
 .ctrl-btn:hover::before{opacity:1}
@@ -651,12 +645,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .coin-reward-cost{font-size:14px;font-weight:700;color:var(--gold);white-space:nowrap}
 .coin-cost-amount{font-size:16px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
-.stat{animation:fadeIn 0.3s ease backwards}
-.stat:nth-child(1){animation-delay:0.05s}
-.stat:nth-child(2){animation-delay:0.1s}
-.stat:nth-child(3){animation-delay:0.15s}
-.stat:nth-child(4){animation-delay:0.2s}
-.stat{background:var(--card);border:2px solid var(--pink);border-radius:12px;padding:14px 6px;text-align:center;transition:var(--transition-fast);box-shadow:0 0 12px rgba(255,60,172,0.2);cursor:pointer;position:relative;overflow:hidden}
+.stat{animation:fadeIn 0.3s ease backwards;background:var(--card);border:2px solid var(--pink);border-radius:12px;padding:14px 6px;text-align:center;transition:var(--transition-fast);box-shadow:0 0 12px rgba(255,60,172,0.2);cursor:pointer;position:relative;overflow:hidden}
 .stat::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,60,172,0.12),transparent 60%);opacity:0;transition:var(--transition-normal)}
 .stat::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);opacity:0;transition:var(--transition-normal)}
 .stat:hover::before,.stat:hover::after{opacity:1}
@@ -720,24 +709,21 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .modal-close-x:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(255,60,172,0.6)}
 /* ========== END COACHING OFFER STYLES ========== */
 .modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-.mode{animation:fadeIn 0.4s ease backwards}
-.mode:nth-child(1){animation-delay:0.1s}
-.mode:nth-child(2){animation-delay:0.2s}
-.mode{background:var(--card);border:2px solid var(--pink);border-radius:16px;padding:20px 14px;text-align:center;cursor:pointer;position:relative;transition:var(--transition-fast);box-shadow:0 4px 20px rgba(255,60,172,0.15)}
+.mode{animation:fadeIn 0.4s ease backwards;background:var(--card);border:2px solid var(--pink);border-radius:16px;padding:20px 14px;text-align:center;cursor:pointer;position:relative;transition:var(--transition-fast);box-shadow:0 4px 20px rgba(255,60,172,0.15)}
 .mode:hover{box-shadow:0 8px 30px rgba(255,60,172,0.25);transform:translateY(-4px)}
 .mode:active{transform:scale(0.97)}
 .mode.locked{opacity:0.5;border-color:var(--border);box-shadow:0 2px 10px rgba(0,0,0,0.15);cursor:not-allowed}
 .mode.locked:hover{box-shadow:0 2px 10px rgba(0,0,0,0.15);transform:none}
 .mode.locked::after{content:'🔒';position:absolute;top:10px;right:10px;font-size:16px}
 .mode.newly-unlocked{border-color:var(--pink);box-shadow:0 0 20px rgba(255,60,172,0.5);animation:unlockPulse 2s ease-in-out infinite}
-.level.newly-unlocked{border:2px solid var(--pink);box-shadow:0 0 15px rgba(255,60,172,0.4);animation:unlockPulse 2s ease-in-out infinite}
+.level.newly-unlocked{border:2px solid var(--pink);box-shadow:0 0 15px rgba(255,60,172,0.4);animation:unlockPulse 2s ease-in-out infinite;overflow:visible}
 @keyframes unlockPulse{0%,100%{box-shadow:0 0 15px rgba(255,60,172,0.4)}50%{box-shadow:0 0 25px rgba(255,60,172,0.7)}}
 /* First-time user pulse on Mirror Game */
 .mode.start-here{animation:startHerePulse 1.5s ease-in-out infinite;position:relative}
 .mode.start-here::before{content:'Start Here';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:10px;font-weight:700;padding:4px 10px;border-radius:12px;white-space:nowrap;z-index:5}
 @keyframes startHerePulse{0%,100%{box-shadow:0 0 20px rgba(247,201,72,0.5),0 4px 20px rgba(255,60,172,0.15)}50%{box-shadow:0 0 35px rgba(247,201,72,0.8),0 4px 20px rgba(255,60,172,0.15)}}
 /* Deep Insight ready badge */
-.ai-ready{position:relative}
+.ai-ready{position:relative;overflow:visible}
 .ai-ready::after{content:'Ready!';position:absolute;top:-6px;right:-6px;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;font-size:8px;font-weight:700;padding:3px 6px;border-radius:8px;animation:aiBadgePulse 1.5s ease-in-out infinite}
 @keyframes aiBadgePulse{0%,100%{transform:scale(1);box-shadow:0 0 8px rgba(255,60,172,0.5)}50%{transform:scale(1.1);box-shadow:0 0 15px rgba(255,60,172,0.8)}}
 /* Insights stat pulse when new */
@@ -774,17 +760,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .section-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;transition:var(--transition-fast)}
 .section-title:hover{color:var(--pink)}
 .levels{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
-.level{animation:fadeIn 0.4s ease backwards}
-.level:nth-child(1){animation-delay:0.05s}
-.level:nth-child(2){animation-delay:0.1s}
-.level:nth-child(3){animation-delay:0.15s}
-.level:nth-child(4){animation-delay:0.2s}
-.level:nth-child(5){animation-delay:0.25s}
-.level:nth-child(6){animation-delay:0.3s}
-.level:nth-child(7){animation-delay:0.35s}
-.level{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.1);position:relative;overflow:hidden}
-.level::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,60,172,0.04),transparent);opacity:0;transition:var(--transition-normal)}
-.level:hover::before{opacity:1}
+.level{animation:fadeIn 0.4s ease backwards;display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
 .level.unlocked{border:2px solid var(--pink);box-shadow:0 2px 12px rgba(255,60,172,0.25)}
 .level:hover{border-color:var(--pink);transform:translateX(4px);box-shadow:0 4px 12px rgba(0,0,0,0.15)}
 .level:active{transform:scale(0.98)}
@@ -799,13 +775,11 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .level-progress{height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:6px;overflow:hidden}
 .level-progress-bar{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:2px;transition:width 0.5s ease}
 .level-progress-text{font-size:10px;color:var(--green);margin-top:3px;font-weight:600}
+.level.has-play{position:relative}
 .level.has-play::before{content:'Play';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:10px;font-weight:700;padding:4px 10px;border-radius:12px;white-space:nowrap;z-index:5}
 .level:hover .level-desc{color:var(--text)}
 .action-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.action-btn{animation:fadeIn 0.3s ease backwards}
-.action-btns .action-btn:nth-child(1){animation-delay:0.1s}
-.action-btns .action-btn:nth-child(2){animation-delay:0.2s}
-.action-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;text-decoration:none;color:var(--text);transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.1);position:relative;overflow:hidden}
+.action-btn{animation:fadeIn 0.3s ease backwards;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;text-decoration:none;color:var(--text);transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.1);position:relative;overflow:hidden}
 .action-btn::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,255,255,0.08),transparent 60%);opacity:0;transition:var(--transition-normal)}
 .action-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
 .action-btn:hover::before{opacity:1}
@@ -820,10 +794,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .action-btn.share:hover{border-color:var(--green);box-shadow:0 4px 15px rgba(0,210,106,0.3)}
 .footer{text-align:center;padding:8px 0 16px 0;animation:fadeIn 0.5s ease 0.4s backwards}
 .footer-btns{display:flex;flex-direction:column;gap:12px;margin-bottom:12px}
-.footer-btn{animation:fadeIn 0.3s ease backwards}
-.footer-btns .footer-btn:nth-child(1){animation-delay:0.1s}
-.footer-btns .footer-btn:nth-child(2){animation-delay:0.2s}
-.footer-btn{display:block;padding:14px 24px;background:var(--card);border:2px solid var(--pink);border-radius:12px;color:var(--text);text-decoration:none;font-size:14px;font-weight:600;transition:var(--transition-fast);position:relative;overflow:hidden}
+.footer-btn{animation:fadeIn 0.3s ease backwards;display:block;padding:14px 24px;background:var(--card);border:2px solid var(--pink);border-radius:12px;color:var(--text);text-decoration:none;font-size:14px;font-weight:600;transition:var(--transition-fast);position:relative;overflow:hidden}
 .footer-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,60,172,0.1),transparent)}
 .footer-btn:hover{background:rgba(255,60,172,0.15);transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,60,172,0.2)}
 .footer-btn:hover::before{left:150%;transition:left 0.5s ease-out}
@@ -852,7 +823,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .timer-fill::after{content:'';position:absolute;top:0;right:0;bottom:0;width:4px;background:rgba(255,255,255,0.5);animation:pulse 1s infinite}
 .timer-fill.warn{background:var(--yellow);animation:timerWarn 0.5s ease infinite}
 .timer-fill.danger{background:var(--red);animation:timerWarn 0.3s ease infinite}
-.scenario{background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:18px;margin-bottom:14px;position:relative;animation:fadeIn 0.3s ease;min-height:80px}
+.scenario{background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:18px;margin-bottom:14px;position:relative;animation:fadeIn 0.3s ease;min-height:100px}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .scenario-cat{display:inline-block;background:var(--border);padding:5px 10px;border-radius:16px;font-size:10px;text-transform:uppercase;margin-bottom:12px;font-weight:600;letter-spacing:0.5px;transition:var(--transition-fast)}
 .scenario-text{font-size:16px;line-height:1.6}
@@ -867,13 +838,13 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .choice:nth-child(3){animation-delay:0.15s}
 .choice:nth-child(4){animation-delay:0.2s}
 @keyframes choiceSlide{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
-.choice:hover{border-color:var(--pink);transform:translateX(4px);box-shadow:0 4px 12px rgba(255,60,172,0.2),0 0 20px rgba(255,60,172,0.1)}
+.choice:hover{border-color:var(--pink);box-shadow:0 4px 12px rgba(255,60,172,0.2),0 0 20px rgba(255,60,172,0.1)}
 .choice:active{transform:scale(0.98);border-color:var(--pink)}
 .choice:disabled{cursor:default;transform:none;animation:none}
-.choice.selected{border-color:var(--pink);background:rgba(255,60,172,0.15);box-shadow:0 0 15px rgba(255,60,172,0.2);transform:scale(1.02)}
-.choice.correct{border-color:var(--green);background:rgba(0,210,106,0.15);box-shadow:0 0 15px rgba(0,210,106,0.2);transform:scale(1.02)}
+.choice.selected{border-color:var(--pink);background:rgba(255,60,172,0.15);box-shadow:0 0 15px rgba(255,60,172,0.2)}
+.choice.correct{border-color:var(--green);background:rgba(0,210,106,0.15);box-shadow:0 0 15px rgba(0,210,106,0.2)}
 .choice.wrong{border-color:var(--yellow);background:rgba(247,201,72,0.15);box-shadow:0 0 15px rgba(247,201,72,0.2)}
-.choice.selected-mirror{border-color:var(--cyan);background:rgba(0,216,255,0.15);box-shadow:0 0 15px rgba(0,216,255,0.2);transform:scale(1.02)}
+.choice.selected-mirror{border-color:var(--cyan);background:rgba(0,216,255,0.15);box-shadow:0 0 15px rgba(0,216,255,0.2)}
 .choice.dim-neutral{opacity:0.5}
 .choice.dim{opacity:0.25}
 .results{display:none;text-align:center;padding-top:40px;padding-bottom:100px;overflow-x:hidden}
@@ -1817,7 +1788,7 @@ This game helps people see themselves without judgment. It's <strong>free</stron
 
 <div style="background:rgba(255,215,0,0.1);border-left:3px solid var(--gold);padding:10px 12px;border-radius:0 8px 8px 0;">
 <strong style="color:var(--gold);">⭐ Rate the App</strong><br>
-<span style="font-size:12px;color:var(--muted);">Tap the "LEVEL UP" logo in the header to rate us on the App Store or Google Play!</span>
+<span style="font-size:12px;color:var(--muted);">Tap the "LEVEL UP" logo in the header to rate us on the App Store!</span>
 </div>
 
 <div style="background:rgba(0,210,106,0.1);border-left:3px solid var(--green);padding:10px 12px;border-radius:0 8px 8px 0;">
@@ -15540,13 +15511,11 @@ document.getElementById('logoRateBtn').onclick=function(){
   if(isIOS) {
     window.open('https://apps.apple.com/app/id6757724858?action=write-review', '_blank');
   } else if(isAndroid) {
-    window.open('https://play.google.com/store/apps/details?id=com.levelsofself.levelup', '_blank');
+    // Google Play not live yet - show message
+    showToast('Google Play coming soon! 🚀');
   } else {
-    if(confirm('Rate Level Up ⭐\n\nOK = iOS App Store\nCancel = Google Play')) {
-      window.open('https://apps.apple.com/app/id6757724858?action=write-review', '_blank');
-    } else {
-      window.open('https://play.google.com/store/apps/details?id=com.levelsofself.levelup', '_blank');
-    }
+    // Default to iOS App Store for desktop users
+    window.open('https://apps.apple.com/app/id6757724858?action=write-review', '_blank');
   }
   haptic('light');
 };
@@ -15808,8 +15777,8 @@ updateOnlineStatus();
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
-      .then(reg => console.log('SW registered'))
-      .catch(err => console.log('SW registration failed:', err));
+      .then(reg => {})
+      .catch(err => {});
   });
 }
 
@@ -16131,6 +16100,64 @@ function skipOnboarding() {
 
 // Tour can only be advanced with the Next button - no click-away
 // document.getElementById('onboardOverlay').addEventListener('click', skipOnboarding);
+
+// ========== iOS PWA FRESH START & RESUME REFRESH ==========
+// Ensures clean state on app open and refreshes when resuming from background
+(function() {
+  const SESSION_KEY = 'levelup_session_active';
+  const REFRESH_THRESHOLD = 30000; // 30 seconds
+  let lastHidden = 0;
+  
+  // Check if this is a fresh app open (not a page refresh within active session)
+  const isActiveSession = sessionStorage.getItem(SESSION_KEY);
+  
+  if (!isActiveSession) {
+    // First open of the app - mark session as active
+    sessionStorage.setItem(SESSION_KEY, Date.now().toString());
+    
+    // Check if we need to force refresh to clear stale cache
+    const lastRefresh = localStorage.getItem('levelup_last_refresh');
+    const now = Date.now();
+    
+    // If app was last refreshed more than 1 hour ago, force a clean reload
+    if (lastRefresh && (now - parseInt(lastRefresh)) > 3600000) {
+      localStorage.setItem('levelup_last_refresh', now.toString());
+      // Use cache-busting reload
+      location.reload(true);
+    } else if (!lastRefresh) {
+      // First time ever - just set the timestamp
+      localStorage.setItem('levelup_last_refresh', now.toString());
+    }
+  }
+  
+  // Handle visibility changes (app going to/from background)
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      lastHidden = Date.now();
+    } else {
+      const hiddenDuration = Date.now() - lastHidden;
+      
+      if (lastHidden > 0 && hiddenDuration > REFRESH_THRESHOLD) {
+        const gameEl = document.getElementById('game');
+        const resultsEl = document.getElementById('results');
+        const isInGame = gameEl && gameEl.classList.contains('active');
+        const isInResults = resultsEl && resultsEl.classList.contains('active');
+        
+        if (!isInGame && !isInResults) {
+          localStorage.setItem('levelup_last_refresh', Date.now().toString());
+          location.reload(true);
+        }
+      }
+    }
+  });
+  
+  // Handle iOS bfcache
+  window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+      location.reload(true);
+    }
+  });
+})();
 </script>
 </body>
 </html>
