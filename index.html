@@ -10,7 +10,7 @@
   ║   ╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ║
   ║                                                                           ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
-  ║  LEVEL UP - Levels of Self | v11.0.1 LEGENDARY | January 2026             ║
+  ║  LEVEL UP - Levels of Self | v11.5.0 LEGENDARY | January 2026             ║
   ║  Built by Arthur Palyan | Best Life Coach California 2025                 ║
   ║  Live on Google Play & iOS App Store | 175 Countries                      ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
@@ -42,12 +42,16 @@
   ║    • Animated mesh float (30s infinite)                                   ║
   ║                                                                           ║
   ║  EFFECTS:                                                                 ║
-  ║    • Shine sweep on button hover                                          ║
-  ║    • Aurora glow ring behind buttons                                      ║
+  ║    • Shine sweep on all button hovers                                     ║
+  ║    • Aurora glow ring behind primary CTAs                                 ║
   ║    • Film-grain noise texture overlay                                     ║
   ║    • Cinematic vignette                                                   ║
   ║    • 24px glassmorphism blur with saturation                              ║
   ║    • Custom scrollbar styling                                             ║
+  ║    • Pulsing glow effects on CTAs                                         ║
+  ║    • Radial highlight on card hover                                       ║
+  ║    • Legendary selection glow states                                      ║
+  ║    • Score celebration with radial pulse                                  ║
   ║                                                                           ║
   ║  DESKTOP:                                                                 ║
   ║    • Floating card with legendary glow halo                               ║
@@ -64,7 +68,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Level Up">
@@ -299,14 +303,16 @@ body::-webkit-scrollbar-thumb:hover{background:var(--purple)}
 /* Solid overlay - prevents any content bleed-through */
 body.hook-active{overflow:hidden;position:fixed;width:100%;height:100%;touch-action:none}
 body.hook-active .app{visibility:hidden;pointer-events:none}
-.hook{position:fixed;inset:0;background:#0d0a1a;display:flex;align-items:center;justify-content:center;z-index:9999;text-align:center;padding:24px;overflow:hidden;-webkit-overflow-scrolling:touch;isolation:isolate;overscroll-behavior:none}
+.hook{position:fixed;inset:0;background:#0d0a1a;display:flex;align-items:center;justify-content:center;z-index:9999;text-align:center;padding:24px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;isolation:isolate;overscroll-behavior:none;scrollbar-width:none;-ms-overflow-style:none}
+.hook::-webkit-scrollbar{display:none}
 .hook::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);z-index:-2}
 .hook::before{content:'';position:absolute;top:-30%;left:-30%;width:160%;height:160%;background:radial-gradient(circle at 30% 30%,rgba(255,107,53,0.12) 0%,transparent 50%),radial-gradient(circle at 70% 70%,rgba(120,75,160,0.15) 0%,transparent 50%);pointer-events:none;animation:ambientFloat 20s ease-in-out infinite;z-index:-1}
 @keyframes ambientFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-2%,2%)}}
 .hook.hidden{display:none}
-.hook-container{max-width:480px;width:100%;position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-left:16px;padding-right:16px;padding-bottom:15vh}
+.hook-container{max-width:480px;width:100%;position:relative;z-index:1;min-height:100%;display:flex;flex-direction:column;justify-content:center;overflow:visible;padding-left:16px;padding-right:16px;padding-bottom:15vh}
+.hook-container::-webkit-scrollbar{display:none}
 .hook-screen{display:none;flex-direction:column;align-items:center;opacity:0;transform:translateY(20px);width:100%;padding:20px 0;flex-shrink:0}
-.hook-screen.active{display:flex;animation:screenFadeIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
+.hook-screen.active{display:flex;opacity:1;transform:translateY(0);animation:screenFadeIn 0.6s cubic-bezier(0.16,1,0.3,1)}
 .hook-screen-scrollable{justify-content:flex-start;padding-top:20px;padding-bottom:40px}
 @keyframes screenFadeIn{to{opacity:1;transform:translateY(0)}}
 .hook-line{font-size:clamp(24px,6vw,38px);font-weight:800;line-height:1.2;margin-bottom:4px;opacity:0;transform:translateY(30px);background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;padding:0 8px}
@@ -316,10 +322,16 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes lineFadeUp{to{opacity:1;transform:translateY(0)}}
 .hook-sub{font-size:16px;color:var(--text);line-height:1.4;margin:20px 0;opacity:0;font-weight:500;max-width:340px;white-space:normal}
 .hook-sub.show{animation:lineFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
-.hook-btn{padding:18px 48px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:16px;color:#fff;font-size:18px;font-weight:700;cursor:pointer;opacity:0;transform:translateY(20px);box-shadow:0 4px 24px rgba(255,60,172,0.4);transition:all 0.3s cubic-bezier(0.16,1,0.3,1)}
-.hook-btn.show{animation:btnFadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards}
+.hook-btn{padding:18px 48px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:16px;color:#fff;font-size:18px;font-weight:700;cursor:pointer;opacity:0;transform:translateY(20px);box-shadow:0 4px 24px rgba(255,60,172,0.4);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden}
+.hook-btn::before{content:'';position:absolute;inset:-3px;background:var(--grad-legendary);border-radius:19px;z-index:-1;filter:blur(12px);opacity:0;transition:var(--transition-normal)}
+.hook-btn::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent)}
+.hook-btn.show{opacity:1;transform:translateY(0)}
+.hook-btn.show::before{animation:auroraGlow 3s ease-in-out infinite}
+@keyframes auroraGlow{0%,100%{opacity:0.4;filter:blur(12px)}50%{opacity:0.7;filter:blur(16px)}}
 @keyframes btnFadeUp{to{opacity:1;transform:translateY(0)}}
 .hook-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 36px rgba(255,60,172,0.5)}
+.hook-btn:hover::after{left:150%;transition:left 0.5s ease-out}
+.hook-btn:hover::before{opacity:0.8}
 .hook-btn:active{transform:translateY(-1px) scale(0.98)}
 .hook-progress{display:flex;gap:6px;margin-bottom:28px;justify-content:center}
 .h-dot{width:40px;height:4px;border-radius:4px;background:rgba(255,255,255,0.12);transition:all 0.5s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden;cursor:pointer}
@@ -336,10 +348,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .recognition-item:nth-child(3){animation-delay:0.15s}
 .recognition-item:nth-child(4){animation-delay:0.2s}
 .recognition-item:nth-child(5){animation-delay:0.25s}
-.recognition-item{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:14px 18px;font-size:14px;color:var(--text);cursor:pointer;transition:all 0.25s cubic-bezier(0.16,1,0.3,1);text-align:left;line-height:1.4;position:relative}
+.recognition-item{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:14px 18px;font-size:14px;color:var(--text);cursor:pointer;transition:all 0.25s cubic-bezier(0.16,1,0.3,1);text-align:left;line-height:1.4;position:relative;overflow:hidden}
+.recognition-item::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,60,172,0.08),transparent 50%);opacity:0;transition:var(--transition-normal)}
 .recognition-item:hover{border-color:var(--pink);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
-.recognition-item.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.15),rgba(120,75,160,0.15));box-shadow:0 0 0 3px rgba(255,60,172,0.2),0 8px 24px rgba(255,60,172,0.15)}
-.recognition-item.selected::after{content:'✓';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--pink);font-weight:700;font-size:16px}
+.recognition-item:hover::before{opacity:1}
+.recognition-item.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.15),rgba(120,75,160,0.15));box-shadow:0 0 0 3px rgba(255,60,172,0.2),0 8px 24px rgba(255,60,172,0.15),0 0 30px rgba(255,60,172,0.1)}
+.recognition-item.selected::after{content:'✓';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--pink);font-weight:700;font-size:16px;text-shadow:0 0 10px rgba(255,60,172,0.5)}
 .validation-hint{font-size:13px;color:var(--pink);text-align:center;margin-top:12px;opacity:0;transition:opacity 0.3s;font-weight:500}
 .validation-hint.show{opacity:1}
 .hook-btn-row{display:flex;gap:var(--space-3);width:100%;max-width:380px;margin-top:var(--space-4)}
@@ -365,11 +379,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:20px;
-  height:20px;
-  background:rgba(255,255,255,0.2);
+  width:24px;
+  height:24px;
+  background:rgba(255,255,255,0.25);
   border-radius:50%;
-  font-size:12px;
+  font-size:14px;
+  font-weight:700;
   transition:var(--transition-fast);
 }
 .hook-btn-secondary::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.2) 50%,transparent 60%);transform:translateX(-100%);transition:transform 0.5s var(--ease-out-expo)}
@@ -419,10 +434,10 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .level-compact.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));box-shadow:0 0 0 2px rgba(255,60,172,0.2)}
 .level-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;flex-shrink:0;transition:var(--transition-fast)}
 .level-compact:hover .level-dot{transform:scale(1.1)}
-.level-compact-info{display:flex;flex-direction:column;text-align:left}
-.level-compact-name{font-size:13px;font-weight:600;color:var(--text);transition:var(--transition-fast)}
+.level-compact-info{display:flex;flex-direction:row;align-items:baseline;gap:6px;text-align:left;flex:1;min-width:0;overflow:hidden}
+.level-compact-name{font-size:13px;font-weight:600;color:var(--text);transition:var(--transition-fast);white-space:nowrap}
 .level-compact:hover .level-compact-name{color:var(--pink)}
-.level-compact-desc{font-size:10px;color:var(--muted);transition:var(--transition-fast)}
+.level-compact-desc{font-size:10px;color:var(--muted);transition:var(--transition-fast);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .level-compact:hover .level-compact-desc{color:var(--text)}
 .level-detail{display:none;background:rgba(0,0,0,0.3);border-left:3px solid var(--pink);border-radius:0 8px 8px 0;padding:12px 14px;margin:-2px 0 8px 14px;font-size:12px;color:var(--muted);line-height:1.6;text-align:left;animation:detailFadeIn 0.3s ease}
 .level-detail.show{display:block}
@@ -443,13 +458,18 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .footer-url{font-size:13px;color:var(--pink);font-weight:700;letter-spacing:0.5px}
 /* Share Buttons */
 .share-buttons{display:flex;flex-direction:column;gap:12px;width:100%;max-width:360px;margin-bottom:20px}
-.share-btn{width:100%;padding:18px 24px;background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 100%);border:none;border-radius:16px;font-size:17px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 32px rgba(255,60,172,0.4);transition:all 0.3s cubic-bezier(0.16,1,0.3,1)}
+.share-btn{width:100%;padding:18px 24px;background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 100%);border:none;border-radius:16px;font-size:17px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 32px rgba(255,60,172,0.4);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden}
+.share-btn::before{content:'';position:absolute;inset:-3px;background:var(--grad-primary-vivid);border-radius:19px;z-index:-1;filter:blur(15px);opacity:0.3;animation:sharePulse 2s ease-in-out infinite}
+.share-btn::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)}
+@keyframes sharePulse{0%,100%{opacity:0.3;filter:blur(15px)}50%{opacity:0.5;filter:blur(20px)}}
 .share-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(255,60,172,0.5)}
+.share-btn:hover::after{left:150%;transition:left 0.5s ease-out}
 .share-btn:active{transform:translateY(-1px)}
 .share-btn-icon{font-size:20px}
 .share-btn-secondary{width:100%;padding:14px 24px;background:transparent;border:2px solid var(--border);border-radius:14px;font-size:15px;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.25s ease}
 .share-btn-secondary:hover{border-color:var(--pink);color:var(--text);background:rgba(255,60,172,0.1)}
-.start-playing-btn{padding:16px 48px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:14px;font-size:17px;font-weight:700;color:#fff;cursor:pointer;transition:all 0.25s ease;box-shadow:0 4px 20px rgba(247,201,72,0.4);margin-bottom:12px}
+.start-playing-btn{padding:16px 48px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:14px;font-size:17px;font-weight:700;color:#fff;cursor:pointer;transition:all 0.25s ease;box-shadow:0 4px 20px rgba(247,201,72,0.4);margin-bottom:12px;position:relative;overflow:hidden}
+.start-playing-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:btnShine 2.5s ease-in-out infinite}
 .start-playing-btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(247,201,72,0.5)}
 /* Shareable Card Modal */
 .share-card-modal{position:fixed;inset:0;background:rgba(13,10,26,0.95);display:none;align-items:center;justify-content:center;z-index:400;padding:24px;opacity:0;transition:opacity 0.3s ease}
@@ -524,8 +544,11 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--border)}
 .dot.active{background:var(--pink)}
 .onboard-btns{display:flex;gap:12px;width:100%;max-width:700px;padding:20px 30px;margin-top:24px}
-.onboard-skip{padding:18px 28px;background:transparent;border:none;color:var(--muted);font-size:16px;cursor:pointer}
-.onboard-next,.onboard-start{flex:1;padding:18px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:17px;font-weight:700;cursor:pointer}
+.onboard-skip{padding:18px 28px;background:transparent;border:none;color:var(--muted);font-size:16px;cursor:pointer;transition:var(--transition-fast)}
+.onboard-skip:hover{color:var(--text)}
+.onboard-next,.onboard-start{flex:1;padding:18px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:17px;font-weight:700;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(255,60,172,0.4)}
+.onboard-next::before,.onboard-start::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);animation:btnShine 3s ease-in-out infinite}
+.onboard-next:hover,.onboard-start:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(255,60,172,0.5)}
 .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;animation:fadeIn 0.3s ease}
 .logo{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;transition:var(--transition-fast)}
 .logo:hover{transform:scale(1.05);filter:brightness(1.1)}
@@ -536,8 +559,10 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .ctrl-btn:nth-child(3){animation-delay:0.15s}
 .ctrl-btn:nth-child(4){animation-delay:0.2s}
 .ctrl-btn:nth-child(5){animation-delay:0.25s}
-.ctrl-btn{width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition-fast)}
+.ctrl-btn{width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition-fast);position:relative;overflow:hidden}
+.ctrl-btn::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(255,60,172,0.15),transparent 70%);opacity:0;transition:var(--transition-normal)}
 .ctrl-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.ctrl-btn:hover::before{opacity:1}
 .ctrl-btn:active{transform:scale(0.95)}
 .ctrl-btn.on{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;border:none}
 .ctrl-btn.qa-btn{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:none;box-shadow:0 2px 8px rgba(120,75,160,0.4)}
@@ -565,7 +590,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .challenge:hover{box-shadow:var(--shadow-glow-lg),var(--shadow-lg);transform:translateY(-6px) scale(1.01);border-color:var(--pink-light)}
 .challenge:hover::before{opacity:1}
 .challenge:active{transform:translateY(-2px) scale(0.99);transition:var(--transition-fast)}
-.badge{display:inline-flex;align-items:center;gap:6px;background:var(--grad-primary-vivid);color:#fff;font-size:10px;font-weight:700;padding:6px 12px;border-radius:var(--radius-full);margin-bottom:10px;box-shadow:0 2px 8px rgba(255,60,172,0.3)}
+/* ═══════════════════════════════════════════════════════════════════════
+   LEGENDARY BADGE SYSTEM - Polished micro-badges
+   ═══════════════════════════════════════════════════════════════════════ */
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--grad-primary-vivid);color:#fff;font-size:10px;font-weight:700;padding:6px 12px;border-radius:var(--radius-full);margin-bottom:10px;box-shadow:0 2px 8px rgba(255,60,172,0.3);position:relative;overflow:hidden}
+.badge::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:badgeShine 3s ease-in-out infinite}
+@keyframes badgeShine{0%{left:-100%}50%,100%{left:150%}}
 .badge-dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:pulseDot 2s infinite;box-shadow:0 0 8px rgba(255,255,255,0.5)}
 @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 8px rgba(255,255,255,0.5)}50%{opacity:0.6;transform:scale(0.7);box-shadow:0 0 4px rgba(255,255,255,0.3)}}
 .challenge h2{font-size:20px;font-weight:700;margin-bottom:6px;transition:var(--transition-normal);background:linear-gradient(135deg,var(--text) 0%,var(--text) 100%);-webkit-background-clip:text;background-clip:text}
@@ -601,8 +631,10 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .xp-coins{display:flex;align-items:center;gap:4px;font-size:14px;color:var(--gold);font-weight:600;transition:var(--transition-normal);cursor:pointer;padding:6px 10px;border-radius:var(--radius-sm);background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.15)}
 .xp-coins:hover{text-shadow:0 0 15px rgba(255,215,0,0.6);background:rgba(255,215,0,0.15);border-color:rgba(255,215,0,0.3);transform:scale(1.02)}
 /* ULTIMATE Coin Shop Styles */
-.coin-reward{display:flex;justify-content:space-between;align-items:center;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;transition:var(--transition-normal)}
+.coin-reward{display:flex;justify-content:space-between;align-items:center;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;transition:var(--transition-normal);position:relative;overflow:hidden}
+.coin-reward::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,215,0,0.08),transparent)}
 .coin-reward:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:var(--shadow-glow-gold)}
+.coin-reward:hover::before{left:150%;transition:left 0.5s ease-out}
 .coin-reward.affordable{border-color:var(--green);background:rgba(0,210,106,0.04)}
 .coin-reward.affordable:hover{box-shadow:0 4px 20px rgba(0,210,106,0.35)}
 .coin-reward.legendary{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,107,53,0.05))}
@@ -623,19 +655,23 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .stat:nth-child(2){animation-delay:0.1s}
 .stat:nth-child(3){animation-delay:0.15s}
 .stat:nth-child(4){animation-delay:0.2s}
-.stat{background:var(--card);border:2px solid var(--pink);border-radius:12px;padding:14px 6px;text-align:center;transition:var(--transition-fast);box-shadow:0 0 12px rgba(255,60,172,0.2);cursor:pointer}
+.stat{background:var(--card);border:2px solid var(--pink);border-radius:12px;padding:14px 6px;text-align:center;transition:var(--transition-fast);box-shadow:0 0 12px rgba(255,60,172,0.2);cursor:pointer;position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,60,172,0.12),transparent 60%);opacity:0;transition:var(--transition-normal)}
+.stat::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);opacity:0;transition:var(--transition-normal)}
+.stat:hover::before,.stat:hover::after{opacity:1}
 .stat:hover{transform:translateY(-4px);box-shadow:0 0 20px rgba(255,60,172,0.4)}
 .stat-val{font-size:24px;font-weight:800;background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .stat-label{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-top:4px;letter-spacing:0.5px}
 .insights-stat{cursor:pointer;border:2px solid var(--pink);box-shadow:0 0 12px rgba(255,60,172,0.3)}
 .insights-stat:hover{box-shadow:0 0 20px rgba(255,60,172,0.5)}
 .pattern-card{display:none;background:linear-gradient(135deg,rgba(120,75,160,0.2),rgba(255,60,172,0.1));border:2px solid var(--purple);border-radius:16px;padding:18px;margin-bottom:16px;cursor:pointer;transition:var(--transition-normal);position:relative;overflow:hidden}
-.pattern-card:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(120,75,160,0.3)}
-.pattern-card:active{transform:scale(0.98)}
-.pattern-card.show{display:block}
 .pattern-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent,rgba(255,255,255,0.03),transparent);transform:rotate(45deg);animation:patternShimmer 3s infinite}
+.pattern-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(120,75,160,0.15),transparent 60%);opacity:0;transition:var(--transition-normal)}
 @keyframes patternShimmer{0%{transform:translateX(-100%) rotate(45deg)}100%{transform:translateX(100%) rotate(45deg)}}
 .pattern-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(120,75,160,0.3)}
+.pattern-card:hover::after{opacity:1}
+.pattern-card:active{transform:scale(0.98)}
+.pattern-card.show{display:block}
 .pattern-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;animation:fadeIn 0.3s ease}
 .pattern-icon{font-size:28px;transition:var(--transition-fast)}
 .pattern-card:hover .pattern-icon{transform:scale(1.15) rotate(5deg)}
@@ -658,8 +694,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .coaching-offer-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink);background:rgba(255,60,172,0.15);padding:6px 14px;border-radius:20px;margin-bottom:14px}
 .coaching-offer-title{font-size:24px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .coaching-offer-subtitle{font-size:13px;color:var(--muted)}
-.coaching-cta{display:block;width:100%;padding:16px 20px;background:linear-gradient(135deg,var(--orange),var(--pink));border:3px solid var(--pink);border-radius:14px;color:#fff;font-size:16px;font-weight:700;text-decoration:none;text-align:center;cursor:pointer;box-shadow:0 0 24px rgba(255,60,172,0.5);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);position:relative;z-index:1}
+.coaching-cta{display:block;width:100%;padding:16px 20px;background:linear-gradient(135deg,var(--orange),var(--pink));border:3px solid var(--pink);border-radius:14px;color:#fff;font-size:16px;font-weight:700;text-decoration:none;text-align:center;cursor:pointer;box-shadow:0 0 24px rgba(255,60,172,0.5);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);position:relative;z-index:1;overflow:hidden}
+.coaching-cta::before{content:'';position:absolute;inset:-4px;background:var(--grad-primary-vivid);border-radius:18px;z-index:-1;filter:blur(15px);opacity:0.4;animation:ctaPulse 2s ease-in-out infinite}
+.coaching-cta::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)}
+@keyframes ctaPulse{0%,100%{opacity:0.4;filter:blur(15px)}50%{opacity:0.6;filter:blur(20px)}}
 .coaching-cta:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(255,60,172,0.6)}
+.coaching-cta:hover::after{left:150%;transition:left 0.5s ease-out}
 .coaching-cta:active{transform:translateY(-1px)}
 .coaching-note{text-align:center;margin-top:14px;font-size:12px;color:var(--muted);position:relative;z-index:1}
 .coaching-note strong{color:var(--text)}
@@ -682,7 +722,11 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .mode{animation:fadeIn 0.4s ease backwards}
 .mode:nth-child(1){animation-delay:0.1s}
 .mode:nth-child(2){animation-delay:0.2s}
-.mode{background:var(--card);border:2px solid var(--pink);border-radius:16px;padding:20px 14px;text-align:center;cursor:pointer;position:relative;transition:var(--transition-fast);box-shadow:0 4px 20px rgba(255,60,172,0.15)}
+.mode{background:var(--card);border:2px solid var(--pink);border-radius:16px;padding:20px 14px;text-align:center;cursor:pointer;position:relative;transition:var(--transition-fast);box-shadow:0 4px 20px rgba(255,60,172,0.15);overflow:hidden}
+.mode::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,60,172,0.08) 0%,transparent 50%,rgba(120,75,160,0.05) 100%);opacity:0;transition:var(--transition-normal)}
+.mode::after{content:'';position:absolute;top:0;left:-150%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);transform:skewX(-20deg);transition:none}
+.mode:hover::before{opacity:1}
+.mode:hover::after{left:150%;transition:left 0.6s ease-out}
 .mode:hover{box-shadow:0 8px 30px rgba(255,60,172,0.25);transform:translateY(-4px)}
 .mode:active{transform:scale(0.97)}
 .mode.locked{opacity:0.5;border-color:var(--border);box-shadow:0 2px 10px rgba(0,0,0,0.15);cursor:not-allowed}
@@ -741,7 +785,9 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .level:nth-child(5){animation-delay:0.25s}
 .level:nth-child(6){animation-delay:0.3s}
 .level:nth-child(7){animation-delay:0.35s}
-.level{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.level{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.1);position:relative;overflow:hidden}
+.level::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,60,172,0.04),transparent);opacity:0;transition:var(--transition-normal)}
+.level:hover::before{opacity:1}
 .level.unlocked{border:2px solid var(--pink);box-shadow:0 2px 12px rgba(255,60,172,0.25)}
 .level:hover{border-color:var(--pink);transform:translateX(4px);box-shadow:0 4px 12px rgba(0,0,0,0.15)}
 .level:active{transform:scale(0.98)}
@@ -762,8 +808,10 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .action-btn{animation:fadeIn 0.3s ease backwards}
 .action-btns .action-btn:nth-child(1){animation-delay:0.1s}
 .action-btns .action-btn:nth-child(2){animation-delay:0.2s}
-.action-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;text-decoration:none;color:var(--text);transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.action-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;text-decoration:none;color:var(--text);transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.1);position:relative;overflow:hidden}
+.action-btn::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,255,255,0.08),transparent 60%);opacity:0;transition:var(--transition-normal)}
 .action-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+.action-btn:hover::before{opacity:1}
 .action-btn:active{transform:scale(0.97)}
 .action-btn-icon{font-size:20px;transition:var(--transition-fast)}
 .action-btn:hover .action-btn-icon{transform:scale(1.15)}
@@ -778,9 +826,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .footer-btn{animation:fadeIn 0.3s ease backwards}
 .footer-btns .footer-btn:nth-child(1){animation-delay:0.1s}
 .footer-btns .footer-btn:nth-child(2){animation-delay:0.2s}
-.footer-btn{display:block;padding:14px 24px;background:var(--card);border:2px solid var(--pink);border-radius:12px;color:var(--text);text-decoration:none;font-size:14px;font-weight:600;transition:var(--transition-fast)}
+.footer-btn{display:block;padding:14px 24px;background:var(--card);border:2px solid var(--pink);border-radius:12px;color:var(--text);text-decoration:none;font-size:14px;font-weight:600;transition:var(--transition-fast);position:relative;overflow:hidden}
+.footer-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,60,172,0.1),transparent)}
 .footer-btn:hover{background:rgba(255,60,172,0.15);transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,60,172,0.2)}
+.footer-btn:hover::before{left:150%;transition:left 0.5s ease-out}
 .footer-btn.primary{background:var(--grad-primary);border:none;color:#fff}
+.footer-btn.primary::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)}
 .footer-btn.primary:hover{box-shadow:0 4px 20px rgba(255,60,172,0.4)}
 .game{display:none}
 .game.active{display:block;animation:slideUp 0.3s ease}
@@ -811,7 +862,9 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .scenario-text.loading{color:var(--muted);animation:textPulse 1.5s ease-in-out infinite}
 @keyframes textPulse{0%,100%{opacity:0.4}50%{opacity:1}}
 .choices{display:flex;flex-direction:column;gap:10px;animation:fadeIn 0.3s ease;min-height:280px}
-.choice{width:100%;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;text-align:left;cursor:pointer;line-height:1.5;transition:var(--transition-fast);box-shadow:var(--shadow-sm);animation:choiceSlide 0.3s ease backwards}
+.choice{width:100%;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;text-align:left;cursor:pointer;line-height:1.5;transition:var(--transition-fast);box-shadow:var(--shadow-sm);animation:choiceSlide 0.3s ease backwards;position:relative;overflow:hidden}
+.choice::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,60,172,0.08),transparent);transition:none}
+.choice:hover::before{left:150%;transition:left 0.5s ease-out}
 .choice:nth-child(1){animation-delay:0.05s}
 .choice:nth-child(2){animation-delay:0.1s}
 .choice:nth-child(3){animation-delay:0.15s}
@@ -829,14 +882,18 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .results{display:none;text-align:center;padding-top:40px;padding-bottom:100px}
 .results.active{display:block;animation:slideUp 0.4s ease}
 .results h2{font-size:26px;margin-bottom:16px;font-weight:800;background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeIn 0.4s ease}
-.score{font-size:72px;font-weight:900;color:var(--text);margin:20px 0;text-shadow:0 0 40px rgba(255,60,172,0.3);animation:scoreBounce 1s ease}
+.score{font-size:72px;font-weight:900;color:var(--text);margin:20px 0;text-shadow:0 0 40px rgba(255,60,172,0.3);animation:scoreBounce 1s ease;position:relative}
+.score::before{content:'';position:absolute;inset:-20px;background:radial-gradient(circle,rgba(255,60,172,0.15) 0%,transparent 70%);animation:scoreGlow 2s ease-in-out infinite;pointer-events:none}
+@keyframes scoreGlow{0%,100%{opacity:0.5;transform:scale(0.95)}50%{opacity:1;transform:scale(1.05)}}
 @keyframes scoreBounce{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 @keyframes toastBounce{0%{transform:translateX(-50%) translateY(20px);opacity:0}50%{transform:translateX(-50%) translateY(-15px)}100%{transform:translateX(-50%) translateY(-10px);opacity:1}}
 @keyframes comboPulse{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
 @keyframes wrongShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
 @keyframes timerWarn{0%,100%{opacity:1}50%{opacity:0.7}}
 .result-msg{font-size:17px;color:var(--muted);margin-bottom:24px;line-height:1.6;padding:0 20px;animation:fadeIn 0.5s ease 0.2s backwards}
-.results-btn{width:100%;padding:18px;background:var(--grad-primary);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:12px;box-shadow:0 4px 15px rgba(255,60,172,0.3);transition:var(--transition-fast);animation:fadeIn 0.4s ease 0.3s backwards}
+.results-btn{width:100%;padding:18px;background:var(--grad-primary);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:12px;box-shadow:0 4px 15px rgba(255,60,172,0.3);transition:var(--transition-fast);animation:fadeIn 0.4s ease 0.3s backwards;position:relative;overflow:hidden}
+.results-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);animation:btnShine 3s ease-in-out infinite}
+@keyframes btnShine{0%{left:-100%}30%,100%{left:150%}}
 .results-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,60,172,0.4)}
 .results-btn:active{transform:scale(0.98)}
 .results-share{width:100%;padding:16px;background:var(--card);border:2px solid var(--green);border-radius:14px;color:var(--green);font-size:15px;font-weight:700;cursor:pointer;transition:var(--transition-fast);animation:fadeIn 0.4s ease 0.4s backwards}
@@ -852,20 +909,27 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .share-platform-btn .icon{font-size:22px}
 .share-platform-btn .label{font-size:10px;font-weight:600;color:var(--muted)}
 .insights-list{text-align:left;margin:20px 0;max-height:350px;overflow-y:auto;scroll-behavior:smooth;animation:fadeIn 0.5s ease 0.3s backwards}
-.insight-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;font-size:14px;line-height:1.5;transition:var(--transition-fast)}
+.insight-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;font-size:14px;line-height:1.5;transition:var(--transition-fast);position:relative;overflow:hidden}
+.insight-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--grad-primary);opacity:0;transition:var(--transition-normal)}
 .insight-item:hover{border-color:var(--pink);transform:translateX(4px)}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;padding:20px;z-index:100;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:modalFadeIn 0.3s ease;overflow-y:auto;overscroll-behavior:contain}
-@keyframes modalFadeIn{from{opacity:0}to{opacity:1}}
+.insight-item:hover::before{opacity:1}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;padding:20px;z-index:100;backdrop-filter:blur(12px) saturate(180%);-webkit-backdrop-filter:blur(12px) saturate(180%);animation:modalFadeIn 0.3s ease;overflow-y:auto;overscroll-behavior:contain}
+@keyframes modalFadeIn{from{opacity:0;backdrop-filter:blur(0)}to{opacity:1;backdrop-filter:blur(12px)}}
 .modal.active{display:flex}
-.modal-content{background:linear-gradient(180deg,rgba(40,35,60,0.98),rgba(25,20,40,0.98));border:1px solid var(--border);border-radius:20px;padding:28px;max-width:360px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05);animation:modalSlide 0.3s ease;max-height:calc(100vh - 40px);overflow-y:auto;overscroll-behavior:contain}
-@keyframes modalSlide{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-content{background:linear-gradient(180deg,rgba(40,35,60,0.98),rgba(25,20,40,0.98));border:1px solid var(--border);border-radius:20px;padding:28px;max-width:360px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05),0 0 80px rgba(255,60,172,0.08);animation:modalSlide 0.4s var(--ease-out-back);max-height:calc(100vh - 40px);overflow-y:auto;overscroll-behavior:contain;position:relative}
+.modal-content::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent)}
+@keyframes modalSlide{from{transform:translateY(30px) scale(0.95);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
 .modal-icon{font-size:48px;text-align:center;margin-bottom:12px;animation:iconBounce 2s infinite}
 @keyframes iconBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .modal-title{font-size:24px;font-weight:800;text-align:center;margin-bottom:18px;background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeIn 0.4s ease}
 .feedback-box{background:rgba(0,0,0,0.4);border-radius:12px;padding:16px;margin-bottom:18px;border:1px solid var(--border);animation:fadeIn 0.3s ease}
 .feedback-label{font-size:10px;color:var(--purple);text-transform:uppercase;margin-bottom:10px;font-weight:700;letter-spacing:1px;animation:fadeIn 0.3s ease}
 .feedback-text{font-size:15px;line-height:1.6;animation:fadeIn 0.4s ease 0.1s backwards}
-.modal-btn{width:100%;padding:16px;background:var(--grad-primary);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:var(--transition-fast);box-shadow:0 4px 15px rgba(255,60,172,0.3)}
+.modal-btn{width:100%;padding:16px;background:var(--grad-primary);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:var(--transition-fast);box-shadow:0 4px 15px rgba(255,60,172,0.3);position:relative;overflow:hidden}
+.modal-btn::before{content:'';position:absolute;inset:-2px;background:var(--grad-legendary);border-radius:14px;opacity:0;z-index:-1;filter:blur(8px);transition:var(--transition-normal)}
+.modal-btn::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)}
+.modal-btn:hover::before{opacity:0.5}
+.modal-btn:hover::after{left:150%;transition:left 0.5s ease-out}
 .modal-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,60,172,0.4)}
 .modal-btn:active{transform:scale(0.98)}
 .bonus-popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:var(--grad-warning);border-radius:20px;padding:30px;text-align:center;z-index:400;box-shadow:0 0 40px rgba(255,215,0,0.5)}
@@ -875,22 +939,29 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes spinOnce{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .bonus-title{font-size:24px;font-weight:800;color:#000;margin-bottom:8px}
 .bonus-sub{font-size:16px;color:rgba(0,0,0,0.7)}
-.levelup-popup{position:fixed;inset:0;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(10px)}
+.levelup-popup{position:fixed;inset:0;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(15px) saturate(200%)}
+.levelup-popup::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,215,0,0.15) 0%,transparent 50%);animation:levelGlowPulse 2s ease-in-out infinite}
+@keyframes levelGlowPulse{0%,100%{opacity:0.3;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
 .levelup-popup.show{display:flex}
-.levelup-content{text-align:center;animation:levelUpAnim 1s ease}
+.levelup-content{text-align:center;animation:levelUpAnim 1s ease;position:relative;z-index:1}
 @keyframes levelUpAnim{0%{transform:scale(0) rotate(-10deg);opacity:0}50%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1) rotate(0);opacity:1}}
-.levelup-icon{font-size:80px;margin-bottom:20px;animation:iconBounce 2s infinite}
-.levelup-title{font-size:36px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+.levelup-icon{font-size:80px;margin-bottom:20px;animation:iconBounce 2s infinite;filter:drop-shadow(0 0 30px rgba(255,215,0,0.5))}
+.levelup-title{font-size:36px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;text-shadow:0 0 40px rgba(255,215,0,0.3)}
 .levelup-sub{font-size:18px;color:var(--muted);margin-bottom:20px}
 .levelup-unlock{font-size:14px;color:var(--green);margin-bottom:20px}
-.levelup-btn{padding:16px 40px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+.levelup-btn{padding:16px 40px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(255,107,53,0.4)}
+.levelup-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:btnShine 2s ease-in-out infinite}
 .combo-display{position:fixed;top:100px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--orange),var(--pink));padding:10px 20px;border-radius:20px;font-size:16px;font-weight:800;color:#fff;opacity:0;z-index:50}
 .combo-display.show{opacity:1;animation:comboPop 0.5s ease}
 @keyframes comboPop{0%{transform:translateX(-50%) scale(0.5)}50%{transform:translateX(-50%) scale(1.2)}100%{transform:translateX(-50%) scale(1)}}
-.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--grad-success);color:#fff;padding:14px 28px;border-radius:14px;font-size:14px;font-weight:600;opacity:0;transition:var(--transition-normal);z-index:500;pointer-events:none;box-shadow:0 4px 20px rgba(0,210,106,0.4)}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--grad-success);color:#fff;padding:14px 28px;border-radius:14px;font-size:14px;font-weight:600;opacity:0;transition:var(--transition-normal);z-index:500;pointer-events:none;box-shadow:0 4px 20px rgba(0,210,106,0.4),0 0 0 1px rgba(255,255,255,0.1)}
+.toast::before{content:'';position:absolute;inset:-2px;background:linear-gradient(135deg,rgba(0,210,106,0.5),rgba(0,200,240,0.3));border-radius:16px;z-index:-1;filter:blur(10px);opacity:0;transition:var(--transition-normal)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-10px);animation:toastBounce 0.4s ease}
-.qa-item{border-bottom:1px solid var(--border);padding:10px 0;transition:var(--transition-fast)}
+.toast.show::before{opacity:1}
+.qa-item{border-bottom:1px solid var(--border);padding:10px 0;transition:var(--transition-fast);position:relative}
+.qa-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--grad-primary);opacity:0;transition:var(--transition-normal)}
 .qa-item:hover{background:rgba(255,60,172,0.03);margin:0 -10px;padding:10px}
+.qa-item:hover::before{opacity:1}
 .qa-item:last-of-type{border:none}
 .qa-question{font-size:14px;font-weight:600;cursor:pointer;padding:6px 0;display:flex;justify-content:space-between;align-items:center;color:var(--text);gap:12px;transition:var(--transition-fast)}
 .qa-question:hover{color:var(--pink)}
@@ -1172,7 +1243,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <!-- Screen 1: The Hook -->
 <div class="hook-screen active" id="hookScreen1">
 <div class="hook-line" id="line1">See the patterns</div>
-<div class="hook-line" id="line2">that quietly run your life.</div>
+<div class="hook-line" id="line2">that quietly run<br>your life.</div>
 <div class="hook-sub" id="hookSub">Discover why you keep repeating<br>the same mistakes.</div>
 <button class="hook-btn" id="hookBtn" aria-label="Start the experience">Prove it</button>
 <div class="press-ticker">
@@ -1283,7 +1354,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="onboard-overlay" id="onboardOverlay"></div>
 <div class="app">
 <div class="home" id="home">
-<div class="header"><div class="logo" role="banner">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="quickModeBtn" title="Quick Mode" aria-label="Toggle Quick Mode">⚡</button><button class="ctrl-btn" id="musicBtn" aria-label="Toggle Music">🎵</button><button class="ctrl-btn heart-btn" id="aiBtn" aria-label="Deep Insight AI Analysis">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn" aria-label="Help and FAQ">❓</button><button class="ctrl-btn founder-btn" id="founderBtn" aria-label="Meet the Founder">👤</button></div></div>
+<div class="header"><div class="logo" role="banner" id="logoRateBtn" title="⭐ Rate Level Up">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="quickModeBtn" title="Quick Mode" aria-label="Toggle Quick Mode">⚡</button><button class="ctrl-btn" id="musicBtn" aria-label="Toggle Music">🎵</button><button class="ctrl-btn heart-btn" id="aiBtn" aria-label="Deep Insight AI Analysis">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn" aria-label="Help and FAQ">❓</button><button class="ctrl-btn founder-btn" id="founderBtn" aria-label="Meet the Founder">👤</button></div></div>
 
 <div class="login-bonus" id="loginBonus"><div class="login-title">🎁 Daily Login Bonus!</div><div class="login-sub">Tap to claim <span id="loginReward">+20 XP</span></div></div>
 <div class="streak-warning" id="streakWarning"><div class="streak-warning-text">⚠️ Play today or lose your <span id="streakCount">0</span>-day streak!</div></div>
@@ -1312,6 +1383,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 
 <div class="hero">
 <div id="welcomeMessage" style="display:none;font-size:14px;font-weight:600;color:var(--gold);margin-bottom:8px;"></div>
+<div id="dailyWisdom" style="display:none;font-size:13px;font-style:italic;color:var(--muted);margin-bottom:12px;padding:10px 16px;background:rgba(255,255,255,0.03);border-radius:10px;border-left:3px solid var(--pink);max-width:320px;margin-left:auto;margin-right:auto;"></div>
 <h1>See Your Patterns</h1><p style="max-width:320px;margin:0 auto;line-height:1.4;">The game that reveals<br>what's really running your life.</p></div>
 
 <div class="challenge" id="dailyCard" role="button" aria-label="Play Worldwide Challenge - Same 3 scenarios for everyone on Earth"><div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div><h2>Worldwide Challenge</h2><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="player-count"><span class="player-dot"></span><span id="playerCountNum">--</span> playing now</div><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer">Resets in --:--:--</span></div></div>
@@ -1719,6 +1791,33 @@ This game helps people see themselves without judgment. It's <strong>free</stron
 <span style="font-family:monospace;background:var(--card);padding:2px 6px;border-radius:4px;">Esc</span> Quit<br>
 <span style="font-family:monospace;background:var(--card);padding:2px 6px;border-radius:4px;">Enter</span> Continue
 </div>
+</div>
+</div></div>
+
+<!-- 14. NEW FEATURES v11.4 -->
+<div class="qa-item"><div class="qa-question">✨ New Features</div><div class="qa-answer">
+<div style="display:flex;flex-direction:column;gap:12px;">
+
+<div style="background:rgba(0,200,240,0.1);border-left:3px solid var(--cyan);padding:10px 12px;border-radius:0 8px 8px 0;">
+<strong style="color:var(--cyan);">❄️ Streak Freeze</strong><br>
+<span style="font-size:12px;color:var(--muted);">Protect your streak without playing! One freeze available per week. Look for the Freeze button when your streak is at risk.</span>
+</div>
+
+<div style="background:rgba(255,60,172,0.1);border-left:3px solid var(--pink);padding:10px 12px;border-radius:0 8px 8px 0;">
+<strong style="color:var(--pink);">💭 Daily Wisdom</strong><br>
+<span style="font-size:12px;color:var(--muted);">After 5 games, you'll see a personalized daily quote based on your dominant themes. Changes every day.</span>
+</div>
+
+<div style="background:rgba(255,215,0,0.1);border-left:3px solid var(--gold);padding:10px 12px;border-radius:0 8px 8px 0;">
+<strong style="color:var(--gold);">⭐ Rate the App</strong><br>
+<span style="font-size:12px;color:var(--muted);">Tap the "LEVEL UP" logo in the header to rate us on the App Store or Google Play!</span>
+</div>
+
+<div style="background:rgba(0,210,106,0.1);border-left:3px solid var(--green);padding:10px 12px;border-radius:0 8px 8px 0;">
+<strong style="color:var(--green);">📳 Haptic Feedback</strong><br>
+<span style="font-size:12px;color:var(--muted);">Feel combos, level ups, and achievements on mobile devices with enhanced vibration patterns.</span>
+</div>
+
 </div>
 </div></div>
 
@@ -11869,11 +11968,16 @@ let currentDeepestInsight=null;
 // Haptic feedback for mobile
 function haptic(style='light'){
   if(navigator.vibrate){
-    if(style==='light')navigator.vibrate(10);
-    else if(style==='medium')navigator.vibrate(25);
-    else if(style==='heavy')navigator.vibrate([50,30,50]);
-    else if(style==='success')navigator.vibrate([10,50,10,50,10]);
-    else if(style==='error')navigator.vibrate(100);
+    const patterns = {
+      light: 8,
+      medium: 15,
+      heavy: [50,30,50],
+      success: [10,40,15],
+      combo: [8,30,8,30,12],
+      celebration: [20,40,20,40,30,50,40],
+      error: 100
+    };
+    try { navigator.vibrate(patterns[style] || 8); } catch(e){}
   }
 }
 
@@ -12469,6 +12573,7 @@ function shareLevelUpCard(){
 function addCombo(){
   currentCombo++;
   if(currentCombo>=3){
+    haptic('combo');
     let el=document.getElementById('comboDisplay');el.textContent='🔥 '+currentCombo+'x COMBO!';el.classList.add('show');comboSound(currentCombo);
     setTimeout(()=>el.classList.remove('show'),1500);
     // Reduced combo bonuses for balanced progression
@@ -13057,6 +13162,7 @@ function maybeBonus(){
 }
 
 function triggerConfetti(){
+  haptic('celebration');
   let canvas=document.getElementById('confetti'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;
   let particles=[],colors=['#FF3CAC','#FF6B35','#784BA0','#2F80ED','#00D26A','#F7C948','#FFD700'];
   for(let i=0;i<150;i++){particles.push({x:canvas.width/2,y:canvas.height/2,vx:(Math.random()-0.5)*15,vy:(Math.random()-0.5)*15-5,color:colors[Math.floor(Math.random()*colors.length)],size:Math.random()*8+4,life:1})}
@@ -13079,8 +13185,98 @@ document.getElementById('loginBonus').onclick=function(){
 };
 
 function checkStreakWarning(){
-  if(data.streak>0&&data.lastDaily!==new Date().toDateString()){document.getElementById('streakCount').textContent=data.streak;document.getElementById('streakWarning').classList.add('show')}
+  if(data.streak>0&&data.lastDaily!==new Date().toDateString()){
+    document.getElementById('streakCount').textContent=data.streak;
+    // Check if streak freeze is available
+    const freezeAvailable = canUseStreakFreeze();
+    const warningEl = document.getElementById('streakWarning');
+    if(freezeAvailable && data.streak >= 3) {
+      warningEl.innerHTML = '<div class="streak-warning-text">⚠️ Play today or lose your <span id="streakCount">'+data.streak+'</span>-day streak! <button onclick="useStreakFreeze()" style="background:var(--cyan);color:#000;border:none;padding:4px 12px;border-radius:6px;font-size:11px;font-weight:700;margin-left:8px;cursor:pointer;">❄️ Freeze</button></div>';
+    }
+    warningEl.classList.add('show');
+  }
   else{document.getElementById('streakWarning').classList.remove('show')}
+}
+
+// ========== v11.3 STREAK FREEZE SYSTEM ==========
+function canUseStreakFreeze(){
+  if(!data.streakFreezeUsed) return true;
+  const daysSince = Math.floor((Date.now() - new Date(data.streakFreezeUsed).getTime()) / 86400000);
+  return daysSince >= 7;
+}
+
+function useStreakFreeze(){
+  if(!canUseStreakFreeze()){
+    const daysLeft = 7 - Math.floor((Date.now() - new Date(data.streakFreezeUsed).getTime()) / 86400000);
+    showToast('❄️ Freeze recharges in ' + daysLeft + ' days');
+    return;
+  }
+  data.streakFreezeUsed = new Date().toISOString();
+  data.lastDaily = new Date().toDateString();
+  save();
+  haptic('success');
+  triggerConfetti();
+  showToast('❄️ Streak frozen! Your ' + data.streak + '-day streak is safe!', 3000);
+  document.getElementById('streakWarning').classList.remove('show');
+}
+
+// ========== v11.3 DAILY WISDOM SYSTEM ==========
+const WISDOM_LIBRARY = {
+  boundaries: [
+    "Every 'yes' to someone else can be a 'no' to yourself.",
+    "Boundaries aren't walls—they're bridges to respect.",
+    "You teach people how to treat you.",
+    "No is a complete sentence."
+  ],
+  worth: [
+    "Your worth isn't earned. It just is.",
+    "Stop auditioning for people who already left.",
+    "You are not too much. They were not enough.",
+    "What you tolerate, you teach."
+  ],
+  control: [
+    "The tighter you grip, the more slips away.",
+    "Control is fear wearing a productivity costume.",
+    "What would happen if you let go—just today?",
+    "Surrender isn't giving up. It's giving over."
+  ],
+  abandonment: [
+    "People leaving says nothing about your worth.",
+    "You survived everyone who left. Remember that.",
+    "Not everyone who leaves is abandoning you.",
+    "The fear of being left often pushes people away."
+  ],
+  perfectionism: [
+    "Done beats perfect. Every time.",
+    "Your mistakes don't define you. Your response does.",
+    "Progress, not perfection.",
+    "The cracks are how the light gets in."
+  ],
+  general: [
+    "The pattern you see is the pattern you can change.",
+    "Awareness is the first step. You're already walking.",
+    "What you resist persists. What you accept transforms.",
+    "Small steps still move you forward.",
+    "You can't heal what you won't feel.",
+    "The obstacle is the way."
+  ]
+};
+
+function getDailyWisdom(){
+  // Use day of year for consistent daily wisdom
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  
+  // Try to match user's dominant theme if they have enough data
+  let wisdomPool = WISDOM_LIBRARY.general;
+  if(data.insightsCollection && data.insightsCollection.length >= 10) {
+    const allText = data.insightsCollection.map(i => (i.text || '').toLowerCase()).join(' ');
+    if(allText.includes('boundar') || allText.includes('say no')) wisdomPool = WISDOM_LIBRARY.boundaries;
+    else if(allText.includes('worth') || allText.includes('enough')) wisdomPool = WISDOM_LIBRARY.worth;
+    else if(allText.includes('control') || allText.includes('perfect')) wisdomPool = WISDOM_LIBRARY.perfectionism;
+    else if(allText.includes('abandon') || allText.includes('leave') || allText.includes('left')) wisdomPool = WISDOM_LIBRARY.abandonment;
+  }
+  
+  return wisdomPool[dayOfYear % wisdomPool.length];
 }
 
 function addInsight(text,level){if(text&&!data.insightsCollection.some(i=>i.text===text)){data.insightsCollection.push({text:text,level:level||1,date:new Date().toLocaleDateString()});game.sessionInsights++;if(data.insightsCollection.length>200)data.insightsCollection=data.insightsCollection.slice(-200);if(data.weeklyStats)data.weeklyStats.insightsGained++;save();
@@ -13124,6 +13320,15 @@ function updateHome(){
     welcomeEl.style.display = 'block';
   } else {
     welcomeEl.style.display = 'none';
+  }
+  
+  // 1b. Daily wisdom (shows after 5 games)
+  let wisdomEl = document.getElementById('dailyWisdom');
+  if(data.games >= 5) {
+    wisdomEl.textContent = '"' + getDailyWisdom() + '"';
+    wisdomEl.style.display = 'block';
+  } else {
+    wisdomEl.style.display = 'none';
   }
   
   // 2. First-time pulse on Mirror Game - hide after they've started playing anything
@@ -14254,7 +14459,37 @@ function showHookScreen(num) {
 
 function activateScreen(num) {
   let screen = document.getElementById('hookScreen' + num);
+  let container = document.querySelector('.hook-container');
+  let hook = document.getElementById('hook');
+  
+  // Scroll to top (now scrolling the hook element itself)
+  if(hook) hook.scrollTop = 0;
+  
+  // For scrollable screens, align to top; otherwise center
+  if(container) {
+    if(screen.classList.contains('hook-screen-scrollable')) {
+      container.style.justifyContent = 'flex-start';
+      container.style.paddingTop = '40px';
+    } else {
+      container.style.justifyContent = 'center';
+      container.style.paddingTop = '0';
+    }
+  }
+  
+  // Force re-trigger screen entrance animation
+  screen.style.animation = 'none';
+  screen.offsetHeight; // Force reflow
   screen.classList.add('active');
+  screen.style.animation = 'screenFadeIn 0.4s cubic-bezier(0.16,1,0.3,1)';
+  
+  // Re-trigger button entrance animation when navigating between screens
+  screen.querySelectorAll('.hook-btn').forEach(btn => {
+    if(btn.classList.contains('show')) {
+      btn.style.animation = 'none';
+      btn.offsetHeight; // Force reflow
+      btn.style.animation = 'btnFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) forwards';
+    }
+  });
 }
 
 function toggleRecognition(el) {
@@ -15290,6 +15525,25 @@ document.getElementById('aiBtn').onclick=function(){if(tourActive)return;showAIA
 document.getElementById('aiClose').onclick=function(){document.getElementById('aiModal').classList.remove('active')};
 document.getElementById('founderBtn').onclick=function(){if(tourActive)return;document.getElementById('founderModal').classList.add('active')};
 document.getElementById('founderClose').onclick=function(){document.getElementById('founderModal').classList.remove('active')};
+
+// Logo click - Rate the app in App Store / Play Store
+document.getElementById('logoRateBtn').onclick=function(){
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isAndroid = /Android/.test(navigator.userAgent);
+  if(isIOS) {
+    window.open('https://apps.apple.com/app/id6757724858?action=write-review', '_blank');
+  } else if(isAndroid) {
+    window.open('https://play.google.com/store/apps/details?id=com.levelsofself.levelup', '_blank');
+  } else {
+    if(confirm('Rate Level Up ⭐\n\nOK = iOS App Store\nCancel = Google Play')) {
+      window.open('https://apps.apple.com/app/id6757724858?action=write-review', '_blank');
+    } else {
+      window.open('https://play.google.com/store/apps/details?id=com.levelsofself.levelup', '_blank');
+    }
+  }
+  haptic('light');
+};
+
 document.getElementById('archetypeClose').onclick=function(){document.getElementById('archetypeModal').classList.remove('active')};
 document.getElementById('resetBtn').onclick=function(){document.getElementById('qaModal').classList.remove('active');document.getElementById('resetModal').classList.add('active')};
 document.getElementById('resetCancel').onclick=function(){document.getElementById('resetModal').classList.remove('active')};
