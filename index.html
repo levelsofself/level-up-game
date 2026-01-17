@@ -69,6 +69,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Level Up">
@@ -108,7 +109,6 @@
 <link rel="preload" href="logo_edited.webp" as="image" type="image/webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2" as="font" type="font/woff2" crossorigin>
 <title>Level Up - See Your Patterns | 7 Levels of Self</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -269,6 +269,7 @@ body::-webkit-scrollbar-thumb:hover{background:var(--purple)}
   padding-top:var(--space-5);
   padding-bottom:max(var(--space-10),env(safe-area-inset-bottom));
   position:relative;
+  overflow-x:hidden;
 }
 /* Desktop - Floating legendary card */
 @media (min-width:768px){
@@ -587,10 +588,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .hero p{color:var(--muted);font-size:14px}
 /* ULTIMATE Challenge Card */
 .challenge{background:var(--card);border:2px solid var(--pink);border-radius:var(--radius-xl);padding:20px;margin-bottom:16px;cursor:pointer;transition:var(--transition-normal);box-shadow:var(--shadow-glow-pink),var(--shadow-card);position:relative;overflow:hidden;animation:fadeIn 0.4s var(--ease-out-expo)}
-.challenge::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,60,172,0.05) 0%,transparent 50%,rgba(120,75,160,0.05) 100%);opacity:0;transition:var(--transition-normal)}
 .challenge::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-primary-vivid)}
-.challenge:hover{box-shadow:var(--shadow-glow-lg),var(--shadow-lg);transform:translateY(-6px) scale(1.01);border-color:var(--pink-light)}
-.challenge:hover::before{opacity:1}
+.challenge:hover{box-shadow:var(--shadow-glow-pink),var(--shadow-lg);transform:translateY(-4px);border-color:var(--pink)}
 .challenge:active{transform:translateY(-2px) scale(0.99);transition:var(--transition-fast)}
 /* ═══════════════════════════════════════════════════════════════════════
    LEGENDARY BADGE SYSTEM - Polished micro-badges
@@ -600,8 +599,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes badgeShine{0%{transform:translateX(-200%)}50%,100%{transform:translateX(300%)}}
 .badge-dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:pulseDot 2s infinite;box-shadow:0 0 8px rgba(255,255,255,0.5)}
 @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 8px rgba(255,255,255,0.5)}50%{opacity:0.6;transform:scale(0.7);box-shadow:0 0 4px rgba(255,255,255,0.3)}}
-.challenge h2{font-size:20px;font-weight:700;margin-bottom:6px;transition:var(--transition-normal);background:linear-gradient(135deg,var(--text) 0%,var(--text) 100%);-webkit-background-clip:text;background-clip:text}
-.challenge:hover h2{background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.challenge h2{font-size:20px;font-weight:700;margin-bottom:6px;transition:var(--transition-normal);color:var(--text)}
+.challenge:hover h2{color:var(--pink)}
 .challenge p{color:var(--muted);font-size:13px;margin-bottom:12px;line-height:1.5;transition:var(--transition-normal)}
 .challenge:hover p{color:var(--text-secondary)}
 .challenge-footer{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);align-items:center}
@@ -831,7 +830,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .footer-btn.primary{background:var(--grad-primary);border:none;color:#fff}
 .footer-btn.primary::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)}
 .footer-btn.primary:hover{box-shadow:0 4px 20px rgba(255,60,172,0.4)}
-.game{display:none}
+.game{display:none;overflow-x:hidden}
 .game.active{display:block;animation:slideUp 0.3s ease}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .home.hidden{display:none}
@@ -860,7 +859,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .scenario-text.loading{color:var(--muted);animation:textPulse 1.5s ease-in-out infinite}
 @keyframes textPulse{0%,100%{opacity:0.4}50%{opacity:1}}
 .choices{display:flex;flex-direction:column;gap:10px;animation:fadeIn 0.3s ease;min-height:280px}
-.choice{width:100%;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;text-align:left;cursor:pointer;line-height:1.5;transition:var(--transition-fast);box-shadow:var(--shadow-sm);animation:choiceSlide 0.3s ease backwards;position:relative;overflow:hidden}
+.choice{width:100%;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;text-align:left;cursor:pointer;line-height:1.5;transition:var(--transition-fast);box-shadow:var(--shadow-sm);animation:choiceSlide 0.3s ease backwards;position:relative;overflow:hidden;min-height:60px;display:flex;align-items:center}
 .choice::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,60,172,0.08),transparent);transition:none}
 .choice:hover::before{left:150%;transition:left 0.5s ease-out}
 .choice:nth-child(1){animation-delay:0.05s}
@@ -877,7 +876,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .choice.selected-mirror{border-color:var(--cyan);background:rgba(0,216,255,0.15);box-shadow:0 0 15px rgba(0,216,255,0.2);transform:scale(1.02)}
 .choice.dim-neutral{opacity:0.5}
 .choice.dim{opacity:0.25}
-.results{display:none;text-align:center;padding-top:40px;padding-bottom:100px}
+.results{display:none;text-align:center;padding-top:40px;padding-bottom:100px;overflow-x:hidden}
 .results.active{display:block;animation:slideUp 0.4s ease}
 .results h2{font-size:26px;margin-bottom:16px;font-weight:800;background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeIn 0.4s ease}
 .score{font-size:72px;font-weight:900;color:var(--text);margin:20px 0;text-shadow:0 0 40px rgba(255,60,172,0.3);animation:scoreBounce 1s ease;position:relative}
