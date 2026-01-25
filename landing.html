@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,viewport-fit=cover">
+<meta name="theme-color" content="#0d0a1a">
+<title>Level Up - See Your Patterns | Free Self-Awareness Game</title>
+<meta name="description" content="Everyone sees your pattern except you. Play the free game that reveals why you keep repeating the same mistakes.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://levelsofself.com/start">
+<meta property="og:title" content="Everyone sees your pattern except you.">
+<meta property="og:description" content="Play the free game that reveals why you keep repeating the same mistakes.">
+<meta property="og:image" content="https://100levelup.com/og-game.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0d0a1a;
+  --bg-card: #1a1525;
+  --bg-card-hover: #221a30;
+  --text: #f5f0ff;
+  --muted: #9890a8;
+  --orange: #FF6B35;
+  --pink: #FF3CAC;
+  --purple: #784BA0;
+  --gold: #FFD700;
+  --green: #00D26A;
+  --cyan: #00C8F0;
+  --grad-primary: linear-gradient(135deg, #FF6B35, #FF3CAC, #784BA0);
+  --grad-legendary: linear-gradient(135deg, #FF6B35, #FF3CAC, #784BA0, #2F80ED, #00D26A);
+  --shadow-glow: 0 0 60px rgba(255,60,172,0.3), 0 0 120px rgba(120,75,160,0.2);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Animated background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(255,107,53,0.15), transparent 50%),
+    radial-gradient(ellipse 60% 60% at 80% 20%, rgba(255,60,172,0.12), transparent 50%),
+    radial-gradient(ellipse 70% 70% at 50% 90%, rgba(120,75,160,0.15), transparent 50%);
+  pointer-events: none;
+  z-index: -2;
+  animation: meshFloat 20s ease-in-out infinite;
+}
+
+@keyframes meshFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-2%, 1%) scale(1.02); }
+  66% { transform: translate(1%, -1%) scale(0.98); }
+}
+
+/* Vignette */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 0%, rgba(8,6,15,0.5) 70%, rgba(8,6,15,0.9) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px 20px 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.logo {
+  text-align: center;
+  padding: 16px 0 8px;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: 900;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 24px 0 28px;
+}
+
+.hero-hook {
+  font-size: clamp(26px, 7vw, 38px);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 14px;
+  letter-spacing: -0.03em;
+}
+
+.hero-hook .highlight {
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+/* Main CTA Section */
+.main-cta-section {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 28px 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.cta-headline {
+  font-size: 15px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 16px;
+}
+
+.cta-headline strong {
+  color: var(--text);
+}
+
+/* Primary CTA */
+.cta-primary {
+  display: block;
+  width: 100%;
+  padding: 18px 32px;
+  background: var(--grad-primary);
+  border: none;
+  border-radius: 14px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(255,60,172,0.3);
+}
+
+.cta-primary::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  background: var(--grad-primary);
+  border-radius: 17px;
+  z-index: -1;
+  filter: blur(20px);
+  opacity: 0.6;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); }
+}
+
+.cta-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(255,60,172,0.5);
+}
+
+.cta-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.cta-trust {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.cta-subtext {
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.cta-trust span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cta-trust .check {
+  color: var(--green);
+}
+
+/* App store buttons */
+.store-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.store-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(255,255,255,0.05);
+}
+
+.store-btn:hover {
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 25px rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+}
+
+.store-icon {
+  font-size: 18px;
+}
+
+/* Partner link */
+.partner-section {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.partner-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 14px 24px;
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  background: rgba(255,215,0,0.05);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255,215,0,0.2);
+  animation: partnerGlow 2s ease-in-out infinite;
+}
+
+@keyframes partnerGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.2); }
+  50% { box-shadow: 0 0 30px rgba(255,215,0,0.4), 0 0 40px rgba(255,215,0,0.2); }
+}
+
+.partner-link:hover {
+  background: rgba(255,215,0,0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(255,215,0,0.5);
+}
+
+.partner-link .arrow {
+  transition: transform 0.2s ease;
+}
+
+.partner-link:hover .arrow {
+  transform: translateX(3px);
+}
+
+/* News Ticker */
+.ticker-section {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.ticker-label {
+  text-align: center;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.ticker-wrap {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  overflow: hidden;
+  background: #000;
+  border-top: 1px solid rgba(255,60,172,0.4);
+  border-bottom: 1px solid rgba(255,60,172,0.4);
+  padding: 18px 0;
+  box-shadow: 
+    0 -10px 40px rgba(255,60,172,0.12),
+    0 10px 40px rgba(255,60,172,0.12),
+    inset 0 0 80px rgba(120,75,160,0.1);
+  position: relative;
+}
+
+.ticker-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #000 0%, transparent 8%, transparent 92%, #000 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ticker {
+  display: flex;
+  animation: ticker 40s linear infinite;
+  width: max-content;
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 40px;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  opacity: 1;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.ticker-item img {
+  height: 20px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+.ticker-logo {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.ticker-logo.ap { color: #ff322e; }
+.ticker-logo.bloomberg { color: #b3a1ff; }
+.ticker-logo.yahoo { color: #a78bfa; }
+.ticker-logo.google { 
+  background: linear-gradient(90deg, #4285f4, #ea4335, #fbbc05, #34a853);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.ticker-logo.msn { color: #47b5ff; }
+
+.ticker-divider {
+  width: 4px;
+  height: 4px;
+  background: var(--pink);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+/* Credibility Footer */
+.credibility {
+  text-align: center;
+  padding: 24px 0 20px;
+}
+
+.award-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,107,53,0.08));
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.award-badge:hover {
+  background: linear-gradient(135deg, rgba(255,215,0,0.25), rgba(255,107,53,0.15));
+  border-color: rgba(255,215,0,0.5);
+  transform: translateY(-1px);
+}
+
+.award-badge .trophy {
+  font-size: 16px;
+}
+
+.founder {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.founder-name {
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.founder-name:hover {
+  color: var(--pink);
+}
+
+.footer-link {
+  margin-top: 8px;
+}
+
+.footer-link a {
+  color: var(--pink);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-link a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .hero-sub { 
+    white-space: normal;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-hook { font-size: 24px; }
+  .cta-trust { flex-wrap: wrap; gap: 8px; }
+  .store-buttons { flex-direction: column; }
+  .ticker-item { padding: 0 24px; font-size: 13px; }
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .container {
+    padding: 40px 24px 0;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  .main-cta-section {
+    padding: 36px 32px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  
+  <div class="logo">
+    <div class="logo-text">LEVEL UP</div>
+    <div class="tagline">Play Your Way To Greatness</div>
+  </div>
+
+  <div class="hero">
+    <h1 class="hero-hook">
+      Everyone sees your <span class="highlight">pattern</span> except you.
+    </h1>
+    
+    <p class="hero-sub">
+      Your friends see it. Your ex saw it. Your boss sees it.
+    </p>
+  </div>
+
+  <div class="main-cta-section">
+    <p class="cta-headline">Find out what's really running your life — in 3 minutes.</p>
+    
+    <div class="cta-subtext">Join 2,000,000+ who already know their pattern</div>
+    
+    <a href="https://100levelup.com" class="cta-primary">
+      Play Free Now ➔
+    </a>
+    
+    <div class="cta-trust">
+      <span><span class="check">✓</span> No signup</span>
+      <span><span class="check">✓</span> No credit card</span>
+      <span><span class="check">✓</span> 100% free</span>
+    </div>
+    
+    <div class="store-buttons">
+      <a href="https://apps.apple.com/app/id6757724858" class="store-btn">
+        <span class="store-icon">📱</span>
+        Now Available in the App Store
+      </a>
+    </div>
+  </div>
+
+  <div class="partner-section">
+    <a href="https://calendly.com/levelsofself/zoom" class="partner-link">
+      🤝 Become a Certified Level Up Coach or Affiliate
+      <span class="arrow">➔</span>
+    </a>
+  </div>
+
+  <div class="ticker-section">
+    <div class="ticker-label">As Featured In</div>
+    <div class="ticker-wrap">
+      <div class="ticker">
+        <div class="ticker-item"><span class="ticker-logo ap">AP</span> News</div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item"><span class="ticker-logo bloomberg">Bloomberg</span></div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item"><span class="ticker-logo yahoo">Yahoo!</span> Finance</div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item"><span class="ticker-logo google">Google</span> News</div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item"><span class="ticker-logo msn">MSN</span></div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">ABC</div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">FOX</div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">CBS</div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">+ 200 more</div>
+        <div class="ticker-divider"></div>
+        <!-- Duplicate for seamless loop -->
+        <div class="ticker-item"><span class="ticker-logo ap">AP</span> News</div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item"><span class="ticker-logo bloomberg">Bloomberg</span></div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item"><span class="ticker-logo yahoo">Yahoo!</span> Finance</div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item"><span class="ticker-logo google">Google</span> News</div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item"><span class="ticker-logo msn">MSN</span></div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">ABC</div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">FOX</div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">CBS</div>
+        <div class="ticker-divider"></div>
+        <div class="ticker-item">+ 200 more</div>
+        <div class="ticker-divider"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="credibility">
+    <a href="https://levelsofself.com" class="award-badge" target="_blank">
+      <span class="trophy">🏆</span>
+      Best Life Coach California 2025
+    </a>
+    <div class="founder">
+      Created by <a href="https://levelsofself.com" class="founder-name" target="_blank">Arthur Palyan</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
