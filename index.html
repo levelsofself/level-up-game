@@ -10,7 +10,7 @@
   ║   ╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ║
   ║                                                                           ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
-  ║  LEVEL UP - Levels of Self | v11.7.0 LEGENDARY | January 2026             ║
+  ║  LEVEL UP - Levels of Self | v11.7.1 LEGENDARY | January 2026             ║
   ║  Built by Arthur Palyan | Best Life Coach California 2025                 ║
   ║  Live on Google Play & iOS App Store | 175 Countries                                    ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
@@ -386,16 +386,18 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
   justify-content:center;
   width:24px;
   height:24px;
-  background:rgba(255,255,255,0.25);
+  background:linear-gradient(135deg,var(--pink),var(--purple));
   border-radius:50%;
   font-size:14px;
   font-weight:700;
   transition:var(--transition-fast);
+  box-shadow:0 2px 10px rgba(255,60,172,0.4);
+  animation:pulse-glow 2s infinite;
 }
 .hook-btn-secondary::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.2) 50%,transparent 60%);transform:translateX(-100%);transition:transform 0.5s var(--ease-out-expo);pointer-events:none}
 .hook-btn-secondary:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 8px 32px var(--purple-glow),var(--shadow-glow-purple)}
 .hook-btn-secondary:hover::before{transform:translateX(100%)}
-.hook-btn-secondary:hover .back-arrow{background:rgba(255,255,255,0.35);transform:translateX(-2px)}
+.hook-btn-secondary:hover .back-arrow{background:linear-gradient(135deg,var(--pink),var(--purple));transform:translateX(-2px) scale(1.1);box-shadow:0 4px 15px rgba(255,60,172,0.6)}
 .hook-btn-secondary:active{transform:translateY(-1px) scale(0.98);transition:var(--transition-fast)}
 .hook-btn-row .hook-btn{flex:1;margin:0;padding:16px 24px}
 .voice-options{display:flex;flex-direction:column;gap:10px;width:100%;margin-bottom:24px}
@@ -578,7 +580,9 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .login-bonus.show{display:block;animation:glow 2s ease-in-out infinite}
 @keyframes glow{0%,100%{box-shadow:0 0 5px var(--gold)}50%{box-shadow:0 0 20px var(--gold)}}
 .login-title{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:4px;text-shadow:0 0 8px rgba(255,215,0,0.3);pointer-events:none}
+.login-title *{pointer-events:none}
 .login-sub{font-size:12px;color:var(--muted);transition:var(--transition-fast);pointer-events:none}
+.login-sub *{pointer-events:none}
 .login-bonus:hover .login-sub{color:var(--text)}
 .streak-warning{background-color:rgba(60,30,30,0.95);background-image:linear-gradient(135deg,rgba(255,71,87,0.2),rgba(255,107,53,0.2));border:2px solid var(--red);border-radius:12px;padding:12px;margin-bottom:16px;text-align:center;display:none;animation:shake 0.5s ease;cursor:pointer;transition:var(--transition-fast)}
 .streak-warning:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,71,87,0.3)}
@@ -1331,7 +1335,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="voice-option" data-voice="all-there-is" onclick="toggleVoice(this)">"Is this really all there is?"</div>
 </div>
 <div class="hook-btn-row">
-<button class="hook-btn-secondary" onclick="showHookScreen(2)"><span class="back-arrow">←</span> Back</button>
+<button class="hook-btn-secondary" onclick="showHookScreen(2)"><span class="back-arrow">⬅</span> Back</button>
 <button class="hook-btn show" onclick="continueFromVoice()">Continue</button>
 </div>
 <div class="validation-hint" id="voiceHint">Please select at least one</div>
@@ -1341,6 +1345,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="hook-progress"><span class="h-dot done"></span><span class="h-dot done"></span><span class="h-dot active"></span><span class="h-dot"></span></div>
 <div class="hook-question-title">This isn't a flaw.</div>
 <div class="hook-question-sub">It's a signal you're solving the problem at the wrong level.</div>
+<button class="scroll-bottom-btn" onclick="document.querySelector('.levels-compact').scrollIntoView({behavior:'smooth',block:'start'})">⬇</button>
 <div class="levels-intro">Tap each level to learn more:</div>
 <div class="levels-compact">
 <div class="level-compact" onclick="toggleLevelInfo(this, 1)" data-level="1"><div class="level-dot" style="background:#FF6B35">1</div><div class="level-compact-info"><span class="level-compact-name">Individual</span><span class="level-compact-desc">Self for yourself</span></div></div>
@@ -1360,7 +1365,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 </div>
 <div class="reveal-cta">The game shows you which level your pattern lives on—so you can finally change it.</div>
 <div class="hook-btn-row">
-<button class="hook-btn-secondary" onclick="showHookScreen(3)"><span class="back-arrow">←</span> Back</button>
+<button class="hook-btn-secondary" onclick="showHookScreen(3)"><span class="back-arrow">⬅</span> Back</button>
 <button class="hook-btn show" onclick="showHookScreen(5)">See My Pattern</button>
 </div>
 </div>
@@ -13223,9 +13228,18 @@ function checkDailyLogin(){
     document.getElementById('loginBonus').classList.add('show');
   }else{document.getElementById('loginBonus').classList.remove('show')}
 }
-document.getElementById('loginBonus').onclick=function(){
-  let rewards=[10,15,20,25,30,40,50];multiCoinSound(data.loginDay);addXP(rewards[data.loginDay-1], 'Daily Login');showToast('+'+rewards[data.loginDay-1]+' XP!');this.classList.remove('show');triggerConfetti();
-};
+(function(){
+  var lb=document.getElementById('loginBonus'),claimed=false;
+  function claimBonus(e){
+    if(claimed)return;
+    claimed=true;
+    e.preventDefault();e.stopPropagation();
+    let rewards=[10,15,20,25,30,40,50];multiCoinSound(data.loginDay);addXP(rewards[data.loginDay-1],'Daily Login');showToast('+'+rewards[data.loginDay-1]+' XP!');lb.classList.remove('show');triggerConfetti();
+    setTimeout(function(){claimed=false},500);
+  }
+  lb.addEventListener('click',claimBonus,{passive:false});
+  lb.addEventListener('touchend',claimBonus,{passive:false});
+})();
 
 function checkStreakWarning(){
   if(data.streak>0&&data.lastDaily!==new Date().toDateString()){
