@@ -320,7 +320,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .hook-music-btn:hover::before{opacity:1}
 .hook-music-btn:active{transform:scale(0.95)}
 .hook-music-btn.on{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;border:none}
-.hook-music-btn.off{background:var(--card);color:var(--muted)}
+.hook-music-btn.off{background:var(--card);color:var(--muted);border:1px solid var(--border)}
 .hook-music-btn.spotify{color:#1DB954}
 .hook-music-btn.spotify:hover{border-color:#1DB954;background:rgba(29,185,84,0.1)}
 .hook-music-btn.apple{color:#FC3C44}
@@ -376,7 +376,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .recognition-item.selected::after{content:'✓';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--pink);font-weight:700;font-size:16px;text-shadow:0 0 10px rgba(255,60,172,0.5)}
 .validation-hint{font-size:13px;color:var(--pink);text-align:center;margin-top:12px;opacity:0;transition:opacity 0.3s;font-weight:500}
 .validation-hint.show{opacity:1}
-.hook-btn-row{display:flex;gap:var(--space-3);width:100%;max-width:380px;margin-top:var(--space-4)}
+.hook-btn-row{display:flex;gap:var(--space-3);width:100%;max-width:380px;margin-top:var(--space-4);justify-content:center}
 .hook-btn-secondary{
   flex:0 0 auto;
   padding:16px 20px;
@@ -1424,7 +1424,6 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <button class="start-playing-btn" id="startGameBtn">Start Playing →</button>
 <div class="share-buttons">
 <button class="share-btn" onclick="shareEntryPattern()"><span class="share-btn-icon">📤</span> Share My Pattern</button>
-<button class="share-btn-secondary" onclick="copyEntryLink()">📋 Copy Link</button>
 </div>
 </div>
 </div>
@@ -13005,7 +13004,6 @@ function toggleHookMusic() {
     hookMusicPlaying = false;
     btn.classList.remove('on');
     btn.classList.add('off');
-    btn.textContent = '🔇';
     showToast('Music off');
   } else {
     // Turn on music
@@ -13013,7 +13011,6 @@ function toggleHookMusic() {
     hookMusicPlaying = true;
     btn.classList.remove('off');
     btn.classList.add('on');
-    btn.textContent = '🎵';
     showToast('Music on');
   }
 }
@@ -13027,7 +13024,6 @@ function openSpotify() {
   if (btn) {
     btn.classList.remove('on');
     btn.classList.add('off');
-    btn.textContent = '🔇';
   }
   showToast('Opening Spotify...');
   
@@ -13058,7 +13054,6 @@ function openAppleMusic() {
   if (btn) {
     btn.classList.remove('on');
     btn.classList.add('off');
-    btn.textContent = '🔇';
   }
   showToast('Opening Apple Music...');
   
@@ -15517,15 +15512,20 @@ document.getElementById('hookBtn').onclick = function() {
 };
 
 // Start game button after reveal
-// Start game button goes directly to home - switch to level-up music
+// Start game button goes directly to home - respect user's music choice
 document.getElementById('startGameBtn').onclick = function() {
   data.seenIntro = true;
   save();
-  // Switch from intro music to level-up music
+  // Stop intro music
   document.getElementById('introMusic').pause();
   document.getElementById('introMusic').currentTime = 0;
-  if(musicOn) {
+  // Only play game music if user had intro music on (didn't turn it off or switch to Spotify/Apple Music)
+  if(musicOn && hookMusicPlaying) {
     music.play().catch(() => {});
+  } else if (!hookMusicPlaying) {
+    // User turned off music or switched to external app - keep music off
+    musicOn = false;
+    document.getElementById('musicBtn').classList.remove('on');
   }
   document.body.classList.remove('hook-active');
   document.getElementById('hook').classList.add('hidden');
