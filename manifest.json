@@ -5,6 +5,7 @@
   "start_url": "/",
   "scope": "/",
   "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
   "background_color": "#0d0a1a",
   "theme_color": "#0d0a1a",
   "orientation": "portrait",
