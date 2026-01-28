@@ -10,7 +10,7 @@
   ║   ╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ║
   ║                                                                           ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
-  ║  LEVEL UP - Levels of Self | v11.7.1 LEGENDARY | January 2026             ║
+  ║  LEVEL UP - Levels of Self | v11.8.0 LEGENDARY | January 2026             ║
   ║  Built by Arthur Palyan | Best Life Coach California 2025                 ║
   ║  Live on Google Play & iOS App Store | 175 Countries                                    ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
@@ -384,20 +384,14 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:24px;
-  height:24px;
-  background:linear-gradient(135deg,var(--pink),var(--purple));
-  border-radius:50%;
-  font-size:14px;
+  font-size:16px;
   font-weight:700;
   transition:var(--transition-fast);
-  box-shadow:0 2px 10px rgba(255,60,172,0.4);
-  animation:pulse-glow 2s infinite;
 }
 .hook-btn-secondary::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.2) 50%,transparent 60%);transform:translateX(-100%);transition:transform 0.5s var(--ease-out-expo);pointer-events:none}
 .hook-btn-secondary:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 8px 32px var(--purple-glow),var(--shadow-glow-purple)}
 .hook-btn-secondary:hover::before{transform:translateX(100%)}
-.hook-btn-secondary:hover .back-arrow{background:linear-gradient(135deg,var(--pink),var(--purple));transform:translateX(-2px) scale(1.1);box-shadow:0 4px 15px rgba(255,60,172,0.6)}
+.hook-btn-secondary:hover .back-arrow{transform:translateX(-3px)}
 .hook-btn-secondary:active{transform:translateY(-1px) scale(0.98);transition:var(--transition-fast)}
 .hook-btn-row .hook-btn{flex:1;margin:0;padding:16px 24px}
 .voice-options{display:flex;flex-direction:column;gap:10px;width:100%;margin-bottom:24px}
@@ -636,8 +630,11 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes xpShimmer{0%{transform:translateX(-200%)}50%,100%{transform:translateX(400%)}}
 @keyframes xpPulse{0%,100%{opacity:0.5;transform:scaleX(1)}50%{opacity:1;transform:scaleX(1.3)}}
 @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.xp-coins{display:flex;align-items:center;gap:4px;font-size:14px;color:var(--gold);font-weight:600;transition:var(--transition-normal);cursor:pointer;padding:6px 10px;border-radius:var(--radius-sm);background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.15)}
-.xp-coins:hover{text-shadow:0 0 15px rgba(255,215,0,0.6);background:rgba(255,215,0,0.15);border-color:rgba(255,215,0,0.3);transform:scale(1.02)}
+.xp-coins{display:flex;align-items:center;gap:4px;font-size:14px;color:var(--gold);font-weight:600;transition:var(--transition-normal);cursor:pointer;padding:6px 10px;border-radius:var(--radius-sm);background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.15);position:relative;animation:coinsGlow 3s ease-in-out infinite}
+.xp-coins::before{content:'';position:absolute;inset:-3px;background:linear-gradient(135deg,var(--gold),var(--orange));border-radius:10px;z-index:-1;filter:blur(8px);opacity:0.4;animation:coinsPulse 3s ease-in-out infinite}
+@keyframes coinsGlow{0%,100%{box-shadow:0 0 8px rgba(255,215,0,0.3)}50%{box-shadow:0 0 20px rgba(255,215,0,0.6),0 0 30px rgba(255,215,0,0.3)}}
+@keyframes coinsPulse{0%,100%{opacity:0.3;filter:blur(8px)}50%{opacity:0.6;filter:blur(12px)}}
+.xp-coins:hover{text-shadow:0 0 15px rgba(255,215,0,0.6);background:rgba(255,215,0,0.15);border-color:rgba(255,215,0,0.3);transform:scale(1.05)}
 /* ULTIMATE Coin Shop Styles */
 .coin-reward{display:flex;justify-content:space-between;align-items:center;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;transition:var(--transition-normal);position:relative;overflow:hidden}
 .coin-reward::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,215,0,0.08),transparent);pointer-events:none}
@@ -824,8 +821,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .action-btn.assess:hover{border-color:var(--blue);box-shadow:0 4px 15px rgba(47,128,237,0.3)}
 .action-btn.share{border-color:var(--green);background:linear-gradient(135deg,rgba(0,210,106,0.1),rgba(0,210,106,0.05))}
 .action-btn.share:hover{border-color:var(--green);box-shadow:0 4px 15px rgba(0,210,106,0.3)}
+.action-btn.breakthrough{border-color:var(--orange);background:linear-gradient(135deg,rgba(255,87,34,0.15),rgba(255,87,34,0.05))}
+.action-btn.breakthrough:hover{border-color:var(--orange);box-shadow:0 4px 15px rgba(255,87,34,0.4)}
+.action-btn.team{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,208,0,0.2),rgba(255,208,0,0.05))}
+.action-btn.team:hover{border-color:var(--gold);box-shadow:0 4px 15px rgba(255,208,0,0.5)}
 .footer{text-align:center;padding:8px 0 16px 0;animation:fadeIn 0.5s ease 0.4s backwards}
-.footer-btns{display:flex;flex-direction:column;gap:12px;margin-bottom:12px}
+.footer-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .footer-btn{animation:fadeIn 0.3s ease backwards}
 .footer-btns .footer-btn:nth-child(1){animation-delay:0.1s}
 .footer-btns .footer-btn:nth-child(2){animation-delay:0.2s}
@@ -1456,7 +1457,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="section-title">Your Journey</div>
 <div class="levels" id="levelMap"></div>
 
-<div class="action-btns"><a class="action-btn assess" id="assessBtn" href="https://selfcheck.100levelup.com/assessment.html" target="_blank" rel="noopener" aria-label="Take Full Assessment"><span class="action-btn-icon">📋</span><span class="action-btn-text">Full Assessment</span></a><button class="action-btn share" id="shareBtn" aria-label="Share this game"><span class="action-btn-icon">🔗</span><span class="action-btn-text">Share</span></button></div>
+<div class="action-btns"><button class="action-btn breakthrough" id="breakthroughBtn" onclick="document.getElementById('breakthroughModal').classList.add('active')" aria-label="Breakthrough Work exercises"><span class="action-btn-icon">🔥</span><span class="action-btn-text">Breakthrough Work</span></button><button class="action-btn team" id="teamBtn" onclick="document.getElementById('teamModal').classList.add('active')" aria-label="Join Our Team"><span class="action-btn-icon">🤝</span><span class="action-btn-text">Join Our Team</span></button></div>
 
 <div class="footer">
 <div class="footer-btns">
@@ -1692,7 +1693,7 @@ Lvl 10 → World theme<br>
 Lvl 15 → Generations theme</span><br><br>
 <strong>💰 Coins:</strong> Earn 25% of XP as coins. Redeem in the Reward Shop for discounts—or save up for a FREE coaching session!<br><br>
 <strong>🔥 Streaks:</strong> Complete Worldwide Challenge daily. Miss a day = reset.<br><br>
-<strong>⚡ Combos:</strong> Consecutive correct answers = bonus XP (5x = +10, 10x = +20).
+<strong>⚡ Combos:</strong> Consecutive correct answers = extra XP (5x = +10, 10x = +20).
 </div></div>
 
 <!-- 6. CORE PHILOSOPHY -->
@@ -1730,6 +1731,37 @@ You can accept that something <em>IS</em> without agreeing it <em>SHOULD BE</em>
 <div style="font-size:12px;color:var(--muted);">English · Dutch · Korean · Armenian · Russian</div>
 </div>
 <button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('coachingModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Meet Our Coaches</button>
+</div></div>
+
+<!-- BREAKTHROUGH WORK FAQ -->
+<div class="qa-item"><div class="qa-question">🔥 What is Breakthrough Work?</div><div class="qa-answer">
+<strong style="color:var(--orange);">9 exercises to shift perspective and move stuck energy.</strong><br><br>
+<div style="background:var(--card);border-radius:10px;padding:12px;margin-bottom:12px;">
+<strong>Three Levels:</strong><br>
+<span style="font-size:13px;color:var(--muted);">
+• <span style="color:var(--green);">STARTER</span> — Build the habit: Breathwork, Center Tap, Daily Check-In, Power of Context<br>
+• <span style="color:var(--blue);">INTERMEDIATE</span> — Shift perspective: "Have To → Get To → Blessed To", Blessings Letter<br>
+• <span style="color:var(--pink);">DEEP WORK</span> — Move stuck energy: Forgiveness Letter, Most Painful Memory, Ultimate Acknowledgment
+</span>
+</div>
+<em style="color:var(--muted);font-size:12px;">Complete exercises to earn XP. Deep work exercises unlock coaching CTA.</em><br><br>
+<button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('breakthroughModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Start Breakthrough Work</button>
+</div></div>
+
+<!-- JOIN OUR TEAM FAQ -->
+<div class="qa-item"><div class="qa-question">🤝 How can I partner with you?</div><div class="qa-answer">
+<strong style="color:var(--gold);">We're looking for coaches, translators, and affiliates.</strong><br><br>
+<div style="background:var(--card);border-radius:10px;padding:12px;margin-bottom:12px;">
+<strong>Three Ways to Partner:</strong><br>
+<span style="font-size:13px;color:var(--muted);">
+• <strong>COACHES</strong> — Teach the 7 Levels framework. Work remotely. 80% revenue share.<br>
+• <strong>TRANSLATORS</strong> — Bring the game to your language. We handle tech & marketing.<br>
+• <strong>AFFILIATES</strong> — Refer clients or coaches. Earn on every session. No coaching required.
+</span>
+</div>
+<div style="font-size:12px;color:var(--green);margin-bottom:8px;">✅ No experience required • ✅ No setup cost • ✅ Work from anywhere</div>
+<em style="color:var(--muted);font-size:12px;">Created by Arthur Palyan — Best Life Coach California 2025</em><br><br>
+<button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('teamModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:10px;color:#000;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Apply Now</button>
 </div></div>
 
 <!-- WORKSHOP -->
@@ -1810,7 +1842,7 @@ This game helps people see themselves without judgment. It's <strong>free</stron
 </div>
 <div>
 <strong>🖨️ Print</strong><br>
-<span style="font-size:11px;color:var(--muted);">Save as PDF</span><br>
+<span style="font-size:11px;color:var(--muted);">Save Your Progress</span><br>
 <button onclick="printProgress()" style="padding:8px 16px;background:linear-gradient(135deg,var(--cyan),var(--blue));border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;margin-top:6px;">Print</button>
 </div>
 </div>
@@ -2423,6 +2455,293 @@ Earn coins every game you play. Redeem for real rewards!
 <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:8px;">Questions? Contact us anytime.</p>
 </div></div>
 
+<!-- Join Our Team Modal -->
+<div class="modal" id="teamModal" role="dialog" aria-label="Join Our Team">
+<div class="modal-content coaching-modal-content" style="max-width:480px;">
+<button class="modal-close-x" onclick="document.getElementById('teamModal').classList.remove('active')">✕</button>
+<div style="text-align:center;margin-bottom:24px;">
+<span style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);background:rgba(255,208,0,0.15);padding:6px 16px;border-radius:20px;margin-bottom:12px;">🤝 Partner With Us</span>
+<h2 style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px;">Partner with an</h2>
+<h2 style="font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;">Award-Winning Life Coach</h2>
+<p style="font-size:14px;color:var(--muted);line-height:1.6;">I'm looking for coaches, translators, and affiliates to partner with on this incredible free self-awareness game.</p>
+</div>
+
+<!-- Coaches Role -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+<div style="width:44px;height:44px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">🎓</div>
+<div style="font-size:17px;font-weight:700;color:var(--text);">COACHES</div>
+</div>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Teach the 7 Levels of Self framework. Help people break patterns. Work remotely.</p>
+</div>
+
+<!-- Translators Role -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+<div style="width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">🌍</div>
+<div style="font-size:17px;font-weight:700;color:var(--text);">TRANSLATORS</div>
+</div>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Bring the game to Spanish, French, Portuguese, Tagalog, Hindi, Arabic, or other languages. I handle tech, marketing, and advertising.</p>
+</div>
+
+<!-- Affiliates Role -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+<div style="width:44px;height:44px;background:linear-gradient(135deg,var(--green),#00B85D);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">💰</div>
+<div style="font-size:17px;font-weight:700;color:var(--text);">AFFILIATES</div>
+</div>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Refer clients or coaches. Earn on every session. No coaching required.</p>
+</div>
+
+<!-- Selling Points -->
+<div style="background:linear-gradient(135deg,rgba(255,208,0,0.1),rgba(255,107,53,0.05));border:1px solid var(--gold);border-radius:12px;padding:16px;margin-bottom:20px;">
+<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+<span style="font-size:13px;color:var(--text);font-weight:600;">✅ No experience required</span>
+<span style="font-size:13px;color:var(--text);font-weight:600;">✅ No setup cost</span>
+<span style="font-size:13px;color:var(--text);font-weight:600;">✅ Work from ANYWHERE in the world</span>
+</div>
+</div>
+
+<!-- Credibility -->
+<div style="text-align:center;margin-bottom:20px;">
+<p style="font-size:12px;color:var(--gold);font-weight:600;margin-bottom:4px;">Created by Arthur Palyan - Best Life Coach California 2025</p>
+<p style="font-size:11px;color:var(--muted);">As seen on AP News, Bloomberg, Yahoo Finance, and 200+ outlets</p>
+</div>
+
+<!-- Links -->
+<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:20px;">
+<a href="https://apps.apple.com/app/id6757724858" target="_blank" style="font-size:13px;color:var(--text);text-decoration:none;font-weight:600;">App Store</a>
+<span style="color:var(--muted);">•</span>
+<a href="https://100levelup.com" target="_blank" style="font-size:13px;color:var(--text);text-decoration:none;font-weight:600;">100levelup.com</a>
+<span style="color:var(--muted);">•</span>
+<a href="https://LevelsOfSelf.com" target="_blank" style="font-size:13px;color:var(--text);text-decoration:none;font-weight:600;">LevelsOfSelf.com</a>
+</div>
+
+<!-- CTA Button -->
+<a href="https://calendly.com/levelsofself/zoom" target="_blank" style="display:block;width:100%;padding:16px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:12px;color:#000;font-size:16px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 4px 20px rgba(255,208,0,0.4);">Apply Now →</a>
+</div>
+</div>
+
+<!-- Breakthrough Work Modal -->
+<div class="modal" id="breakthroughModal" role="dialog" aria-label="Breakthrough Work Exercises">
+<div class="modal-content coaching-modal-content" style="max-width:520px;">
+<button class="modal-close-x" onclick="document.getElementById('breakthroughModal').classList.remove('active')">✕</button>
+<div style="text-align:center;margin-bottom:24px;">
+<span style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);background:rgba(255,87,34,0.15);padding:6px 16px;border-radius:20px;margin-bottom:12px;">🔥 Deep Work</span>
+<h2 style="font-size:24px;font-weight:800;color:var(--text);margin-bottom:8px;">Breakthrough Work</h2>
+<p style="font-size:14px;color:var(--muted);line-height:1.6;">9 exercises to shift perspective and move stuck energy</p>
+</div>
+
+<!-- STARTER LEVEL -->
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+<span style="flex:1;height:1px;background:var(--border);"></span>
+<span>STARTER LEVEL</span>
+<span style="flex:1;height:1px;background:var(--border);"></span>
+</div>
+
+<!-- Exercise 1: Breathwork -->
+<div class="breakthrough-exercise" data-exercise="1" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(0,192,96,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🌬️</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Breathwork / Grounding</div>
+<div style="font-size:11px;color:var(--muted);">Grounding • 2-5 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--pink);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Anytime you need help focusing or getting grounded, listen to your breath. Slow down the breathing. Listen as you pull air inside and push air outside. Focus entirely on your breath until your thoughts have no more control over your body. You are now grounded in the present moment.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(1)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+25 XP)</button>
+</div>
+</div>
+
+<!-- Exercise 2: Center Tap -->
+<div class="breakthrough-exercise" data-exercise="2" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(0,192,96,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">👊</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Center Tap</div>
+<div style="font-size:11px;color:var(--muted);">Physical/Qigong • 1-3 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--pink);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Tap your core/stomach with a closed fist, thumbs inside. Best with music. Gets you connected and grounded. A quick reset exercise.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(2)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+25 XP)</button>
+</div>
+</div>
+
+<!-- Exercise 3: Daily Check-In -->
+<div class="breakthrough-exercise" data-exercise="3" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(0,192,96,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🪞</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Daily Check-In</div>
+<div style="font-size:11px;color:var(--muted);">Reflection/Acceptance • 5 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--pink);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Close your eyes at the start or end of each day. Ask yourself: "Was there anything I needed to say that I didn't get to say? Was there anything I needed to feel that I didn't get to feel?" Say what you need to say. Feel what you need to feel. End with "Thank you."</p>
+<p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:8px;">This is a practice of acceptance—even when you don't agree with yourself, you can count on you to hear you, get you, feel you, and be heard.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(3)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+25 XP)</button>
+</div>
+</div>
+
+<!-- Exercise 4: Power of Context -->
+<div class="breakthrough-exercise" data-exercise="4" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(0,192,96,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">👁️</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">The Power of Context</div>
+<div style="font-size:11px;color:var(--muted);">Awareness/Perspective • 5-10 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--pink);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;"><strong>Three practices:</strong></p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:6px;"><strong>1. Location:</strong> Walk into a store or location. Imagine you own it. Notice what shifts.</p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:6px;"><strong>2. Reading:</strong> Read any text. Imagine your favorite person wrote it, then your parent, then a friend, then a stranger. Notice what shifts.</p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;"><strong>3. Listening:</strong> When someone speaks to you, listen as if they're a friend, then stranger, then mom/dad. Notice what happens.</p>
+<p style="font-size:12px;color:var(--gold);font-weight:600;font-style:italic;">💡 Lesson: Same words, same place, same conversation—completely different experience. Just notice the power of context.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(4)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+25 XP)</button>
+</div>
+</div>
+
+<!-- INTERMEDIATE LEVEL -->
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+<span style="flex:1;height:1px;background:var(--border);"></span>
+<span>INTERMEDIATE LEVEL</span>
+<span style="flex:1;height:1px;background:var(--border);"></span>
+</div>
+
+<!-- Exercise 5: Have To → Get To → Blessed To -->
+<div class="breakthrough-exercise" data-exercise="5" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(30,111,224,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">✨</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Have To → Get To → Blessed To</div>
+<div style="font-size:11px;color:var(--muted);">Journaling/Reframe • 10-15 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--pink);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;"><strong>Three-part reframe exercise:</strong></p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:6px;"><strong>1.</strong> "I have to..." — List all the things you have to do</p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:6px;"><strong>2.</strong> "I get to..." — Rewrite the same list (shifts energy)</p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;"><strong>3.</strong> "I am blessed to... because..." — Rewrite again (creates wonder)</p>
+<p style="font-size:12px;color:var(--gold);font-weight:600;font-style:italic;">💡 Watch what opens up at each level.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(5)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+50 XP)</button>
+</div>
+</div>
+
+<!-- Exercise 6: Blessings Letter -->
+<div class="breakthrough-exercise" data-exercise="6" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(30,111,224,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">💝</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Blessings Letter</div>
+<div style="font-size:11px;color:var(--muted);">Writing + Gratitude • 15-20 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--pink);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Write to yourself first (always). Start with "The blessings I see in you are..." Go all out until there is nothing left. This is a creation and gratitude exercise. You begin to trust and hear yourself.</p>
+<p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:8px;">Note: No mirror reading—this is about self-trust and gratitude.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(6)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+50 XP)</button>
+</div>
+</div>
+
+<!-- DEEP WORK LEVEL -->
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--pink);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+<span style="flex:1;height:1px;background:var(--border);"></span>
+<span>DEEP WORK LEVEL</span>
+<span style="flex:1;height:1px;background:var(--border);"></span>
+</div>
+
+<!-- Exercise 7: Forgiveness Letter -->
+<div class="breakthrough-exercise" data-exercise="7" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(255,60,172,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">💔</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Forgiveness Letter</div>
+<div style="font-size:11px;color:var(--muted);">Writing + Mirror • 30-45 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--pink);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">Write a letter to yourself. Start with "I forgive me for..." and keep writing until there is nothing left. Then "I forgive you for..." and keep writing until there is nothing left.</p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">When done, read it to yourself in the mirror 4 times. It will loosen its grip on you and move any stuck energy out of your body.</p>
+<p style="font-size:12px;color:var(--orange);font-weight:600;margin-bottom:8px;">⚠️ Important: Language matters. If something happened to you as a child, even if you write it in English, read it in your native language to yourself in the mirror.</p>
+<p style="font-size:12px;color:var(--muted);font-style:italic;">This is deep work. Please be patient with yourself and go all out like you do for everyone else.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(7)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+100 XP)</button>
+</div>
+</div>
+
+<!-- Exercise 8: Most Painful Memory -->
+<div class="breakthrough-exercise" data-exercise="8" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(255,60,172,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🩹</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Most Painful Memory</div>
+<div style="font-size:11px;color:var(--muted);">Writing + Mirror • 30-60 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--pink);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">Start with "My most painful memory is..." Write until there is nothing left. Read to yourself in mirror 4 times. Use your native language, especially for childhood memories.</p>
+<p style="font-size:12px;color:var(--muted);font-style:italic;">Same deep work guidance—be patient, go all out for yourself.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(8)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+100 XP)</button>
+</div>
+</div>
+
+<!-- Exercise 9: Ultimate Acknowledgment -->
+<div class="breakthrough-exercise" data-exercise="9" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(255,60,172,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🙏</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Ultimate Acknowledgment</div>
+<div style="font-size:11px;color:var(--muted);">Movement/Presence • 10-30 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--pink);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">Stand. Begin to raise your arms from the sides, palms toward you. Halfway up, switch your palms up. Imagine pulling energy from the ground and connecting it to the sky above. Make your way up to connect your hands together above your head. Bring your hands straight down the center to your heart. Bow.</p>
+<p style="font-size:12px;color:var(--gold);font-weight:600;margin-bottom:8px;">🔑 The Secret: Move at half the speed you think you need. Then keep reducing—slower and slower. One bow can take 30 minutes. Move so slow it seems you're not moving at all. It connects you to layers of self you don't normally see. A busy mind cannot move slowly—this is great practice for presence.</p>
+<p style="font-size:12px;color:var(--muted);font-style:italic;">You'll sweat doing just one. It opens up a whole new world you never knew existed.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(9)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+100 XP)</button>
+</div>
+</div>
+
+<!-- Deep Work CTA (shown after completing deep work exercises) -->
+<div id="deepWorkCTA" style="display:none;background:linear-gradient(135deg,rgba(255,107,53,0.15),rgba(255,60,172,0.1));border:2px solid var(--orange);border-radius:16px;padding:20px;text-align:center;">
+<p style="font-size:16px;color:var(--text);font-weight:700;margin-bottom:8px;">You've done the work. Ready to go deeper?</p>
+<p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Work 1-on-1 with Arthur to integrate your breakthroughs</p>
+<a href="https://calendly.com/levelsofself/zoom" target="_blank" style="display:inline-block;padding:14px 28px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(255,87,34,0.4);">Book a Session with Arthur</a>
+</div>
+
+<p style="text-align:center;font-size:12px;color:var(--muted);margin-top:16px;">Complete exercises to earn XP and track your growth</p>
+</div>
+</div>
+
 <!-- Agreement Game Onboarding Modal -->
 <div class="modal" id="agreementOnboardModal" role="dialog" aria-label="Agreement Game Introduction">
 <div class="modal-content" style="max-width:400px;text-align:center;padding:24px;">
@@ -2459,7 +2778,7 @@ or <strong style="color:var(--red);">Judge</strong> (resist what is)
 <span style="width:8px;height:8px;border-radius:50%;background:var(--border);"></span>
 </div>
 <div style="display:flex;gap:10px;margin-top:20px;">
-<button onclick="showAgreementOnboard(1)" style="flex:1;padding:14px;background:var(--grad-secondary);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:rgba(255,255,255,0.2);border-radius:50%;font-size:11px;">←</span> Back</button>
+<button onclick="showAgreementOnboard(1)" style="flex:1;padding:14px;background:var(--grad-secondary);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">← Back</button>
 <button onclick="showAgreementOnboard(3)" style="flex:2;padding:14px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;">Next →</button>
 </div>
 </div>
@@ -2478,7 +2797,7 @@ When you practice acceptance, you create space for change.
 <span style="width:8px;height:8px;border-radius:50%;background:var(--pink);"></span>
 </div>
 <div style="display:flex;gap:10px;margin-top:20px;">
-<button onclick="showAgreementOnboard(2)" style="flex:1;padding:14px;background:var(--grad-secondary);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:rgba(255,255,255,0.2);border-radius:50%;font-size:11px;">←</span> Back</button>
+<button onclick="showAgreementOnboard(2)" style="flex:1;padding:14px;background:var(--grad-secondary);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">← Back</button>
 <button onclick="finishAgreementOnboard()" style="flex:2;padding:14px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;">Let's Play! ✨</button>
 </div>
 </div>
@@ -12636,6 +12955,113 @@ function resetCombo(){currentCombo=0;document.getElementById('gameCombo').textCo
 
 function showToast(msg,duration){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),duration||2000)}
 
+// ========== BREAKTHROUGH EXERCISES ==========
+function toggleExercise(el) {
+  const content = el.querySelector('.exercise-content');
+  const toggle = el.querySelector('.exercise-toggle');
+  const isOpen = content.style.display === 'block';
+  
+  // Close all other exercises
+  document.querySelectorAll('.breakthrough-exercise').forEach(ex => {
+    ex.querySelector('.exercise-content').style.display = 'none';
+    ex.querySelector('.exercise-toggle').textContent = '+';
+    ex.style.borderColor = 'var(--border)';
+  });
+  
+  // Toggle current
+  if (!isOpen) {
+    content.style.display = 'block';
+    toggle.textContent = '−';
+    el.style.borderColor = 'var(--pink)';
+  }
+}
+
+function completeExercise(exerciseNum) {
+  // Initialize exercises data if needed
+  if (!data.completedExercises) data.completedExercises = [];
+  
+  // Check if already completed today
+  const today = new Date().toDateString();
+  const alreadyDone = data.completedExercises.find(e => e.num === exerciseNum && new Date(e.date).toDateString() === today);
+  
+  if (alreadyDone) {
+    showToast('Already completed today! Come back tomorrow.');
+    return;
+  }
+  
+  // XP rewards by exercise
+  const xpRewards = {1: 25, 2: 25, 3: 25, 4: 25, 5: 50, 6: 50, 7: 100, 8: 100, 9: 100};
+  const xpAmount = xpRewards[exerciseNum] || 25;
+  
+  // Award XP
+  data.xp += xpAmount;
+  data.coins += Math.floor(xpAmount / 5);
+  
+  // Track completion
+  data.completedExercises.push({num: exerciseNum, date: new Date().toISOString(), xp: xpAmount});
+  
+  // Update XP history
+  if (!data.xpHistory) data.xpHistory = [];
+  data.xpHistory.push({date: new Date().toISOString(), amount: xpAmount, source: 'Exercise ' + exerciseNum});
+  
+  // Check for level up
+  const newLevel = Math.floor(data.xp / 500) + 1;
+  if (newLevel > data.level) {
+    data.level = newLevel;
+    showToast('🎉 LEVEL UP! You are now Level ' + data.level + '!', 3000);
+  } else {
+    showToast('✅ +' + xpAmount + ' XP earned!');
+  }
+  
+  // Update button to show completed
+  const btn = event.target;
+  btn.textContent = '✓ Completed Today';
+  btn.style.background = 'var(--card)';
+  btn.style.border = '2px solid var(--green)';
+  btn.style.color = 'var(--green)';
+  btn.disabled = true;
+  
+  // Check if deep work exercises completed
+  const deepWorkNums = [7, 8, 9];
+  const completedDeep = deepWorkNums.filter(n => data.completedExercises.some(e => e.num === n)).length;
+  if (completedDeep >= 2) {
+    document.getElementById('deepWorkCTA').style.display = 'block';
+  }
+  
+  // Update displays
+  updateAllDisplays();
+  save();
+}
+
+function initBreakthroughExercises() {
+  if (!data.completedExercises) return;
+  const today = new Date().toDateString();
+  
+  document.querySelectorAll('.breakthrough-exercise').forEach(ex => {
+    const num = parseInt(ex.dataset.exercise);
+    const completedToday = data.completedExercises.find(e => e.num === num && new Date(e.date).toDateString() === today);
+    
+    if (completedToday) {
+      const btn = ex.querySelector('.exercise-complete-btn');
+      if (btn) {
+        btn.textContent = '✓ Completed Today';
+        btn.style.background = 'var(--card)';
+        btn.style.border = '2px solid var(--green)';
+        btn.style.color = 'var(--green)';
+        btn.disabled = true;
+      }
+    }
+  });
+  
+  // Show deep work CTA if earned
+  const deepWorkNums = [7, 8, 9];
+  const completedDeep = deepWorkNums.filter(n => data.completedExercises.some(e => e.num === n)).length;
+  if (completedDeep >= 2) {
+    const cta = document.getElementById('deepWorkCTA');
+    if (cta) cta.style.display = 'block';
+  }
+}
+
 function showXpDetails() {
   if(tourActive)return;
   const content = document.getElementById('xpDetailsContent');
@@ -15633,7 +16059,7 @@ document.querySelectorAll('.qa-question').forEach(q=>{q.onclick=function(){this.
 document.getElementById('dailyCard').onclick=function(){if(tourActive)return;if(!this.classList.contains('done'))startDecisionGame()};
 document.getElementById('mirrorMode').onclick=()=>{if(tourActive)return;startMirrorGame()};
 document.getElementById('agreementMode').onclick=function(){if(tourActive)return;if(data.unlockedAgreement){data.seenAgreementUnlock=true;save();document.getElementById('agreementMode').classList.remove('newly-unlocked');startAgreementGame();}};
-document.getElementById('shareBtn').onclick=shareGame;
+// shareBtn removed - replaced with Join Our Team button
 // document.getElementById('resultsShare').onclick=shareGame; // Removed - using new share grid
 document.getElementById('insightsStat').onclick=function(){if(tourActive)return;showInsightsModal(null)};
 document.getElementById('insightsClose').onclick=function(){document.getElementById('insightsModal').classList.remove('active')};
@@ -15916,6 +16342,7 @@ freshUIReset();
 try {
   if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
   setInterval(updateTimer,1000);
+  initBreakthroughExercises();
 } catch(e) {
   console.error('Initialization error:', e);
 }
@@ -16236,6 +16663,58 @@ function skipOnboarding() {
       location.reload(true);
     }
   });
+})();
+
+// ========== PWA/GOOGLE PLAY ENGAGEMENT TRACKING ==========
+// Tracks sessions and time spent for installed app users
+(function() {
+  // Check if running as installed PWA (standalone or fullscreen mode)
+  const isPWA = window.matchMedia('(display-mode: standalone)').matches || 
+                window.matchMedia('(display-mode: fullscreen)').matches ||
+                window.navigator.standalone === true;
+  
+  if (!isPWA) return; // Only track for installed app users
+  
+  const STORAGE_KEY = 'levelup_pwa_engagement';
+  const sessionStart = Date.now();
+  
+  // Get existing engagement data or initialize
+  let engagement = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  if (!engagement.firstOpen) engagement.firstOpen = sessionStart;
+  if (!engagement.sessions) engagement.sessions = [];
+  if (!engagement.totalSessions) engagement.totalSessions = 0;
+  if (!engagement.totalTimeMs) engagement.totalTimeMs = 0;
+  
+  // Start new session
+  engagement.totalSessions++;
+  engagement.lastOpen = sessionStart;
+  
+  // Save on page unload/hide
+  function saveEngagement() {
+    const timeSpent = Date.now() - sessionStart;
+    engagement.totalTimeMs += timeSpent;
+    engagement.sessions.push({
+      date: new Date(sessionStart).toISOString(),
+      durationMs: timeSpent
+    });
+    // Keep only last 50 sessions to avoid storage bloat
+    if (engagement.sessions.length > 50) {
+      engagement.sessions = engagement.sessions.slice(-50);
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(engagement));
+  }
+  
+  // Track when user leaves
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) saveEngagement();
+  });
+  window.addEventListener('pagehide', saveEngagement);
+  window.addEventListener('beforeunload', saveEngagement);
+  
+  // Log for debugging (can be viewed in browser console)
+  console.log('📱 PWA Mode Detected - Tracking engagement');
+  console.log('Total sessions:', engagement.totalSessions);
+  console.log('Total time:', Math.round(engagement.totalTimeMs / 60000) + ' minutes');
 })();
 </script>
 </body>
