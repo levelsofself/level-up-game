@@ -1364,7 +1364,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div id="langDropdown" style="display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:6px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:6px;min-width:180px;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,0.4);">
 <div onclick="setLanguage('en');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:#fff;background:linear-gradient(135deg,var(--orange),var(--pink));margin-bottom:4px;text-align:center;">🇺🇸 English</div>
 <div onclick="setLanguage('ko');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.6;">🇰🇷 한국어 <span style="font-size:10px;">coming soon</span></div>
-<div onclick="setLanguage('nl');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.6;">🇳🇱 Nederlands <span style="font-size:10px;">coming soon</span></div>
+<div onclick="setLanguage('nl');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text);text-align:center;font-weight:600;">🇳🇱 Nederlands</div>
 <div onclick="setLanguage('es');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.6;">🇪🇸 Español <span style="font-size:10px;">coming soon</span></div>
 <div onclick="setLanguage('hy');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.6;">🇦🇲 Հայերեն <span style="font-size:10px;">coming soon</span></div>
 <div onclick="setLanguage('ru');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.6;">🇷🇺 Русский <span style="font-size:10px;">coming soon</span></div>
@@ -2986,6 +2986,9 @@ const DECISION_SCENARIOS_EXPANDED=[
 // Override DECISION_SCENARIOS with expanded version
 if(DECISION_SCENARIOS_EXPANDED.length>0){window.DECISION_SCENARIOS=DECISION_SCENARIOS_EXPANDED;}
 const LEVELS=[{id:1,name:'Individual',color:'#FF6B35',desc:'Self for yourself'},{id:2,name:'Family',color:'#FF3CAC',desc:'Your created or immediate family'},{id:3,name:'Groups',color:'#784BA0',desc:'Extended family, friends, coworkers'},{id:4,name:'Community',color:'#2F80ED',desc:'Activities and events'},{id:5,name:'Society',color:'#00D26A',desc:'Nation & systems'},{id:6,name:'World',color:'#F7C948',desc:'Global stage, politics, humanity'},{id:7,name:'Generations',color:'#C0C0C0',desc:'Those before you and after'}];
+// Get translated level name/desc
+function tLevel(lv){if(!lv)return lv;return{...lv,name:typeof t==='function'?t(lv.name):lv.name,desc:typeof t==='function'?t(lv.desc):lv.desc};}
+function tLevelLabel(level){let lv=LEVELS.find(l=>l.id===level);let tlv=tLevel(lv);return(typeof t==='function'?t('Level'):'Level')+' '+level+': '+(tlv?tlv.name:'');}
 const XP_PER_LEVEL=750;
 let music=document.getElementById('music');music.volume=0.4;
 let musicOn=false,soundOn=true,quickMode=false,hardMode=false,currentCombo=0;
@@ -3606,7 +3609,7 @@ const GROWTH_ICONS=['🌱','🌿','🪻','🌳','🌲','🌍','⭐'];
 function updateXPBar(){
   let levelXP=(data.level-1)*XP_PER_LEVEL;let currentLevelXP=data.xp-levelXP;let pct=(currentLevelXP/XP_PER_LEVEL)*100;
   let icon=GROWTH_ICONS[Math.min(data.level-1,6)];
-  document.getElementById('playerLevel').innerHTML=icon+' Level '+data.level;
+  document.getElementById('playerLevel').innerHTML=icon+' '+(typeof t==='function'?t('Level'):'Level')+' '+data.level;
   document.getElementById('xpFill').style.width=pct+'%';
   document.getElementById('xpCurrent').textContent=currentLevelXP;
   document.getElementById('xpNeeded').textContent=XP_PER_LEVEL;
@@ -3618,7 +3621,7 @@ function updateXPBar(){
 function showLevelUp(level,unlockMsg){
   let icon=GROWTH_ICONS[Math.min(level-1,6)];
   document.getElementById('levelupIcon').textContent=icon;
-  document.getElementById('levelupText').textContent="You're now Level "+level+"!";
+  document.getElementById('levelupText').textContent=(typeof t==='function'?t("You're now Level"):"You're now Level")+' '+level+'!';
   document.getElementById('levelupUnlock').textContent=unlockMsg||'';
   document.getElementById('levelupPopup').classList.add('show');
 }
@@ -4785,8 +4788,8 @@ function updateHome(){
   let acceptRate=data.agreementTotal>0?Math.round((data.agreementAccepted/data.agreementTotal)*100):0;
   document.getElementById('statAcceptRate').textContent=acceptRate+'%';
   let today=new Date().toDateString(),daily=document.getElementById('dailyCard');
-  if(data.lastDaily===today){daily.classList.add('done');document.getElementById('dailyCta').textContent='✓ Completed today'}
-  else{daily.classList.remove('done');document.getElementById('dailyCta').textContent='Tap to join the global movement'}
+  if(data.lastDaily===today){daily.classList.add('done');document.getElementById('dailyCta').textContent='✓ '+(typeof t==='function'?t('Completed Today'):'Completed today')}
+  else{daily.classList.remove('done');document.getElementById('dailyCta').textContent=typeof t==='function'?t('Tap to join the global movement'):'Tap to join the global movement'}
   document.getElementById('mirrorMode').classList.remove('locked','newly-unlocked');document.getElementById('mirrorUnlock').textContent='';
   
   // Add NEW badge to Agreement mode if recently unlocked (within 3 days)
@@ -4857,9 +4860,10 @@ function updateHome(){
     let showPlay = unlocked && data.hasStartedPlaying; // Show Play badge after they've started playing
     let div=document.createElement('div');div.className='level'+(unlocked?' unlocked':' locked')+(isNew?' newly-unlocked':'')+(showPlay?' has-play':'');
     div.style.position='relative';
-    let unlockText='Reach Player Level '+UNLOCK_LEVELS[lv.id];
-    let progressHtml = unlocked && progress && progress.total > 0 ? '<div class="level-progress"><div class="level-progress-bar" style="width:'+progress.pct+'%"></div></div><div class="level-progress-text">'+progress.pct+'% explored</div>' : '';
-    div.innerHTML='<div class="level-num" style="background:'+lv.color+'">'+lv.id+'</div><div class="level-info"><div class="level-name">'+lv.name+(unlocked?'':' 🔒')+'</div><div class="level-desc">'+(unlocked?lv.desc:unlockText)+'</div>'+progressHtml+'</div>';
+    let unlockText=(typeof t==='function'?t('Level'):'Level')+' '+UNLOCK_LEVELS[lv.id]+' '+(currentLang==='nl'?'vereist':'required');
+    let tlv=typeof tLevel==='function'?tLevel(lv):lv;
+    let progressHtml = unlocked && progress && progress.total > 0 ? '<div class="level-progress"><div class="level-progress-bar" style="width:'+progress.pct+'%"></div></div><div class="level-progress-text">'+progress.pct+'% '+(currentLang==='nl'?'verkend':'explored')+'</div>' : '';
+    div.innerHTML='<div class="level-num" style="background:'+lv.color+'">'+lv.id+'</div><div class="level-info"><div class="level-name">'+tlv.name+(unlocked?'':' 🔒')+'</div><div class="level-desc">'+(unlocked?tlv.desc:unlockText)+'</div>'+progressHtml+'</div>';
     // Add NEW badge for recently unlocked levels
     if(isNew&&data.unlockTimestamps&&data.unlockTimestamps['level'+lv.id]){
       let daysSince=(Date.now()-data.unlockTimestamps['level'+lv.id])/(1000*60*60*24);
@@ -4874,6 +4878,8 @@ function updateHome(){
   });
   updateTimer();
   updatePatternCard();
+  // Apply Dutch translations after dynamic content is built
+  if (currentLang === 'nl') setTimeout(applyTranslations, 10);
 }
 
 // Milestone rewards system
@@ -5075,7 +5081,7 @@ function shareWeeklySummary(){
   dismissWeeklySummary();
 }
 
-function updateTimer(){let now=new Date(),tom=new Date(now);tom.setDate(tom.getDate()+1);tom.setHours(0,0,0,0);let d=tom-now,h=String(Math.floor(d/3600000)).padStart(2,'0'),m=String(Math.floor((d%3600000)/60000)).padStart(2,'0'),s=String(Math.floor((d%60000)/1000)).padStart(2,'0');document.getElementById('dailyTimer').textContent='Resets in '+h+':'+m+':'+s}
+function updateTimer(){let now=new Date(),tom=new Date(now);tom.setDate(tom.getDate()+1);tom.setHours(0,0,0,0);let d=tom-now,h=String(Math.floor(d/3600000)).padStart(2,'0'),m=String(Math.floor((d%3600000)/60000)).padStart(2,'0'),s=String(Math.floor((d%60000)/1000)).padStart(2,'0');document.getElementById('dailyTimer').textContent=(typeof t==='function'?t('Resets in'):'Resets in')+' '+h+':'+m+':'+s}
 
 // ============ PATTERN ANALYSIS SYSTEM ============
 const ARCHETYPES = [
@@ -6393,7 +6399,7 @@ function startMirrorGame(lf){
   }
   
   document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
-  document.getElementById('gameMode').textContent=game.endlessMode?'♾️ Mirror (Endless)':(hardMode?'💀 Mirror (Hard)':'Mirror Game');document.getElementById('gameCombo').textContent='';if(hardMode){document.getElementById('timerBar').classList.remove('hidden')}else{document.getElementById('timerBar').classList.add('hidden')};
+  document.getElementById('gameMode').textContent=game.endlessMode?'♾️ '+(typeof t==='function'?t('Mirror'):' Mirror')+' (Endless)':(hardMode?'💀 '+(typeof t==='function'?t('Mirror'):' Mirror')+' (Hard)':(typeof t==='function'?t('Mirror Game'):'Mirror Game'));document.getElementById('gameCombo').textContent='';if(hardMode){document.getElementById('timerBar').classList.remove('hidden')}else{document.getElementById('timerBar').classList.add('hidden')};
   showMirrorScenario();
 }
 
@@ -6453,7 +6459,7 @@ function startAgreementGameReal(lf){
   // Use smartShuffle to prioritize unseen scenarios
   game.scenarios=smartShuffle(pool,'agreement').slice(0,questionCount);
   document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
-  document.getElementById('gameMode').textContent=game.endlessMode?'♾️ Agreement (Endless)':'Agreement Game';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.remove('hidden');
+  document.getElementById('gameMode').textContent=game.endlessMode?'♾️ '+(typeof t==='function'?t('Agreement'):' Agreement')+' (Endless)':(typeof t==='function'?t('Agreement Game'):'Agreement Game');document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.remove('hidden');
   showAgreementScenario();
 }
 function startDecisionGame(){
@@ -6478,7 +6484,7 @@ function startDecisionGame(){
   for(let i=0;i<3&&i<pool.length;i++){let idx=(seed+i*31337)%pool.length;game.scenarios.push(pool[idx]);seed=(seed*31337)&0xFFFFFF}
   if(game.scenarios.length===0){showToast('No scenarios');return}
   document.getElementById('home').classList.add('hidden');document.getElementById('results').classList.remove('active');document.getElementById('game').classList.add('active');
-  document.getElementById('gameMode').textContent='Worldwide Challenge';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.remove('hidden');
+  document.getElementById('gameMode').textContent=typeof t==='function'?t('Worldwide Challenge'):'Worldwide Challenge';document.getElementById('gameCombo').textContent='';document.getElementById('timerBar').classList.remove('hidden');
   showDecisionScenario();
 }
 
@@ -6500,7 +6506,7 @@ function showMirrorScenario(){
   
   let scenarioEl=document.getElementById('scenarioText');scenarioEl.textContent=truncateText(s.text);scenarioEl.classList.remove('loading');
   let c=document.getElementById('choices');c.innerHTML='';
-  [{text:"That's Me",value:true},{text:"That's Not Me",value:false}].forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectMirrorChoice(ch,b,s);c.appendChild(b)});
+  [{text:"That's Me",value:true},{text:"That's Not Me",value:false}].forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=typeof t==='function'?(ch.value?t("That's Me"):t('Not Me')):ch.text;b.onclick=()=>selectMirrorChoice(ch,b,s);c.appendChild(b)});
 }
 function selectMirrorChoice(ch,btn,sc){
   document.querySelectorAll('.choice').forEach(b=>{b.disabled=true;if(b!==btn)b.classList.add('dim-neutral')});
@@ -6616,9 +6622,9 @@ function endGame(){
     keepPlayingBtn.style.display='block';
     endlessModeBtn.style.display=game.endlessMode?'none':'block';
     if(game.endlessMode){
-      keepPlayingBtn.textContent='♾️ Continue Endless (+25 more)';
+      keepPlayingBtn.textContent='♾️ '+(typeof t==='function'?t('Continue Endless'):'Continue Endless')+' (+25 more)';
     }else{
-      keepPlayingBtn.textContent='🔄 Keep Playing (+10 more)';
+      keepPlayingBtn.textContent='🔄 '+(typeof t==='function'?t('Keep Playing'):'Keep Playing')+' (+10 more)';
     }
   }else{
     keepPlayingBtn.style.display='none';
@@ -6627,16 +6633,16 @@ function endGame(){
   
   let insights=document.getElementById('insightsList');
   if(game.mode==='mirror'){
-    document.getElementById('resultsTitle').textContent=game.endlessMode?'♾️ Mirror Endless':'Mirror Complete';document.getElementById('finalScore').textContent=total+' Reflections';
+    document.getElementById('resultsTitle').textContent=game.endlessMode?'♾️ '+(typeof t==='function'?t('Mirror Complete'):'Mirror Complete'):(typeof t==='function'?t('Mirror Complete'):'Mirror Complete');document.getElementById('finalScore').textContent=total+' '+(typeof t==='function'?t('Reflections'):'Reflections');
     let recognized=game.answers.filter(a=>a.recognized).length;
     let recPct=Math.round((recognized/total)*100);
-    let resultMsg=recPct>=80?'High self-recognition. You see yourself clearly. That\'s rare and powerful.':recPct>=60?'Strong awareness. You\'re willing to look at what others avoid.':recPct>=40?'Selective recognition. Some patterns are easier to see than others.':'Low recognition. Either you\'re different, or there\'s a blind spot worth exploring.';
+    let resultMsg=recPct>=80?(typeof t==='function'?t('High self-recognition. You see yourself clearly. That\'s rare and powerful.'):'High self-recognition. You see yourself clearly. That\'s rare and powerful.'):recPct>=60?(typeof t==='function'?t('Strong awareness. You\'re willing to look at what others avoid.'):'Strong awareness. You\'re willing to look at what others avoid.'):recPct>=40?(typeof t==='function'?t('Selective recognition. Some patterns are easier to see than others.'):'Selective recognition. Some patterns are easier to see than others.'):(typeof t==='function'?t('Low recognition. Either you\'re different, or there\'s a blind spot worth exploring.'):'Low recognition. Either you\'re different, or there\'s a blind spot worth exploring.');
     document.getElementById('resultMsg').textContent=resultMsg;
     insights.innerHTML='';game.answers.slice(0,10).forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.innerHTML='<span style="color:'+(a.recognized?'var(--cyan)':'var(--muted)')+';">'+(a.recognized?'🪞 That\'s Me':'🪞 Not Me')+'</span><div style="margin-top:4px;">"'+a.text+'"</div>';insights.appendChild(div)});
   }else if(game.mode==='agreement'){
-    document.getElementById('resultsTitle').textContent=game.endlessMode?'♾️ Agreement Endless':'Agreement Complete';document.getElementById('finalScore').textContent=score+'/'+total;
+    document.getElementById('resultsTitle').textContent=game.endlessMode?'♾️ '+(typeof t==='function'?t('Agreement Complete'):'Agreement Complete'):(typeof t==='function'?t('Agreement Complete'):'Agreement Complete');document.getElementById('finalScore').textContent=score+'/'+total;
     let accPct=Math.round((score/total)*100);
-    let resultMsg=accPct>=90?'Exceptional. You chose acceptance almost every time.':accPct>=70?'Strong acceptance. You\'re rewiring your default response.':accPct>=50?'Growing awareness. Notice when judgment feels safer.':'Judgment is your current default. That\'s not wrong. It\'s information.';
+    let resultMsg=accPct>=90?(typeof t==='function'?t('Exceptional. You chose acceptance almost every time.'):'Exceptional. You chose acceptance almost every time.'):accPct>=70?(typeof t==='function'?t('Strong acceptance. You\'re rewiring your default response.'):'Strong acceptance. You\'re rewiring your default response.'):accPct>=50?(typeof t==='function'?t('Growing awareness. Notice when judgment feels safer.'):'Growing awareness. Notice when judgment feels safer.'):(typeof t==='function'?t('Judgment is your current default. That\'s not wrong. It\'s information.'):'Judgment is your current default. That\'s not wrong. It\'s information.');
     document.getElementById('resultMsg').textContent=resultMsg;
     insights.innerHTML='';game.answers.slice(0,5).forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.textContent=(a.isAcceptance?'✓ ':'⚖️ ')+a.insight;insights.appendChild(div)});
     if(score===total&&total>=10){triggerConfetti();showToast('🎉 Perfect! +25 XP');addXP(25, 'Perfect Game')}
@@ -6754,16 +6760,16 @@ function endGame(){
       insights.appendChild(div);
     });
   }else if(game.mode==='decision'){
-    document.getElementById('resultsTitle').textContent='Challenge Complete';document.getElementById('finalScore').textContent='🔥 '+data.streak;
-    document.getElementById('resultMsg').textContent=score+'/'+total+' correct!';
+    document.getElementById('resultsTitle').textContent=typeof t==='function'?t('Challenge Complete'):'Challenge Complete';document.getElementById('finalScore').textContent='🔥 '+data.streak;
+    document.getElementById('resultMsg').textContent=score+'/'+total+' '+(typeof t==='function'?t('correct!'):'correct!');
     insights.innerHTML='';game.answers.forEach(a=>{let div=document.createElement('div');div.className='insight-item';div.textContent=(a.correct?'✓ ':'💡 ')+a.feedback;insights.appendChild(div)});
     if(score===3){triggerConfetti();showToast('🎉 Perfect! +30 XP');addXP(30, 'Perfect Daily')}
   }else{
     // Fallback for unknown mode - show generic results
     console.warn('Unknown game mode:',game.mode);
-    document.getElementById('resultsTitle').textContent='Game Complete';
-    document.getElementById('finalScore').textContent=total+' Questions';
-    document.getElementById('resultMsg').textContent='Great job!';
+    document.getElementById('resultsTitle').textContent=typeof t==='function'?t('Game Complete'):'Game Complete';
+    document.getElementById('finalScore').textContent=total+' '+(typeof t==='function'?t('Questions'):'Questions');
+    document.getElementById('resultMsg').textContent=typeof t==='function'?t('Great job!'):'Great job!';
   }
   
   // Show coaching CTA on results (after Mirror/Mixed games OR after 5+ games played)
@@ -7078,7 +7084,7 @@ function showMixedScenario(){
     document.getElementById('scenarioCat').textContent='🪞 Level '+s.level+': '+(lv?lv.name:'');
     scenarioEl.textContent=truncateText(s.text);scenarioEl.classList.remove('loading');
     let c=document.getElementById('choices');c.innerHTML='';
-    [{text:"That's Me",value:true},{text:"That's Not Me",value:false}].forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=ch.text;b.onclick=()=>selectMixedMirror(ch,b,s);c.appendChild(b)});
+    [{text:"That's Me",value:true},{text:"That's Not Me",value:false}].forEach(ch=>{let b=document.createElement('button');b.className='choice';b.textContent=typeof t==='function'?(ch.value?t("That's Me"):t('Not Me')):ch.text;b.onclick=()=>selectMixedMirror(ch,b,s);c.appendChild(b)});
   }else if(s.gameType==='agreement'){
     document.getElementById('scenarioCat').textContent='⚖️ Level '+s.level+': '+(lv?lv.name:'');
     scenarioEl.textContent=truncateText(s.scenario);scenarioEl.classList.remove('loading');
@@ -7411,13 +7417,465 @@ function coachingBridge(answers){
 // ========== LANGUAGE SYSTEM ==========
 let currentLang = localStorage.getItem('levelup_lang') || 'en';
 
+// ── Dutch (Nederlands) UI Translation Dictionary ──
+const TRANSLATIONS = {
+  nl: {
+    // ─── Hook / Intro Screens ───
+    'See the patterns': 'Zie de patronen',
+    'that quietly run<br>your life.': 'die stilletjes je<br>leven bepalen.',
+    'Discover why you keep repeating<br>the same mistakes.': 'Ontdek waarom je steeds dezelfde<br>fouten blijft maken.',
+    'Prove it': 'Bewijs het',
+    'As Seen On': 'o.a. gezien op',
+    'Have you ever<br>felt like...': 'Heb je ooit<br>het gevoel gehad dat\u2026',
+    'Select all that feel true': 'Selecteer alles wat voor jou als waarheid aanvoelt',
+    "You're successful on paper, but something essential is missing?": 'Op papier ben je succesvol, maar er ontbreekt iets essentieels?',
+    "You've tried everything, but the same patterns keep repeating?": 'Je hebt alles geprobeerd, maar dezelfde patronen herhalen zich steeds?',
+    "You're great at helping others, but can't seem to help yourself?": 'Je bent geweldig in het helpen van anderen, maar kunt jezelf maar niet helpen?',
+    'There has to be more to life than this?': 'Er moet toch meer in het leven zijn dan dit?',
+    "Everyone thinks you're doing great... but you're dying inside?": 'Iedereen denkt dat het geweldig met je gaat\u2026 maar vanbinnen ga je kapot?',
+    'Continue': 'Doorgaan',
+    'Please select at least one': 'Selecteer er minstens een',
+    'Do you ever<br>ask yourself...': 'Vraag je jezelf<br>wel eens af\u2026',
+    'Select all that resonate with you': 'Selecteer alles wat jou aanspreekt',
+    '"Why am I not enough, no matter how much I achieve?"': '"Waarom ben ik niet goed genoeg, hoeveel ik ook bereik?"',
+    '"Why do I feel so alone, even when surrounded by people?"': '"Waarom voel ik me zo alleen, zelfs als ik omringd ben door mensen?"',
+    '"What\'s the point of all this success if I\'m still unhappy?"': '"Wat heeft al dit succes voor zin als ik nog steeds ongelukkig ben?"',
+    '"When will I finally feel like I\'ve made it?"': '"Wanneer zal ik eindelijk het gevoel hebben dat ik het gemaakt heb?"',
+    '"Is this really all there is?"': '"Is dit werkelijk alles wat er is?"',
+    'Back': 'Terug',
+    "This isn't a flaw.": 'Dit is geen tekortkoming.',
+    "It's a signal you're solving the problem at the wrong level.": 'Het is een teken dat je het probleem op het verkeerde niveau aanpakt.',
+    'Tap each level to learn more:': 'Tik op elk niveau om meer te weten te komen:',
+    'The game shows you which level your pattern lives on, so you can finally change it.': 'Het spel laat je zien op welk niveau je patroon zich bevindt, zodat je het eindelijk kunt veranderen.',
+    'See My Pattern': 'Zie mijn patroon',
+
+    // ─── 7 Level Names & Descriptions ───
+    'Individual': 'Individueel',
+    'Self for yourself': 'Zelf tot jezelf',
+    'Family': 'Familie',
+    'Your created or immediate family': 'Je zelfgekozen of directe familie',
+    'Groups': 'Groepen',
+    'Extended family, friends, coworkers': 'Uitgebreide familie, vrienden, collega\'s',
+    'Community': 'Gemeenschap',
+    'Activities and events': 'Activiteiten en evenementen',
+    'Society': 'Samenleving',
+    'Nation & systems': 'Land & systemen',
+    'World': 'Wereld',
+    'Global stage': 'Wereldpodium',
+    'Global stage, politics, humanity': 'Wereldpodium, politiek, mensheid',
+    'Generations': 'Generaties',
+    'Those before you and after': 'Degenen die voor je kwamen en na je komen',
+
+    // ─── Level Detail Descriptions ───
+    'Self for yourself: your feelings, your life, your beliefs, your needs, your wants. Before you can show up for anyone else, you have to show up for yourself. This means having non-negotiables, things you do for yourself every day, no matter what. It\'s not selfish. It\'s required. If this level isn\'t solid, everything above it is unstable.': 'Zelf tot jezelf \u2013 je gevoelens, je leven, je overtuigingen, je behoeften, je verlangens. Voordat je er voor iemand anders kunt zijn, moet je er voor jezelf zijn. Dit betekent dat je niet-onderhandelbare dingen hebt \u2014 dingen die je elke dag voor jezelf doet, wat er ook gebeurt. Het is niet ego\u00efstisch. Het is noodzakelijk. Als dit niveau niet stabiel is, is alles daarboven instabiel.',
+    'Self for family: either the family you were born into OR the family you have created (spouse, kids). If you\'ve created your own family, they become Level 2, and your family of origin moves to Level 3. These are the people who see you at your best and worst. You can\'t skip to community impact if things are incomplete here.': 'Zelf tot familie \u2013 ofwel het gezin waarin je geboren bent, OF het gezin dat je zelf hebt gecre\u00eberd (partner, kinderen). Als je je eigen gezin hebt gecre\u00eberd, zijn zij Niveau 2 en wordt je oorspronkelijke gezin Niveau 3. Dit zijn de mensen die je op je best en op je slechtst zien. Je kunt niet doorgaan naar impact in de gemeenschap als dit niveau incompleet voelt.',
+    'Self for group: extended family members, friends, relatives, coworkers, and groups you belong to. If you\'ve created your own family, your parents and siblings now live here. The question: Are you being yourself, or performing a version of yourself to fit in, or hiding entirely? The first 3 levels represent 90% of everyday life.': 'Zelf tot groepen \u2013 uitgebreide familieleden, vrienden, kennissen, collega\u2019s en groepen waar je bij hoort. Als je je eigen familie hebt gecre\u00eberd, is dit het niveau waar je ouders en broers en zussen zijn. De vraag is: ben je jezelf, of speel je een versie van jezelf om erbij te horen \u2014 of verberg je jezelf volledig? De eerste drie niveaus vertegenwoordigen 90% van het dagelijkse leven.',
+    'Self for community: mostly seen as activities, events, and classes of people you identify with: musicians, business people, athletes, artists, your industry. Where you belong beyond personal relationships. Do you have a role, and do you respect the roles of others?': 'Zelf tot de gemeenschap \u2013 meestal zichtbaar in de vorm van activiteiten, evenementen en groepen mensen waarmee je je identificeert: muzikanten, zakenmensen, sporters, kunstenaars, jouw branche. Waar hoor je thuis, los van je persoonlijke relaties? Heb je een rol, en respecteer je de rollen van anderen?',
+    'Self for society: the people of your nation and its systems: government, economy, culture, laws. This level is about seeing reality clearly. Not what you wish was true. Not what you\'re fighting against. What actually is. You can\'t change what you won\'t first accept.': 'Zelf tot de samenleving \u2013 de mensen van je land en hun systemen: overheid, economie, cultuur, wetten. Op dit niveau gaat het om de realiteit helder zien. Niet wat je zou willen dat waar was. Niet waar je tegen vecht. Maar wat werkelijk is. Je kunt niet veranderen wat je niet eerst accepteert.',
+    'Self for world: the global stage: international politics, global events, other nations, other cultures, humanity as a whole. How connected do you feel to what happens outside your borders? This isn\'t about being an activist. It\'s about recognizing you\'re part of something larger than your own life.': 'Zelf tot de wereld \u2013 het wereldpodium: internationale politiek, wereldwijde gebeurtenissen, andere landen, andere culturen, de mensheid als geheel. Hoe verbonden voel je je met wat er buiten je eigen landgrenzen gebeurt? Dit gaat niet over activisme. Het gaat erom te erkennen dat je deel uitmaakt van iets dat groter is dan je eigen leven.',
+    'Self for generations: the people who came before you (ancestors) and those who will come after. This is legacy. What cycles did you inherit? What cycles will you break? What will you build that outlasts you? Legacy isn\'t always a building. Sometimes it\'s a pattern you refused to repeat.': 'Zelf tot generaties \u2013 de mensen die v\u00f3\u00f3r jou kwamen (voorouders) en degenen die na jou komen. Dit is je nalatenschap. Welke patronen heb je ge\u00ebrfd? Welke patronen zul je doorbreken? Wat zul je bouwen dat jou overleeft? Een nalatenschap is niet altijd iets bouwen. Soms is het een patroon dat je weigerde te herhalen.',
+
+    // ─── Home Screen ───
+    'See Your Patterns': 'Zie Je Patronen',
+    'The game that reveals<br>what\'s really running your life.': 'Het spel dat onthult<br>wat je leven werkelijk bepaalt.',
+    'TRENDING GLOBALLY': 'WERELDWIJD TRENDING',
+    'Worldwide Challenge': 'Wereldwijde Uitdaging',
+    'Same 3 scenarios for everyone on Earth. One chance daily.': 'Dezelfde 3 scenario\'s voor iedereen op aarde. Een kans per dag.',
+    'playing now': 'spelen nu',
+    'Tap to join the global movement': 'Tik om mee te doen aan de wereldwijde beweging',
+    'Resets in': 'Reset over',
+    'Mirror Game': 'Spiegel Spel',
+    'See yourself honestly': 'Zie jezelf eerlijk',
+    'Agreement Game': 'Akkoord Spel',
+    'Acceptance vs Judgment': 'Acceptatie vs Oordeel',
+    'Level': 'Niveau',
+    'coins': 'munten',
+    'Played': 'Gespeeld',
+    'Streak': 'Reeks',
+    'Acceptance': 'Acceptatie',
+    'Insights': 'Inzichten',
+    'Your Pattern': 'Jouw Patroon',
+    "Today's Practice": 'Oefening van Vandaag',
+    'Tap for full profile': 'Tik voor volledig profiel',
+    'Your Journey': 'Jouw Reis',
+    'Breakthrough Work': 'Doorbraakwerk',
+    'Join Our Team': 'Word Lid van Ons Team',
+    'Learn the Full Framework': 'Leer het Volledige Raamwerk',
+    'Get Coaching': 'Krijg Coaching',
+    '1-on-1 Integration': '1-op-1 Integratie',
+    'Built by': 'Gemaakt door',
+    'on the framework he uses with founders, leaders, and clients worldwide.': 'op het raamwerk dat hij gebruikt met oprichters, leiders en clienten wereldwijd.',
+
+    // ─── Game Screen ───
+    'Mirror': 'Spiegel',
+    'Agreement': 'Akkoord',
+    'Loading...': 'Laden...',
+    "That's Me": 'Dat Ben Ik',
+    'Not Me': 'Niet Ik',
+
+    // ─── Results Screen ───
+    'Game Complete': 'Spel Voltooid',
+    'Mirror Complete': 'Spiegel Voltooid',
+    'Agreement Complete': 'Akkoord Voltooid',
+    'Mixed Complete': 'Gemengd Voltooid',
+    'Challenge Complete': 'Uitdaging Voltooid',
+    'This session': 'Deze sessie',
+    'Keep going!': 'Ga zo door!',
+    'Reflections': 'Reflecties',
+    'correct!': 'juist!',
+    'Great job!': 'Goed gedaan!',
+    'Questions': 'Vragen',
+    'Back to Home': 'Terug naar Start',
+    'Keep Playing': 'Blijf Spelen',
+    'Endless Mode': 'Eindeloze Modus',
+    'Continue Endless': 'Ga Door Eindeloos',
+    'WhatsApp': 'WhatsApp',
+    'Twitter': 'Twitter',
+    'Copy': 'Kopieren',
+    'More': 'Meer',
+    'Ready to break these patterns for good?': 'Klaar om deze patronen voorgoed te doorbreken?',
+
+    // ─── Result Messages ───
+    'High self-recognition. You see yourself clearly. That\'s rare and powerful.': 'Hoge zelfherkenning. Je ziet jezelf helder. Dat is zeldzaam en krachtig.',
+    'Strong awareness. You\'re willing to look at what others avoid.': 'Sterk bewustzijn. Je bent bereid te kijken naar wat anderen vermijden.',
+    'Selective recognition. Some patterns are easier to see than others.': 'Selectieve herkenning. Sommige patronen zijn makkelijker te zien dan andere.',
+    'Low recognition. Either you\'re different, or there\'s a blind spot worth exploring.': 'Lage herkenning. Of je bent anders, of er is een blinde vlek die het verkennen waard is.',
+    'Exceptional. You chose acceptance almost every time.': 'Uitzonderlijk. Je koos bijna elke keer voor acceptatie.',
+    'Strong acceptance. You\'re rewiring your default response.': 'Sterke acceptatie. Je herprogrammeert je standaardreactie.',
+    'Growing awareness. Notice when judgment feels safer.': 'Groeiend bewustzijn. Merk op wanneer oordelen veiliger voelt.',
+    'Judgment is your current default. That\'s not wrong. It\'s information.': 'Oordelen is je huidige standaard. Dat is niet fout. Het is informatie.',
+
+    // ─── Modals & Popups ───
+    'Help & FAQ': 'Hulp & FAQ',
+    'Achievement Unlocked!': 'Prestatie Ontgrendeld!',
+    'Pattern Detected': 'Patroon Gedetecteerd',
+    'This keeps showing up.': 'Dit blijft terugkomen.',
+    'pattern appeared': 'patroon verscheen',
+    'times recently': 'keer recentelijk',
+    "You're seeing it clearly now.": 'Je ziet het nu duidelijk.',
+    "That's the first step. But seeing a pattern and breaking it are two different things.": 'Dat is de eerste stap. Maar een patroon zien en het doorbreken zijn twee verschillende dingen.',
+    "Most people can't break lifelong patterns alone. That's not weakness. It's how patterns work.": 'De meeste mensen kunnen levenslange patronen niet alleen doorbreken. Dat is geen zwakte. Zo werken patronen.',
+    'Talk to Arthur': 'Praat met Arthur',
+    'Keep Playing': 'Blijf Spelen',
+    'Remind me later': 'Herinner me later',
+
+    // ─── Stats & XP ───
+    'Games Played': 'Gespeelde Spellen',
+    'Daily Streak': 'Dagelijkse Reeks',
+    'Acceptance Rate': 'Acceptatiegraad',
+    'insights collected': 'inzichten verzameld',
+    'scenarios explored': 'scenario\'s verkend',
+    'Start your journey': 'Begin je reis',
+    'Completed!': 'Voltooid!',
+    'breakthroughs': 'doorbraken',
+    'ON TRACK': 'OP SCHEMA',
+    'CATCHING UP': 'INHALEN',
+    'BEHIND': 'ACHTER',
+    'Start': 'Beginnen',
+    'Done!': 'Klaar!',
+
+    // ─── Archetype Names ───
+    'The Honest Avoider': 'De eerlijke Vermijder',
+    'The Aware Procrastinator': 'De Bewuste Uitsteller',
+    'The Peaceful Avoider': 'De Vredelievende Vermijder',
+    'The Growth Seeker': 'De Groeizoeker',
+    'The Aware One': 'De Bewuste',
+
+    // ─── Pattern Card Reveal ───
+    'Your Pattern': 'Jouw Patroon',
+    '"You see yourself with unusual clarity — but seeing isn\'t doing."': '"Je ziet jezelf met een ongewone helderheid, maar zien is niet hetzelfde als doen."',
+    "What's yours?": 'Wat is die van jou?',
+    'Play the full game to go deeper.': 'Speel het volledige spel om dieper te gaan.',
+    'Play the Game': 'Speel het Spel',
+    'Share My Pattern': 'Deel mijn patroon',
+    'Share Your Pattern': 'Deel je patroon',
+    'Copy Link': 'Link kopi\u00ebren',
+    'Start Playing': 'Begin met spelen',
+
+    // ─── Welcome Messages ───
+    'Keep it going!': 'Ga zo door!',
+    'Welcome back!': 'Welkom terug!',
+    'Good to see you!': 'Leuk je te zien!',
+
+    // ─── Game Mode Labels (in-game) ───
+    'Level 1: Individual': 'Niveau 1: Individueel',
+    'Level 2: Family': 'Niveau 2: Familie',
+    'Level 3: Groups': 'Niveau 3: Groepen',
+    'Level 4: Community': 'Niveau 4: Gemeenschap',
+    'Level 5: Society': 'Niveau 5: Samenleving',
+    'Level 6: World': 'Niveau 6: Wereld',
+    'Level 7: Generations': 'Niveau 7: Generaties',
+
+    // ─── Misc UI ───
+    'NEW': 'NIEUW',
+    'Start Here': 'Begin Hier',
+    'Play': 'Spelen',
+    'Save': 'Opslaan',
+    'Share': 'Delen',
+    'Close': 'Sluiten',
+    'Day': 'Dag',
+    'XP': 'XP',
+    'games': 'spellen',
+    'new insights': 'nieuwe inzichten',
+    'correct': 'juist',
+    'Accepted': 'Geaccepteerd',
+    'Judgment': 'Oordeel',
+    'Correct': 'Juist',
+    'Missed': 'Gemist',
+    'Your Responses': 'Jouw Antwoorden',
+    'Perfect!': 'Perfect!',
+    'Loading scenarios... Please wait': 'Scenario\'s laden... Even geduld',
+    "You're now Level": 'Je bent nu Niveau',
+    'Completed Today': 'Vandaag Voltooid'
+  }
+};
+
+// Translate a string - returns Dutch if available, otherwise original English
+function t(str) {
+  if (currentLang === 'en' || !TRANSLATIONS[currentLang]) return str;
+  return TRANSLATIONS[currentLang][str] || str;
+}
+
+// Apply translations to all static HTML elements with data-i18n attribute
+function applyStaticTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    let key = el.getAttribute('data-i18n');
+    if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = TRANSLATIONS[currentLang][key];
+      } else {
+        el.innerHTML = TRANSLATIONS[currentLang][key];
+      }
+    }
+  });
+}
+
+// Apply translations to all known text elements by ID or selector
+function applyTranslations() {
+  if (currentLang === 'en') return; // English is the hardcoded default, no changes needed
+  let tr = TRANSLATIONS[currentLang];
+  if (!tr) return;
+
+  // ─── Hook Screen 1 ───
+  let line1 = document.getElementById('line1');
+  if (line1) line1.innerHTML = tr['See the patterns'] || line1.innerHTML;
+  let line2 = document.getElementById('line2');
+  if (line2) line2.innerHTML = tr['that quietly run<br>your life.'] || line2.innerHTML;
+  let hookSub = document.getElementById('hookSub');
+  if (hookSub) hookSub.innerHTML = tr['Discover why you keep repeating<br>the same mistakes.'] || hookSub.innerHTML;
+  let hookBtn = document.getElementById('hookBtn');
+  if (hookBtn) hookBtn.textContent = tr['Prove it'] || hookBtn.textContent;
+
+  // ─── Hook Screen 2: Recognition ───
+  let recGrid = document.getElementById('recognitionGrid');
+  if (recGrid) {
+    recGrid.querySelectorAll('.recognition-item').forEach(item => {
+      let orig = item.textContent.trim();
+      if (tr[orig]) item.textContent = tr[orig];
+    });
+  }
+  let recHint = document.getElementById('recognitionHint');
+  if (recHint) recHint.textContent = tr['Please select at least one'] || recHint.textContent;
+
+  // ─── Hook Screen 3: Inner Voice ───
+  let voiceOpts = document.getElementById('voiceOptions');
+  if (voiceOpts) {
+    voiceOpts.querySelectorAll('.voice-option').forEach(item => {
+      let orig = item.textContent.trim();
+      if (tr[orig]) item.textContent = tr[orig];
+    });
+  }
+  let voiceHint = document.getElementById('voiceHint');
+  if (voiceHint) voiceHint.textContent = tr['Please select at least one'] || voiceHint.textContent;
+
+  // ─── Hook Screen 4: Levels Explanation ───
+  document.querySelectorAll('.level-compact-name').forEach(el => {
+    let orig = el.textContent.trim();
+    if (tr[orig]) el.textContent = tr[orig];
+  });
+  document.querySelectorAll('.level-compact-desc').forEach(el => {
+    let orig = el.textContent.trim();
+    if (tr[orig]) el.textContent = tr[orig];
+  });
+  // Level detail paragraphs
+  for (let i = 1; i <= 7; i++) {
+    let detail = document.getElementById('levelDetail' + i);
+    if (detail) {
+      let orig = detail.textContent.trim();
+      if (tr[orig]) detail.textContent = tr[orig];
+    }
+  }
+
+  // ─── Home Screen ───
+  // Worldwide Challenge
+  let dailyCard = document.getElementById('dailyCard');
+  if (dailyCard) {
+    let badge = dailyCard.querySelector('.badge');
+    if (badge) { let dot = badge.querySelector('.badge-dot'); badge.textContent = ''; if(dot) badge.appendChild(dot); badge.appendChild(document.createTextNode(tr['TRENDING GLOBALLY'] || 'TRENDING GLOBALLY')); }
+    let h2 = dailyCard.querySelector('h2');
+    if (h2) h2.textContent = tr['Worldwide Challenge'] || h2.textContent;
+    let p = dailyCard.querySelector('p');
+    if (p) p.textContent = tr['Same 3 scenarios for everyone on Earth. One chance daily.'] || p.textContent;
+    let cta = document.getElementById('dailyCta');
+    if (cta) cta.textContent = tr['Tap to join the global movement'] || cta.textContent;
+  }
+
+  // Game modes
+  document.querySelectorAll('.mode-name').forEach(el => {
+    let orig = el.textContent.trim();
+    if (tr[orig]) el.textContent = tr[orig];
+  });
+  document.querySelectorAll('.mode-desc').forEach(el => {
+    let orig = el.textContent.trim();
+    if (tr[orig]) el.textContent = tr[orig];
+  });
+
+  // Stats labels
+  document.querySelectorAll('.stat-label').forEach(el => {
+    let orig = el.textContent.replace(/[^\w\s]/g, '').trim();
+    if (tr[orig]) el.innerHTML = tr[orig] + (el.innerHTML.includes('🔥') ? ' 🔥' : '');
+  });
+
+  // Pattern card
+  let patternLabel = document.querySelector('.pattern-label');
+  if (patternLabel) patternLabel.textContent = tr['Your Pattern'] || patternLabel.textContent;
+  let patternChallengeLabel = document.querySelector('.pattern-challenge-label');
+  if (patternChallengeLabel) patternChallengeLabel.textContent = tr["Today's Practice"] || patternChallengeLabel.textContent;
+  let patternTap = document.querySelector('.pattern-tap');
+  if (patternTap) patternTap.textContent = (tr['Tap for full profile'] || 'Tap for full profile') + ' \u2192';
+
+  // Section title
+  document.querySelectorAll('.section-title').forEach(el => {
+    let orig = el.textContent.trim();
+    if (tr[orig]) el.textContent = tr[orig];
+  });
+
+  // Action buttons
+  document.querySelectorAll('.action-btn-text').forEach(el => {
+    let orig = el.textContent.trim();
+    if (tr[orig]) el.textContent = tr[orig];
+  });
+
+  // Footer
+  let transformText = document.querySelector('.transform-btn-text');
+  if (transformText) transformText.textContent = tr['Get Coaching'] || transformText.textContent;
+  let transformSub = document.querySelector('.transform-btn-sub');
+  if (transformSub) transformSub.textContent = tr['1-on-1 Integration'] || transformSub.textContent;
+
+  // Language dropdown button
+  let langBtn = document.getElementById('langDropBtn');
+  if (langBtn && currentLang === 'nl') langBtn.innerHTML = '\u{1F1F3}\u{1F1F1} Nederlands <span style="font-size:10px;opacity:0.8;">\u25BC</span>';
+
+  // Hook screen question titles & subs
+  document.querySelectorAll('.hook-question-title').forEach(el => {
+    let orig = el.innerHTML.trim();
+    if (tr[orig]) el.innerHTML = tr[orig];
+  });
+  document.querySelectorAll('.hook-question-sub').forEach(el => {
+    let orig = el.textContent.trim();
+    if (tr[orig]) el.textContent = tr[orig];
+  });
+
+  // Continue / Back buttons in hooks
+  document.querySelectorAll('.hook-btn').forEach(el => {
+    let orig = el.textContent.trim();
+    if (tr[orig]) el.textContent = tr[orig];
+  });
+
+  // Results buttons
+  let homeBtn = document.getElementById('homeBtn');
+  if (homeBtn) homeBtn.innerHTML = '\u{1F3E0} ' + (tr['Back to Home'] || 'Back to Home');
+
+  // Share platform labels
+  document.querySelectorAll('.share-platform-btn .label').forEach(el => {
+    let orig = el.textContent.trim();
+    if (tr[orig]) el.textContent = tr[orig];
+  });
+
+  // Coaching bridge
+  let bridgeTitle = document.querySelector('.bridge-title');
+  if (bridgeTitle) bridgeTitle.textContent = tr['This keeps showing up.'] || bridgeTitle.textContent;
+  let bridgeInsight = document.querySelector('.bridge-insight');
+  if (bridgeInsight) {
+    let strong = bridgeInsight.querySelector('strong');
+    if (strong) strong.textContent = tr["You're seeing it clearly now."] || strong.textContent;
+  }
+  let bridgeCta = document.querySelector('.bridge-cta');
+  if (bridgeCta) bridgeCta.textContent = tr["Most people can't break lifelong patterns alone. That's not weakness. It's how patterns work."] || bridgeCta.textContent;
+
+  // Hero section
+  let heroH1 = document.querySelector('.hero h1');
+  if (heroH1) heroH1.textContent = tr['See Your Patterns'] || heroH1.textContent;
+  let heroP = document.querySelector('.hero p');
+  if (heroP) heroP.innerHTML = tr['The game that reveals<br>what\'s really running your life.'] || heroP.innerHTML;
+
+  // Footer learn link
+  let learnLink = document.querySelector('.footer-btn.primary');
+  if (learnLink) learnLink.textContent = tr['Learn the Full Framework'] || learnLink.textContent;
+
+  // Reveal label top
+  let revealLabel = document.querySelector('.reveal-label-top');
+  if (revealLabel) revealLabel.textContent = tr['Your Pattern'] || revealLabel.textContent;
+
+  // Reveal CTA
+  let revealCta = document.querySelector('.reveal-cta');
+  if (revealCta) revealCta.textContent = tr['The game shows you which level your pattern lives on, so you can finally change it.'] || revealCta.textContent;
+
+  // Levels intro
+  let levelsIntro = document.querySelector('.levels-intro');
+  if (levelsIntro) levelsIntro.textContent = tr['Tap each level to learn more:'] || levelsIntro.textContent;
+
+  // Hook screen 5: pattern card elements
+  let footerQ = document.querySelector('.footer-question');
+  if (footerQ) footerQ.textContent = tr["What's yours?"] || footerQ.textContent;
+  let startBtn = document.getElementById('startGameBtn');
+  if (startBtn) startBtn.textContent = (tr['Start Playing'] || 'Start Playing') + ' \u2192';
+  let shareMyBtn = document.querySelector('.share-btn');
+  if (shareMyBtn && shareMyBtn.querySelector('.share-btn-icon')) {
+    shareMyBtn.innerHTML = '<span class="share-btn-icon">\ud83d\udce4</span> ' + (tr['Share My Pattern'] || 'Share My Pattern');
+  }
+}
+
 function setLanguage(lang) {
-  if (lang !== 'en') {
-    showToast('\u{1F30D} ' + {es:'Español',hy:'Հայերեն',ru:'Русский',ko:'한국어',nl:'Nederlands'}[lang] + ' coming soon! Stay tuned.', 3000);
+  if (lang !== 'en' && lang !== 'nl') {
+    showToast('\u{1F30D} ' + {es:'Espa\u00f1ol',hy:'\u0540\u0561\u0575\u0565\u0580\u0565\u0576',ru:'\u0420\u0443\u0441\u0441\u043a\u0438\u0439',ko:'\ud55c\uad6d\uc5b4'}[lang] + ' coming soon! Stay tuned.', 3000);
     return;
   }
   currentLang = lang;
   localStorage.setItem('levelup_lang', lang);
+
+  // Update the dropdown button label
+  let langBtn = document.getElementById('langDropBtn');
+  if (langBtn) {
+    if (lang === 'nl') langBtn.innerHTML = '\u{1F1F3}\u{1F1F1} Nederlands <span style="font-size:10px;opacity:0.8;">\u25BC</span>';
+    else langBtn.innerHTML = '\u{1F1FA}\u{1F1F8} English <span style="font-size:10px;opacity:0.8;">\u25BC</span>';
+  }
+
+  // Apply or revert translations
+  if (lang === 'nl') {
+    applyTranslations();
+    showToast('\u{1F1F3}\u{1F1F1} Nederlands geactiveerd!', 2000);
+  } else {
+    // Reload to revert to English defaults
+    location.reload();
+  }
+}
+
+// Auto-apply translations on page load if Dutch was previously selected
+if (currentLang === 'nl') {
+  document.addEventListener('DOMContentLoaded', function() {
+    // Small delay to let other init code run first
+    setTimeout(applyTranslations, 100);
+  });
+  // Also apply after updateHome which rebuilds some elements
+  let _origUpdateHome = typeof updateHome === 'function' ? updateHome : null;
+  if (_origUpdateHome) {
+    let _wrappedUpdateHome = function() {
+      _origUpdateHome.apply(this, arguments);
+      if (currentLang === 'nl') setTimeout(applyTranslations, 50);
+    };
+    // Will be patched after updateHome is defined
+  }
 }
 
 // Close language dropdown when clicking outside
