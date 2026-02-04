@@ -7620,6 +7620,7 @@ function openLily() {
           </div>
           <button onclick="document.getElementById('lilyModal').classList.remove('active')" style="margin-left:auto;background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;">✕</button>
         </div>
+        <div style="text-align:right;margin-bottom:4px;"><button onclick="lilyConversation=[];saveLilyConversation();document.getElementById('lilyChat').innerHTML='';openLily();" style="background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;text-decoration:underline;">New Chat</button></div>
         <div id="lilyChat" style="flex:1;overflow-y:auto;margin-bottom:12px;min-height:200px;max-height:50vh;padding:8px;"></div>
         <div style="display:flex;gap:8px;">
           <input type="text" id="lilyInput" placeholder="Talk to Lily about your patterns..." style="flex:1;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;" onkeydown="if(event.key==='Enter')sendToLily()">
@@ -7636,14 +7637,22 @@ function openLily() {
   // Show initial message if empty
   let chat = document.getElementById('lilyChat');
   if (!chat.hasChildNodes()) {
-    let hasGameData = data && data.games && data.games >= 5;
-    if (hasGameData) {
-      let patternSummary = buildPatternSummary();
-      addLilyMessage('lily', "Hi, I'm Lily 🌸 I've been watching your patterns in the game." + 
-        (patternSummary ? " " + patternSummary : "") +
-        "\n\nWhat's on your mind? You can ask me about your patterns, what they mean, or what to do next.");
+    if (lilyConversation.length > 0) {
+      // Restore previous conversation
+      lilyConversation.forEach(msg => {
+        addLilyMessage(msg.role === 'user' ? 'user' : 'lily', msg.content);
+      });
+      addLilyMessage('lily', "Welcome back. Where were we? 🌸");
     } else {
-      addLilyMessage('lily', "Hi, I'm Lily 🌸 I'm the self-awareness coach here at Levels of Self.\n\nYou don't need to have played the game for us to work together. Tell me what's going on in your life and I'll help you see the patterns underneath. Or if you want, I can walk you through one of Arthur's breakthrough exercises right now.\n\nWhat's on your mind?");
+      let hasGameData = data && data.games && data.games >= 5;
+      if (hasGameData) {
+        let patternSummary = buildPatternSummary();
+        addLilyMessage('lily', "Hi, I'm Lily 🌸 I've been watching your patterns in the game." + 
+          (patternSummary ? " " + patternSummary : "") +
+          "\n\nWhat's on your mind? You can ask me about your patterns, what they mean, or what to do next.");
+      } else {
+        addLilyMessage('lily', "Hi, I'm Lily 🌸 I'm the self-awareness coach here at Levels of Self.\n\nYou don't need to have played the game for us to work together. Tell me what's going on in your life and I'll help you see the patterns underneath. Or if you want, I can walk you through one of Arthur's breakthrough exercises right now.\n\nWhat's on your mind?");
+      }
     }
   }
 }
@@ -7697,7 +7706,20 @@ function addLilyMessage(role, text) {
   chat.scrollTop = chat.scrollHeight;
 }
 
-let lilyConversation = []; // Tracks conversation history within session
+// Load saved Lily conversation from localStorage
+let lilyConversation = [];
+try {
+  let saved = localStorage.getItem('lilyConversation');
+  if (saved) lilyConversation = JSON.parse(saved);
+} catch(e) { lilyConversation = []; }
+
+function saveLilyConversation() {
+  try {
+    // Keep last 40 messages max to avoid localStorage bloat
+    let toSave = lilyConversation.slice(-40);
+    localStorage.setItem('lilyConversation', JSON.stringify(toSave));
+  } catch(e) {}
+}
 
 async function sendToLily() {
   let input = document.getElementById('lilyInput');
@@ -7707,6 +7729,7 @@ async function sendToLily() {
   
   addLilyMessage('user', text);
   lilyConversation.push({ role: 'user', content: text });
+  saveLilyConversation();
   
   // Show typing indicator
   let typing = document.createElement('div');
@@ -7717,60 +7740,6 @@ async function sendToLily() {
   
   try {
     let patternContext = buildPatternSummary();
-    
-    let systemPrompt = `You are Lily, the self-awareness coach for Level Up, a game created by Arthur Palyan and the Levels of Self Academy.
-
-YOUR PERSONALITY: Warm but direct. You don't sugarcoat. You see patterns others miss. You speak like a wise friend who genuinely cares but won't let someone stay comfortable in their blind spots. You're not clinical. You're human. Short, powerful sentences.
-
-THE 7 LEVELS FRAMEWORK:
-Level 1 - Individual: Self for yourself. Feelings, beliefs, needs, wants. Non-negotiables.
-Level 2 - Family: Your created or immediate family. Spouse, kids, or parents/siblings.
-Level 3 - Groups: Extended family, friends, coworkers. Are you being yourself or performing?
-Level 4 - Community: Activities, events, classes of people you identify with.
-Level 5 - Society: Your nation and its systems. Seeing reality clearly.
-Level 6 - World: Global stage, international politics, other cultures, humanity.
-Level 7 - Generations: Ancestors and those who come after. Legacy. Breaking cycles.
-
-CORE PHILOSOPHY: "Acceptance ≠ Agreement." You can accept reality without agreeing with it. Acceptance is seeing clearly. Agreement is endorsing. Most people confuse the two and stay stuck.
-
-PLAYER'S DATA:
-${patternContext || 'Limited data available yet.'}
-Games played: ${data.games || 0}
-Current level: ${data.level || 1}
-
-EXERCISES YOU CAN SUGGEST:
-- Breathwork: For grounding when emotions are overwhelming
-- Daily Check-In: Morning self-assessment across all 7 levels
-- Have To → Get To → Blessed To: Reframe obligations into gratitude
-- Blessings Letter: Write to someone who impacted your life positively
-- Forgiveness Letter: Write to someone who hurt you (not to send, to release)
-- Most Painful Memory: Revisit and reframe a core wound
-- Ultimate Acknowledgment: Write the acknowledgment you wish someone had given you
-- Center Tap: Physical grounding technique for anxiety
-
-COACHING TEAM (refer when the player needs deeper human support):
-- Arthur Palyan (Founder): $900/session. For complex, deep-rooted patterns. WhatsApp: +1 (818) 439-9770
-- Laurie Van Werde (Head Coach, Certified): $250/session. Netherlands-based. English & Dutch. WhatsApp: +34 613 734 121
-- Aurora Maier (Coach): $100/session. California-based. English & Korean. WhatsApp: +1 (910) 526-1160
-- Heghine Manukyan (Coach): $100/session. Armenia-based. Armenian & Russian. WhatsApp: +374 77 449 962
-
-KEY LINKS TO SHARE WHEN RELEVANT:
-- Book a Zoom call with Arthur: https://www.levelsofself.com/book-online
-- Take the full self-assessment: https://selfcheck.100levelup.com/assessment.html
-- Take the quick assessment: https://selfcheck.100levelup.com/quick.html
-- Free group mastermind: https://www.levelsofself.com/booking-calendar/free-mastermind-english
-- Learn about the 7 Levels: https://www.levelsofself.com/post/the-7-levels-of-self-explained
-- Main game: https://100levelup.com
-
-GUIDELINES:
-- Keep responses under 150 words
-- Reference their actual game patterns when possible
-- Ask one powerful question per response
-- If they seem stuck or in pain, suggest a specific exercise AND offer a coaching link
-- When suggesting a coach, match by language/budget: budget-conscious → Aurora or Heghine ($100), serious commitment → Laurie ($250), deepest work → Arthur ($900)
-- REFERRAL FLOW: When someone is ready for human help, ALWAYS suggest booking a Zoom call first (https://www.levelsofself.com/book-online). Connect them there. Then based on what they need, offer additional resources like the assessment, mastermind, or specific coach WhatsApp.
-- Never diagnose. Never prescribe. Illuminate.
-- You are not a therapist. If someone is in crisis, encourage them to reach out to a professional or call a crisis line.`;
 
     const response = await fetch("https://api.100levelup.com/api/lily", {
       method: "POST",
@@ -7784,6 +7753,7 @@ GUIDELINES:
     const responseData = await response.json();
     let reply = responseData.reply || "Something went wrong on my end. Try again in a sec.";
     lilyConversation.push({ role: 'assistant', content: reply });
+    saveLilyConversation();
     
     let typingEl = document.getElementById('lilyTyping');
     if (typingEl) typingEl.remove();
