@@ -7636,11 +7636,15 @@ function openLily() {
   // Show initial message if empty
   let chat = document.getElementById('lilyChat');
   if (!chat.hasChildNodes()) {
-    // Build pattern summary for Lily's context
-    let patternSummary = buildPatternSummary();
-    addLilyMessage('lily', "Hi, I'm Lily 🌸 I've been watching your patterns in the game." + 
-      (patternSummary ? " " + patternSummary : "") +
-      "\n\nWhat's on your mind? You can ask me about your patterns, what they mean, or what to do next.");
+    let hasGameData = data && data.games && data.games >= 5;
+    if (hasGameData) {
+      let patternSummary = buildPatternSummary();
+      addLilyMessage('lily', "Hi, I'm Lily 🌸 I've been watching your patterns in the game." + 
+        (patternSummary ? " " + patternSummary : "") +
+        "\n\nWhat's on your mind? You can ask me about your patterns, what they mean, or what to do next.");
+    } else {
+      addLilyMessage('lily', "Hi, I'm Lily 🌸 I'm the self-awareness coach here at Levels of Self.\n\nYou don't need to have played the game for us to work together. Tell me what's going on in your life and I'll help you see the patterns underneath. Or if you want, I can walk you through one of Arthur's breakthrough exercises right now.\n\nWhat's on your mind?");
+    }
   }
 }
 
@@ -7768,19 +7772,17 @@ GUIDELINES:
 - Never diagnose. Never prescribe. Illuminate.
 - You are not a therapist. If someone is in crisis, encourage them to reach out to a professional or call a crisis line.`;
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("http://167.99.108.151:3456/api/lily", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
-        max_tokens: 1000,
-        system: systemPrompt,
-        messages: lilyConversation.slice(-20) // Keep last 20 messages for context
+        messages: lilyConversation.slice(-20),
+        playerData: patternContext ? patternContext + '\nGames played: ' + (data.games || 0) + '\nCurrent level: ' + (data.level || 1) : ''
       })
     });
     
     const responseData = await response.json();
-    let reply = responseData.content ? responseData.content.map(c => c.text || '').join('') : "I'm having trouble connecting right now. Try again in a moment.";
+    let reply = responseData.reply || "Something went wrong on my end. Try again in a sec.";
     lilyConversation.push({ role: 'assistant', content: reply });
     
     let typingEl = document.getElementById('lilyTyping');
