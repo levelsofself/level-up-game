@@ -1,8 +1,11 @@
 [{
-         "relation": ["delegate_permission/common.handle_all_urls"],
-         "target": {
-           "namespace": "android_app",
-           "package_name": "com.levelup.game",
-           "sha256_cert_fingerprints": ["44:6D:DB:94:98:F2:FD:1A:0A:6E:9D:79:2B:C7:0C:9D:6E:49:98:22:8A:7B:86:78:1F:96:6E:24:14:97:A6:84"]
-         }
-       }]
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.levelup.game",
+    "sha256_cert_fingerprints": [
+      "DA:61:46:67:B3:60:1C:86:55:D1:59:3F:FB:DD:1D:48:5F:74:07:15:6C:80:94:94:DD:4F:F9:A7:40:82:5C:60",
+      "44:6D:DB:94:98:F2:FD:1A:0A:6E:9D:79:2B:C7:0C:9D:6E:49:98:22:8A:7B:86:78:1F:96:6E:24:14:97:A6:84"
+    ]
+  }
+}]
