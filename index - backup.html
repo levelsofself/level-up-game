@@ -10,9 +10,27 @@
   ║   ╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ║
   ║                                                                           ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
-  ║  LEVEL UP - Levels of Self | v11.5.1 LEGENDARY | January 2026             ║
+  ║  LEVEL UP - Levels of Self | v11.8.2 LEGENDARY | January 29, 2026         ║
   ║  Built by Arthur Palyan | Best Life Coach California 2025                 ║
   ║  Live on Google Play & iOS App Store | 175 Countries                      ║
+  ╠═══════════════════════════════════════════════════════════════════════════╣
+  ║                                                                           ║
+  ║  CHANGELOG v11.8.2 (Jan 29, 2026)                                         ║
+  ║  ─────────────────────────────────                                        ║
+  ║  • Music FAQ added with The Palyans (gold) credit                         ║
+  ║  • Spotify/Apple Music buttons link to The Palyans artist pages           ║
+  ║  • Reward Shop FAQ added with coinShopModal link                          ║
+  ║  • Gold plus signs on Breakthrough Work exercises                         ║
+  ║  • Pink border link buttons (App Store, 100levelup, LevelsOfSelf)         ║
+  ║  • Intro screen scroll fix (no extra scroll on non-scrollable screens)    ║
+  ║  • Music respects user choice (Spotify/Apple Music users stay silent)     ║
+  ║  • Hook music controls on "Have you ever felt like" screen                ║
+  ║  • Social share in FAQ (Instagram, Facebook, X, WhatsApp)                 ║
+  ║  • Desktop responsive (constrained width on large monitors)               ║
+  ║  • Copy Link button removed from pattern share screen                     ║
+  ║  • Back button row centered                                               ║
+  ║  • Audio ID fixed (introMusic)                                            ║
+  ║                                                                           ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
   ║                                                                           ║
   ║  THE LEGENDARY DESIGN SYSTEM                                              ║
@@ -306,17 +324,35 @@ body::-webkit-scrollbar-thumb:hover{background:var(--purple)}
 /* Solid overlay - prevents any content bleed-through */
 body.hook-active{overflow:hidden;position:fixed;width:100%;height:100%;touch-action:none}
 body.hook-active .app{visibility:hidden;pointer-events:none}
-.hook{position:fixed;inset:0;background:#0d0a1a;display:flex;align-items:center;justify-content:center;z-index:9999;text-align:center;padding:24px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;isolation:isolate;overscroll-behavior:none;scrollbar-width:none;-ms-overflow-style:none}
+.hook{position:fixed;inset:0;background:#0d0a1a;display:flex;align-items:safe center;justify-content:center;z-index:9999;text-align:center;padding:24px;padding-top:max(24px,env(safe-area-inset-top));overflow:hidden;-webkit-overflow-scrolling:touch;isolation:isolate;overscroll-behavior:none;scrollbar-width:none;-ms-overflow-style:none}
+.hook.scrollable{overflow-y:auto}
 .hook::-webkit-scrollbar{display:none}
 .hook::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#1a1035 0%,#0d0a1a 100%);z-index:-2}
 .hook::before{content:'';position:absolute;top:-30%;left:-30%;width:160%;height:160%;background:radial-gradient(circle at 30% 30%,rgba(255,107,53,0.12) 0%,transparent 50%),radial-gradient(circle at 70% 70%,rgba(120,75,160,0.15) 0%,transparent 50%);pointer-events:none;animation:ambientFloat 20s ease-in-out infinite;z-index:-1}
 @keyframes ambientFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-2%,2%)}}
 .hook.hidden{display:none}
-.hook-container{max-width:480px;width:100%;position:relative;z-index:1;min-height:100%;display:flex;flex-direction:column;justify-content:center;overflow:visible;padding-left:16px;padding-right:16px;padding-bottom:15vh}
+/* Hook Music Controls - matches in-game ctrl-btn style */
+.hook-music-controls{display:flex;justify-content:center;gap:10px;margin-bottom:20px;animation:fadeIn 0.5s ease}
+.hook-music-btn{width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition-fast);position:relative;overflow:hidden}
+.hook-music-btn::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(255,60,172,0.15),transparent 70%);opacity:0;transition:var(--transition-normal);pointer-events:none}
+.hook-music-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+.hook-music-btn:hover::before{opacity:1}
+.hook-music-btn:active{transform:scale(0.95)}
+.hook-music-btn.on{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;border:none}
+.hook-music-btn.off{background:var(--card);color:var(--muted);border:1px solid var(--border)}
+.hook-music-btn.spotify{color:#1DB954}
+.hook-music-btn.spotify:hover{border-color:#1DB954;background:rgba(29,185,84,0.1)}
+.hook-music-btn.apple{color:#FC3C44}
+.hook-music-btn.apple:hover{border-color:#FC3C44;background:rgba(252,60,68,0.1)}
+.hook-music-icon{font-size:18px}
+.hook-music-logo{width:20px;height:20px}
+.hook-container{max-width:480px;width:100%;position:relative;z-index:1;min-height:min-content;display:flex;flex-direction:column;justify-content:safe center;overflow:visible;padding-left:16px;padding-right:16px;padding-top:max(24px,env(safe-area-inset-top));padding-bottom:max(24px,env(safe-area-inset-bottom))}
 .hook-container::-webkit-scrollbar{display:none}
 .hook-screen{display:none;flex-direction:column;align-items:center;opacity:0;transform:translateY(20px);width:100%;padding:20px 0;flex-shrink:0}
 .hook-screen.active{display:flex;opacity:1;transform:translateY(0);animation:screenFadeIn 0.6s cubic-bezier(0.16,1,0.3,1)}
-.hook-screen-scrollable{justify-content:flex-start;padding-top:20px;padding-bottom:40px}
+.hook-screen-scrollable.active{align-items:center;min-height:min-content}
+
+.hook-screen-scrollable{justify-content:flex-start;padding-top:max(40px,env(safe-area-inset-top,20px));padding-bottom:max(60px,env(safe-area-inset-bottom,40px));overflow-y:auto;margin-top:auto;margin-bottom:auto;max-height:100%}
 @keyframes screenFadeIn{to{opacity:1;transform:translateY(0)}}
 .hook-line{font-size:clamp(24px,6vw,38px);font-weight:800;line-height:1.2;margin-bottom:4px;opacity:0;transform:translateY(30px);background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;padding:0 8px}
 .hook-logo{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(200px,60vw,320px);opacity:0;transition:opacity 0.8s ease;z-index:10;pointer-events:none}
@@ -326,7 +362,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .hook-sub{font-size:16px;color:var(--text);line-height:1.4;margin:20px 0;opacity:0;font-weight:500;max-width:340px;white-space:normal}
 .hook-sub.show{animation:lineFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
 .hook-btn{padding:18px 48px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:16px;color:#fff;font-size:18px;font-weight:700;cursor:pointer;opacity:0;transform:translateY(20px);box-shadow:0 4px 24px rgba(255,60,172,0.4);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden}
-.hook-btn::before{content:'';position:absolute;inset:-3px;background:var(--grad-legendary);border-radius:19px;z-index:-1;filter:blur(12px);opacity:0;transition:var(--transition-normal)}
+.hook-btn::before{content:'';position:absolute;inset:-3px;background:var(--grad-legendary);border-radius:19px;z-index:-1;filter:blur(12px);opacity:0;transition:var(--transition-normal);pointer-events:none}
 .hook-btn::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent)}
 .hook-btn.show{opacity:1;transform:translateY(0)}
 .hook-btn.show::before{animation:auroraGlow 3s ease-in-out infinite}
@@ -352,14 +388,14 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .recognition-item:nth-child(4){animation-delay:0.2s}
 .recognition-item:nth-child(5){animation-delay:0.25s}
 .recognition-item{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:14px 18px;font-size:14px;color:var(--text);cursor:pointer;transition:all 0.25s cubic-bezier(0.16,1,0.3,1);text-align:left;line-height:1.4;position:relative;overflow:hidden}
-.recognition-item::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,60,172,0.08),transparent 50%);opacity:0;transition:var(--transition-normal)}
+.recognition-item::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,60,172,0.08),transparent 50%);opacity:0;transition:var(--transition-normal);pointer-events:none}
 .recognition-item:hover{border-color:var(--pink);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
 .recognition-item:hover::before{opacity:1}
 .recognition-item.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.15),rgba(120,75,160,0.15));box-shadow:0 0 0 3px rgba(255,60,172,0.2),0 8px 24px rgba(255,60,172,0.15),0 0 30px rgba(255,60,172,0.1)}
 .recognition-item.selected::after{content:'✓';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--pink);font-weight:700;font-size:16px;text-shadow:0 0 10px rgba(255,60,172,0.5)}
 .validation-hint{font-size:13px;color:var(--pink);text-align:center;margin-top:12px;opacity:0;transition:opacity 0.3s;font-weight:500}
 .validation-hint.show{opacity:1}
-.hook-btn-row{display:flex;gap:var(--space-3);width:100%;max-width:380px;margin-top:var(--space-4)}
+.hook-btn-row{display:flex;gap:var(--space-3);width:100%;max-width:380px;margin-top:var(--space-4);justify-content:center}
 .hook-btn-secondary{
   flex:0 0 auto;
   padding:16px 20px;
@@ -382,18 +418,14 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:24px;
-  height:24px;
-  background:rgba(255,255,255,0.25);
-  border-radius:50%;
-  font-size:14px;
+  font-size:16px;
   font-weight:700;
   transition:var(--transition-fast);
 }
-.hook-btn-secondary::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.2) 50%,transparent 60%);transform:translateX(-100%);transition:transform 0.5s var(--ease-out-expo)}
+.hook-btn-secondary::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.2) 50%,transparent 60%);transform:translateX(-100%);transition:transform 0.5s var(--ease-out-expo);pointer-events:none}
 .hook-btn-secondary:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 8px 32px var(--purple-glow),var(--shadow-glow-purple)}
 .hook-btn-secondary:hover::before{transform:translateX(100%)}
-.hook-btn-secondary:hover .back-arrow{background:rgba(255,255,255,0.35);transform:translateX(-2px)}
+.hook-btn-secondary:hover .back-arrow{transform:translateX(-3px)}
 .hook-btn-secondary:active{transform:translateY(-1px) scale(0.98);transition:var(--transition-fast)}
 .hook-btn-row .hook-btn{flex:1;margin:0;padding:16px 24px}
 .voice-options{display:flex;flex-direction:column;gap:10px;width:100%;margin-bottom:24px}
@@ -414,7 +446,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .reveal-insight{font-size:17px;color:var(--text);line-height:1.6;margin-bottom:16px;font-style:italic;max-width:340px;opacity:0.95;animation:fadeIn 0.5s ease 0.2s backwards}
 .reveal-context{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:20px;max-width:340px;animation:fadeIn 0.5s ease 0.3s backwards}
 .reveal-divider{width:60px;height:2px;background:linear-gradient(90deg,var(--pink),var(--purple));margin:0 auto 16px;border-radius:2px}
-.levels-intro{font-size:13px;color:var(--muted);margin-bottom:12px;font-weight:500;animation:fadeIn 0.4s ease}
+.levels-intro{font-size:13px;color:var(--muted);margin-bottom:12px;font-weight:500;animation:fadeIn 0.4s ease;text-align:center}
 .reveal-stats{display:flex;gap:40px;margin-bottom:28px;padding:20px 28px;background:var(--card);border-radius:16px;border:1px solid var(--border);animation:fadeIn 0.4s ease;transition:var(--transition-fast)}
 .reveal-stats:hover{border-color:var(--pink);box-shadow:0 4px 20px rgba(255,60,172,0.15)}
 .reveal-stat{text-align:center}
@@ -432,8 +464,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .level-compact:nth-child(6){animation-delay:0.3s}
 .level-compact:nth-child(7){animation-delay:0.35s}
 .level-compact:hover{border-color:var(--pink);transform:translateX(4px)}
-.level-compact::after{content:'›';position:absolute;right:14px;font-size:18px;color:var(--muted);transition:transform 0.3s ease}
-.level-compact.selected::after{transform:rotate(90deg);color:var(--pink)}
+.level-compact::after{content:'›';position:absolute;right:14px;font-size:20px;font-weight:bold;color:#FFD700;text-shadow:0 0 8px rgba(255,215,0,0.7),0 0 16px rgba(255,215,0,0.5);transition:transform 0.3s ease;animation:arrowGlow 2s ease-in-out infinite}
+.level-compact.selected::after{transform:rotate(90deg);color:var(--pink);text-shadow:0 0 8px rgba(255,60,172,0.7),0 0 16px rgba(255,60,172,0.5);animation:none}
 .level-compact.selected{border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));box-shadow:0 0 0 2px rgba(255,60,172,0.2)}
 .level-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;flex-shrink:0;transition:var(--transition-fast)}
 .level-compact:hover .level-dot{transform:scale(1.1)}
@@ -462,7 +494,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 /* Share Buttons */
 .share-buttons{display:flex;flex-direction:column;gap:12px;width:100%;max-width:360px;margin-bottom:20px}
 .share-btn{width:100%;padding:18px 24px;background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 100%);border:none;border-radius:16px;font-size:17px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 32px rgba(255,60,172,0.4);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden}
-.share-btn::before{content:'';position:absolute;inset:-3px;background:var(--grad-primary-vivid);border-radius:19px;z-index:-1;filter:blur(15px);opacity:0.3;animation:sharePulse 2s ease-in-out infinite}
+.share-btn::before{content:'';position:absolute;inset:-3px;background:var(--grad-primary-vivid);border-radius:19px;z-index:-1;filter:blur(15px);opacity:0.3;animation:sharePulse 2s ease-in-out infinite;pointer-events:none}
 .share-btn::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)}
 @keyframes sharePulse{0%,100%{opacity:0.3;filter:blur(15px)}50%{opacity:0.5;filter:blur(20px)}}
 .share-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(255,60,172,0.5)}
@@ -472,7 +504,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .share-btn-secondary{width:100%;padding:14px 24px;background:transparent;border:2px solid var(--border);border-radius:14px;font-size:15px;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.25s ease}
 .share-btn-secondary:hover{border-color:var(--pink);color:var(--text);background:rgba(255,60,172,0.1)}
 .start-playing-btn{padding:16px 48px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:14px;font-size:17px;font-weight:700;color:#fff;cursor:pointer;transition:all 0.25s ease;box-shadow:0 4px 20px rgba(247,201,72,0.4);margin-bottom:12px;position:relative;overflow:hidden}
-.start-playing-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:btnShine 2.5s ease-in-out infinite}
+.start-playing-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:btnShine 2.5s ease-in-out infinite;pointer-events:none}
 .start-playing-btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(247,201,72,0.5)}
 /* Shareable Card Modal */
 .share-card-modal{position:fixed;inset:0;background:rgba(13,10,26,0.95);display:none;align-items:center;justify-content:center;z-index:400;padding:24px;opacity:0;transition:opacity 0.3s ease}
@@ -504,7 +536,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .share-card-close:hover{background:rgba(255,255,255,0.1);color:var(--text)}
 /* Coaching Bridge */
 .coaching-bridge{display:none;background:var(--card);border:2px solid var(--purple);border-radius:20px;padding:24px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 4px 30px rgba(120,75,160,0.2)}
-.coaching-bridge::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--pink),var(--purple))}
+.coaching-bridge::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--pink),var(--purple));pointer-events:none}
 .coaching-bridge::after{content:'';position:absolute;top:-50%;right:-30%;width:80%;height:80%;background:radial-gradient(circle,rgba(120,75,160,0.1) 0%,transparent 70%);pointer-events:none}
 .coaching-bridge.show{display:block;animation:bridgeSlideIn 0.5s cubic-bezier(0.16,1,0.3,1)}
 @keyframes bridgeSlideIn{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
@@ -550,7 +582,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .onboard-skip{padding:18px 28px;background:transparent;border:none;color:var(--muted);font-size:16px;cursor:pointer;transition:var(--transition-fast)}
 .onboard-skip:hover{color:var(--text)}
 .onboard-next,.onboard-start{flex:1;padding:18px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:17px;font-weight:700;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(255,60,172,0.4)}
-.onboard-next::before,.onboard-start::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);animation:btnShine 3s ease-in-out infinite}
+.onboard-next::before,.onboard-start::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);animation:btnShine 3s ease-in-out infinite;pointer-events:none}
 .onboard-next:hover,.onboard-start:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(255,60,172,0.5)}
 .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;animation:fadeIn 0.3s ease}
 .logo{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;transition:var(--transition-fast)}
@@ -563,7 +595,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .ctrl-btn:nth-child(4){animation-delay:0.2s}
 .ctrl-btn:nth-child(5){animation-delay:0.25s}
 .ctrl-btn{width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition-fast);position:relative;overflow:hidden}
-.ctrl-btn::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(255,60,172,0.15),transparent 70%);opacity:0;transition:var(--transition-normal)}
+.ctrl-btn::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(255,60,172,0.15),transparent 70%);opacity:0;transition:var(--transition-normal);pointer-events:none}
 .ctrl-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
 .ctrl-btn:hover::before{opacity:1}
 .ctrl-btn:active{transform:scale(0.95)}
@@ -576,7 +608,9 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .login-bonus.show{display:block;animation:glow 2s ease-in-out infinite}
 @keyframes glow{0%,100%{box-shadow:0 0 5px var(--gold)}50%{box-shadow:0 0 20px var(--gold)}}
 .login-title{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:4px;text-shadow:0 0 8px rgba(255,215,0,0.3);pointer-events:none}
+.login-title *{pointer-events:none}
 .login-sub{font-size:12px;color:var(--muted);transition:var(--transition-fast);pointer-events:none}
+.login-sub *{pointer-events:none}
 .login-bonus:hover .login-sub{color:var(--text)}
 .streak-warning{background-color:rgba(60,30,30,0.95);background-image:linear-gradient(135deg,rgba(255,71,87,0.2),rgba(255,107,53,0.2));border:2px solid var(--red);border-radius:12px;padding:12px;margin-bottom:16px;text-align:center;display:none;animation:shake 0.5s ease;cursor:pointer;transition:var(--transition-fast)}
 .streak-warning:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,71,87,0.3)}
@@ -595,8 +629,9 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
    LEGENDARY BADGE SYSTEM - Polished micro-badges
    ═══════════════════════════════════════════════════════════════════════ */
 .badge{display:inline-flex;align-items:center;gap:6px;background:var(--grad-primary-vivid);color:#fff;font-size:10px;font-weight:700;padding:6px 12px;border-radius:var(--radius-full);margin-bottom:10px;box-shadow:0 2px 8px rgba(255,60,172,0.3);position:relative;overflow:hidden}
-.badge::before{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:badgeShine 3s ease-in-out infinite;transform:translateX(-200%)}
-@keyframes badgeShine{0%{transform:translateX(-200%)}50%,100%{transform:translateX(300%)}}
+.badge::before{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:badgeShine 3s ease-in-out infinite;transform:translateX(-200%);pointer-events:none}
+@keyframes badgeShine{0%{transform:translateX(-200%)}50%,100%{transform:translateX(300%)}
+@keyframes arrowGlow{0%,100%{color:#FFD700;text-shadow:0 0 8px rgba(255,215,0,0.7),0 0 16px rgba(255,215,0,0.5)}50%{color:#FFF176;text-shadow:0 0 12px rgba(255,215,0,1),0 0 24px rgba(255,215,0,0.8),0 0 36px rgba(255,215,0,0.4)}}}
 .badge-dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:pulseDot 2s infinite;box-shadow:0 0 8px rgba(255,255,255,0.5)}
 @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 8px rgba(255,255,255,0.5)}50%{opacity:0.6;transform:scale(0.7);box-shadow:0 0 4px rgba(255,255,255,0.3)}}
 .challenge h2{font-size:20px;font-weight:700;margin-bottom:6px;transition:var(--transition-normal);color:var(--text)}
@@ -624,16 +659,19 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .xp-bar{height:10px;background:var(--border);border-radius:var(--radius-sm);overflow:hidden;box-shadow:var(--shadow-inner);position:relative;transition:var(--transition-normal)}
 .xp-bar:hover{box-shadow:var(--shadow-inner),0 0 12px rgba(255,215,0,0.2)}
 .xp-fill{height:100%;background:var(--grad-warning);border-radius:var(--radius-sm);transition:width 0.6s var(--ease-out-expo);box-shadow:0 0 15px rgba(255,215,0,0.5);position:relative;overflow:hidden}
-.xp-fill::before{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);animation:xpShimmer 2.5s ease-in-out infinite;transform:translateX(-200%)}
+.xp-fill::before{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);animation:xpShimmer 2.5s ease-in-out infinite;transform:translateX(-200%);pointer-events:none}
 .xp-fill::after{content:'';position:absolute;top:-2px;right:-2px;bottom:-2px;width:14px;background:radial-gradient(circle at right,rgba(255,215,0,0.9),transparent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;animation:xpPulse 1.5s ease-in-out infinite}
 @keyframes xpShimmer{0%{transform:translateX(-200%)}50%,100%{transform:translateX(400%)}}
 @keyframes xpPulse{0%,100%{opacity:0.5;transform:scaleX(1)}50%{opacity:1;transform:scaleX(1.3)}}
 @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.xp-coins{display:flex;align-items:center;gap:4px;font-size:14px;color:var(--gold);font-weight:600;transition:var(--transition-normal);cursor:pointer;padding:6px 10px;border-radius:var(--radius-sm);background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.15)}
-.xp-coins:hover{text-shadow:0 0 15px rgba(255,215,0,0.6);background:rgba(255,215,0,0.15);border-color:rgba(255,215,0,0.3);transform:scale(1.02)}
+.xp-coins{display:flex;align-items:center;gap:4px;font-size:14px;color:var(--gold);font-weight:600;transition:var(--transition-normal);cursor:pointer;padding:6px 10px;border-radius:var(--radius-sm);background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.15);position:relative;animation:coinsGlow 3s ease-in-out infinite}
+.xp-coins::before{content:'';position:absolute;inset:-3px;background:linear-gradient(135deg,var(--gold),var(--orange));border-radius:10px;z-index:-1;filter:blur(8px);opacity:0.4;animation:coinsPulse 3s ease-in-out infinite}
+@keyframes coinsGlow{0%,100%{box-shadow:0 0 8px rgba(255,215,0,0.3)}50%{box-shadow:0 0 20px rgba(255,215,0,0.6),0 0 30px rgba(255,215,0,0.3)}}
+@keyframes coinsPulse{0%,100%{opacity:0.3;filter:blur(8px)}50%{opacity:0.6;filter:blur(12px)}}
+.xp-coins:hover{text-shadow:0 0 15px rgba(255,215,0,0.6);background:rgba(255,215,0,0.15);border-color:rgba(255,215,0,0.3);transform:scale(1.05)}
 /* ULTIMATE Coin Shop Styles */
 .coin-reward{display:flex;justify-content:space-between;align-items:center;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;transition:var(--transition-normal);position:relative;overflow:hidden}
-.coin-reward::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,215,0,0.08),transparent)}
+.coin-reward::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,215,0,0.08),transparent);pointer-events:none}
 .coin-reward:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:var(--shadow-glow-gold)}
 .coin-reward:hover::before{left:150%;transition:left 0.5s ease-out}
 .coin-reward.affordable{border-color:var(--green);background:rgba(0,210,106,0.04)}
@@ -656,17 +694,17 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .stat:nth-child(2){animation-delay:0.1s}
 .stat:nth-child(3){animation-delay:0.15s}
 .stat:nth-child(4){animation-delay:0.2s}
-.stat{background:var(--card);border:2px solid var(--pink);border-radius:12px;padding:14px 6px;text-align:center;transition:var(--transition-fast);box-shadow:0 0 12px rgba(255,60,172,0.2);cursor:pointer;position:relative;overflow:hidden}
-.stat::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,60,172,0.12),transparent 60%);opacity:0;transition:var(--transition-normal)}
+.stat{background:var(--card);border:2px solid var(--pink);border-radius:12px;padding:12px 4px;text-align:center;transition:var(--transition-fast);box-shadow:0 0 12px rgba(255,60,172,0.2);cursor:pointer;position:relative;overflow:visible}
+.stat::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,60,172,0.12),transparent 60%);opacity:0;transition:var(--transition-normal);pointer-events:none}
 .stat::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);opacity:0;transition:var(--transition-normal)}
 .stat:hover::before,.stat:hover::after{opacity:1}
 .stat:hover{transform:translateY(-4px);box-shadow:0 0 20px rgba(255,60,172,0.4)}
 .stat-val{font-size:24px;font-weight:800;background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-label{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-top:4px;letter-spacing:0.5px}
+.stat-label{font-size:8px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-top:4px;letter-spacing:0.3px;white-space:nowrap}
 .insights-stat{cursor:pointer;border:2px solid var(--pink);box-shadow:0 0 12px rgba(255,60,172,0.3)}
 .insights-stat:hover{box-shadow:0 0 20px rgba(255,60,172,0.5)}
 .pattern-card{display:none;background:linear-gradient(135deg,rgba(120,75,160,0.2),rgba(255,60,172,0.1));border:2px solid var(--purple);border-radius:16px;padding:18px;margin-bottom:16px;cursor:pointer;transition:var(--transition-normal);position:relative;overflow:hidden}
-.pattern-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent,rgba(255,255,255,0.03),transparent);transform:rotate(45deg);animation:patternShimmer 3s infinite}
+.pattern-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent,rgba(255,255,255,0.03),transparent);transform:rotate(45deg);animation:patternShimmer 3s infinite;pointer-events:none}
 .pattern-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(120,75,160,0.15),transparent 60%);opacity:0;transition:var(--transition-normal)}
 @keyframes patternShimmer{0%{transform:translateX(-100%) rotate(45deg)}100%{transform:translateX(100%) rotate(45deg)}}
 .pattern-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(120,75,160,0.3)}
@@ -689,14 +727,14 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .pattern-tap{font-size:11px;color:var(--muted);text-align:center;margin-top:12px}
 /* ========== COACHING OFFER STYLES ========== */
 .coaching-offer{background:linear-gradient(165deg,rgba(30,26,46,0.98) 0%,rgba(20,17,35,0.98) 100%);border:1px solid rgba(120,75,160,0.4);border-radius:20px;padding:24px 20px;margin-bottom:20px;position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(120,75,160,0.2)}
-.coaching-offer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--pink),var(--purple))}
+.coaching-offer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--pink),var(--purple));pointer-events:none}
 .coaching-offer-header{text-align:center;margin-bottom:20px;position:relative;z-index:1}
 .coaching-offer-photo{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid var(--pink);margin-bottom:14px;box-shadow:0 4px 20px rgba(255,60,172,0.3)}
 .coaching-offer-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink);background:rgba(255,60,172,0.15);padding:6px 14px;border-radius:20px;margin-bottom:14px}
 .coaching-offer-title{font-size:24px;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .coaching-offer-subtitle{font-size:13px;color:var(--muted)}
 .coaching-cta{display:block;width:100%;padding:16px 20px;background:linear-gradient(135deg,var(--orange),var(--pink));border:3px solid var(--pink);border-radius:14px;color:#fff;font-size:16px;font-weight:700;text-decoration:none;text-align:center;cursor:pointer;box-shadow:0 0 24px rgba(255,60,172,0.5);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);position:relative;z-index:1;overflow:hidden}
-.coaching-cta::before{content:'';position:absolute;inset:-4px;background:var(--grad-primary-vivid);border-radius:18px;z-index:-1;filter:blur(15px);opacity:0.4;animation:ctaPulse 2s ease-in-out infinite}
+.coaching-cta::before{content:'';position:absolute;inset:-4px;background:var(--grad-primary-vivid);border-radius:18px;z-index:-1;filter:blur(15px);opacity:0.4;animation:ctaPulse 2s ease-in-out infinite;pointer-events:none}
 .coaching-cta::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)}
 @keyframes ctaPulse{0%,100%{opacity:0.4;filter:blur(15px)}50%{opacity:0.6;filter:blur(20px)}}
 .coaching-cta:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(255,60,172,0.6)}
@@ -706,7 +744,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .coaching-note strong{color:var(--text)}
 /* Transform Button */
 .transform-btn{width:100%;margin-top:20px;padding:18px 20px;background:linear-gradient(135deg,rgba(255,107,53,0.15),rgba(255,60,172,0.15));border:2px solid var(--pink);border-radius:16px;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:12px;position:relative;overflow:hidden}
-.transform-btn::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--orange),var(--pink),var(--purple))}
+.transform-btn::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--orange),var(--pink),var(--purple));pointer-events:none}
 .transform-btn:hover{background:linear-gradient(135deg,rgba(255,107,53,0.25),rgba(255,60,172,0.25));transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,60,172,0.3)}
 .transform-btn:active{transform:translateY(0)}
 .transform-btn-icon{font-size:24px;transition:var(--transition-fast)}
@@ -734,7 +772,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes unlockPulse{0%,100%{box-shadow:0 0 15px rgba(255,60,172,0.4)}50%{box-shadow:0 0 25px rgba(255,60,172,0.7)}}
 /* First-time user pulse on Mirror Game */
 .mode.start-here{animation:startHerePulse 1.5s ease-in-out infinite;position:relative}
-.mode.start-here::before{content:'Start Here';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:10px;font-weight:700;padding:4px 10px;border-radius:12px;white-space:nowrap;z-index:5}
+.mode.start-here::before{content:'Start Here';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:10px;font-weight:700;padding:4px 10px;border-radius:12px;white-space:nowrap;z-index:5;pointer-events:none}
 @keyframes startHerePulse{0%,100%{box-shadow:0 0 20px rgba(247,201,72,0.5),0 4px 20px rgba(255,60,172,0.15)}50%{box-shadow:0 0 35px rgba(247,201,72,0.8),0 4px 20px rgba(255,60,172,0.15)}}
 /* Deep Insight ready badge */
 .ai-ready{position:relative;overflow:visible}
@@ -798,14 +836,14 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .level-progress-bar{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:2px;transition:width 0.5s ease}
 .level-progress-text{font-size:10px;color:var(--green);margin-top:3px;font-weight:600}
 .level.has-play{position:relative}
-.level.has-play::before{content:'Play';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:10px;font-weight:700;padding:4px 10px;border-radius:12px;white-space:nowrap;z-index:5}
+.level.has-play::before{content:'Play';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:10px;font-weight:700;padding:4px 10px;border-radius:12px;white-space:nowrap;z-index:5;pointer-events:none}
 .level:hover .level-desc{color:var(--text)}
 .action-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .action-btn{animation:fadeIn 0.3s ease backwards}
 .action-btns .action-btn:nth-child(1){animation-delay:0.1s}
 .action-btns .action-btn:nth-child(2){animation-delay:0.2s}
 .action-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;text-decoration:none;color:var(--text);transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.1);position:relative;overflow:hidden}
-.action-btn::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,255,255,0.08),transparent 60%);opacity:0;transition:var(--transition-normal)}
+.action-btn::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,255,255,0.08),transparent 60%);opacity:0;transition:var(--transition-normal);pointer-events:none}
 .action-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
 .action-btn:hover::before{opacity:1}
 .action-btn:active{transform:scale(0.97)}
@@ -817,13 +855,17 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .action-btn.assess:hover{border-color:var(--blue);box-shadow:0 4px 15px rgba(47,128,237,0.3)}
 .action-btn.share{border-color:var(--green);background:linear-gradient(135deg,rgba(0,210,106,0.1),rgba(0,210,106,0.05))}
 .action-btn.share:hover{border-color:var(--green);box-shadow:0 4px 15px rgba(0,210,106,0.3)}
+.action-btn.breakthrough{border-color:var(--orange);background:linear-gradient(135deg,rgba(255,87,34,0.15),rgba(255,87,34,0.05))}
+.action-btn.breakthrough:hover{border-color:var(--orange);box-shadow:0 4px 15px rgba(255,87,34,0.4)}
+.action-btn.team{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,208,0,0.2),rgba(255,208,0,0.05))}
+.action-btn.team:hover{border-color:var(--gold);box-shadow:0 4px 15px rgba(255,208,0,0.5)}
 .footer{text-align:center;padding:8px 0 16px 0;animation:fadeIn 0.5s ease 0.4s backwards}
-.footer-btns{display:flex;flex-direction:column;gap:12px;margin-bottom:12px}
+.footer-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .footer-btn{animation:fadeIn 0.3s ease backwards}
 .footer-btns .footer-btn:nth-child(1){animation-delay:0.1s}
 .footer-btns .footer-btn:nth-child(2){animation-delay:0.2s}
 .footer-btn{display:block;padding:14px 24px;background:var(--card);border:2px solid var(--pink);border-radius:12px;color:var(--text);text-decoration:none;font-size:14px;font-weight:600;transition:var(--transition-fast);position:relative;overflow:hidden}
-.footer-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,60,172,0.1),transparent)}
+.footer-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,60,172,0.1),transparent);pointer-events:none}
 .footer-btn:hover{background:rgba(255,60,172,0.15);transform:translateY(-2px);box-shadow:0 4px 15px rgba(255,60,172,0.2)}
 .footer-btn:hover::before{left:150%;transition:left 0.5s ease-out}
 .footer-btn.primary{background:var(--grad-primary);border:none;color:#fff}
@@ -859,7 +901,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes textPulse{0%,100%{opacity:0.4}50%{opacity:1}}
 .choices{display:flex;flex-direction:column;gap:10px;animation:fadeIn 0.3s ease;min-height:280px}
 .choice{width:100%;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;text-align:left;cursor:pointer;line-height:1.5;transition:var(--transition-fast);box-shadow:var(--shadow-sm);animation:choiceSlide 0.3s ease backwards;position:relative;overflow:hidden;min-height:60px;display:flex;align-items:center}
-.choice::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,60,172,0.08),transparent);transition:none}
+.choice::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,60,172,0.08),transparent);transition:none;pointer-events:none}
 .choice:hover::before{left:150%;transition:left 0.5s ease-out}
 .choice:nth-child(1){animation-delay:0.05s}
 .choice:nth-child(2){animation-delay:0.1s}
@@ -888,7 +930,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes timerWarn{0%,100%{opacity:1}50%{opacity:0.7}}
 .result-msg{font-size:17px;color:var(--muted);margin-bottom:24px;line-height:1.6;padding:0 20px;animation:fadeIn 0.5s ease 0.2s backwards}
 .results-btn{width:100%;padding:18px;background:var(--grad-primary);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:12px;box-shadow:0 4px 15px rgba(255,60,172,0.3);transition:var(--transition-fast);animation:fadeIn 0.4s ease 0.3s backwards;position:relative;overflow:hidden}
-.results-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);animation:btnShine 3s ease-in-out infinite}
+.results-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);animation:btnShine 3s ease-in-out infinite;pointer-events:none}
 @keyframes btnShine{0%{left:-100%}30%,100%{left:150%}}
 .results-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,60,172,0.4)}
 .results-btn:active{transform:scale(0.98)}
@@ -906,14 +948,14 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .share-platform-btn .label{font-size:10px;font-weight:600;color:var(--muted)}
 .insights-list{text-align:left;margin:20px 0;max-height:350px;overflow-y:auto;scroll-behavior:smooth;animation:fadeIn 0.5s ease 0.3s backwards}
 .insight-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;font-size:14px;line-height:1.5;transition:var(--transition-fast);position:relative;overflow:hidden}
-.insight-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--grad-primary);opacity:0;transition:var(--transition-normal)}
+.insight-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--grad-primary);opacity:0;transition:var(--transition-normal);pointer-events:none}
 .insight-item:hover{border-color:var(--pink);transform:translateX(4px)}
 .insight-item:hover::before{opacity:1}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;padding:20px;z-index:100;backdrop-filter:blur(12px) saturate(180%);-webkit-backdrop-filter:blur(12px) saturate(180%);animation:modalFadeIn 0.3s ease;overflow-y:auto;overscroll-behavior:contain}
 @keyframes modalFadeIn{from{opacity:0;backdrop-filter:blur(0)}to{opacity:1;backdrop-filter:blur(12px)}}
 .modal.active{display:flex}
 .modal-content{background:linear-gradient(180deg,rgba(40,35,60,0.98),rgba(25,20,40,0.98));border:1px solid var(--border);border-radius:20px;padding:28px;max-width:360px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05),0 0 80px rgba(255,60,172,0.08);animation:modalSlide 0.4s var(--ease-out-back);max-height:calc(100vh - 40px);overflow-y:auto;overscroll-behavior:contain;position:relative}
-.modal-content::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent)}
+.modal-content::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);pointer-events:none}
 @keyframes modalSlide{from{transform:translateY(30px) scale(0.95);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
 .modal-icon{font-size:48px;text-align:center;margin-bottom:12px;animation:iconBounce 2s infinite}
 @keyframes iconBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
@@ -922,7 +964,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .feedback-label{font-size:10px;color:var(--purple);text-transform:uppercase;margin-bottom:10px;font-weight:700;letter-spacing:1px;animation:fadeIn 0.3s ease}
 .feedback-text{font-size:15px;line-height:1.6;animation:fadeIn 0.4s ease 0.1s backwards}
 .modal-btn{width:100%;padding:16px;background:var(--grad-primary);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:var(--transition-fast);box-shadow:0 4px 15px rgba(255,60,172,0.3);position:relative;overflow:hidden}
-.modal-btn::before{content:'';position:absolute;inset:-2px;background:var(--grad-legendary);border-radius:14px;opacity:0;z-index:-1;filter:blur(8px);transition:var(--transition-normal)}
+.modal-btn::before{content:'';position:absolute;inset:-2px;background:var(--grad-legendary);border-radius:14px;opacity:0;z-index:-1;filter:blur(8px);transition:var(--transition-normal);pointer-events:none}
 .modal-btn::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)}
 .modal-btn:hover::before{opacity:0.5}
 .modal-btn:hover::after{left:150%;transition:left 0.5s ease-out}
@@ -936,7 +978,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .bonus-title{font-size:24px;font-weight:800;color:#000;margin-bottom:8px}
 .bonus-sub{font-size:16px;color:rgba(0,0,0,0.7)}
 .levelup-popup{position:fixed;inset:0;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(15px) saturate(200%)}
-.levelup-popup::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,215,0,0.15) 0%,transparent 50%);animation:levelGlowPulse 2s ease-in-out infinite}
+.levelup-popup::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,215,0,0.15) 0%,transparent 50%);animation:levelGlowPulse 2s ease-in-out infinite;pointer-events:none}
 @keyframes levelGlowPulse{0%,100%{opacity:0.3;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
 .levelup-popup.show{display:flex}
 .levelup-content{text-align:center;animation:levelUpAnim 1s ease;position:relative;z-index:1}
@@ -946,16 +988,16 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .levelup-sub{font-size:18px;color:var(--muted);margin-bottom:20px}
 .levelup-unlock{font-size:14px;color:var(--green);margin-bottom:20px}
 .levelup-btn{padding:16px 40px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(255,107,53,0.4)}
-.levelup-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:btnShine 2s ease-in-out infinite}
+.levelup-btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:btnShine 2s ease-in-out infinite;pointer-events:none}
 .combo-display{position:fixed;top:100px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--orange),var(--pink));padding:10px 20px;border-radius:20px;font-size:16px;font-weight:800;color:#fff;opacity:0;z-index:50}
 .combo-display.show{opacity:1;animation:comboPop 0.5s ease}
 @keyframes comboPop{0%{transform:translateX(-50%) scale(0.5)}50%{transform:translateX(-50%) scale(1.2)}100%{transform:translateX(-50%) scale(1)}}
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--grad-success);color:#fff;padding:14px 28px;border-radius:14px;font-size:14px;font-weight:600;opacity:0;transition:var(--transition-normal);z-index:500;pointer-events:none;box-shadow:0 4px 20px rgba(0,210,106,0.4),0 0 0 1px rgba(255,255,255,0.1)}
-.toast::before{content:'';position:absolute;inset:-2px;background:linear-gradient(135deg,rgba(0,210,106,0.5),rgba(0,200,240,0.3));border-radius:16px;z-index:-1;filter:blur(10px);opacity:0;transition:var(--transition-normal)}
+.toast::before{content:'';position:absolute;inset:-2px;background:linear-gradient(135deg,rgba(0,210,106,0.5),rgba(0,200,240,0.3));border-radius:16px;z-index:-1;filter:blur(10px);opacity:0;transition:var(--transition-normal);pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-10px);animation:toastBounce 0.4s ease}
 .toast.show::before{opacity:1}
 .qa-item{border-bottom:1px solid var(--border);padding:10px 0;transition:var(--transition-fast);position:relative}
-.qa-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--grad-primary);opacity:0;transition:var(--transition-normal)}
+.qa-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--grad-primary);opacity:0;transition:var(--transition-normal);pointer-events:none}
 .qa-item:hover{background:rgba(255,60,172,0.03);margin:0 -10px;padding:10px}
 .qa-item:hover::before{opacity:1}
 .qa-item:last-of-type{border:none}
@@ -1016,6 +1058,18 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
   .level-compact-name{font-size:12px}
   .modal-content{padding:20px;margin:12px}
 }
+@media(max-width:340px){
+  .stats{gap:4px}
+  .stat{padding:10px 2px;border-radius:10px}
+  .stat-val{font-size:16px}
+  .stat-label{font-size:7px;letter-spacing:0}
+  .modes{gap:8px}
+  .mode{padding:14px 10px}
+  .mode-icon{font-size:28px}
+  .mode-name{font-size:12px}
+  .ctrl-btn{width:32px;height:32px;font-size:14px}
+  .controls{gap:6px}
+}
 /* Mobile Standard (iPhone, most Android) */
 @media(max-width:480px){
   .hook-line{font-size:28px}
@@ -1059,6 +1113,13 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
   .modal-content{max-width:500px;padding:32px}
   .recognition-item,.voice-option{padding:18px 22px;font-size:15px}
 }
+/* iPad Portrait */
+@media(min-width:768px) and (max-width:1024px) and (orientation:portrait){
+  .app{max-width:560px}
+  .hook-container{max-width:500px}
+  .modal-content{max-width:480px}
+  .levels-compact{max-width:450px}
+}
 /* Desktop */
 @media(min-width:1024px){
   .app{max-width:640px}
@@ -1072,8 +1133,20 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 }
 /* Large Desktop / Ultrawide */
 @media(min-width:1440px){
-  body{padding:40px}
-  .app{max-width:680px;padding:32px;border-radius:32px}
+  body{padding:40px;background:#05030a}
+  .app{max-width:520px;padding:32px;border-radius:32px;margin:0 auto}
+  .hook{background:linear-gradient(180deg,#0d0a1a 0%,#05030a 100%)}
+  .hook-container{max-width:480px}
+}
+/* Extra large monitors */
+@media(min-width:1800px){
+  body{padding:60px}
+  .app{max-width:540px}
+}
+/* Ultra-wide / 4K monitors */
+@media(min-width:2400px){
+  body{padding:80px}
+  .app{max-width:560px;min-height:calc(100vh - 160px)}
 }
 /* Touch device optimizations */
 @media(hover:none) and (pointer:coarse){
@@ -1107,6 +1180,17 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
   .hook-btn{padding:12px 32px}
   .recognition-grid,.voice-options{max-height:40vh;overflow-y:auto}
 }
+/* Small screen height fix for intro screens */
+@media(max-height:700px){
+  .hook-screen-scrollable{padding-top:16px;padding-bottom:24px}
+  .hook-container{justify-content:flex-start;padding-top:16px}
+  .levels-compact{max-height:50vh;overflow-y:auto}
+  .hook-question-title{font-size:20px;margin-bottom:4px}
+  .hook-question-sub{font-size:13px;margin-bottom:12px}
+  .level-compact{padding:8px 12px}
+  .level-detail{padding:8px 10px;font-size:11px}
+}
+
 /* Safe area insets for notched devices */
 @supports(padding:max(0px)){
   .app{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));padding-bottom:max(40px,env(safe-area-inset-bottom))}
@@ -1121,6 +1205,10 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 /* Skip Link for Accessibility */
 .skip-link{position:absolute;top:-50px;left:16px;background:var(--pink);color:#fff;padding:12px 20px;border-radius:8px;font-weight:600;z-index:99999;transition:top 0.3s ease;text-decoration:none}
 .skip-link:focus{top:16px}
+
+/* Focus-visible states for keyboard accessibility */
+.choice:focus-visible,.hook-btn:focus-visible,.modal-btn:focus-visible,.recognition-item:focus-visible,.voice-option:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.ctrl-btn:focus-visible,.level:focus-visible,.mode:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
 
 /* ========== ONBOARDING TOOLTIPS ========== */
 .onboard-tooltip{position:fixed;top:-9999px;left:-9999px;background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:600;z-index:10000;opacity:0;visibility:hidden;transition:opacity 0.3s cubic-bezier(0.16,1,0.3,1),visibility 0.3s;pointer-events:none;max-width:200px;text-align:center;box-shadow:0 4px 20px rgba(255,60,172,0.4)}
@@ -1138,7 +1226,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes highlightPulse{0%,100%{box-shadow:0 0 0 4px rgba(255,60,172,0.4)}50%{box-shadow:0 0 0 8px rgba(255,60,172,0.2)}}
 
 /* Press Ticker - Scrolling "As Seen On" */
-.press-ticker{margin-top:24px;overflow:hidden;opacity:0;animation:fadeInTicker 1s ease 2s forwards}
+.press-ticker{margin-top:24px;overflow:hidden;opacity:0;animation:fadeInTicker 1s ease 2s forwards;max-width:100%;position:relative}
 @keyframes fadeInTicker{to{opacity:1}}
 .press-ticker-label{text-align:center;font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
 .press-ticker-track{display:flex;width:max-content;animation:tickerScroll 20s linear infinite}
@@ -1268,6 +1356,11 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 </div>
 <!-- Screen 2: Recognition -->
 <div class="hook-screen" id="hookScreen2">
+<div class="hook-music-controls" id="hookMusicControls">
+<button class="hook-music-btn on" id="hookMusicToggle" onclick="toggleHookMusic()" title="Toggle game music">🎵</button>
+<button class="hook-music-btn spotify" onclick="openSpotify()" title="Open Spotify"><svg class="hook-music-logo" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></button>
+<button class="hook-music-btn apple" onclick="openAppleMusic()" title="Open Apple Music"><svg class="hook-music-logo" viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.401-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03c.525 0 1.048-.034 1.57-.1.823-.106 1.597-.35 2.296-.81.84-.553 1.472-1.287 1.88-2.208.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.042-1.785-.455-2.105-1.392-.223-.657-.098-1.272.344-1.81.38-.463.9-.713 1.486-.81.543-.09 1.09-.14 1.635-.212.207-.03.4-.09.555-.232.168-.155.212-.357.212-.57v-5.478c0-.098-.027-.152-.127-.172-.376-.074-.75-.154-1.124-.232l-3.89-.804c-.076-.016-.155-.026-.235-.026-.096 0-.126.036-.127.132-.003.25 0 .5 0 .75v8.133c0 .504-.065.998-.283 1.46-.306.65-.822 1.04-1.524 1.203-.34.08-.686.12-1.034.13-1.022.025-1.907-.53-2.18-1.526-.165-.603-.082-1.177.305-1.69.376-.498.888-.763 1.47-.87.508-.094 1.022-.144 1.533-.217.32-.046.617-.14.835-.393.146-.17.2-.373.2-.59V6.266c0-.305.048-.39.34-.453l5.727-1.185c.206-.043.413-.085.622-.1.186-.014.234.028.234.215v5.37z"/></svg></button>
+</div>
 <div class="hook-progress"><span class="h-dot active"></span><span class="h-dot"></span><span class="h-dot"></span></div>
 <div class="hook-question-title">Have you ever<br>felt like...</div>
 <div class="hook-question-sub">Select all that feel true</div>
@@ -1294,7 +1387,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="voice-option" data-voice="all-there-is" onclick="toggleVoice(this)">"Is this really all there is?"</div>
 </div>
 <div class="hook-btn-row">
-<button class="hook-btn-secondary" onclick="showHookScreen(2)"><span class="back-arrow">←</span> Back</button>
+<button class="hook-btn-secondary" onclick="showHookScreen(2)"><span class="back-arrow">⬅</span> Back</button>
 <button class="hook-btn show" onclick="continueFromVoice()">Continue</button>
 </div>
 <div class="validation-hint" id="voiceHint">Please select at least one</div>
@@ -1304,10 +1397,11 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="hook-progress"><span class="h-dot done"></span><span class="h-dot done"></span><span class="h-dot active"></span><span class="h-dot"></span></div>
 <div class="hook-question-title">This isn't a flaw.</div>
 <div class="hook-question-sub">It's a signal you're solving the problem at the wrong level.</div>
+<button class="scroll-bottom-btn" onclick="document.querySelector('.levels-compact').scrollIntoView({behavior:'smooth',block:'start'})">⬇</button>
 <div class="levels-intro">Tap each level to learn more:</div>
 <div class="levels-compact">
-<div class="level-compact selected" onclick="toggleLevelInfo(this, 1)" data-level="1"><div class="level-dot" style="background:#FF6B35">1</div><div class="level-compact-info"><span class="level-compact-name">Individual</span><span class="level-compact-desc">Self for yourself</span></div></div>
-<div class="level-detail show" id="levelDetail1">Self for yourself — your feelings, your life, your beliefs, your needs, your wants. Before you can show up for anyone else, you have to show up for yourself. This means having non-negotiables — things you do for yourself every day, no matter what. It's not selfish. It's required. If this level isn't solid, everything above it is unstable.</div>
+<div class="level-compact" onclick="toggleLevelInfo(this, 1)" data-level="1"><div class="level-dot" style="background:#FF6B35">1</div><div class="level-compact-info"><span class="level-compact-name">Individual</span><span class="level-compact-desc">Self for yourself</span></div></div>
+<div class="level-detail" id="levelDetail1">Self for yourself — your feelings, your life, your beliefs, your needs, your wants. Before you can show up for anyone else, you have to show up for yourself. This means having non-negotiables — things you do for yourself every day, no matter what. It's not selfish. It's required. If this level isn't solid, everything above it is unstable.</div>
 <div class="level-compact" onclick="toggleLevelInfo(this, 2)" data-level="2"><div class="level-dot" style="background:#FF3CAC">2</div><div class="level-compact-info"><span class="level-compact-name">Family</span><span class="level-compact-desc">Your created or immediate family</span></div></div>
 <div class="level-detail" id="levelDetail2">Self for family — either the family you were born into OR the family you have created (spouse, kids). If you've created your own family, they become Level 2, and your family of origin moves to Level 3. These are the people who see you at your best and worst. You can't skip to community impact if things are incomplete here.</div>
 <div class="level-compact" onclick="toggleLevelInfo(this, 3)" data-level="3"><div class="level-dot" style="background:#784BA0">3</div><div class="level-compact-info"><span class="level-compact-name">Groups</span><span class="level-compact-desc">Extended family, friends, coworkers</span></div></div>
@@ -1323,7 +1417,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 </div>
 <div class="reveal-cta">The game shows you which level your pattern lives on—so you can finally change it.</div>
 <div class="hook-btn-row">
-<button class="hook-btn-secondary" onclick="showHookScreen(3)"><span class="back-arrow">←</span> Back</button>
+<button class="hook-btn-secondary" onclick="showHookScreen(3)"><span class="back-arrow">⬅</span> Back</button>
 <button class="hook-btn show" onclick="showHookScreen(5)">See My Pattern</button>
 </div>
 </div>
@@ -1349,7 +1443,6 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <button class="start-playing-btn" id="startGameBtn">Start Playing →</button>
 <div class="share-buttons">
 <button class="share-btn" onclick="shareEntryPattern()"><span class="share-btn-icon">📤</span> Share My Pattern</button>
-<button class="share-btn-secondary" onclick="copyEntryLink()">📋 Copy Link</button>
 </div>
 </div>
 </div>
@@ -1414,7 +1507,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="section-title">Your Journey</div>
 <div class="levels" id="levelMap"></div>
 
-<div class="action-btns"><a class="action-btn assess" id="assessBtn" href="https://selfcheck.100levelup.com/assessment.html" target="_blank" rel="noopener" aria-label="Take Full Assessment"><span class="action-btn-icon">📋</span><span class="action-btn-text">Full Assessment</span></a><button class="action-btn share" id="shareBtn" aria-label="Share this game"><span class="action-btn-icon">🔗</span><span class="action-btn-text">Share</span></button></div>
+<div class="action-btns"><button class="action-btn breakthrough" id="breakthroughBtn" onclick="document.getElementById('breakthroughModal').classList.add('active')" aria-label="Breakthrough Work exercises"><span class="action-btn-icon">🔥</span><span class="action-btn-text">Breakthrough Work</span></button><button class="action-btn team" id="teamBtn" onclick="document.getElementById('teamModal').classList.add('active')" aria-label="Join Our Team"><span class="action-btn-icon">🤝</span><span class="action-btn-text">Join Our Team</span></button></div>
 
 <div class="footer">
 <div class="footer-btns">
@@ -1650,7 +1743,7 @@ Lvl 10 → World theme<br>
 Lvl 15 → Generations theme</span><br><br>
 <strong>💰 Coins:</strong> Earn 25% of XP as coins. Redeem in the Reward Shop for discounts—or save up for a FREE coaching session!<br><br>
 <strong>🔥 Streaks:</strong> Complete Worldwide Challenge daily. Miss a day = reset.<br><br>
-<strong>⚡ Combos:</strong> Consecutive correct answers = bonus XP (5x = +10, 10x = +20).
+<strong>⚡ Combos:</strong> Consecutive correct answers = extra XP (5x = +10, 10x = +20).
 </div></div>
 
 <!-- 6. CORE PHILOSOPHY -->
@@ -1690,6 +1783,53 @@ You can accept that something <em>IS</em> without agreeing it <em>SHOULD BE</em>
 <button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('coachingModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Meet Our Coaches</button>
 </div></div>
 
+<!-- BREAKTHROUGH WORK FAQ -->
+<div class="qa-item"><div class="qa-question">🔥 What is Breakthrough Work?</div><div class="qa-answer">
+<strong style="color:var(--orange);">9 exercises to shift perspective and move stuck energy.</strong><br><br>
+<div style="background:var(--card);border-radius:10px;padding:12px;margin-bottom:12px;">
+<strong>Three Levels:</strong><br>
+<span style="font-size:13px;color:var(--muted);">
+• <span style="color:var(--green);">STARTER</span> — Build the habit: Breathwork, Center Tap, Daily Check-In, Power of Context<br>
+• <span style="color:var(--blue);">INTERMEDIATE</span> — Shift perspective: "Have To → Get To → Blessed To", Blessings Letter<br>
+• <span style="color:var(--pink);">DEEP WORK</span> — Move stuck energy: Forgiveness Letter, Most Painful Memory, Ultimate Acknowledgment
+</span>
+</div>
+<em style="color:var(--muted);font-size:12px;">Complete exercises to earn XP. Deep work exercises unlock coaching CTA.</em><br><br>
+<button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('breakthroughModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Start Breakthrough Work</button>
+</div></div>
+
+<!-- JOIN OUR TEAM FAQ -->
+<div class="qa-item"><div class="qa-question">🤝 How can I partner with you?</div><div class="qa-answer">
+<strong style="color:var(--gold);">We're looking for coaches, translators, and affiliates.</strong><br><br>
+<div style="background:var(--card);border-radius:10px;padding:12px;margin-bottom:12px;">
+<strong>Three Ways to Partner:</strong><br>
+<span style="font-size:13px;color:var(--muted);">
+• <strong>COACHES</strong> — Teach the 7 Levels framework. Work remotely. 80% revenue share.<br>
+• <strong>TRANSLATORS</strong> — Bring the game to your language. We handle tech & marketing.<br>
+• <strong>AFFILIATES</strong> — Refer clients or coaches. Earn on every session. No coaching required.
+</span>
+</div>
+<div style="font-size:12px;color:var(--green);margin-bottom:8px;">✅ No experience required • ✅ No setup cost • ✅ Work from anywhere</div>
+<em style="color:var(--muted);font-size:12px;">Created by Arthur Palyan — Best Life Coach California 2025</em><br><br>
+<button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('teamModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:10px;color:#000;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Apply Now</button>
+</div></div>
+
+<!-- REWARD SHOP FAQ -->
+<div class="qa-item"><div class="qa-question">🛒 What is the Reward Shop?</div><div class="qa-answer">
+<strong style="color:var(--gold);">Turn your XP into real rewards.</strong><br><br>
+<div style="background:var(--card);border-radius:10px;padding:12px;margin-bottom:12px;">
+<strong>Available Rewards:</strong><br>
+<span style="font-size:13px;color:var(--muted);">
+• <span style="color:var(--green);">500 XP</span> — Pattern Report PDF<br>
+• <span style="color:var(--blue);">1,000 XP</span> — Free Workshop Entry Raffle<br>
+• <span style="color:var(--pink);">2,500 XP</span> — 15-min Coaching Call<br>
+• <span style="color:var(--gold);">5,000 XP</span> — 30-min Breakthrough Session
+</span>
+</div>
+<em style="color:var(--muted);font-size:12px;">Earn XP by playing games, completing exercises, and logging in daily. More rewards coming soon!</em><br><br>
+<button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('coinShopModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:10px;color:#000;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Open Reward Shop</button>
+</div></div>
+
 <!-- WORKSHOP -->
 <div class="qa-item"><div class="qa-question">💑 Workshops & Retreats</div><div class="qa-answer">
 <div style="background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));border:1px solid var(--pink);border-radius:12px;padding:16px;margin-bottom:12px;">
@@ -1725,7 +1865,12 @@ You can accept that something <em>IS</em> without agreeing it <em>SHOULD BE</em>
 <strong style="color:var(--pink);">Because someone you know needs this.</strong><br><br>
 Who in your life is stuck in the same patterns? Struggling with boundaries? Carrying grief or shame they won't talk about?<br><br>
 This game helps people see themselves without judgment. It's <strong>free</strong>, <strong>private</strong>, and takes <strong>2 minutes</strong> to play.<br><br>
-<button onclick="if(navigator.share){navigator.share({title:'Level Up',text:'See the patterns quietly running your life. Free game, 2 min/day.',url:'https://100levelup.com'})}else{navigator.clipboard.writeText('https://100levelup.com');showToast('📋 Link copied!')}" style="padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">📤 Share Now</button>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;">
+<button onclick="shareToInstagram()" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 8px;background:linear-gradient(135deg,#833AB4,#FD1D1D,#F77737);border:none;border-radius:12px;cursor:pointer;transition:all 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg><span style="font-size:10px;font-weight:600;color:#fff;">Instagram</span></button>
+<button onclick="shareToFacebook()" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 8px;background:#1877F2;border:none;border-radius:12px;cursor:pointer;transition:all 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg><span style="font-size:10px;font-weight:600;color:#fff;">Facebook</span></button>
+<button onclick="shareToTwitter()" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 8px;background:#000;border:none;border-radius:12px;cursor:pointer;transition:all 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span style="font-size:10px;font-weight:600;color:#fff;">X</span></button>
+<button onclick="shareToWhatsApp()" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 8px;background:#25D366;border:none;border-radius:12px;cursor:pointer;transition:all 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span style="font-size:10px;font-weight:600;color:#fff;">WhatsApp</span></button>
+</div>
 </div></div>
 
 <!-- 10. PRIVACY -->
@@ -1768,7 +1913,7 @@ This game helps people see themselves without judgment. It's <strong>free</stron
 </div>
 <div>
 <strong>🖨️ Print</strong><br>
-<span style="font-size:11px;color:var(--muted);">Save as PDF</span><br>
+<span style="font-size:11px;color:var(--muted);">Save Your Progress</span><br>
 <button onclick="printProgress()" style="padding:8px 16px;background:linear-gradient(135deg,var(--cyan),var(--blue));border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;margin-top:6px;">Print</button>
 </div>
 </div>
@@ -1781,7 +1926,21 @@ This game helps people see themselves without judgment. It's <strong>free</stron
 </div>
 </div></div>
 
-<!-- 13. KEYBOARD SHORTCUTS -->
+<!-- 13. MUSIC -->
+<div class="qa-item"><div class="qa-question">🎵 Music</div><div class="qa-answer">
+<strong style="color:var(--pink);">Listen to our songs or play your own.</strong><br><br>
+<div style="background:var(--card);border-radius:12px;padding:16px;margin-bottom:12px;">
+<div style="font-size:13px;color:var(--muted);margin-bottom:12px;">Game music by <a href="https://music.apple.com/us/artist/the-palyans/1120205357" target="_blank" style="color:var(--gold);font-weight:600;text-decoration:none;">The Palyans</a> — the family behind Level Up</div>
+<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+<button id="faqMusicToggle" onclick="toggleFaqMusic()" title="Toggle game music" style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">🎵</button>
+<button onclick="openPalyansSpotify()" title="The Palyans on Spotify" style="width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid #1DB954;color:#1DB954;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></button>
+<button onclick="openPalyansAppleMusic()" title="The Palyans on Apple Music" style="width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid #FC3C44;color:#FC3C44;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.401-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03c.525 0 1.048-.034 1.57-.1.823-.106 1.597-.35 2.296-.81.84-.553 1.472-1.287 1.88-2.208.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.042-1.785-.455-2.105-1.392-.223-.657-.098-1.272.344-1.81.38-.463.9-.713 1.486-.81.543-.09 1.09-.14 1.635-.212.207-.03.4-.09.555-.232.168-.155.212-.357.212-.57v-5.478c0-.098-.027-.152-.127-.172-.376-.074-.75-.154-1.124-.232l-3.89-.804c-.076-.016-.155-.026-.235-.026-.096 0-.126.036-.127.132-.003.25 0 .5 0 .75v8.133c0 .504-.065.998-.283 1.46-.306.65-.822 1.04-1.524 1.203-.34.08-.686.12-1.034.13-1.022.025-1.907-.53-2.18-1.526-.165-.603-.082-1.177.305-1.69.376-.498.888-.763 1.47-.87.508-.094 1.022-.144 1.533-.217.32-.046.617-.14.835-.393.146-.17.2-.373.2-.59V6.266c0-.305.048-.39.34-.453l5.727-1.185c.206-.043.413-.085.622-.1.186-.014.234.028.234.215v5.37z"/></svg></button>
+</div>
+</div>
+<em style="color:var(--muted);font-size:12px;">Tap the music note to toggle game music, or listen to The Palyans on your favorite platform.</em>
+</div></div>
+
+<!-- 14. KEYBOARD SHORTCUTS -->
 <div class="qa-item"><div class="qa-question">⌨️ Keyboard shortcuts</div><div class="qa-answer">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:13px;">
 <div>
@@ -2381,6 +2540,291 @@ Earn coins every game you play. Redeem for real rewards!
 <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:8px;">Questions? Contact us anytime.</p>
 </div></div>
 
+<!-- Join Our Team Modal -->
+<div class="modal" id="teamModal" role="dialog" aria-label="Join Our Team">
+<div class="modal-content coaching-modal-content" style="max-width:480px;">
+<button class="modal-close-x" onclick="document.getElementById('teamModal').classList.remove('active')">✕</button>
+<div style="text-align:center;margin-bottom:24px;">
+<span style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);background:rgba(255,208,0,0.15);padding:6px 16px;border-radius:20px;margin-bottom:12px;">🤝 Partner With Us</span>
+<h2 style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px;">Partner with an</h2>
+<h2 style="font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;">Award-Winning Life Coach</h2>
+<p style="font-size:14px;color:var(--muted);line-height:1.6;">I'm looking for coaches, translators, and affiliates to partner with on this incredible free self-awareness game.</p>
+</div>
+
+<!-- Coaches Role -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+<div style="width:44px;height:44px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">🎓</div>
+<div style="font-size:17px;font-weight:700;color:var(--text);">COACHES</div>
+</div>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Teach the 7 Levels of Self framework. Help people break patterns. Work remotely.</p>
+</div>
+
+<!-- Translators Role -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+<div style="width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">🌍</div>
+<div style="font-size:17px;font-weight:700;color:var(--text);">TRANSLATORS</div>
+</div>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Bring the game to Spanish, French, Portuguese, Tagalog, Hindi, Arabic, or other languages. I handle tech, marketing, and advertising.</p>
+</div>
+
+<!-- Affiliates Role -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+<div style="width:44px;height:44px;background:linear-gradient(135deg,var(--green),#00B85D);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">💰</div>
+<div style="font-size:17px;font-weight:700;color:var(--text);">AFFILIATES</div>
+</div>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Refer clients or coaches. Earn on every session. No coaching required.</p>
+</div>
+
+<!-- Selling Points -->
+<div style="background:linear-gradient(135deg,rgba(255,208,0,0.1),rgba(255,107,53,0.05));border:1px solid var(--gold);border-radius:12px;padding:16px;margin-bottom:20px;">
+<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+<span style="font-size:13px;color:var(--text);font-weight:600;">✅ No experience required</span>
+<span style="font-size:13px;color:var(--text);font-weight:600;">✅ No setup cost</span>
+<span style="font-size:13px;color:var(--text);font-weight:600;">✅ Work from ANYWHERE in the world</span>
+</div>
+</div>
+
+<!-- Credibility -->
+<div style="text-align:center;margin-bottom:20px;">
+<p style="font-size:12px;color:var(--gold);font-weight:600;margin-bottom:4px;">Created by Arthur Palyan - Best Life Coach California 2025</p>
+<p style="font-size:11px;color:var(--muted);">As seen on AP News, Bloomberg, Yahoo Finance, and 200+ outlets</p>
+</div>
+
+<!-- Links as Buttons -->
+<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:20px;">
+<a href="https://apps.apple.com/app/id6757724858" target="_blank" style="padding:10px 16px;background:var(--card);border:1px solid var(--pink);border-radius:8px;font-size:13px;color:var(--text);text-decoration:none;font-weight:600;transition:all 0.2s;">App Store</a>
+<a href="https://100levelup.com" target="_blank" style="padding:10px 16px;background:var(--card);border:1px solid var(--pink);border-radius:8px;font-size:13px;color:var(--text);text-decoration:none;font-weight:600;transition:all 0.2s;">100levelup.com</a>
+<a href="https://LevelsOfSelf.com" target="_blank" style="padding:10px 16px;background:var(--card);border:1px solid var(--pink);border-radius:8px;font-size:13px;color:var(--text);text-decoration:none;font-weight:600;transition:all 0.2s;">LevelsOfSelf.com</a>
+</div>
+
+<!-- CTA Button -->
+<a href="https://calendly.com/levelsofself/zoom" target="_blank" style="display:block;width:100%;padding:16px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:12px;color:#000;font-size:16px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 4px 20px rgba(255,208,0,0.4);">Apply Now →</a>
+</div>
+</div>
+
+<!-- Breakthrough Work Modal -->
+<div class="modal" id="breakthroughModal" role="dialog" aria-label="Breakthrough Work Exercises">
+<div class="modal-content coaching-modal-content" style="max-width:520px;">
+<button class="modal-close-x" onclick="document.getElementById('breakthroughModal').classList.remove('active')">✕</button>
+<div style="text-align:center;margin-bottom:24px;">
+<span style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);background:rgba(255,87,34,0.15);padding:6px 16px;border-radius:20px;margin-bottom:12px;">🔥 Deep Work</span>
+<h2 style="font-size:24px;font-weight:800;color:var(--text);margin-bottom:8px;">Breakthrough Work</h2>
+<p style="font-size:14px;color:var(--muted);line-height:1.6;">9 exercises to shift perspective and move stuck energy</p>
+</div>
+
+<!-- STARTER LEVEL -->
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+<span style="flex:1;height:1px;background:var(--border);"></span>
+<span>STARTER LEVEL</span>
+<span style="flex:1;height:1px;background:var(--border);"></span>
+</div>
+
+<!-- Exercise 1: Breathwork -->
+<div class="breakthrough-exercise" data-exercise="1" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(0,192,96,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🌬️</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Breathwork / Grounding</div>
+<div style="font-size:11px;color:var(--muted);">Grounding • 2-5 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--gold);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Anytime you need help focusing or getting grounded, listen to your breath. Slow down the breathing. Listen as you pull air inside and push air outside. Focus entirely on your breath until your thoughts have no more control over your body. You are now grounded in the present moment.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(1)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+25 XP)</button>
+</div>
+</div>
+
+<!-- Exercise 2: Center Tap -->
+<div class="breakthrough-exercise" data-exercise="2" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(0,192,96,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">👊</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Center Tap</div>
+<div style="font-size:11px;color:var(--muted);">Physical/Qigong • 1-3 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--gold);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Tap your core/stomach with a closed fist, thumbs inside. Best with music. Gets you connected and grounded. A quick reset exercise.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(2)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+25 XP)</button>
+</div>
+</div>
+
+<!-- Exercise 3: Daily Check-In -->
+<div class="breakthrough-exercise" data-exercise="3" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(0,192,96,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🪞</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Daily Check-In</div>
+<div style="font-size:11px;color:var(--muted);">Reflection/Acceptance • 5 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--gold);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Close your eyes at the start or end of each day. Ask yourself: "Was there anything I needed to say that I didn't get to say? Was there anything I needed to feel that I didn't get to feel?" Say what you need to say. Feel what you need to feel. End with "Thank you."</p>
+<p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:8px;">This is a practice of acceptance—even when you don't agree with yourself, you can count on you to hear you, get you, feel you, and be heard.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(3)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+25 XP)</button>
+</div>
+</div>
+
+<!-- Exercise 4: Power of Context -->
+<div class="breakthrough-exercise" data-exercise="4" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(0,192,96,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">👁️</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">The Power of Context</div>
+<div style="font-size:11px;color:var(--muted);">Awareness/Perspective • 5-10 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--gold);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;"><strong>Three practices:</strong></p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:6px;"><strong>1. Location:</strong> Walk into a store or location. Imagine you own it. Notice what shifts.</p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:6px;"><strong>2. Reading:</strong> Read any text. Imagine your favorite person wrote it, then your parent, then a friend, then a stranger. Notice what shifts.</p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;"><strong>3. Listening:</strong> When someone speaks to you, listen as if they're a friend, then stranger, then mom/dad. Notice what happens.</p>
+<p style="font-size:12px;color:var(--gold);font-weight:600;font-style:italic;">💡 Lesson: Same words, same place, same conversation—completely different experience. Just notice the power of context.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(4)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+25 XP)</button>
+</div>
+</div>
+
+<!-- INTERMEDIATE LEVEL -->
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+<span style="flex:1;height:1px;background:var(--border);"></span>
+<span>INTERMEDIATE LEVEL</span>
+<span style="flex:1;height:1px;background:var(--border);"></span>
+</div>
+
+<!-- Exercise 5: Have To → Get To → Blessed To -->
+<div class="breakthrough-exercise" data-exercise="5" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(30,111,224,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">✨</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Have To → Get To → Blessed To</div>
+<div style="font-size:11px;color:var(--muted);">Journaling/Reframe • 10-15 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--gold);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;"><strong>Three-part reframe exercise:</strong></p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:6px;"><strong>1.</strong> "I have to..." — List all the things you have to do</p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:6px;"><strong>2.</strong> "I get to..." — Rewrite the same list (shifts energy)</p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;"><strong>3.</strong> "I am blessed to... because..." — Rewrite again (creates wonder)</p>
+<p style="font-size:12px;color:var(--gold);font-weight:600;font-style:italic;">💡 Watch what opens up at each level.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(5)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+50 XP)</button>
+</div>
+</div>
+
+<!-- Exercise 6: Blessings Letter -->
+<div class="breakthrough-exercise" data-exercise="6" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(30,111,224,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">💝</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Blessings Letter</div>
+<div style="font-size:11px;color:var(--muted);">Writing + Gratitude • 15-20 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--gold);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Write to yourself first (always). Start with "The blessings I see in you are..." Go all out until there is nothing left. This is a creation and gratitude exercise. You begin to trust and hear yourself.</p>
+<p style="font-size:12px;color:var(--muted);font-style:italic;margin-top:8px;">Note: No mirror reading—this is about self-trust and gratitude.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(6)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+50 XP)</button>
+</div>
+</div>
+
+<!-- DEEP WORK LEVEL -->
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--pink);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+<span style="flex:1;height:1px;background:var(--border);"></span>
+<span>DEEP WORK LEVEL</span>
+<span style="flex:1;height:1px;background:var(--border);"></span>
+</div>
+
+<!-- Exercise 7: Forgiveness Letter -->
+<div class="breakthrough-exercise" data-exercise="7" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(255,60,172,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">💔</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Forgiveness Letter</div>
+<div style="font-size:11px;color:var(--muted);">Writing + Mirror • 30-45 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--gold);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">Write a letter to yourself. Start with "I forgive me for..." and keep writing until there is nothing left. Then "I forgive you for..." and keep writing until there is nothing left.</p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">When done, read it to yourself in the mirror 4 times. It will loosen its grip on you and move any stuck energy out of your body.</p>
+<p style="font-size:12px;color:var(--orange);font-weight:600;margin-bottom:8px;">⚠️ Important: Language matters. If something happened to you as a child, even if you write it in English, read it in your native language to yourself in the mirror.</p>
+<p style="font-size:12px;color:var(--muted);font-style:italic;">This is deep work. Please be patient with yourself and go all out like you do for everyone else.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(7)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+100 XP)</button>
+</div>
+</div>
+
+<!-- Exercise 8: Most Painful Memory -->
+<div class="breakthrough-exercise" data-exercise="8" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(255,60,172,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🩹</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Most Painful Memory</div>
+<div style="font-size:11px;color:var(--muted);">Writing + Mirror • 30-60 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--gold);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">Start with "My most painful memory is..." Write until there is nothing left. Read to yourself in mirror 4 times. Use your native language, especially for childhood memories.</p>
+<p style="font-size:12px;color:var(--muted);font-style:italic;">Same deep work guidance—be patient, go all out for yourself.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(8)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+100 XP)</button>
+</div>
+</div>
+
+<!-- Exercise 9: Ultimate Acknowledgment -->
+<div class="breakthrough-exercise" data-exercise="9" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;cursor:pointer;transition:all 0.2s;" onclick="toggleExercise(this)">
+<div style="display:flex;align-items:center;justify-content:space-between;">
+<div style="display:flex;align-items:center;gap:12px;">
+<div style="width:36px;height:36px;background:rgba(255,60,172,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🙏</div>
+<div>
+<div style="font-size:15px;font-weight:700;color:var(--text);">Ultimate Acknowledgment</div>
+<div style="font-size:11px;color:var(--muted);">Movement/Presence • 10-30 min</div>
+</div>
+</div>
+<span class="exercise-toggle" style="color:var(--gold);font-size:18px;transition:transform 0.2s;">+</span>
+</div>
+<div class="exercise-content" style="display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:10px;">Stand. Begin to raise your arms from the sides, palms toward you. Halfway up, switch your palms up. Imagine pulling energy from the ground and connecting it to the sky above. Make your way up to connect your hands together above your head. Bring your hands straight down the center to your heart. Bow.</p>
+<p style="font-size:12px;color:var(--gold);font-weight:600;margin-bottom:8px;">🔑 The Secret: Move at half the speed you think you need. Then keep reducing—slower and slower. One bow can take 30 minutes. Move so slow it seems you're not moving at all. It connects you to layers of self you don't normally see. A busy mind cannot move slowly—this is great practice for presence.</p>
+<p style="font-size:12px;color:var(--muted);font-style:italic;">You'll sweat doing just one. It opens up a whole new world you never knew existed.</p>
+<button class="exercise-complete-btn" onclick="event.stopPropagation();completeExercise(9)" style="margin-top:12px;padding:10px 20px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;width:100%;">✓ Mark Complete (+100 XP)</button>
+</div>
+</div>
+
+<!-- Deep Work CTA (shown after completing deep work exercises) -->
+<div id="deepWorkCTA" style="display:none;background:linear-gradient(135deg,rgba(255,107,53,0.15),rgba(255,60,172,0.1));border:2px solid var(--orange);border-radius:16px;padding:20px;text-align:center;">
+<p style="font-size:16px;color:var(--text);font-weight:700;margin-bottom:8px;">You've done the work. Ready to go deeper?</p>
+<p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Work 1-on-1 with Arthur to integrate your breakthroughs</p>
+<a href="https://calendly.com/levelsofself/zoom" target="_blank" style="display:inline-block;padding:14px 28px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(255,87,34,0.4);">Book a Session with Arthur</a>
+</div>
+
+<p style="text-align:center;font-size:12px;color:var(--muted);margin-top:16px;">Complete exercises to earn XP and track your growth</p>
+</div>
+</div>
+
 <!-- Agreement Game Onboarding Modal -->
 <div class="modal" id="agreementOnboardModal" role="dialog" aria-label="Agreement Game Introduction">
 <div class="modal-content" style="max-width:400px;text-align:center;padding:24px;">
@@ -2417,7 +2861,7 @@ or <strong style="color:var(--red);">Judge</strong> (resist what is)
 <span style="width:8px;height:8px;border-radius:50%;background:var(--border);"></span>
 </div>
 <div style="display:flex;gap:10px;margin-top:20px;">
-<button onclick="showAgreementOnboard(1)" style="flex:1;padding:14px;background:var(--grad-secondary);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:rgba(255,255,255,0.2);border-radius:50%;font-size:11px;">←</span> Back</button>
+<button onclick="showAgreementOnboard(1)" style="flex:1;padding:14px;background:var(--grad-secondary);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">← Back</button>
 <button onclick="showAgreementOnboard(3)" style="flex:2;padding:14px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;">Next →</button>
 </div>
 </div>
@@ -2436,7 +2880,7 @@ When you practice acceptance, you create space for change.
 <span style="width:8px;height:8px;border-radius:50%;background:var(--pink);"></span>
 </div>
 <div style="display:flex;gap:10px;margin-top:20px;">
-<button onclick="showAgreementOnboard(2)" style="flex:1;padding:14px;background:var(--grad-secondary);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:rgba(255,255,255,0.2);border-radius:50%;font-size:11px;">←</span> Back</button>
+<button onclick="showAgreementOnboard(2)" style="flex:1;padding:14px;background:var(--grad-secondary);border:none;border-radius:12px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">← Back</button>
 <button onclick="finishAgreementOnboard()" style="flex:2;padding:14px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;">Let's Play! ✨</button>
 </div>
 </div>
@@ -12594,6 +13038,343 @@ function resetCombo(){currentCombo=0;document.getElementById('gameCombo').textCo
 
 function showToast(msg,duration){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),duration||2000)}
 
+// ========== HOOK MUSIC CONTROLS ==========
+let hookMusicPlaying = true;
+
+function toggleHookMusic() {
+  const btn = document.getElementById('hookMusicToggle');
+  const introAudio = document.getElementById('introMusic');
+  
+  if (hookMusicPlaying) {
+    // Turn off music
+    if (introAudio) introAudio.pause();
+    hookMusicPlaying = false;
+    btn.classList.remove('on');
+    btn.classList.add('off');
+    showToast('Music off');
+  } else {
+    // Turn on music
+    if (introAudio) introAudio.play();
+    hookMusicPlaying = true;
+    btn.classList.remove('off');
+    btn.classList.add('on');
+    showToast('Music on');
+  }
+}
+
+function openSpotify() {
+  // Pause game music first
+  const introAudio = document.getElementById('introMusic');
+  if (introAudio) introAudio.pause();
+  hookMusicPlaying = false;
+  const btn = document.getElementById('hookMusicToggle');
+  if (btn) {
+    btn.classList.remove('on');
+    btn.classList.add('off');
+  }
+  showToast('Opening Spotify...');
+  
+  // Detect platform and use appropriate URL
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isAndroid = /Android/.test(navigator.userAgent);
+  
+  if (isIOS) {
+    // iOS: Use universal link that opens app if installed, App Store if not
+    window.location.href = 'spotify://';
+    setTimeout(() => { window.location.href = 'https://open.spotify.com'; }, 1500);
+  } else if (isAndroid) {
+    // Android: Intent URL for app, fallback to web
+    window.location.href = 'intent://open.spotify.com/#Intent;scheme=https;package=com.spotify.music;end';
+    setTimeout(() => { window.open('https://open.spotify.com', '_blank'); }, 1500);
+  } else {
+    // Desktop: Just open web player
+    window.open('https://open.spotify.com', '_blank');
+  }
+}
+
+function openAppleMusic() {
+  // Pause game music first
+  const introAudio = document.getElementById('introMusic');
+  if (introAudio) introAudio.pause();
+  hookMusicPlaying = false;
+  const btn = document.getElementById('hookMusicToggle');
+  if (btn) {
+    btn.classList.remove('on');
+    btn.classList.add('off');
+  }
+  showToast('Opening Apple Music...');
+  
+  // Detect platform and use appropriate URL
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isAndroid = /Android/.test(navigator.userAgent);
+  
+  if (isIOS) {
+    // iOS: Direct to Apple Music app
+    window.location.href = 'music://';
+    setTimeout(() => { window.location.href = 'https://music.apple.com'; }, 1500);
+  } else if (isAndroid) {
+    // Android: Apple Music app or web
+    window.location.href = 'intent://music.apple.com/#Intent;scheme=https;package=com.apple.android.music;end';
+    setTimeout(() => { window.open('https://music.apple.com', '_blank'); }, 1500);
+  } else {
+    // Desktop: Just open web player
+    window.open('https://music.apple.com', '_blank');
+  }
+}
+
+// ========== SOCIAL MEDIA SHARING ==========
+const shareCaption = "See the patterns running your life. Everyone sees your pattern except you. 🎮 Free self-awareness game\n\n100levelup.com";
+
+function shareToInstagram() {
+  // Step 1: Create and download shareable image
+  createShareImage().then(blob => {
+    // Download the image
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'levelup-share.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    // Step 2: Copy caption to clipboard
+    navigator.clipboard.writeText(shareCaption).then(() => {
+      showToast('📸 Image saved & caption copied!', 3000);
+      
+      // Step 3: Open Instagram after short delay
+      setTimeout(() => {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isAndroid = /Android/.test(navigator.userAgent);
+        
+        if (isIOS) {
+          window.location.href = 'instagram://app';
+        } else if (isAndroid) {
+          window.location.href = 'intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end';
+        } else {
+          window.open('https://instagram.com', '_blank');
+        }
+      }, 500);
+    }).catch(() => {
+      // Clipboard failed, just show toast and open Instagram
+      showToast('📸 Image saved! Copy caption manually', 3000);
+      setTimeout(() => {
+        window.open('https://instagram.com', '_blank');
+      }, 500);
+    });
+  });
+}
+
+function createShareImage() {
+  return new Promise((resolve) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1080;
+    canvas.height = 1080;
+    const ctx = canvas.getContext('2d');
+    
+    // Background gradient
+    const gradient = ctx.createLinearGradient(0, 0, 1080, 1080);
+    gradient.addColorStop(0, '#1a1035');
+    gradient.addColorStop(1, '#0d0a1a');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 1080, 1080);
+    
+    // Add decorative circles
+    ctx.beginPath();
+    ctx.arc(200, 200, 300, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255, 107, 53, 0.1)';
+    ctx.fill();
+    
+    ctx.beginPath();
+    ctx.arc(880, 880, 400, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(120, 75, 160, 0.1)';
+    ctx.fill();
+    
+    // Main text
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 72px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Everyone sees', 540, 380);
+    ctx.fillText('your pattern.', 540, 460);
+    
+    // Pink accent text
+    ctx.fillStyle = '#FF3CAC';
+    ctx.font = 'bold 80px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillText('Except you.', 540, 580);
+    
+    // Subtext
+    ctx.fillStyle = '#888888';
+    ctx.font = '36px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillText('Free self-awareness game • 3,500+ scenarios', 540, 700);
+    
+    // URL
+    ctx.fillStyle = '#FF3CAC';
+    ctx.font = 'bold 48px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillText('100levelup.com', 540, 900);
+    
+    canvas.toBlob(resolve, 'image/png');
+  });
+}
+
+function shareToFacebook() {
+  const url = encodeURIComponent('https://100levelup.com');
+  const text = encodeURIComponent('See the patterns running your life. Free self-awareness game 🎮');
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank', 'width=600,height=400');
+}
+
+function shareToTwitter() {
+  const text = encodeURIComponent('Everyone sees your pattern. Except you. 🎮\n\nFree self-awareness game with 3,500+ scenarios.\n\n100levelup.com');
+  window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank', 'width=600,height=400');
+}
+
+function shareToWhatsApp() {
+  const text = encodeURIComponent('See the patterns running your life. Everyone sees your pattern except you. 🎮 Free game, 2 min/day.\n\n100levelup.com');
+  window.open(`https://wa.me/?text=${text}`, '_blank');
+}
+
+// FAQ Music Toggle - toggles game music
+function toggleFaqMusic() {
+  const btn = document.getElementById('faqMusicToggle');
+  const musicBtn = document.getElementById('musicBtn');
+  
+  if (musicOn) {
+    music.pause();
+    musicOn = false;
+    if (musicBtn) musicBtn.classList.remove('on');
+    btn.style.background = 'var(--card)';
+    btn.style.border = '1px solid var(--border)';
+    btn.style.color = 'var(--muted)';
+    showToast('Music off');
+  } else {
+    music.play().catch(() => {});
+    musicOn = true;
+    if (musicBtn) musicBtn.classList.add('on');
+    btn.style.background = 'linear-gradient(135deg,var(--orange),var(--pink))';
+    btn.style.border = 'none';
+    btn.style.color = '#fff';
+    showToast('Music on');
+  }
+}
+
+// Open The Palyans on Spotify
+function openPalyansSpotify() {
+  showToast('Opening The Palyans on Spotify...');
+  window.open('https://open.spotify.com/artist/0yFLDbCEe6yev6uuG5TmUU', '_blank');
+}
+
+// Open The Palyans on Apple Music
+function openPalyansAppleMusic() {
+  showToast('Opening The Palyans on Apple Music...');
+  window.open('https://music.apple.com/us/artist/the-palyans/1120205357', '_blank');
+}
+
+// ========== BREAKTHROUGH EXERCISES ==========
+function toggleExercise(el) {
+  const content = el.querySelector('.exercise-content');
+  const toggle = el.querySelector('.exercise-toggle');
+  const isOpen = content.style.display === 'block';
+  
+  // Close all other exercises
+  document.querySelectorAll('.breakthrough-exercise').forEach(ex => {
+    ex.querySelector('.exercise-content').style.display = 'none';
+    ex.querySelector('.exercise-toggle').textContent = '+';
+    ex.style.borderColor = 'var(--border)';
+  });
+  
+  // Toggle current
+  if (!isOpen) {
+    content.style.display = 'block';
+    toggle.textContent = '−';
+    el.style.borderColor = 'var(--pink)';
+  }
+}
+
+function completeExercise(exerciseNum) {
+  // Initialize exercises data if needed
+  if (!data.completedExercises) data.completedExercises = [];
+  
+  // Check if already completed today
+  const today = new Date().toDateString();
+  const alreadyDone = data.completedExercises.find(e => e.num === exerciseNum && new Date(e.date).toDateString() === today);
+  
+  if (alreadyDone) {
+    showToast('Already completed today! Come back tomorrow.');
+    return;
+  }
+  
+  // XP rewards by exercise
+  const xpRewards = {1: 25, 2: 25, 3: 25, 4: 25, 5: 50, 6: 50, 7: 100, 8: 100, 9: 100};
+  const xpAmount = xpRewards[exerciseNum] || 25;
+  
+  // Award XP
+  data.xp += xpAmount;
+  data.coins += Math.floor(xpAmount / 5);
+  
+  // Track completion
+  data.completedExercises.push({num: exerciseNum, date: new Date().toISOString(), xp: xpAmount});
+  
+  // Update XP history
+  if (!data.xpHistory) data.xpHistory = [];
+  data.xpHistory.push({date: new Date().toISOString(), amount: xpAmount, source: 'Exercise ' + exerciseNum});
+  
+  // Check for level up
+  const newLevel = Math.floor(data.xp / 500) + 1;
+  if (newLevel > data.level) {
+    data.level = newLevel;
+    showToast('🎉 LEVEL UP! You are now Level ' + data.level + '!', 3000);
+  } else {
+    showToast('✅ +' + xpAmount + ' XP earned!');
+  }
+  
+  // Update button to show completed
+  const btn = event.target;
+  btn.textContent = '✓ Completed Today';
+  btn.style.background = 'var(--card)';
+  btn.style.border = '2px solid var(--green)';
+  btn.style.color = 'var(--green)';
+  btn.disabled = true;
+  
+  // Check if deep work exercises completed
+  const deepWorkNums = [7, 8, 9];
+  const completedDeep = deepWorkNums.filter(n => data.completedExercises.some(e => e.num === n)).length;
+  if (completedDeep >= 2) {
+    document.getElementById('deepWorkCTA').style.display = 'block';
+  }
+  
+  // Update displays
+  updateAllDisplays();
+  save();
+}
+
+function initBreakthroughExercises() {
+  if (!data.completedExercises) return;
+  const today = new Date().toDateString();
+  
+  document.querySelectorAll('.breakthrough-exercise').forEach(ex => {
+    const num = parseInt(ex.dataset.exercise);
+    const completedToday = data.completedExercises.find(e => e.num === num && new Date(e.date).toDateString() === today);
+    
+    if (completedToday) {
+      const btn = ex.querySelector('.exercise-complete-btn');
+      if (btn) {
+        btn.textContent = '✓ Completed Today';
+        btn.style.background = 'var(--card)';
+        btn.style.border = '2px solid var(--green)';
+        btn.style.color = 'var(--green)';
+        btn.disabled = true;
+      }
+    }
+  });
+  
+  // Show deep work CTA if earned
+  const deepWorkNums = [7, 8, 9];
+  const completedDeep = deepWorkNums.filter(n => data.completedExercises.some(e => e.num === n)).length;
+  if (completedDeep >= 2) {
+    const cta = document.getElementById('deepWorkCTA');
+    if (cta) cta.style.display = 'block';
+  }
+}
+
 function showXpDetails() {
   if(tourActive)return;
   const content = document.getElementById('xpDetailsContent');
@@ -13186,9 +13967,18 @@ function checkDailyLogin(){
     document.getElementById('loginBonus').classList.add('show');
   }else{document.getElementById('loginBonus').classList.remove('show')}
 }
-document.getElementById('loginBonus').onclick=function(){
-  let rewards=[10,15,20,25,30,40,50];multiCoinSound(data.loginDay);addXP(rewards[data.loginDay-1], 'Daily Login');showToast('+'+rewards[data.loginDay-1]+' XP!');this.classList.remove('show');triggerConfetti();
-};
+(function(){
+  var lb=document.getElementById('loginBonus'),claimed=false;
+  function claimBonus(e){
+    if(claimed)return;
+    claimed=true;
+    e.preventDefault();e.stopPropagation();
+    let rewards=[10,15,20,25,30,40,50];multiCoinSound(data.loginDay);addXP(rewards[data.loginDay-1],'Daily Login');showToast('+'+rewards[data.loginDay-1]+' XP!');lb.classList.remove('show');triggerConfetti();
+    setTimeout(function(){claimed=false},500);
+  }
+  lb.addEventListener('click',claimBonus,{passive:false});
+  lb.addEventListener('touchend',claimBonus,{passive:false});
+})();
 
 function checkStreakWarning(){
   if(data.streak>0&&data.lastDaily!==new Date().toDateString()){
@@ -14471,14 +15261,16 @@ function activateScreen(num) {
   // Scroll to top (now scrolling the hook element itself)
   if(hook) hook.scrollTop = 0;
   
-  // For scrollable screens, align to top; otherwise center
+  // For scrollable screens, align to top and enable scrolling; otherwise center
   if(container) {
     if(screen.classList.contains('hook-screen-scrollable')) {
       container.style.justifyContent = 'flex-start';
       container.style.paddingTop = '40px';
+      if(hook) hook.classList.add('scrollable');
     } else {
       container.style.justifyContent = 'center';
       container.style.paddingTop = '0';
+      if(hook) hook.classList.remove('scrollable');
     }
   }
   
@@ -14805,15 +15597,20 @@ document.getElementById('hookBtn').onclick = function() {
 };
 
 // Start game button after reveal
-// Start game button goes directly to home - switch to level-up music
+// Start game button goes directly to home - respect user's music choice
 document.getElementById('startGameBtn').onclick = function() {
   data.seenIntro = true;
   save();
-  // Switch from intro music to level-up music
+  // Stop intro music
   document.getElementById('introMusic').pause();
   document.getElementById('introMusic').currentTime = 0;
-  if(musicOn) {
+  // Only play game music if user had intro music on (didn't turn it off or switch to Spotify/Apple Music)
+  if(musicOn && hookMusicPlaying) {
     music.play().catch(() => {});
+  } else if (!hookMusicPlaying) {
+    // User turned off music or switched to external app - keep music off
+    musicOn = false;
+    document.getElementById('musicBtn').classList.remove('on');
   }
   document.body.classList.remove('hook-active');
   document.getElementById('hook').classList.add('hidden');
@@ -15582,7 +16379,7 @@ document.querySelectorAll('.qa-question').forEach(q=>{q.onclick=function(){this.
 document.getElementById('dailyCard').onclick=function(){if(tourActive)return;if(!this.classList.contains('done'))startDecisionGame()};
 document.getElementById('mirrorMode').onclick=()=>{if(tourActive)return;startMirrorGame()};
 document.getElementById('agreementMode').onclick=function(){if(tourActive)return;if(data.unlockedAgreement){data.seenAgreementUnlock=true;save();document.getElementById('agreementMode').classList.remove('newly-unlocked');startAgreementGame();}};
-document.getElementById('shareBtn').onclick=shareGame;
+// shareBtn removed - replaced with Join Our Team button
 // document.getElementById('resultsShare').onclick=shareGame; // Removed - using new share grid
 document.getElementById('insightsStat').onclick=function(){if(tourActive)return;showInsightsModal(null)};
 document.getElementById('insightsClose').onclick=function(){document.getElementById('insightsModal').classList.remove('active')};
@@ -15805,8 +16602,8 @@ updateOnlineStatus();
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
-      .then(reg => console.log('SW registered'))
-      .catch(err => console.log('SW registration failed:', err));
+      .then(reg => {})
+      .catch(err => {});
   });
 }
 
@@ -15865,6 +16662,7 @@ freshUIReset();
 try {
   if(data.seenIntro){document.getElementById('hook').classList.add('hidden');updateHome()}else{showHook()}
   setInterval(updateTimer,1000);
+  initBreakthroughExercises();
 } catch(e) {
   console.error('Initialization error:', e);
 }
@@ -16172,7 +16970,6 @@ function skipOnboarding() {
         const isInResults = resultsEl && resultsEl.classList.contains('active');
         
         if (!isInGame && !isInResults) {
-          console.log('App resume - refreshing UI');
           localStorage.setItem('levelup_last_refresh', Date.now().toString());
           location.reload(true);
         }
@@ -16183,10 +16980,61 @@ function skipOnboarding() {
   // Handle iOS bfcache
   window.addEventListener('pageshow', function(event) {
     if (event.persisted) {
-      console.log('Restored from bfcache - refreshing');
       location.reload(true);
     }
   });
+})();
+
+// ========== PWA/GOOGLE PLAY ENGAGEMENT TRACKING ==========
+// Tracks sessions and time spent for installed app users
+(function() {
+  // Check if running as installed PWA (standalone or fullscreen mode)
+  const isPWA = window.matchMedia('(display-mode: standalone)').matches || 
+                window.matchMedia('(display-mode: fullscreen)').matches ||
+                window.navigator.standalone === true;
+  
+  if (!isPWA) return; // Only track for installed app users
+  
+  const STORAGE_KEY = 'levelup_pwa_engagement';
+  const sessionStart = Date.now();
+  
+  // Get existing engagement data or initialize
+  let engagement = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  if (!engagement.firstOpen) engagement.firstOpen = sessionStart;
+  if (!engagement.sessions) engagement.sessions = [];
+  if (!engagement.totalSessions) engagement.totalSessions = 0;
+  if (!engagement.totalTimeMs) engagement.totalTimeMs = 0;
+  
+  // Start new session
+  engagement.totalSessions++;
+  engagement.lastOpen = sessionStart;
+  
+  // Save on page unload/hide
+  function saveEngagement() {
+    const timeSpent = Date.now() - sessionStart;
+    engagement.totalTimeMs += timeSpent;
+    engagement.sessions.push({
+      date: new Date(sessionStart).toISOString(),
+      durationMs: timeSpent
+    });
+    // Keep only last 50 sessions to avoid storage bloat
+    if (engagement.sessions.length > 50) {
+      engagement.sessions = engagement.sessions.slice(-50);
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(engagement));
+  }
+  
+  // Track when user leaves
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) saveEngagement();
+  });
+  window.addEventListener('pagehide', saveEngagement);
+  window.addEventListener('beforeunload', saveEngagement);
+  
+  // Log for debugging (can be viewed in browser console)
+  console.log('📱 PWA Mode Detected - Tracking engagement');
+  console.log('Total sessions:', engagement.totalSessions);
+  console.log('Total time:', Math.round(engagement.totalTimeMs / 60000) + ' minutes');
 })();
 </script>
 </body>
