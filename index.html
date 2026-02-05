@@ -1360,14 +1360,15 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="hook-line" id="line2">that quietly run<br>your life.</div>
 <div class="hook-sub" id="hookSub">Discover why you keep repeating<br>the same mistakes.</div>
 <div class="lang-toggle" id="langToggle" style="display:flex;justify-content:center;margin-bottom:16px;position:relative;">
-<button id="langDropBtn" onclick="document.getElementById('langDropdown').classList.toggle('open')" style="padding:8px 18px;border-radius:20px;border:1px solid var(--border);background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;">🇺🇸 English <span style="font-size:10px;opacity:0.8;">▼</span></button>
+<button id="langDropBtn" onclick="document.getElementById('langDropdown').classList.toggle('open')" style="padding:8px 18px;border-radius:20px;border:1px solid var(--border);background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;">🇺🇸 English <span style="font-size:10px;opacity:0.8;">▼</span></button>
 <div id="langDropdown" style="display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:6px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:6px;min-width:180px;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,0.4);">
-<div onclick="setLanguage('en');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:#fff;background:linear-gradient(135deg,var(--orange),var(--pink));margin-bottom:4px;text-align:center;">🇺🇸 English</div>
-<div onclick="setLanguage('ko');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.6;">🇰🇷 한국어 <span style="font-size:10px;">coming soon</span></div>
-<div onclick="setLanguage('nl');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text);text-align:center;font-weight:600;">🇳🇱 Nederlands</div>
-<div onclick="setLanguage('es');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text);text-align:center;font-weight:600;">🇪🇸 Español</div>
-<div onclick="setLanguage('hy');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.6;">🇦🇲 Հայերեն <span style="font-size:10px;">coming soon</span></div>
-<div onclick="setLanguage('ru');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.6;">🇷🇺 Русский <span style="font-size:10px;">coming soon</span></div>
+<div onclick="setLanguage('en');document.getElementById('langDropdown').classList.remove('open')" class="lang-opt" data-lang="en" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:center;margin-bottom:2px;">🇺🇸 English</div>
+<div onclick="setLanguage('nl');document.getElementById('langDropdown').classList.remove('open')" class="lang-opt" data-lang="nl" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:center;margin-bottom:2px;">🇳🇱 Nederlands</div>
+<div onclick="setLanguage('es');document.getElementById('langDropdown').classList.remove('open')" class="lang-opt" data-lang="es" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:center;margin-bottom:2px;">🇪🇸 Español</div>
+<div style="height:1px;background:var(--border);margin:4px 8px;"></div>
+<div onclick="setLanguage('ko');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.5;">🇰🇷 한국어 <span style="font-size:10px;">coming soon</span></div>
+<div onclick="setLanguage('hy');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.5;">🇦🇲 Հայերեն <span style="font-size:10px;">coming soon</span></div>
+<div onclick="setLanguage('ru');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.5;">🇷🇺 Русский <span style="font-size:10px;">coming soon</span></div>
 </div>
 </div>
 <button class="hook-btn" id="hookBtn" aria-label="Start the experience">Prove it</button>
@@ -3074,6 +3075,31 @@ let game={mode:null,scenarios:[],idx:0,answers:[],timer:null,timeLeft:15,useTime
 let sessionStartTime=Date.now();
 let sessionBreakShown=false;
 let currentDeepestInsight=null;
+
+// IMMEDIATE STATS PAINT: Populate UI from saved data before anything else renders
+// This prevents the "zero stats" flash that returning users see on load
+(function populateStatsFromSavedData(){
+  try {
+    // XP bar
+    let levelXP=(data.level-1)*XP_PER_LEVEL;
+    let currentLevelXP=data.xp-levelXP;
+    let pct=(currentLevelXP/XP_PER_LEVEL)*100;
+    let icon=GROWTH_ICONS[Math.min(data.level-1,6)];
+    let plEl=document.getElementById('playerLevel');if(plEl)plEl.innerHTML=icon+' Level '+data.level;
+    let xfEl=document.getElementById('xpFill');if(xfEl)xfEl.style.width=pct+'%';
+    let xcEl=document.getElementById('xpCurrent');if(xcEl)xcEl.textContent=currentLevelXP;
+    let xnEl=document.getElementById('xpNeeded');if(xnEl)xnEl.textContent=XP_PER_LEVEL;
+    let ccEl=document.getElementById('coinCount');if(ccEl)ccEl.textContent=data.coins;
+    // Stat boxes
+    let spEl=document.getElementById('statPlayed');if(spEl)spEl.textContent=data.games;
+    let ssEl=document.getElementById('statStreak');if(ssEl)ssEl.textContent=data.streak||0;
+    let siEl=document.getElementById('statInsights');if(siEl)siEl.textContent=data.insightsCollection?data.insightsCollection.length:0;
+    let arEl=document.getElementById('statAcceptRate');
+    if(arEl){let ar=data.agreementTotal>0?Math.round((data.agreementAccepted/data.agreementTotal)*100):0;arEl.textContent=ar+'%';}
+    // XP container glow
+    let xpC=document.querySelector('.xp-container');if(xpC&&data.xp>0)xpC.classList.add('lit');
+  } catch(e){}
+})();
 
 // Haptic feedback for mobile
 function haptic(style='light'){
@@ -8024,6 +8050,17 @@ function applyTranslations() {
     else if (currentLang === 'es') langBtn.innerHTML = '\u{1F1EA}\u{1F1F8} Espa\u00f1ol <span style="font-size:10px;opacity:0.8;">\u25BC</span>';
   }
 
+  // Highlight active language in dropdown
+  document.querySelectorAll('.lang-opt').forEach(function(el) {
+    if (el.getAttribute('data-lang') === currentLang) {
+      el.style.background = 'linear-gradient(135deg,var(--blue),var(--purple))';
+      el.style.color = '#fff';
+    } else {
+      el.style.background = 'none';
+      el.style.color = 'var(--text)';
+    }
+  });
+
   // Hook screen question titles & subs
   document.querySelectorAll('.hook-question-title').forEach(el => {
     let orig = el.innerHTML.trim();
@@ -8110,6 +8147,17 @@ function setLanguage(lang) {
     else langBtn.innerHTML = '\u{1F1FA}\u{1F1F8} English <span style="font-size:10px;opacity:0.8;">\u25BC</span>';
   }
 
+  // Highlight active language in dropdown
+  document.querySelectorAll('.lang-opt').forEach(function(el) {
+    if (el.getAttribute('data-lang') === lang) {
+      el.style.background = 'linear-gradient(135deg,var(--blue),var(--purple))';
+      el.style.color = '#fff';
+    } else {
+      el.style.background = 'none';
+      el.style.color = 'var(--text)';
+    }
+  });
+
   // Apply or revert translations
   if (lang === 'nl' || lang === 'es') {
     applyTranslations();
@@ -8136,6 +8184,22 @@ if (currentLang === 'nl' || currentLang === 'es') {
     };
     // Will be patched after updateHome is defined
   }
+}
+
+// Highlight active language in dropdown on page load (all languages including English)
+document.querySelectorAll('.lang-opt').forEach(function(el) {
+  if (el.getAttribute('data-lang') === currentLang) {
+    el.style.background = 'linear-gradient(135deg,var(--blue),var(--purple))';
+    el.style.color = '#fff';
+  }
+});
+// Update button label on load if non-English
+if (currentLang === 'nl') {
+  let lb = document.getElementById('langDropBtn');
+  if (lb) lb.innerHTML = '\u{1F1F3}\u{1F1F1} Nederlands <span style="font-size:10px;opacity:0.8;">\u25BC</span>';
+} else if (currentLang === 'es') {
+  let lb = document.getElementById('langDropBtn');
+  if (lb) lb.innerHTML = '\u{1F1EA}\u{1F1F8} Espa\u00f1ol <span style="font-size:10px;opacity:0.8;">\u25BC</span>';
 }
 
 // Close language dropdown when clicking outside
