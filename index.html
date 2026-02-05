@@ -1360,14 +1360,15 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="hook-line" id="line2">that quietly run<br>your life.</div>
 <div class="hook-sub" id="hookSub">Discover why you keep repeating<br>the same mistakes.</div>
 <div class="lang-toggle" id="langToggle" style="display:flex;justify-content:center;margin-bottom:16px;position:relative;">
-<button id="langDropBtn" onclick="document.getElementById('langDropdown').classList.toggle('open')" style="padding:8px 18px;border-radius:20px;border:1px solid var(--border);background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;">🇺🇸 English <span style="font-size:10px;opacity:0.8;">▼</span></button>
+<button id="langDropBtn" onclick="document.getElementById('langDropdown').classList.toggle('open')" style="padding:8px 18px;border-radius:20px;border:1px solid var(--border);background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;">🇺🇸 English <span style="font-size:10px;opacity:0.8;">▼</span></button>
 <div id="langDropdown" style="display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:6px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:6px;min-width:180px;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,0.4);">
-<div onclick="setLanguage('en');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:#fff;background:linear-gradient(135deg,var(--orange),var(--pink));margin-bottom:4px;text-align:center;">🇺🇸 English</div>
-<div onclick="setLanguage('ko');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.6;">🇰🇷 한국어 <span style="font-size:10px;">coming soon</span></div>
-<div onclick="setLanguage('nl');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text);text-align:center;font-weight:600;">🇳🇱 Nederlands</div>
-<div onclick="setLanguage('es');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text);text-align:center;font-weight:600;">🇪🇸 Español</div>
-<div onclick="setLanguage('hy');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.6;">🇦🇲 Հայերեն <span style="font-size:10px;">coming soon</span></div>
-<div onclick="setLanguage('ru');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.6;">🇷🇺 Русский <span style="font-size:10px;">coming soon</span></div>
+<div onclick="setLanguage('en');document.getElementById('langDropdown').classList.remove('open')" class="lang-opt" data-lang="en" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:center;margin-bottom:2px;">🇺🇸 English</div>
+<div onclick="setLanguage('nl');document.getElementById('langDropdown').classList.remove('open')" class="lang-opt" data-lang="nl" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:center;margin-bottom:2px;">🇳🇱 Nederlands</div>
+<div onclick="setLanguage('es');document.getElementById('langDropdown').classList.remove('open')" class="lang-opt" data-lang="es" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:center;margin-bottom:2px;">🇪🇸 Español</div>
+<div style="height:1px;background:var(--border);margin:4px 8px;"></div>
+<div onclick="setLanguage('ko');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.5;">🇰🇷 한국어 <span style="font-size:10px;">coming soon</span></div>
+<div onclick="setLanguage('hy');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.5;">🇦🇲 Հայերեն <span style="font-size:10px;">coming soon</span></div>
+<div onclick="setLanguage('ru');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.5;">🇷🇺 Русский <span style="font-size:10px;">coming soon</span></div>
 </div>
 </div>
 <button class="hook-btn" id="hookBtn" aria-label="Start the experience">Prove it</button>
@@ -1520,7 +1521,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 
 <div class="modes"><div class="mode" id="mirrorMode" role="button" aria-label="Play Mirror Game - See yourself honestly"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">🪞</div><div class="mode-name">Mirror Game</div><div class="mode-desc" style="color:var(--gold);">See yourself honestly</div><div class="mode-unlock" id="mirrorUnlock"></div></div><div class="mode" id="agreementMode" role="button" aria-label="Play Agreement Game - Practice acceptance vs judgment"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">⚖️</div><div class="mode-name">Agreement Game</div><div class="mode-desc">Acceptance vs Judgment</div><div class="mode-unlock" id="agreementUnlock"></div></div></div>
 
-<div class="xp-container" onclick="showXpDetails()" style="cursor:pointer;"><div class="xp-header"><div class="xp-level" id="playerLevel">Level 1</div><div class="xp-coins" onclick="event.stopPropagation();showCoinShop();"><span id="coinCount">0</span> <span style="color:var(--gold);">coins</span></div></div><div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div><div class="xp-text"><span id="xpCurrent">0</span> / <span id="xpNeeded">500</span> XP</div></div>
+<div class="xp-container" onclick="showXpDetails()" style="cursor:pointer;"><div class="xp-header"><div class="xp-level" id="playerLevel">Level 1</div><div class="xp-coins" onclick="event.stopPropagation();showCoinShop();"><span id="coinCount">0</span> <span style="color:var(--gold);">coins</span></div></div><div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div><div class="xp-text"><span id="xpCurrent">0</span> / <span id="xpNeeded">750</span> XP</div></div>
 
 <div class="stats"><div class="stat" onclick="showStatDetails('played')" style="cursor:pointer;"><div class="stat-val" id="statPlayed">0</div><div class="stat-label">Played</div></div><div class="stat" onclick="showStatDetails('streak')" style="cursor:pointer;"><div class="stat-val" id="statStreak">0</div><div class="stat-label">Streak 🔥</div></div><div class="stat" onclick="showStatDetails('acceptance')" style="cursor:pointer;"><div class="stat-val" id="statAcceptRate">0%</div><div class="stat-label">Acceptance</div></div><div class="stat insights-stat" id="insightsStat"><div class="stat-val" id="statInsights">0</div><div class="stat-label">Insights</div></div></div>
 
@@ -3075,6 +3076,24 @@ let sessionStartTime=Date.now();
 let sessionBreakShown=false;
 let currentDeepestInsight=null;
 
+// IMMEDIATE STATS PAINT: Show real stats on load instead of zeros
+(function(){
+  try {
+    var lx=(data.level-1)*XP_PER_LEVEL,cx=data.xp-lx,pc=(cx/XP_PER_LEVEL)*100;
+    var e;
+    e=document.getElementById('playerLevel');if(e)e.textContent='Level '+data.level;
+    e=document.getElementById('xpFill');if(e)e.style.width=pc+'%';
+    e=document.getElementById('xpCurrent');if(e)e.textContent=cx;
+    e=document.getElementById('xpNeeded');if(e)e.textContent=XP_PER_LEVEL;
+    e=document.getElementById('coinCount');if(e)e.textContent=data.coins;
+    e=document.getElementById('statPlayed');if(e)e.textContent=data.games;
+    e=document.getElementById('statStreak');if(e)e.textContent=data.streak||0;
+    e=document.getElementById('statInsights');if(e)e.textContent=data.insightsCollection?data.insightsCollection.length:0;
+    e=document.getElementById('statAcceptRate');if(e){var ar=data.agreementTotal>0?Math.round((data.agreementAccepted/data.agreementTotal)*100):0;e.textContent=ar+'%';}
+    e=document.querySelector('.xp-container');if(e&&data.xp>0)e.classList.add('lit');
+  } catch(x){}
+})();
+
 // Haptic feedback for mobile
 function haptic(style='light'){
   if(navigator.vibrate){
@@ -3865,7 +3884,7 @@ function createShareImage() {
     // Subtext
     ctx.fillStyle = '#888888';
     ctx.font = '36px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.fillText('Free self-awareness game • 3,500+ scenarios', 540, 700);
+    ctx.fillText('Free self-awareness game • 6,000 scenarios', 540, 700);
     
     // URL
     ctx.fillStyle = '#FF3CAC';
@@ -3883,7 +3902,7 @@ function shareToFacebook() {
 }
 
 function shareToTwitter() {
-  const text = encodeURIComponent('Everyone sees your pattern. Except you. 🎮\n\nFree self-awareness game with 3,500+ scenarios.\n\n100levelup.com');
+  const text = encodeURIComponent('Everyone sees your pattern. Except you. 🎮\n\nFree self-awareness game with 6,000 scenarios.\n\n100levelup.com');
   window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank', 'width=600,height=400');
 }
 
@@ -3978,7 +3997,7 @@ function completeExercise(exerciseNum) {
   data.xpHistory.push({date: new Date().toISOString(), amount: xpAmount, source: 'Exercise ' + exerciseNum});
   
   // Check for level up
-  const newLevel = Math.floor(data.xp / 500) + 1;
+  const newLevel = Math.floor(data.xp / XP_PER_LEVEL) + 1;
   if (newLevel > data.level) {
     data.level = newLevel;
     showToast('🎉 LEVEL UP! You are now Level ' + data.level + '!', 3000);
@@ -4046,7 +4065,7 @@ function showXpDetails() {
   html += '<span style="font-size:24px;font-weight:700;color:var(--gold);">' + data.xp + ' XP</span>';
   html += '<span style="font-size:14px;color:var(--muted);">Level ' + data.level + '</span>';
   html += '</div>';
-  html += '<div style="font-size:12px;color:var(--muted);">' + (500 - (data.xp % 500)) + ' XP to next level</div>';
+  html += '<div style="font-size:12px;color:var(--muted);">' + (XP_PER_LEVEL - (data.xp % XP_PER_LEVEL)) + ' XP to next level</div>';
   html += '</div>';
   
   if (recentHistory.length > 0) {
@@ -8893,7 +8912,7 @@ function skipOnboarding() {
 </div>
 <div class="cp-divider"></div>
 <div class="cp-section-title">About Laurie</div>
-<div class="cp-bio">Laurie serves as the platform's first Dutch-speaking coach, bringing the 7 Levels of Self framework to over 30 million Dutch speakers across the Netherlands, Belgium, Suriname, and South Africa. Based in Catalonia, Spain, she also leads translation efforts to make the game's 3,500+ scenarios accessible in Dutch. In addition to coaching, she is completing certifications in hypnosis, EFT tapping, and NLP, which she integrates with the 7 Levels of Self framework. Certified by founder Arthur Palyan.</div>
+<div class="cp-bio">Laurie serves as the platform's first Dutch-speaking coach, bringing the 7 Levels of Self framework to over 30 million Dutch speakers across the Netherlands, Belgium, Suriname, and South Africa. Based in Catalonia, Spain, she also leads translation efforts to make the game's 6,000 scenarios accessible in Dutch. In addition to coaching, she is completing certifications in hypnosis, EFT tapping, and NLP, which she integrates with the 7 Levels of Self framework. Certified by founder Arthur Palyan.</div>
 <div class="cp-actions">
 <a href="https://wa.me/+34613734121?text=Hi%20Laurie,%20I've%20been%20playing%20Level%20Up%20and%20have%20some%20questions%20about%20coaching." target="_blank" style="background:#25D366;" onclick="event.stopPropagation()">💬 WhatsApp</a>
 <a href="https://www.levelsofself.com/_paylink/AZusz5dC" target="_blank" style="background:linear-gradient(135deg,var(--pink),var(--purple));" onclick="event.stopPropagation()">Book Session</a>
@@ -8922,7 +8941,7 @@ function skipOnboarding() {
 </div>
 <div class="cp-divider"></div>
 <div class="cp-section-title">About Aurora</div>
-<div class="cp-bio">Aurora is the first bilingual coach certified in the 7 Levels of Self, bringing the framework to Korean speakers across the United States and South Korea. She addresses generational patterns and cultural expectations unique to the Korean community: unspoken expectations around success, sacrifice, and family duty that get passed down without question. She also assists with translating the game's 3,500+ scenarios for Korean-speaking users worldwide. Certified by founder Arthur Palyan.</div>
+<div class="cp-bio">Aurora is the first bilingual coach certified in the 7 Levels of Self, bringing the framework to Korean speakers across the United States and South Korea. She addresses generational patterns and cultural expectations unique to the Korean community: unspoken expectations around success, sacrifice, and family duty that get passed down without question. She also assists with translating the game's 6,000 scenarios for Korean-speaking users worldwide. Certified by founder Arthur Palyan.</div>
 <div class="cp-actions">
 <a href="https://wa.me/+19105261160?text=Hi%20Aurora,%20I've%20been%20playing%20Level%20Up%20and%20have%20some%20questions%20about%20coaching." target="_blank" style="background:#25D366;" onclick="event.stopPropagation()">💬 WhatsApp</a>
 <a href="https://www.levelsofself.com/_paylink/AZwqmg6N" target="_blank" style="background:linear-gradient(135deg,var(--pink),var(--purple));" onclick="event.stopPropagation()">Book Session</a>
