@@ -1926,17 +1926,26 @@ She lives inside the game and reads your actual gameplay patterns: what you reco
 
 <!-- REWARD SHOP FAQ -->
 <div class="qa-item"><div class="qa-question">🛒 What is the Reward Shop?</div><div class="qa-answer">
-<strong style="color:var(--gold);">Turn your XP into real rewards.</strong><br><br>
+<strong style="color:var(--gold);">Turn your coins into real rewards.</strong><br><br>
 <div style="background:var(--card);border-radius:10px;padding:12px;margin-bottom:12px;">
-<strong>Available Rewards:</strong><br>
+<strong>Discounts & Sessions:</strong><br>
 <span style="font-size:13px;color:var(--muted);">
-• <span style="color:var(--green);">500 XP</span> Pattern Report PDF<br>
-• <span style="color:var(--blue);">1,000 XP</span> Free Workshop Entry Raffle<br>
-• <span style="color:var(--pink);">2,500 XP</span> 15-min Coaching Call<br>
-• <span style="color:var(--gold);">5,000 XP</span> 30-min Breakthrough Session
+• <span style="color:var(--green);">500</span> 20% Off Workshop<br>
+• <span style="color:var(--blue);">1,000</span> 20% Off Coaching<br>
+• <span style="color:var(--pink);">5,000</span> 50% Off Coaching<br>
+• <span style="color:var(--gold);">10,000</span> FREE Coaching Session
 </span>
 </div>
-<em style="color:var(--muted);font-size:12px;">Earn XP by playing games, completing exercises, and logging in daily. More rewards coming soon!</em><br><br>
+<div style="background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(120,75,160,0.1));border:1px solid var(--purple);border-radius:10px;padding:12px;margin-bottom:12px;">
+<strong style="color:var(--purple);">🔮 Level Access Passes:</strong><br>
+<span style="font-size:13px;color:var(--muted);">
+Curious what's ahead? Buy 10-day full access to higher levels:<br>
+• Level 3-4: 300-400 coins<br>
+• Level 5-6: 500-600 coins<br>
+• Level 7: 1,000 coins
+</span>
+</div>
+<em style="color:var(--muted);font-size:12px;">Earn coins by playing games (25% of XP earned). More rewards coming soon!</em><br><br>
 <button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('coinShopModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:10px;color:#000;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Open Reward Shop</button>
 </div></div>
 
@@ -2454,6 +2463,65 @@ Earn coins every game you play. Redeem for real rewards!
 <div class="coin-reward-cost"><span class="coin-cost-amount">12,500</span> coins</div>
 </div>
 
+<!-- LEVEL PREVIEWS -->
+<div style="font-size:11px;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin:20px 0 4px;text-align:center;font-weight:700;">🔮 Level Access Passes</div>
+<div style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:8px;">Unlock full access to higher levels for 10 days. Explore everything!</div>
+
+<div class="coin-reward" id="previewL3" onclick="redeemLevelPreview(3, 300)" style="border-color:var(--blue);">
+<div class="coin-reward-left">
+<div class="coin-reward-icon">👥</div>
+<div class="coin-reward-info">
+<div class="coin-reward-name">Level 3: Family Self</div>
+<div class="coin-reward-desc">10 days full access</div>
+</div>
+</div>
+<div class="coin-reward-cost"><span class="coin-cost-amount">300</span> coins</div>
+</div>
+
+<div class="coin-reward" id="previewL4" onclick="redeemLevelPreview(4, 400)" style="border-color:var(--purple);">
+<div class="coin-reward-left">
+<div class="coin-reward-icon">💼</div>
+<div class="coin-reward-info">
+<div class="coin-reward-name">Level 4: Professional Self</div>
+<div class="coin-reward-desc">10 days full access</div>
+</div>
+</div>
+<div class="coin-reward-cost"><span class="coin-cost-amount">400</span> coins</div>
+</div>
+
+<div class="coin-reward" id="previewL5" onclick="redeemLevelPreview(5, 500)" style="border-color:var(--pink);">
+<div class="coin-reward-left">
+<div class="coin-reward-icon">🌍</div>
+<div class="coin-reward-info">
+<div class="coin-reward-name">Level 5: Societal Self</div>
+<div class="coin-reward-desc">10 days full access</div>
+</div>
+</div>
+<div class="coin-reward-cost"><span class="coin-cost-amount">500</span> coins</div>
+</div>
+
+<div class="coin-reward" id="previewL6" onclick="redeemLevelPreview(6, 600)" style="border-color:var(--orange);">
+<div class="coin-reward-left">
+<div class="coin-reward-icon">🌀</div>
+<div class="coin-reward-info">
+<div class="coin-reward-name">Level 6: Existential Self</div>
+<div class="coin-reward-desc">10 days full access</div>
+</div>
+</div>
+<div class="coin-reward-cost"><span class="coin-cost-amount">600</span> coins</div>
+</div>
+
+<div class="coin-reward" id="previewL7" onclick="redeemLevelPreview(7, 1000)" style="border-color:var(--gold);background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,107,53,0.05));">
+<div class="coin-reward-left">
+<div class="coin-reward-icon">✨</div>
+<div class="coin-reward-info">
+<div class="coin-reward-name">Level 7: Transcendent Self</div>
+<div class="coin-reward-desc">10 days full access</div>
+</div>
+</div>
+<div class="coin-reward-cost"><span class="coin-cost-amount">1,000</span> coins</div>
+</div>
+
 </div>
 
 <div id="redeemedCodes" style="margin-top:20px;display:none;">
@@ -2582,9 +2650,9 @@ Earn coins every game you play. Redeem for real rewards!
 </div>
 
 <!-- Lily - Self-Awareness Coach -->
-<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;margin-top:16px;transition:all 0.2s ease;cursor:pointer;" onmouseover="this.style.borderColor='#a855f7'" onmouseout="this.style.borderColor='var(--border)'" onclick="document.getElementById('coachingModal').classList.remove('active');openLily();">
+<div style="background:var(--card);border:2px solid #a855f7;border-radius:14px;padding:16px;margin-bottom:12px;margin-top:16px;box-shadow:0 0 12px rgba(168,85,247,0.2);cursor:pointer;" onclick="document.getElementById('coachingModal').classList.remove('active');openLily();">
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-<img src="Lily_Bot.jpg" alt="Lily - Self-Awareness Coach" style="width:56px;height:56px;min-width:56px;min-height:56px;border-radius:50%;object-fit:cover;border:2px solid #a855f7;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 0 12px rgba(168,85,247,0.5)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
+<img src="Lily_Bot.jpg" alt="Lily - Self-Awareness Coach" style="width:56px;height:56px;min-width:56px;min-height:56px;border-radius:50%;object-fit:cover;border:2px solid #a855f7;box-shadow:0 0 12px rgba(168,85,247,0.4);" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
 <div style="flex:1;min-width:0;">
 <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Lily <span style="font-size:10px;background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff;padding:2px 6px;border-radius:4px;font-weight:700;vertical-align:middle;">SELF-AWARENESS COACH</span></div>
 <div style="display:flex;gap:4px;flex-wrap:wrap;">
@@ -2603,9 +2671,9 @@ Earn coins every game you play. Redeem for real rewards!
 <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--pink);font-weight:700;margin:24px 0 16px;text-align:center;">Certified Coaches</div>
 
 <!-- Laurie -->
-<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;transition:all 0.2s ease;" onmouseover="this.style.borderColor='var(--pink)'" onmouseout="this.style.borderColor='var(--border)'">
+<div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 0 12px rgba(255,60,172,0.2);">
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-<img src="laurie.jpg" alt="Laurie Van Werde" onclick="document.getElementById('coachProfileLaurie').classList.add('active')" style="width:56px;height:56px;min-width:56px;min-height:56px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid var(--pink);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 0 12px rgba(255,60,172,0.5)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
+<img src="laurie.jpg" alt="Laurie Van Werde" onclick="document.getElementById('coachProfileLaurie').classList.add('active')" style="width:56px;height:56px;min-width:56px;min-height:56px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid var(--pink);cursor:pointer;box-shadow:0 0 12px rgba(255,60,172,0.4);" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
 <div style="flex:1;min-width:0;">
 <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Laurie Van Werde <span style="font-size:10px;background:var(--gold);color:#000;padding:2px 6px;border-radius:4px;font-weight:700;vertical-align:middle;">HEAD COACH</span></div>
 <div style="display:flex;gap:4px;flex-wrap:wrap;">
@@ -2624,9 +2692,9 @@ Earn coins every game you play. Redeem for real rewards!
 </div>
 
 <!-- Aurora -->
-<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;transition:all 0.2s ease;" onmouseover="this.style.borderColor='var(--pink)'" onmouseout="this.style.borderColor='var(--border)'">
+<div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 0 12px rgba(255,60,172,0.2);">
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-<img src="aurora.jpg" alt="Aurora Maier" onclick="document.getElementById('coachProfileAurora').classList.add('active')" style="width:56px;height:56px;min-width:56px;min-height:56px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid var(--pink);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 0 12px rgba(255,60,172,0.5)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
+<img src="aurora.jpg" alt="Aurora Maier" onclick="document.getElementById('coachProfileAurora').classList.add('active')" style="width:56px;height:56px;min-width:56px;min-height:56px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid var(--pink);cursor:pointer;box-shadow:0 0 12px rgba(255,60,172,0.4);" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
 <div style="flex:1;min-width:0;">
 <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Aurora Maier <span style="font-size:10px;background:var(--pink);color:#fff;padding:2px 6px;border-radius:4px;font-weight:700;vertical-align:middle;">COACH</span></div>
 <div style="display:flex;gap:4px;flex-wrap:wrap;">
@@ -2645,9 +2713,9 @@ Earn coins every game you play. Redeem for real rewards!
 </div>
 
 <!-- Heghine -->
-<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;transition:all 0.2s ease;" onmouseover="this.style.borderColor='var(--pink)'" onmouseout="this.style.borderColor='var(--border)'">
+<div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:16px;margin-bottom:16px;box-shadow:0 0 12px rgba(255,60,172,0.2);">
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-<img src="heghine.jpg" alt="Heghine Manukyan" onclick="document.getElementById('coachProfileHeghine').classList.add('active')" style="width:56px;height:56px;min-width:56px;min-height:56px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid var(--pink);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 0 12px rgba(255,60,172,0.5)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
+<img src="heghine.jpg" alt="Heghine Manukyan" onclick="document.getElementById('coachProfileHeghine').classList.add('active')" style="width:56px;height:56px;min-width:56px;min-height:56px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid var(--pink);cursor:pointer;box-shadow:0 0 12px rgba(255,60,172,0.4);" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
 <div style="flex:1;min-width:0;">
 <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Heghine Manukyan <span style="font-size:10px;background:var(--pink);color:#fff;padding:2px 6px;border-radius:4px;font-weight:700;vertical-align:middle;">COACH</span></div>
 <div style="display:flex;gap:4px;flex-wrap:wrap;">
@@ -2666,9 +2734,9 @@ Earn coins every game you play. Redeem for real rewards!
 </div>
 
 <!-- Roger -->
-<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;transition:all 0.2s ease;" onmouseover="this.style.borderColor='var(--pink)'" onmouseout="this.style.borderColor='var(--border)'">
+<div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:16px;margin-bottom:16px;box-shadow:0 0 12px rgba(255,60,172,0.2);">
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-<img src="roger.jpg" alt="Roger Walter" onclick="document.getElementById('coachProfileRoger').classList.add('active')" style="width:56px;height:56px;min-width:56px;min-height:56px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid var(--pink);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 0 12px rgba(255,60,172,0.5)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'">
+<img src="roger.jpg" alt="Roger Walter" onclick="document.getElementById('coachProfileRoger').classList.add('active')" style="width:56px;height:56px;min-width:56px;min-height:56px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid var(--pink);cursor:pointer;box-shadow:0 0 12px rgba(255,60,172,0.4);" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
 <div style="flex:1;min-width:0;">
 <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Roger Walter <span style="font-size:10px;background:var(--pink);color:#fff;padding:2px 6px;border-radius:4px;font-weight:700;vertical-align:middle;">COACH</span></div>
 <div style="display:flex;gap:4px;flex-wrap:wrap;">
@@ -4562,6 +4630,9 @@ function showCoinShop() {
   // Show redeemed codes
   updateRedeemedList();
   
+  // Update level pass status in shop
+  updateLevelPassUI();
+  
   document.getElementById('coinShopModal').classList.add('active');
 }
 
@@ -4626,6 +4697,149 @@ function redeemReward(key, cost, name) {
   setTimeout(() => {
     document.getElementById('redeemedCodes').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, 500);
+}
+
+// Level Preview - spend coins to unlock a level for 10 days
+function redeemLevelPreview(level, cost) {
+  const levelNames = {
+    3: 'Family Self',
+    4: 'Professional Self', 
+    5: 'Societal Self',
+    6: 'Existential Self',
+    7: 'Transcendent Self'
+  };
+  
+  // Initialize level passes if needed
+  if (!data.levelPasses) data.levelPasses = {};
+  
+  // Check if already have an active pass
+  if (data.levelPasses[level]) {
+    let expiry = new Date(data.levelPasses[level]);
+    if (expiry > new Date()) {
+      let daysLeft = Math.ceil((expiry - new Date()) / (1000 * 60 * 60 * 24));
+      showToast('You still have ' + daysLeft + ' days left on Level ' + level + '!', 3000);
+      return;
+    }
+  }
+  
+  // Check if can afford
+  if (data.coins < cost) {
+    let needed = cost - data.coins;
+    showToast('Need ' + needed.toLocaleString() + ' more coins!', 2500);
+    return;
+  }
+  
+  // Confirm
+  if (!confirm('Spend ' + cost + ' coins to unlock Level ' + level + ': ' + levelNames[level] + ' for 10 days?')) return;
+  
+  // Deduct coins
+  data.coins -= cost;
+  
+  // Set expiry 10 days from now
+  let expiry = new Date();
+  expiry.setDate(expiry.getDate() + 10);
+  data.levelPasses[level] = expiry.toISOString();
+  
+  save();
+  
+  // Update UI
+  document.getElementById('shopCoinCount').textContent = data.coins.toLocaleString();
+  document.getElementById('coinCount').textContent = data.coins;
+  
+  // Update the button to show active
+  let btn = document.getElementById('previewL' + level);
+  if (btn) {
+    btn.style.background = 'linear-gradient(135deg, rgba(0,200,83,0.2), rgba(0,200,83,0.1))';
+    btn.style.borderColor = 'var(--green)';
+    btn.querySelector('.coin-reward-desc').textContent = '✓ Active - 10 days left';
+    btn.querySelector('.coin-reward-desc').style.color = 'var(--green)';
+  }
+  
+  showToast('🔓 Level ' + level + ' unlocked for 10 days! Go explore!', 3500);
+  triggerConfetti();
+  
+  // Refresh home screen to show unlocked level
+  setTimeout(() => {
+    document.getElementById('coinShopModal').classList.remove('active');
+    updateLevelCards();
+  }, 1500);
+}
+
+// Check if a level has an active pass
+function hasLevelPass(level) {
+  if (!data.levelPasses || !data.levelPasses[level]) return false;
+  let expiry = new Date(data.levelPasses[level]);
+  return expiry > new Date();
+}
+
+// Get days remaining on a level pass
+function getLevelPassDays(level) {
+  if (!hasLevelPass(level)) return 0;
+  let expiry = new Date(data.levelPasses[level]);
+  return Math.ceil((expiry - new Date()) / (1000 * 60 * 60 * 24));
+}
+
+// Update level cards to show pass status
+function updateLevelPassUI() {
+  for (let level = 3; level <= 7; level++) {
+    let btn = document.getElementById('previewL' + level);
+    if (btn && hasLevelPass(level)) {
+      let days = getLevelPassDays(level);
+      btn.style.background = 'linear-gradient(135deg, rgba(0,200,83,0.2), rgba(0,200,83,0.1))';
+      btn.style.borderColor = 'var(--green)';
+      btn.querySelector('.coin-reward-desc').textContent = '✓ Active - ' + days + ' day' + (days === 1 ? '' : 's') + ' left';
+      btn.querySelector('.coin-reward-desc').style.color = 'var(--green)';
+    }
+  }
+}
+
+function startLevelPreview(level) {
+  // Filter scenarios for this level
+  let levelScenarios = mirrorScenarios.filter(s => {
+    let cat = s.cat || '';
+    if (level === 3 && cat.includes('Family')) return true;
+    if (level === 4 && cat.includes('Professional')) return true;
+    if (level === 5 && cat.includes('Societal')) return true;
+    if (level === 6 && cat.includes('Existential')) return true;
+    if (level === 7 && cat.includes('Transcendent')) return true;
+    return false;
+  });
+  
+  // If not enough scenarios, show message
+  if (levelScenarios.length < 5) {
+    showToast('Preview coming soon for this level!', 2500);
+    // Refund coins
+    data.coins += (level === 7 ? 750 : level === 6 ? 500 : level === 5 ? 400 : level === 4 ? 300 : 200);
+    save();
+    document.getElementById('coinCount').textContent = data.coins;
+    return;
+  }
+  
+  // Shuffle and take 5
+  let previewScenarios = shuffle(levelScenarios).slice(0, 5);
+  
+  // Store preview state
+  window.previewMode = {
+    active: true,
+    level: level,
+    scenarios: previewScenarios,
+    index: 0
+  };
+  
+  // Start the game in preview mode
+  currentMode = 'mirror';
+  gameLen = 5;
+  currentScenarios = previewScenarios;
+  currentIndex = 0;
+  sessionXP = 0;
+  comboCount = 0;
+  
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('game').style.display = 'block';
+  document.getElementById('gameMode').textContent = '🔮 Preview: Level ' + level;
+  document.getElementById('gameMode').style.color = 'var(--purple)';
+  
+  showScenario();
 }
 
 function getRewardId(key) {
@@ -4957,16 +5171,19 @@ function updateHome(){
   }
   
   LEVELS.forEach(lv=>{
-    let unlocked=data.unlockedLevels.includes(lv.id);
-    let isNew=unlocked&&data.newlyUnlockedLevels&&data.newlyUnlockedLevels.includes(lv.id);
+    let permanentUnlock=data.unlockedLevels.includes(lv.id);
+    let hasPass=hasLevelPass(lv.id);
+    let unlocked=permanentUnlock||hasPass;
+    let isNew=permanentUnlock&&data.newlyUnlockedLevels&&data.newlyUnlockedLevels.includes(lv.id);
     let progress = unlocked ? getLevelProgress(lv.id) : null;
     let showPlay = unlocked && data.hasStartedPlaying; // Show Play badge after they've started playing
-    let div=document.createElement('div');div.className='level'+(unlocked?' unlocked':' locked')+(isNew?' newly-unlocked':'')+(showPlay?' has-play':'');
+    let passText = hasPass && !permanentUnlock ? ' ('+getLevelPassDays(lv.id)+'d pass)' : '';
+    let div=document.createElement('div');div.className='level'+(unlocked?' unlocked':' locked')+(isNew?' newly-unlocked':'')+(showPlay?' has-play':'')+(hasPass&&!permanentUnlock?' has-pass':'');
     div.style.position='relative';
     let unlockText=(typeof t==='function'?t('Level'):'Level')+' '+UNLOCK_LEVELS[lv.id]+' '+(currentLang==='nl'?'vereist':'required');
     let tlv=typeof tLevel==='function'?tLevel(lv):lv;
     let progressHtml = unlocked && progress && progress.total > 0 ? '<div class="level-progress"><div class="level-progress-bar" style="width:'+progress.pct+'%"></div></div><div class="level-progress-text">'+progress.pct+'% '+(currentLang==='nl'?'verkend':'explored')+'</div>' : '';
-    div.innerHTML='<div class="level-num" style="background:'+lv.color+'">'+lv.id+'</div><div class="level-info"><div class="level-name">'+tlv.name+(unlocked?'':' 🔒')+'</div><div class="level-desc">'+(unlocked?tlv.desc:unlockText)+'</div>'+progressHtml+'</div>';
+    div.innerHTML='<div class="level-num" style="background:'+lv.color+'">'+lv.id+'</div><div class="level-info"><div class="level-name">'+tlv.name+(unlocked?passText:' 🔒')+'</div><div class="level-desc">'+(unlocked?tlv.desc:unlockText)+'</div>'+progressHtml+'</div>';
     // Add NEW badge for recently unlocked levels
     if(isNew&&data.unlockTimestamps&&data.unlockTimestamps['level'+lv.id]){
       let daysSince=(Date.now()-data.unlockTimestamps['level'+lv.id])/(1000*60*60*24);
@@ -4975,8 +5192,13 @@ function updateHome(){
         div.appendChild(badge);
       }
     }
+    // Add PASS badge for temporary access
+    if(hasPass&&!permanentUnlock){
+      let badge=document.createElement('span');badge.className='pass-badge';badge.style.cssText='position:absolute;top:8px;right:8px;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;font-size:9px;font-weight:700;padding:3px 6px;border-radius:4px;';badge.textContent='🔮 '+getLevelPassDays(lv.id)+'D';
+      div.appendChild(badge);
+    }
     if(unlocked){div.onclick=()=>{if(isNew){data.newlyUnlockedLevels=data.newlyUnlockedLevels.filter(x=>x!==lv.id);save();div.classList.remove('newly-unlocked');let b=div.querySelector('.new-badge');if(b)b.remove();}showLevelSelect(lv)};}
-    else{div.onclick=()=>{showToast('🔒 Reach Player Level '+UNLOCK_LEVELS[lv.id]+' to unlock '+lv.name);}}
+    else{div.onclick=()=>{showToast('🔒 Reach Player Level '+UNLOCK_LEVELS[lv.id]+' to unlock '+lv.name+' (or buy a 10-day pass in Reward Shop)');};}
     map.appendChild(div);
   });
   updateTimer();
@@ -6535,7 +6757,7 @@ function startMirrorGame(lf){
     setTimeout(()=>startMirrorGame(lf),1000);
     return;
   }
-  let pool=MIRROR_SCENARIOS.filter(s=>lf?s.level===lf:data.unlockedLevels.includes(s.level));
+  let pool=MIRROR_SCENARIOS.filter(s=>lf?s.level===lf:(data.unlockedLevels.includes(s.level)||hasLevelPass(s.level)));
   if(pool.length===0){showToast('No scenarios for this level');return}
   let questionCount=game.endlessMode?Math.min(pool.length,25):15;
   // Use smartShuffle to prioritize unseen scenarios
@@ -6611,7 +6833,7 @@ function startAgreementGameReal(lf){
     setTimeout(()=>startAgreementGame(lf),1000);
     return;
   }
-  let pool=DECISION_SCENARIOS_EXPANDED.filter(s=>lf?s.level===lf:data.unlockedLevels.includes(s.level));
+  let pool=DECISION_SCENARIOS_EXPANDED.filter(s=>lf?s.level===lf:(data.unlockedLevels.includes(s.level)||hasLevelPass(s.level)));
   if(pool.length===0){showToast('No scenarios for this level');return}
   let questionCount=game.endlessMode?Math.min(pool.length,25):15;
   // Use smartShuffle to prioritize unseen scenarios
@@ -7211,7 +7433,7 @@ function startMixedGame(levelFilter){
   game.mode='mixed';game.idx=0;game.answers=[];game.useTimer=true;game.timerDuration=18;game.levelFilter=levelFilter||null;currentCombo=0;
   if(!game.endlessMode){game.sessionXP=0;game.sessionInsights=0;game.sessionGames=0;}
   game.sessionGames++;
-  let mirrorPool=levelFilter?MIRROR_SCENARIOS.filter(s=>s.level===levelFilter):MIRROR_SCENARIOS.filter(s=>data.unlockedLevels.includes(s.level));
+  let mirrorPool=levelFilter?MIRROR_SCENARIOS.filter(s=>s.level===levelFilter):MIRROR_SCENARIOS.filter(s=>data.unlockedLevels.includes(s.level)||hasLevelPass(s.level));
   let agreePool=levelFilter&&typeof DECISION_SCENARIOS!=='undefined'?DECISION_SCENARIOS.filter(s=>s.level===levelFilter):typeof DECISION_SCENARIOS!=='undefined'?DECISION_SCENARIOS.filter(s=>data.unlockedLevels.includes(s.level)):[];
   let decisionPool=[];
   if(typeof window.SCENARIOS!=='undefined'){
