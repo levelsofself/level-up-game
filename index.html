@@ -710,7 +710,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .pattern-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;animation:fadeIn 0.3s ease}
 .pattern-icon{font-size:28px;transition:var(--transition-fast)}
 .pattern-card:hover .pattern-icon{transform:scale(1.15) rotate(5deg)}
-.pattern-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);font-weight:700;transition:var(--transition-fast)}
+.pattern-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple-bright);font-weight:700;transition:var(--transition-fast)}
 .pattern-card:hover .pattern-label{color:var(--pink)}
 .pattern-archetype{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;transition:var(--transition-fast)}
 .pattern-card:hover .pattern-archetype{filter:brightness(1.2)}
@@ -827,9 +827,9 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .scroll-top-btn:hover{transform:translateY(-5px) scale(1.1);box-shadow:0 8px 30px rgba(255,60,172,0.6)}
 .scroll-bottom-btn{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;color:#fff;font-size:22px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(255,60,172,0.5);transition:all 0.3s ease;margin:0 auto 16px;animation:pulse-glow 2s infinite}
 .scroll-bottom-btn:hover{transform:translateY(3px) scale(1.1);box-shadow:0 8px 30px rgba(255,60,172,0.6)}
-.modal-scroll-top{position:sticky;bottom:12px;margin:12px auto 0;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;color:#fff;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:10;box-shadow:0 4px 15px rgba(255,60,172,0.4);transition:all 0.2s;flex-shrink:0}
-.modal-scroll-top.show{display:flex}
-.modal-scroll-top:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(255,60,172,0.6)}
+.modal-scroll-top{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;color:#fff;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:200;box-shadow:0 4px 15px rgba(255,60,172,0.4);transition:all 0.2s;opacity:0}
+.modal-scroll-top.show{display:flex;opacity:0.85}
+.modal-scroll-top:hover{opacity:1;transform:translateX(-50%) scale(1.1);box-shadow:0 6px 20px rgba(255,60,172,0.6)}
 @keyframes pulse-glow{0%,100%{box-shadow:0 4px 20px rgba(255,60,172,0.5)}50%{box-shadow:0 4px 30px rgba(255,60,172,0.8)}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .mode-icon{font-size:40px;margin-bottom:12px;line-height:1;transition:var(--transition-fast)}
@@ -991,7 +991,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes iconBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .modal-title{font-size:24px;font-weight:800;text-align:center;margin-bottom:18px;background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeIn 0.4s ease}
 .feedback-box{background:rgba(0,0,0,0.4);border-radius:12px;padding:16px;margin-bottom:18px;border:1px solid var(--border);animation:fadeIn 0.3s ease}
-.feedback-label{font-size:10px;color:var(--purple);text-transform:uppercase;margin-bottom:10px;font-weight:700;letter-spacing:1px;animation:fadeIn 0.3s ease}
+.feedback-label{font-size:10px;color:var(--purple-bright);text-transform:uppercase;margin-bottom:10px;font-weight:700;letter-spacing:1px;animation:fadeIn 0.3s ease}
 .feedback-text{font-size:15px;line-height:1.6;animation:fadeIn 0.4s ease 0.1s backwards}
 .modal-btn{width:100%;padding:16px;background:var(--grad-primary);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:var(--transition-fast);box-shadow:0 4px 15px rgba(255,60,172,0.3);position:relative;overflow:hidden}
 .modal-btn::before{content:'';position:absolute;inset:-2px;background:var(--grad-legendary);border-radius:14px;opacity:0;z-index:-1;filter:blur(8px);transition:var(--transition-normal);pointer-events:none}
@@ -1607,7 +1607,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 </div>
 <div style="display:flex;align-items:flex-start;gap:10px;">
 <span style="font-size:20px;">🩹</span>
-<div><strong style="color:var(--purple);">Pain relief</strong><br><span style="font-size:13px;color:var(--muted);">Stop the cycles that keep repeating: the same arguments, the same mistakes, the same feelings</span></div>
+<div><strong style="color:var(--purple-bright);">Pain relief</strong><br><span style="font-size:13px;color:var(--muted);">Stop the cycles that keep repeating: the same arguments, the same mistakes, the same feelings</span></div>
 </div>
 </div>
 </div>
@@ -1630,7 +1630,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <span style="font-size:13px;color:var(--muted);">Self-reflection. "That's Me" or "That's Not Me", no right or wrong, just honest recognition.</span>
 </div>
 <div style="background:var(--card);border-radius:10px;padding:12px;margin-bottom:12px;">
-<strong style="color:var(--purple);">⚖️ Agreement Game</strong><br>
+<strong style="color:var(--purple-bright);">⚖️ Agreement Game</strong><br>
 <span style="font-size:13px;color:var(--muted);">Train acceptance over judgment. Timed responses build instinct. Unlocks at Level 2.</span>
 </div>
 <div style="background:var(--card);border-radius:10px;padding:12px;">
@@ -1927,7 +1927,7 @@ She lives inside the game and reads your actual gameplay patterns: what you reco
 </span>
 </div>
 <div style="background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(120,75,160,0.1));border:1px solid var(--purple);border-radius:10px;padding:10px;margin-bottom:12px;text-align:center;">
-<span style="font-size:12px;color:var(--purple);font-weight:600;">Now booking Corporate Sponsorships · Educational Conferences · Federal Grants</span>
+<span style="font-size:12px;color:var(--purple-bright);font-weight:600;">Now booking Corporate Sponsorships · Educational Conferences · Federal Grants</span>
 </div>
 <div style="font-size:12px;color:var(--green);margin-bottom:8px;">✅ No experience required · ✅ No setup cost · ✅ Work from ANYWHERE in the world</div>
 <em style="color:var(--muted);font-size:12px;">Created by Arthur Palyan, Best Life Coach California 2025. As seen on AP News, Bloomberg, Yahoo Finance, and 200+ outlets.</em><br><br>
@@ -1947,7 +1947,7 @@ She lives inside the game and reads your actual gameplay patterns: what you reco
 </span>
 </div>
 <div style="background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(120,75,160,0.1));border:1px solid var(--purple);border-radius:10px;padding:12px;margin-bottom:12px;">
-<strong style="color:var(--purple);">🔮 Level Access Passes:</strong><br>
+<strong style="color:var(--purple-bright);">🔮 Level Access Passes:</strong><br>
 <span style="font-size:13px;color:var(--muted);">
 Curious what's ahead? Buy 10-day full access to higher levels:<br>
 • Level 3-4: 300-400 coins<br>
@@ -2397,7 +2397,11 @@ Earn coins every game you play. Redeem for real rewards!
 </div>
 
 <!-- COIN REWARDS -->
-<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:12px 0 4px;text-align:center;">Coin Rewards</div>
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:700;margin:12px 0 8px;display:flex;align-items:center;gap:8px;">
+<span style="flex:1;height:1px;background:var(--border);"></span>
+<span>Coin Rewards</span>
+<span style="flex:1;height:1px;background:var(--border);"></span>
+</div>
 
 <div class="coin-reward" id="reward0" onclick="redeemReward('workshop20', 500, '20% Off Workshop')" style="border:2px solid var(--green);">
 <div class="coin-reward-left">
@@ -2466,10 +2470,14 @@ Earn coins every game you play. Redeem for real rewards!
 </div>
 
 <!-- LEVEL PREVIEWS -->
-<div style="font-size:11px;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin:20px 0 4px;text-align:center;font-weight:700;">🔮 Level Access Passes</div>
-<div style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:8px;">Unlock full access to higher levels for 10 days. Explore everything!</div>
+<div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple-bright);font-weight:700;margin:20px 0 4px;display:flex;align-items:center;gap:8px;">
+<span style="flex:1;height:1px;background:var(--border);"></span>
+<span>🔮 Level Access Passes</span>
+<span style="flex:1;height:1px;background:var(--border);"></span>
+</div>
+<div style="font-size:11px;color:var(--text-tertiary);text-align:center;margin-bottom:8px;">Unlock full access to higher levels for 10 days. Explore everything!</div>
 
-<div class="coin-reward" id="previewL3" onclick="redeemLevelPreview(3, 300)" style="border-color:var(--blue);">
+<div class="coin-reward" id="previewL3" onclick="redeemLevelPreview(3, 300)" style="border-color:var(--blue);background:linear-gradient(135deg,rgba(47,128,237,0.08),rgba(47,128,237,0.02));">
 <div class="coin-reward-left">
 <div class="coin-reward-icon">👥</div>
 <div class="coin-reward-info">
@@ -2480,7 +2488,7 @@ Earn coins every game you play. Redeem for real rewards!
 <div class="coin-reward-cost"><span class="coin-cost-amount">300</span> coins</div>
 </div>
 
-<div class="coin-reward" id="previewL4" onclick="redeemLevelPreview(4, 400)" style="border-color:var(--purple);">
+<div class="coin-reward" id="previewL4" onclick="redeemLevelPreview(4, 400)" style="border-color:var(--purple);background:linear-gradient(135deg,rgba(107,53,176,0.08),rgba(107,53,176,0.02));">
 <div class="coin-reward-left">
 <div class="coin-reward-icon">💼</div>
 <div class="coin-reward-info">
@@ -2491,7 +2499,7 @@ Earn coins every game you play. Redeem for real rewards!
 <div class="coin-reward-cost"><span class="coin-cost-amount">400</span> coins</div>
 </div>
 
-<div class="coin-reward" id="previewL5" onclick="redeemLevelPreview(5, 500)" style="border-color:var(--pink);">
+<div class="coin-reward" id="previewL5" onclick="redeemLevelPreview(5, 500)" style="border-color:var(--pink);background:linear-gradient(135deg,rgba(255,60,172,0.08),rgba(255,60,172,0.02));">
 <div class="coin-reward-left">
 <div class="coin-reward-icon">🌍</div>
 <div class="coin-reward-info">
@@ -2502,7 +2510,7 @@ Earn coins every game you play. Redeem for real rewards!
 <div class="coin-reward-cost"><span class="coin-cost-amount">500</span> coins</div>
 </div>
 
-<div class="coin-reward" id="previewL6" onclick="redeemLevelPreview(6, 600)" style="border-color:var(--orange);">
+<div class="coin-reward" id="previewL6" onclick="redeemLevelPreview(6, 600)" style="border-color:var(--orange);background:linear-gradient(135deg,rgba(255,107,53,0.08),rgba(255,107,53,0.02));">
 <div class="coin-reward-left">
 <div class="coin-reward-icon">🌀</div>
 <div class="coin-reward-info">
@@ -5736,7 +5744,7 @@ function showAIAnalysis(){
       
       // YOUR GROWTH PATTERN - Enhanced Summary
       content='<div style="background:linear-gradient(135deg,rgba(120,75,160,0.2),rgba(255,60,172,0.1));border:1px solid var(--purple);border-radius:12px;padding:16px;margin-bottom:16px;">';
-      content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);font-weight:700;margin-bottom:8px;">Your Growth Pattern</div>';
+      content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple-bright);font-weight:700;margin-bottom:8px;">Your Growth Pattern</div>';
       
       // Enhanced summary generation
       let summary='';
@@ -5880,14 +5888,14 @@ function showAIAnalysis(){
         if(p.betrayalTheme>0.08)content+='<span style="background:rgba(255,71,87,0.2);color:var(--red);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🗡️ Betrayal</span>';
         if(p.authenticityTheme>0.08)content+='<span style="background:rgba(0,210,106,0.2);color:var(--green);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🪞 Honesty</span>';
         if(p.resentmentTheme>0.08)content+='<span style="background:rgba(255,71,87,0.2);color:#FF4757;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🔥 Resentment</span>';
-        if(p.controlTheme>0.08)content+='<span style="background:rgba(120,75,160,0.2);color:var(--purple);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🎯 Control</span>';
+        if(p.controlTheme>0.08)content+='<span style="background:rgba(120,75,160,0.2);color:var(--purple-bright);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🎯 Control</span>';
         if(p.perfectionismTheme>0.08)content+='<span style="background:rgba(247,201,72,0.2);color:var(--yellow);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">✨ Perfectionism</span>';
         if(p.connectionTheme>0.08)content+='<span style="background:rgba(255,60,172,0.2);color:var(--pink);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">💞 Connection</span>';
         if(p.peoplePleasingTheme>0.08)content+='<span style="background:rgba(0,216,255,0.2);color:var(--cyan);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🎭 People-Pleasing</span>';
         if(p.restTheme>0.08)content+='<span style="background:rgba(0,210,106,0.2);color:var(--green);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🌿 Rest</span>';
         if(p.avoidanceTheme>0.08)content+='<span style="background:rgba(192,192,192,0.2);color:var(--silver);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🙈 Avoidance</span>';
         if(p.griefTheme>0.08)content+='<span style="background:rgba(139,92,246,0.2);color:#8B5CF6;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🥀 Grief</span>';
-        if(p.withholdingTheme>0.08)content+='<span style="background:rgba(120,75,160,0.2);color:var(--purple);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🔒 Withholding</span>';
+        if(p.withholdingTheme>0.08)content+='<span style="background:rgba(120,75,160,0.2);color:var(--purple-bright);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🔒 Withholding</span>';
         if(p.codependencyTheme>0.08)content+='<span style="background:rgba(247,201,72,0.2);color:var(--yellow);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🔗 Codependency</span>';
         if(p.lonelinessTheme>0.08)content+='<span style="background:rgba(47,128,237,0.2);color:var(--blue);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">😔 Loneliness</span>';
         if(p.addictionTheme>0.08)content+='<span style="background:rgba(192,192,192,0.2);color:var(--silver);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;">🌫️ Numbing</span>';
@@ -5934,7 +5942,7 @@ function showAIAnalysis(){
       let levelCounts=Object.entries(p.topLevels||{}).sort((a,b)=>b[1]-a[1]);
       if(levelCounts.length>0){
         content+='<div style="margin-bottom:16px;">';
-        content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);font-weight:700;margin-bottom:10px;">Your Level Focus</div>';
+        content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple-bright);font-weight:700;margin-bottom:10px;">Your Level Focus</div>';
         let levelNames={1:'Individual',2:'Family',3:'Groups',4:'Community',5:'Society',6:'World',7:'Generations'};
         let levelInsights={
           1:{high:'Self for self is your strongest foundation.',low:'Your patterns keep circling back to Level 1, your feelings, beliefs, needs. This is where your real work is.'},
@@ -5973,7 +5981,7 @@ function showAIAnalysis(){
         let first = history[0];
         let current = history[history.length - 1];
         content+='<div style="background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(255,60,172,0.1));border:1px solid var(--purple);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center;">';
-        content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);font-weight:700;margin-bottom:10px;">🦋 Your Evolution</div>';
+        content+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple-bright);font-weight:700;margin-bottom:10px;">🦋 Your Evolution</div>';
         content+='<div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px;">';
         content+='<span style="font-size:24px;">'+first.icon+'</span>';
         content+='<div style="flex:1;max-width:80px;height:4px;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:2px;"></div>';
@@ -6057,7 +6065,7 @@ function showPatternModal(){
   html+='<div style="font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">'+a.name+'</div>';
   html+='</div>';
   html+='<div style="background:rgba(0,0,0,0.3);border-radius:12px;padding:16px;margin-bottom:16px;">';
-  html+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--purple);font-weight:700;margin-bottom:8px;">Your Growth Edge</div>';
+  html+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--purple-bright);font-weight:700;margin-bottom:8px;">Your Growth Edge</div>';
   html+='<div style="font-size:15px;color:var(--text);line-height:1.6;">'+a.edge+'</div>';
   html+='</div>';
   html+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;margin-bottom:12px;">Your Numbers</div>';
@@ -7453,15 +7461,17 @@ document.getElementById('archetypeClose').onclick=function(){document.getElement
 document.querySelectorAll('.modal').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('active')})});
 
 // Scroll-to-top buttons for long modals
-document.querySelectorAll('.modal-content').forEach(function(mc){
+document.querySelectorAll('.modal').forEach(function(m){
+  var mc=m.querySelector('.modal-content');
+  if(!mc)return;
   var btn=document.createElement('button');
   btn.className='modal-scroll-top';
   btn.innerHTML='⬆';
   btn.title='Back to top';
   btn.onclick=function(e){e.stopPropagation();mc.scrollTo({top:0,behavior:'smooth'})};
-  mc.appendChild(btn);
+  m.appendChild(btn);
   mc.addEventListener('scroll',function(){
-    if(mc.scrollTop>300)btn.classList.add('show');
+    if(mc.scrollTop>500)btn.classList.add('show');
     else btn.classList.remove('show');
   });
 });
@@ -7868,7 +7878,7 @@ function coachingBridge(answers){
   if(patternCount<2)return'';
   
   return '<div style="background:linear-gradient(135deg,rgba(120,75,160,0.12),rgba(255,60,172,0.08));border:1px solid rgba(120,75,160,0.3);border-radius:12px;padding:14px;margin-top:12px;text-align:left;cursor:pointer;" onclick="document.getElementById(\'results\').classList.remove(\'active\');document.getElementById(\'home\').classList.remove(\'hidden\');updateHome();document.getElementById(\'coachingModal\').classList.add(\'active\');">'
-    +'<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--purple);font-weight:700;margin-bottom:6px;">💬 Patterns Detected</div>'
+    +'<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--purple-bright);font-weight:700;margin-bottom:6px;">💬 Patterns Detected</div>'
     +'<div style="font-size:13px;color:var(--text-secondary);line-height:1.5;">You\'re recognizing cycles. A coach can help you break them. Sessions start at $100.</div>'
     +'</div>';
 }
