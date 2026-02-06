@@ -1520,7 +1520,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div id="dailyWisdom" style="display:none;font-size:13px;font-style:italic;color:var(--muted);margin-bottom:12px;padding:10px 16px;background:rgba(255,255,255,0.03);border-radius:10px;border-left:3px solid var(--pink);max-width:320px;margin-left:auto;margin-right:auto;"></div>
 <h1>See Your Patterns</h1><p style="max-width:320px;margin:0 auto;line-height:1.4;">The game that reveals<br>what's really running your life.</p></div>
 
-<div class="challenge" id="dailyCard" role="button" aria-label="Play Worldwide Challenge - Same 3 scenarios for everyone on Earth"><h2>Worldwide Challenge</h2><div class="player-count" style="justify-content:center;"><span class="player-dot"></span>TRENDING GLOBALLY</div><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer" style="color:var(--gold);font-weight:700;">Resets in --:--:--</span></div></div>
+<div class="challenge" id="dailyCard" role="button" aria-label="Play Worldwide Challenge - Same 3 scenarios for everyone on Earth"><h2>Worldwide Challenge</h2><div class="player-count" style="justify-content:center;"><span class="player-dot"></span>Trending Globally</div><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer" style="color:var(--gold);font-weight:700;">Resets in --:--:--</span></div></div>
 
 <div class="modes"><div class="mode" id="mirrorMode" role="button" aria-label="Play Mirror Game - See yourself honestly"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">🪞</div><div class="mode-name">Mirror Game</div><div class="mode-desc" style="color:var(--gold);">See yourself honestly</div><div class="mode-unlock" id="mirrorUnlock"></div></div><div class="mode" id="agreementMode" role="button" aria-label="Play Agreement Game - Practice acceptance vs judgment"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">⚖️</div><div class="mode-name">Agreement Game</div><div class="mode-desc">Acceptance vs Judgment</div><div class="mode-unlock" id="agreementUnlock"></div></div></div>
 
@@ -2840,7 +2840,7 @@ Earn coins every game you play. Redeem for real rewards!
 </div>
 
 <!-- CTA Button -->
-<a href="https://calendly.com/levelsofself/zoom" target="_blank" style="display:block;width:100%;padding:16px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:12px;color:#000;font-size:16px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 4px 20px rgba(255,208,0,0.4);">Schedule A Meeting →</a>
+<a href="https://calendly.com/levelsofself/zoom" target="_blank" style="display:block;width:100%;padding:16px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:12px;color:#000;font-size:16px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 4px 20px rgba(255,208,0,0.4);">Apply Now →</a>
 </div>
 </div>
 
@@ -7924,7 +7924,7 @@ var TRANSLATIONS = {
     // ─── Home Screen ───
     'See Your Patterns': 'Zie Je Patronen',
     'The game that reveals<br>what\'s really running your life.': 'Het spel dat onthult<br>wat je leven werkelijk bepaalt.',
-    'TRENDING GLOBALLY': 'WERELDWIJD TRENDING',
+    'TRENDING GLOBALLY': 'Wereldwijd Trending',
     'Worldwide Challenge': 'Wereldwijde Uitdaging',
     'Same 3 scenarios for everyone on Earth. One chance daily.': 'Dezelfde 3 scenario\'s voor iedereen op aarde. Een kans per dag.',
     'playing now': 'spelen nu',
@@ -8137,7 +8137,7 @@ var TRANSLATIONS = {
     // ─── Home Screen (from Roger) ───
     'See Your Patterns': 'Descubre tus patrones',
     'The game that reveals<br>what\'s really running your life.': 'El juego que revela<br>lo que realmente dirige tu vida.',
-    'TRENDING GLOBALLY': 'TENDENCIA GLOBAL',
+    'TRENDING GLOBALLY': 'Tendencia Global',
     'Worldwide Challenge': 'Desaf\u00edo mundial',
     'Same 3 scenarios for everyone on Earth. One chance daily.': 'Los mismos 3 escenarios para todos en la Tierra. Una oportunidad diaria.',
     'playing now': 'jugando ahora',
@@ -8390,7 +8390,7 @@ function applyTranslations() {
   let dailyCard = document.getElementById('dailyCard');
   if (dailyCard) {
     let badge = dailyCard.querySelector('.player-count');
-    if (badge) { let dot = badge.querySelector('.player-dot'); badge.textContent = ''; if(dot) badge.appendChild(dot); badge.appendChild(document.createTextNode(tr['TRENDING GLOBALLY'] || 'TRENDING GLOBALLY')); }
+    if (badge) { let dot = badge.querySelector('.player-dot'); badge.textContent = ''; if(dot) badge.appendChild(dot); badge.appendChild(document.createTextNode(tr['TRENDING GLOBALLY'] || 'Trending Globally')); }
     let h2 = dailyCard.querySelector('h2');
     if (h2) h2.textContent = tr['Worldwide Challenge'] || h2.textContent;
     let p = dailyCard.querySelector('p');
