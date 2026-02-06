@@ -1,17 +1,27 @@
-// Level Up Service Worker v5.0 - Network-first for updates
-const CACHE_NAME = 'levelup-v5';
+// Level Up Service Worker v6.0 - Network-first for updates
+const CACHE_NAME = 'levelup-v6';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
+  '/scenarios.js',
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png',
   '/apple-touch-icon.png',
   '/level-up.mp3',
+  '/intro.mp3',
   '/arthur.jpg',
-  '/og-game.png'
+  '/laurie.jpg',
+  '/aurora.jpg',
+  '/heghine.jpg',
+  '/roger.jpg',
+  '/Lily_Bot.jpg',
+  '/og-game.png',
+  '/ap.svg',
+  '/google.svg',
+  '/yahoo.svg',
+  '/bloomberg.svg'
 ];
-
 // Install - cache assets and take over immediately
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -21,7 +31,6 @@ self.addEventListener('install', event => {
       .catch(err => console.log('Cache failed:', err))
   );
 });
-
 // Activate - delete ALL old caches and claim clients immediately
 self.addEventListener('activate', event => {
   event.waitUntil(
@@ -37,7 +46,6 @@ self.addEventListener('activate', event => {
     }).then(() => self.clients.claim())
   );
 });
-
 // Fetch - NETWORK FIRST for HTML, cache-first for assets
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
@@ -58,6 +66,22 @@ self.addEventListener('fetch', event => {
         .catch(() => {
           // Offline - serve from cache
           return caches.match(event.request) || caches.match('/index.html');
+        })
+    );
+    return;
+  }
+  
+  // Network-first for scenarios.js too (always get latest game content)
+  if (url.pathname.endsWith('.js')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone));
+          return response;
+        })
+        .catch(() => {
+          return caches.match(event.request);
         })
     );
     return;
@@ -84,7 +108,6 @@ self.addEventListener('fetch', event => {
       })
   );
 });
-
 // Push notifications
 self.addEventListener('push', event => {
   const options = {
@@ -95,7 +118,6 @@ self.addEventListener('push', event => {
   };
   event.waitUntil(self.registration.showNotification('Level Up 🔥', options));
 });
-
 // Notification clicks
 self.addEventListener('notificationclick', event => {
   event.notification.close();
