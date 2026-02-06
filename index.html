@@ -10,26 +10,22 @@
   ║   ╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ║
   ║                                                                           ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
-  ║  LEVEL UP - Levels of Self | v11.8.2 LEGENDARY | January 29, 2026         ║
+  ║  LEVEL UP - Levels of Self | v12.0.0 LEGENDARY | February 6, 2026         ║
   ║  Built by Arthur Palyan | Best Life Coach California 2025                 ║
   ║  Live on Google Play & iOS App Store | 175 Countries                      ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
   ║                                                                           ║
-  ║  CHANGELOG v11.8.2 (Jan 29, 2026)                                         ║
-  ║  ─────────────────────────────────                                        ║
-  ║  • Music FAQ added with The Palyans (gold) credit                         ║
-  ║  • Spotify/Apple Music buttons link to The Palyans artist pages           ║
-  ║  • Reward Shop FAQ added with coinShopModal link                          ║
-  ║  • Gold plus signs on Breakthrough Work exercises                         ║
-  ║  • Pink border link buttons (App Store, 100levelup, LevelsOfSelf)         ║
-  ║  • Intro screen scroll fix (no extra scroll on non-scrollable screens)    ║
-  ║  • Music respects user choice (Spotify/Apple Music users stay silent)     ║
-  ║  • Hook music controls on "Have you ever felt like" screen                ║
-  ║  • Social share in FAQ (Instagram, Facebook, X, WhatsApp)                 ║
-  ║  • Desktop responsive (constrained width on large monitors)               ║
-  ║  • Copy Link button removed from pattern share screen                     ║
-  ║  • Back button row centered                                               ║
-  ║  • Audio ID fixed (introMusic)                                            ║
+  ║  CHANGELOG v12.0.0 (Feb 6, 2026) - CONVERSION UPDATE                      ║
+  ║  ─────────────────────────────────────────────────────                    ║
+  ║  • Share with Lily button on results screen (sends gameplay to Lily)      ║
+  ║  • Value proposition added: What You Get / What You Save                  ║
+  ║  • New FAQ: "What will this help me with?"                                ║
+  ║  • Coach cards always show pink borders                                   ║
+  ║  • Lily always shows purple border                                        ║
+  ║  • FAQ updated with Connectors partner role                               ║
+  ║  • Print output includes coach contact info                               ║
+  ║  • Results screen value reminder                                          ║
+  ║  • Intro hook: "Get clarity. Save time. Stop the cycle."                  ║
   ║                                                                           ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
   ║                                                                           ║
@@ -777,6 +773,17 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .modal-close-x{position:absolute;top:12px;left:12px;width:40px;height:40px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:50%;color:#fff;font-size:18px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:10;box-shadow:0 4px 15px rgba(255,60,172,0.4)}
 .modal-close-x:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(255,60,172,0.6)}
 /* ========== END COACHING OFFER STYLES ========== */
+
+/* ALWAYS-ON BORDERS: Coaches = Pink, Lily = Purple */
+.coaching-modal-content img[alt="Laurie Van Werde"],
+.coaching-modal-content img[alt="Aurora Maier"],
+.coaching-modal-content img[alt="Heghine Manukyan"],
+.coaching-modal-content img[alt="Roger Walter"]{border:2px solid var(--pink)!important;box-shadow:0 0 12px rgba(255,60,172,0.3)}
+.coaching-modal-content img[alt="Lily"],
+.coaching-modal-content img[alt="Lily - Self-Awareness Coach"],
+#lilyBtn img{border:2px solid #a855f7!important;box-shadow:0 0 12px rgba(168,85,247,0.4)}
+#lilyBtn{border:2px solid #a855f7!important}
+
 .modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
 .mode{animation:fadeIn 0.4s ease backwards}
 .mode:nth-child(1){animation-delay:0.1s}
@@ -1359,6 +1366,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="hook-line" id="line1">See the patterns</div>
 <div class="hook-line" id="line2">that quietly run<br>your life.</div>
 <div class="hook-sub" id="hookSub">Discover why you keep repeating<br>the same mistakes.</div>
+<div style="font-size:12px;color:var(--gold);margin:12px 0 16px;font-weight:600;letter-spacing:0.5px;">Get clarity. Save time. Stop the cycle.</div>
 <div class="lang-toggle" id="langToggle" style="display:flex;justify-content:center;margin-bottom:16px;position:relative;">
 <button id="langDropBtn" onclick="document.getElementById('langDropdown').classList.toggle('open')" style="padding:8px 18px;border-radius:20px;border:1px solid var(--border);background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;">🇺🇸 English <span style="font-size:10px;opacity:0.8;">▼</span></button>
 <div id="langDropdown" style="display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:6px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:6px;min-width:180px;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,0.4);">
@@ -1559,7 +1567,21 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 
 <div class="game" id="game" role="main" aria-label="Game screen"><div class="game-header"><div class="game-info"><div class="game-mode" id="gameMode">Mirror</div><div id="gameProgress" aria-live="polite">1/5</div><div class="game-combo" id="gameCombo" aria-live="polite"></div></div><button class="music-toggle" id="gameMusicToggle" title="Toggle music" aria-label="Toggle background music">🎵</button><button class="quit" id="quitBtn" aria-label="Quit game and return home">✕</button></div><div class="timer" id="timerBar" role="progressbar" aria-label="Time remaining"><div class="timer-fill" id="timerFill"></div></div><div class="scenario" role="region" aria-label="Current scenario"><div class="scenario-cat" id="scenarioCat">Level 1: Individual</div><div class="scenario-text loading" id="scenarioText" aria-live="polite">Loading...</div></div><div class="choices" id="choices" role="group" aria-label="Answer choices"></div></div>
 
-<div class="results" id="results"><h2 id="resultsTitle">Game Complete</h2><div class="score" id="finalScore">0</div><div class="results-xp" id="resultsXP" style="display:none;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin:12px 0;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--gold);">+<span id="sessionXP">0</span> XP</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">This session</div></div><p class="result-msg" id="resultMsg">Keep going!</p><div class="insights-list" id="insightsList"></div><div id="deepestInsight" style="display:none;background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));border:1px solid var(--pink);border-radius:12px;padding:16px;margin:16px 0;text-align:center;"><div style="font-size:12px;color:var(--pink);font-weight:600;margin-bottom:8px;">💡 Pattern that stood out</div><div id="deepestInsightText" style="font-size:15px;color:var(--text);font-style:italic;line-height:1.5;margin-bottom:8px;"></div><div id="deepestInsightMessage" style="font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:12px;padding:10px;background:rgba(0,0,0,0.1);border-radius:8px;"></div><div style="display:flex;gap:10px;justify-content:center;"><button onclick="saveDeepestInsight()" style="padding:8px 16px;background:var(--card);border:1px solid var(--pink);border-radius:8px;color:var(--pink);font-size:13px;font-weight:600;cursor:pointer;">❤️ Save</button><button onclick="shareDeepestInsight()" style="padding:8px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;">📤 Share</button></div></div><div class="results-actions" style="display:flex;flex-direction:column;gap:10px;margin-top:16px;"><button class="results-btn" id="keepPlayingBtn" style="background:linear-gradient(135deg,var(--green),#00B85D);display:none;" aria-label="Keep playing 10 more scenarios">🔄 Keep Playing (+10 more)</button><button class="results-btn" id="endlessModeBtn" style="background:linear-gradient(135deg,var(--purple),var(--blue));display:none;" aria-label="Start endless mode">♾️ Endless Mode</button><button class="results-btn" id="homeBtn" style="background:linear-gradient(135deg,var(--pink),var(--purple));border:none;" aria-label="Return to home screen">🏠 Back to Home</button></div><div class="share-platform-grid"><button class="share-platform-btn" onclick="shareWhatsApp()" aria-label="Share on WhatsApp"><span class="icon">💬</span><span class="label">WhatsApp</span></button><button class="share-platform-btn" onclick="shareTwitter()" aria-label="Share on Twitter"><span class="icon">𝕏</span><span class="label">Twitter</span></button><button class="share-platform-btn" onclick="copyShareLink()" aria-label="Copy link to clipboard"><span class="icon">📋</span><span class="label">Copy</span></button><button class="share-platform-btn" onclick="shareNative()" aria-label="More sharing options"><span class="icon">📤</span><span class="label">More</span></button></div><div id="resultsCoachingCta" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);text-align:center;"><p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Ready to break these patterns for good?</p><button onclick="document.getElementById('results').style.display='none';document.getElementById('coachingModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 2px 12px rgba(255,107,53,0.3);">✨ Get Coaching</button></div></div>
+<div class="results" id="results"><h2 id="resultsTitle">Game Complete</h2><div class="score" id="finalScore">0</div><div class="results-xp" id="resultsXP" style="display:none;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:10px;padding:12px 16px;margin:12px 0;text-align:center;"><div style="font-size:24px;font-weight:800;color:var(--gold);">+<span id="sessionXP">0</span> XP</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">This session</div></div><p class="result-msg" id="resultMsg">Keep going!</p><div class="insights-list" id="insightsList"></div><div id="deepestInsight" style="display:none;background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));border:1px solid var(--pink);border-radius:12px;padding:16px;margin:16px 0;text-align:center;"><div style="font-size:12px;color:var(--pink);font-weight:600;margin-bottom:8px;">💡 Pattern that stood out</div><div id="deepestInsightText" style="font-size:15px;color:var(--text);font-style:italic;line-height:1.5;margin-bottom:8px;"></div><div id="deepestInsightMessage" style="font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:12px;padding:10px;background:rgba(0,0,0,0.1);border-radius:8px;"></div><div style="display:flex;gap:10px;justify-content:center;"><button onclick="saveDeepestInsight()" style="padding:8px 16px;background:var(--card);border:1px solid var(--pink);border-radius:8px;color:var(--pink);font-size:13px;font-weight:600;cursor:pointer;">❤️ Save</button><button onclick="shareDeepestInsight()" style="padding:8px 16px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;">📤 Share</button></div></div>
+
+<!-- VALUE REMINDER -->
+<div style="background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(236,72,153,0.1));border:1px solid #a855f7;border-radius:10px;padding:12px;margin:16px 0;text-align:center;">
+<div style="font-size:11px;color:#a855f7;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">You're building</div>
+<div style="font-size:13px;color:var(--text);line-height:1.5;">✨ Clarity · 💰 Saved money · ⏰ Saved time · 🔄 Breaking the cycle</div>
+</div>
+
+<!-- SHARE WITH LILY -->
+<button onclick="shareWithLily()" style="width:100%;padding:14px 24px;background:linear-gradient(135deg,#a855f7,#ec4899);border:2px solid #a855f7;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 15px rgba(168,85,247,0.4);transition:all 0.2s;" onmouseover="this.style.transform='scale(1.02)';this.style.boxShadow='0 6px 20px rgba(168,85,247,0.5)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 15px rgba(168,85,247,0.4)'">
+<img src="Lily_Bot.jpg" alt="Lily" style="width:24px;height:24px;border-radius:50%;border:2px solid #fff;">
+<span>Share with Lily</span>
+</button>
+
+<div class="results-actions" style="display:flex;flex-direction:column;gap:10px;margin-top:16px;"><button class="results-btn" id="keepPlayingBtn" style="background:linear-gradient(135deg,var(--green),#00B85D);display:none;" aria-label="Keep playing 10 more scenarios">🔄 Keep Playing (+10 more)</button><button class="results-btn" id="endlessModeBtn" style="background:linear-gradient(135deg,var(--purple),var(--blue));display:none;" aria-label="Start endless mode">♾️ Endless Mode</button><button class="results-btn" id="homeBtn" style="background:linear-gradient(135deg,var(--pink),var(--purple));border:none;" aria-label="Return to home screen">🏠 Back to Home</button></div><div class="share-platform-grid"><button class="share-platform-btn" onclick="shareWhatsApp()" aria-label="Share on WhatsApp"><span class="icon">💬</span><span class="label">WhatsApp</span></button><button class="share-platform-btn" onclick="shareTwitter()" aria-label="Share on Twitter"><span class="icon">𝕏</span><span class="label">Twitter</span></button><button class="share-platform-btn" onclick="copyShareLink()" aria-label="Copy link to clipboard"><span class="icon">📋</span><span class="label">Copy</span></button><button class="share-platform-btn" onclick="shareNative()" aria-label="More sharing options"><span class="icon">📤</span><span class="label">More</span></button></div><div id="resultsCoachingCta" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);text-align:center;"><p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Ready to break these patterns for good?</p><button onclick="document.getElementById('results').style.display='none';document.getElementById('coachingModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 2px 12px rgba(255,107,53,0.3);">✨ Get Coaching</button></div></div>
 </div>
 
 <div class="modal" id="qaModal" role="dialog" aria-label="Help and FAQ"><div class="modal-content" id="qaContent" style="max-height:85vh;overflow-y:auto;position:relative;scroll-behavior:smooth;">
@@ -1568,6 +1590,36 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="modal-title" style="margin:0;flex:1;text-align:center;">Help & FAQ</div>
 <button onclick="document.getElementById('qaContent').scrollTo({top:document.getElementById('qaContent').scrollHeight,behavior:'smooth'})" style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;color:#fff;font-size:18px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(255,60,172,0.4);transition:all 0.2s;flex-shrink:0;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 20px rgba(255,60,172,0.6)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 15px rgba(255,60,172,0.4)'" title="Scroll to bottom">⬇</button>
 </div>
+
+<!-- 0. WHAT YOU GET -->
+<div class="qa-item"><div class="qa-question">✨ What will this help me with?</div><div class="qa-answer">
+<strong style="color:var(--gold);">3 things people get from playing:</strong><br><br>
+<div style="background:var(--card);border-radius:10px;padding:14px;margin-bottom:12px;">
+<div style="display:flex;flex-direction:column;gap:10px;">
+<div style="display:flex;align-items:flex-start;gap:10px;">
+<span style="font-size:20px;">🎯</span>
+<div><strong style="color:var(--green);">Results in life</strong><br><span style="font-size:13px;color:var(--muted);">Better relationships, career decisions, and understanding of why things keep happening</span></div>
+</div>
+<div style="display:flex;align-items:flex-start;gap:10px;">
+<span style="font-size:20px;">💫</span>
+<div><strong style="color:var(--pink);">Feeling good</strong><br><span style="font-size:13px;color:var(--muted);">Peace, clarity, and self-acceptance instead of confusion and self-judgment</span></div>
+</div>
+<div style="display:flex;align-items:flex-start;gap:10px;">
+<span style="font-size:20px;">🩹</span>
+<div><strong style="color:var(--purple);">Pain relief</strong><br><span style="font-size:13px;color:var(--muted);">Stop the cycles that keep repeating: the same arguments, the same mistakes, the same feelings</span></div>
+</div>
+</div>
+</div>
+<div style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);font-weight:600;margin:16px 0 10px;">What you save:</div>
+<div style="background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,107,53,0.05));border:1px solid var(--gold);border-radius:10px;padding:14px;">
+<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;text-align:center;">
+<div style="flex:1;min-width:80px;"><div style="font-size:20px;">💰</div><div style="font-size:12px;color:var(--text);font-weight:600;">Money</div><div style="font-size:11px;color:var(--muted);">$200/hr therapy<br>$50K+ bad decisions</div></div>
+<div style="flex:1;min-width:80px;"><div style="font-size:20px;">⏰</div><div style="font-size:12px;color:var(--text);font-weight:600;">Time</div><div style="font-size:11px;color:var(--muted);">Years repeating<br>the same patterns</div></div>
+<div style="flex:1;min-width:80px;"><div style="font-size:20px;">⚡</div><div style="font-size:12px;color:var(--text);font-weight:600;">Energy</div><div style="font-size:11px;color:var(--muted);">Drained by anxiety<br>& overthinking</div></div>
+</div>
+</div>
+<div style="margin-top:14px;font-size:12px;color:var(--muted);text-align:center;font-style:italic;">6,000 scenarios. 16 themes. Your patterns revealed in under 2 minutes.</div>
+</div></div>
 
 <!-- 1. GETTING STARTED -->
 <div class="qa-item"><div class="qa-question">🎮 How do I play?</div><div class="qa-answer">
@@ -1826,7 +1878,7 @@ You can accept that something <em>IS</em> without agreeing it <em>SHOULD BE</em>
 </div></div>
 
 <!-- LILY SELF-AWARENESS COACH FAQ -->
-<div class="qa-item"><div class="qa-question"><span style="display:inline-flex;align-items:center;gap:6px;"><img src="Lily_Bot.jpg" alt="Lily" style="width:22px;height:22px;border-radius:50%;object-fit:cover;border:1px solid #a855f7;"> Who is Lily?</span></div><div class="qa-answer">
+<div class="qa-item"><div class="qa-question"><span style="display:inline-flex;align-items:center;gap:6px;"><img src="Lily_Bot.jpg" alt="Lily" style="width:22px;height:22px;border-radius:50%;object-fit:cover;border:2px solid #a855f7;"> Who is Lily?</span></div><div class="qa-answer">
 <strong style="color:#a855f7;">Lily is your self-awareness coach.</strong><br><br>
 She lives inside the game and reads your actual gameplay patterns: what you recognize, what you avoid, which themes keep showing up. Then she helps you understand what those patterns mean.<br><br>
 <div style="background:var(--card);border-radius:10px;padding:12px;margin-bottom:12px;">
@@ -1836,6 +1888,10 @@ She lives inside the game and reads your actual gameplay patterns: what you reco
 • Suggest specific exercises for your patterns<br>
 • Help you prepare for a session with a human coach<br>
 • Answer questions about the 7 Levels framework
+</div>
+<div style="background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(236,72,153,0.1));border:1px solid #a855f7;border-radius:10px;padding:12px;margin-bottom:12px;">
+<strong style="color:#a855f7;">🆕 Share with Lily</strong><br>
+<span style="font-size:13px;color:var(--muted);">After each game, tap "Share with Lily" to send her your results. She'll receive your archetype, themes, and patterns, then give you personalized insight.</span>
 </div>
 <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Lily is free and available 24/7. She's not a replacement for human coaching. She's the bridge between recognizing a pattern and breaking it.</div>
 <button onclick="document.getElementById('qaModal').classList.remove('active');openLily();" style="padding:12px 24px;background:linear-gradient(135deg,#a855f7,#ec4899);border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;width:100%;">💬 Talk to Lily</button>
@@ -1858,13 +1914,14 @@ She lives inside the game and reads your actual gameplay patterns: what you reco
 
 <!-- JOIN OUR TEAM FAQ -->
 <div class="qa-item"><div class="qa-question">🤝 How can I partner with you?</div><div class="qa-answer">
-<strong style="color:var(--gold);">We're looking for coaches, translators, and affiliates.</strong><br><br>
+<strong style="color:var(--gold);">We're looking for coaches, translators, affiliates, and connectors.</strong><br><br>
 <div style="background:var(--card);border-radius:10px;padding:12px;margin-bottom:12px;">
-<strong>Three Ways to Partner:</strong><br>
+<strong>Four Ways to Partner:</strong><br>
 <span style="font-size:13px;color:var(--muted);">
 • <strong>COACHES</strong> Teach the 7 Levels framework. Work remotely. 80% revenue share.<br>
 • <strong>TRANSLATORS</strong> Bring the game to your language. We handle tech and marketing.<br>
-• <strong>AFFILIATES</strong> Refer clients or coaches. Earn on every session. No coaching required.
+• <strong>AFFILIATES</strong> Refer clients. Earn $450 per coaching session referred.<br>
+• <strong>CONNECTORS</strong> Know rehab centers, HR departments, or wellness programs? 10% finder's fee on institutional contracts.
 </span>
 </div>
 <div style="font-size:12px;color:var(--green);margin-bottom:8px;">✅ No experience required • ✅ No setup cost • ✅ Work from anywhere</div>
@@ -3316,9 +3373,14 @@ function printProgress(){
   html+='</div>';
   html+='</div>';
   
-  // Footer
+  // Footer with coach contact info
   html+='<div class="print-footer">';
   html+='<div class="print-footer-brand">Level Up by Arthur Palyan | 100levelup.com | levelsofself.com</div>';
+  html+='<div style="font-size:11px;color:#666;margin-top:8px;line-height:1.6;">';
+  html+='💜 Talk to Lily (free): t.me/LevelsOfSelfBot<br>';
+  html+='📅 Book coaching: calendly.com/levelsofself/zoom<br>';
+  html+='💬 WhatsApp Arthur: wa.me/+18184399770';
+  html+='</div>';
   html+='<div class="print-footer-tagline">"Pattern recognition changes lives." Keep playing. Keep growing.</div>';
   html+='</div>';
   
@@ -3552,6 +3614,11 @@ function printDeepInsight(){
   // Footer
   html+='<div class="print-footer">';
   html+='<div class="print-footer-brand">Level Up by Arthur Palyan | 100levelup.com | levelsofself.com</div>';
+  html+='<div style="font-size:11px;color:#666;margin-top:8px;line-height:1.6;">';
+  html+='💜 Talk to Lily (free): t.me/LevelsOfSelfBot<br>';
+  html+='📅 Book coaching: calendly.com/levelsofself/zoom<br>';
+  html+='💬 WhatsApp Arthur: wa.me/+18184399770';
+  html+='</div>';
   html+='<div class="print-footer-tagline">"The patterns you recognize are the patterns you can change."</div>';
   html+='</div>';
   
@@ -5871,6 +5938,60 @@ function shareWhatsApp(){selectSound();window.open('https://wa.me/?text='+encode
 function shareTwitter(){selectSound();window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(getShareText())+'&url='+encodeURIComponent('https://100levelup.com'),'_blank');showToast('𝕏 Opening Twitter...')}
 function copyShareLink(){selectSound();copyToClipboard(getShareText()+"\n\nhttps://100levelup.com")}
 function shareNative(){selectSound();if(navigator.share){navigator.share({title:'Level Up',text:getShareText(),url:'https://100levelup.com'}).then(()=>showToast('📤 Shared!')).catch(()=>copyShareLink())}else{copyShareLink()}}
+
+// Share with Lily - sends gameplay summary to Telegram Lily
+function shareWithLily(){
+  selectSound();
+  
+  // Get analysis data
+  let analysis = data.games >= 10 ? analyzePatterns() : null;
+  let archetype = analysis ? analysis.archetype.name : 'Still discovering...';
+  let recPct = data.mirrorTotal > 0 ? Math.round((data.mirrorRecognized/data.mirrorTotal)*100) : 0;
+  let accPct = data.agreementTotal > 0 ? Math.round((data.agreementAccepted/data.agreementTotal)*100) : 0;
+  
+  // Get top themes
+  let themes = [];
+  if(analysis && analysis.profile) {
+    let p = analysis.profile;
+    let themeScores = [
+      {name:'Boundaries',v:p.boundaryTheme||0},
+      {name:'Abandonment',v:p.abandonmentTheme||0},
+      {name:'Self-Worth',v:p.worthTheme||0},
+      {name:'Control',v:p.controlTheme||0},
+      {name:'People-Pleasing',v:p.peoplePleasingTheme||0},
+      {name:'Perfectionism',v:p.perfectionismTheme||0},
+      {name:'Connection',v:p.connectionTheme||0},
+      {name:'Codependency',v:p.codependencyTheme||0}
+    ];
+    themeScores.sort((a,b)=>b.v-a.v);
+    themes = themeScores.filter(t=>t.v>0.1).slice(0,3).map(t=>t.name);
+  }
+  
+  // Get recent insight
+  let recentInsight = '';
+  if(data.insightsCollection && data.insightsCollection.length > 0) {
+    recentInsight = data.insightsCollection[data.insightsCollection.length-1].text;
+    if(recentInsight.length > 80) recentInsight = recentInsight.substring(0,77) + '...';
+  }
+  
+  // Build message
+  let msg = 'Hi Lily, I just played Level Up and here\'s what came up:\n\n';
+  msg += '🎭 Archetype: ' + archetype + '\n';
+  msg += '📊 Recognition: ' + recPct + '% | Acceptance: ' + accPct + '%\n';
+  msg += '🎮 Games played: ' + (data.games||0) + '\n';
+  if(themes.length > 0) {
+    msg += '🎯 Top themes: ' + themes.join(', ') + '\n';
+  }
+  if(recentInsight) {
+    msg += '\n💡 Recent insight: "' + recentInsight + '"\n';
+  }
+  msg += '\nWhat patterns do you see in this?';
+  
+  // Open Telegram Lily with pre-filled message
+  let url = 'https://t.me/LevelsOfSelfBot?text=' + encodeURIComponent(msg);
+  window.open(url, '_blank');
+  showToast('💜 Opening Lily...');
+}
 
 function showHook(){
   document.body.classList.add('hook-active');
