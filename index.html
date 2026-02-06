@@ -1355,30 +1355,14 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="hook" id="hook">
 <!-- Logo Splash - positioned relative to hook overlay, not container -->
 <div class="hook-logo" id="hookLogo">
-<picture>
-<source srcset="logo_edited.webp" type="image/webp">
-<img src="logo_edited.png" alt="Levels of Self" width="320" height="320">
-</picture>
+<img src="icon-512.png" alt="Levels of Self" width="320" height="320">
 </div>
 <div class="hook-container">
 <!-- Screen 1: The Hook -->
 <div class="hook-screen active" id="hookScreen1">
 <div class="hook-line" id="line1">See the patterns</div>
 <div class="hook-line" id="line2">that quietly run<br>your life.</div>
-<div class="hook-sub" id="hookSub">Discover why you keep repeating<br>the same mistakes.</div>
-<div style="font-size:12px;color:var(--gold);margin:12px 0 16px;font-weight:600;letter-spacing:0.5px;">Get clarity. Save time. Stop the cycle.</div>
-<div class="lang-toggle" id="langToggle" style="display:flex;justify-content:center;margin-bottom:16px;position:relative;">
-<button id="langDropBtn" onclick="document.getElementById('langDropdown').classList.toggle('open')" style="padding:8px 18px;border-radius:20px;border:1px solid var(--border);background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;">🇺🇸 English <span style="font-size:10px;opacity:0.8;">▼</span></button>
-<div id="langDropdown" style="display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:6px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:6px;min-width:180px;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,0.4);">
-<div onclick="setLanguage('en');document.getElementById('langDropdown').classList.remove('open')" class="lang-opt" data-lang="en" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:center;margin-bottom:2px;">🇺🇸 English</div>
-<div onclick="setLanguage('nl');document.getElementById('langDropdown').classList.remove('open')" class="lang-opt" data-lang="nl" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:center;margin-bottom:2px;">🇳🇱 Nederlands</div>
-<div onclick="setLanguage('es');document.getElementById('langDropdown').classList.remove('open')" class="lang-opt" data-lang="es" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:center;margin-bottom:2px;">🇪🇸 Español</div>
-<div style="height:1px;background:var(--border);margin:4px 8px;"></div>
-<div onclick="setLanguage('ko');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.5;">🇰🇷 한국어 <span style="font-size:10px;">coming soon</span></div>
-<div onclick="setLanguage('hy');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.5;">🇦🇲 Հայերեն <span style="font-size:10px;">coming soon</span></div>
-<div onclick="setLanguage('ru');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.5;">🇷🇺 Русский <span style="font-size:10px;">coming soon</span></div>
-</div>
-</div>
+<div class="hook-sub" id="hookSub" style="color:var(--gold);font-weight:600;">Get clarity. Save time. Stop the cycle.</div>
 <button class="hook-btn" id="hookBtn" aria-label="Start the experience">Prove it</button>
 <div class="press-ticker">
 <div class="press-ticker-label">As Seen On</div>
@@ -1393,8 +1377,19 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="press-ticker-item"><img src="bloomberg.svg" alt="Bloomberg" loading="lazy" width="60" height="18"></div>
 </div>
 </div>
+<div class="lang-toggle" id="langToggle" style="display:flex;justify-content:center;margin-top:16px;position:relative;opacity:0;transition:opacity 0.5s ease;">
+<button id="langDropBtn" onclick="document.getElementById('langDropdown').classList.toggle('open')" style="padding:8px 18px;border-radius:20px;border:1px solid var(--border);background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;">🇺🇸 English <span style="font-size:10px;opacity:0.8;">▼</span></button>
+<div id="langDropdown" style="display:none;position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:6px;min-width:180px;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,0.4);">
+<div onclick="setLanguage('en');document.getElementById('langDropdown').classList.remove('open')" class="lang-opt" data-lang="en" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:center;margin-bottom:2px;">🇺🇸 English</div>
+<div onclick="setLanguage('nl');document.getElementById('langDropdown').classList.remove('open')" class="lang-opt" data-lang="nl" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:center;margin-bottom:2px;">🇳🇱 Nederlands</div>
+<div onclick="setLanguage('es');document.getElementById('langDropdown').classList.remove('open')" class="lang-opt" data-lang="es" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:center;margin-bottom:2px;">🇪🇸 Español</div>
+<div style="height:1px;background:var(--border);margin:4px 8px;"></div>
+<div onclick="setLanguage('ko');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.5;">🇰🇷 한국어 <span style="font-size:10px;">coming soon</span></div>
+<div onclick="setLanguage('hy');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.5;">🇦🇲 Հայdelays <span style="font-size:10px;">coming soon</span></div>
+<div onclick="setLanguage('ru');document.getElementById('langDropdown').classList.remove('open')" style="padding:10px 14px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);text-align:center;opacity:0.5;">🇷🇺 Русский <span style="font-size:10px;">coming soon</span></div>
 </div>
-<!-- Screen 2: Recognition -->
+</div>
+</div>
 <div class="hook-screen" id="hookScreen2">
 <div class="hook-music-controls" id="hookMusicControls">
 <button class="hook-music-btn on" id="hookMusicToggle" onclick="toggleHookMusic()" title="Toggle game music">🎵</button>
@@ -6009,6 +6004,7 @@ function showHook(){
     setTimeout(()=>document.getElementById('line2').classList.add('show'),2700);
     setTimeout(()=>{let sub=document.getElementById('hookSub');sub.classList.add('show');sub.style.opacity='1'},3600);
     setTimeout(()=>{let btn=document.getElementById('hookBtn');btn.classList.add('show');btn.style.opacity='1';btn.style.transform='translateY(0)'},4300);
+    setTimeout(()=>{let lang=document.getElementById('langToggle');if(lang)lang.style.opacity='1'},5000);
     setTimeout(()=>{let t=document.querySelector('.hook-time');if(t){t.classList.add('show');t.style.opacity='1'}},4900);
   }
   
