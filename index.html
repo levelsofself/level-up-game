@@ -73,7 +73,7 @@
   ║    • Fixed parallax background                                            ║
   ║                                                                           ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
-  ║  CONTENT: 6,000 scenarios | 19 archetypes | 16 themes | 6 core wounds     ║
+  ║  CONTENT: 6,854 scenarios | 19 archetypes | 16 themes | 6 core wounds     ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
   ║  TECH: PWA | localStorage | Inter font | No backend                       ║
   ║  URLs: 100levelup.com | levelsofself.com | selfcheck.100levelup.com       ║
@@ -88,7 +88,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Level Up">
 <meta name="theme-color" content="#0d0a1a">
-<meta name="description" content="Everyone sees your pattern except you. Discover why you keep repeating the same mistakes.">
+<meta name="description" content="See the patterns that quietly run your life. Get clarity. Save time. Stop the cycle. Free self-awareness game by Arthur Palyan.">
 <meta name="keywords" content="self-awareness, personal growth, patterns, behavior, coaching, transformation, 7 levels">
 <meta name="author" content="Arthur Palyan">
 
@@ -97,7 +97,7 @@
 <meta property="og:url" content="https://100levelup.com/">
 <meta property="og:site_name" content="Level Up">
 <meta property="og:title" content="Everyone sees your pattern except you.">
-<meta property="og:description" content="Discover why you keep repeating the same mistakes. 2M+ patterns revealed.">
+<meta property="og:description" content="See the patterns that quietly run your life. Free self-awareness game with 6,854 scenarios across 7 levels.">
 <meta property="og:image" content="https://100levelup.com/og-game.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -109,7 +109,7 @@
 <meta name="twitter:creator" content="@arthurpalyan">
 <meta name="twitter:url" content="https://100levelup.com/">
 <meta name="twitter:title" content="Everyone sees your pattern except you.">
-<meta name="twitter:description" content="Discover why you keep repeating the same mistakes. What's your pattern?">
+<meta name="twitter:description" content="See the patterns that quietly run your life. Free self-awareness game. What's your pattern?">
 <meta name="twitter:image" content="https://100levelup.com/og-game.png">
 
 <!-- Favicons -->
@@ -281,7 +281,7 @@ body::-webkit-scrollbar-thumb:hover{background:var(--purple)}
   margin:0 auto;
   padding:var(--space-4);
   padding-top:var(--space-5);
-  padding-bottom:max(var(--space-10),env(safe-area-inset-bottom));
+  padding-bottom:0;
   position:relative;
   overflow-x:hidden;
 }
@@ -617,7 +617,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .hero h1{font-size:26px;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,var(--orange),var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero p{color:var(--muted);font-size:14px}
 /* ULTIMATE Challenge Card */
-.challenge{background:var(--card);border:2px solid var(--pink);border-radius:var(--radius-xl);padding:20px;margin-bottom:16px;cursor:pointer;transition:var(--transition-normal);box-shadow:var(--shadow-glow-pink),var(--shadow-card);position:relative;overflow:hidden;animation:fadeIn 0.4s var(--ease-out-expo)}
+.challenge{background:var(--card);border:2px solid var(--pink);border-radius:var(--radius-xl);padding:20px;margin-bottom:16px;cursor:pointer;transition:var(--transition-normal);box-shadow:var(--shadow-glow-pink),var(--shadow-card);position:relative;overflow:hidden;animation:fadeIn 0.4s var(--ease-out-expo);text-align:center}
 .challenge::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-primary-vivid)}
 .challenge:hover{box-shadow:var(--shadow-glow-pink),var(--shadow-lg);transform:translateY(-4px);border-color:var(--pink)}
 .challenge:active{transform:translateY(-2px) scale(0.99);transition:var(--transition-fast)}
@@ -628,7 +628,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .badge::before{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:badgeShine 3s ease-in-out infinite;transform:translateX(-200%);pointer-events:none}
 @keyframes badgeShine{0%{transform:translateX(-200%)}50%,100%{transform:translateX(300%)}
 @keyframes arrowGlow{0%,100%{color:#FFD700;text-shadow:0 0 8px rgba(255,215,0,0.7),0 0 16px rgba(255,215,0,0.5)}50%{color:#FFF176;text-shadow:0 0 12px rgba(255,215,0,1),0 0 24px rgba(255,215,0,0.8),0 0 36px rgba(255,215,0,0.4)}}}
-.badge-dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:pulseDot 2s infinite;box-shadow:0 0 8px rgba(255,255,255,0.5)}
+.badge-dot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:livePulse 2s ease-in-out infinite;box-shadow:0 0 8px rgba(0,210,106,0.6)}
 @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);box-shadow:0 0 8px rgba(255,255,255,0.5)}50%{opacity:0.6;transform:scale(0.7);box-shadow:0 0 4px rgba(255,255,255,0.3)}}
 .challenge h2{font-size:20px;font-weight:700;margin-bottom:6px;transition:var(--transition-normal);color:var(--text)}
 .challenge:hover h2{color:var(--pink)}
@@ -886,7 +886,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .action-btn.breakthrough:hover{border-color:var(--orange);box-shadow:0 4px 15px rgba(255,87,34,0.4)}
 .action-btn.team{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,208,0,0.2),rgba(255,208,0,0.05))}
 .action-btn.team:hover{border-color:var(--gold);box-shadow:0 4px 15px rgba(255,208,0,0.5)}
-.footer{text-align:center;padding:8px 0 16px 0;animation:fadeIn 0.5s ease 0.4s backwards}
+.footer{text-align:center;padding:8px 0 0 0;animation:fadeIn 0.5s ease 0.4s backwards}
 .footer-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .footer-btn{animation:fadeIn 0.3s ease backwards}
 .footer-btns .footer-btn:nth-child(1){animation-delay:0.1s}
@@ -1520,7 +1520,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div id="dailyWisdom" style="display:none;font-size:13px;font-style:italic;color:var(--muted);margin-bottom:12px;padding:10px 16px;background:rgba(255,255,255,0.03);border-radius:10px;border-left:3px solid var(--pink);max-width:320px;margin-left:auto;margin-right:auto;"></div>
 <h1>See Your Patterns</h1><p style="max-width:320px;margin:0 auto;line-height:1.4;">The game that reveals<br>what's really running your life.</p></div>
 
-<div class="challenge" id="dailyCard" role="button" aria-label="Play Worldwide Challenge - Same 3 scenarios for everyone on Earth"><div class="badge"><span class="badge-dot"></span>TRENDING GLOBALLY</div><h2>Worldwide Challenge</h2><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="player-count"><span class="player-dot"></span><span id="playerCountNum">--</span> playing now</div><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer">Resets in --:--:--</span></div></div>
+<div class="challenge" id="dailyCard" role="button" aria-label="Play Worldwide Challenge - Same 3 scenarios for everyone on Earth"><h2>Worldwide Challenge</h2><div class="player-count" style="justify-content:center;"><span class="player-dot"></span>TRENDING GLOBALLY</div><p>Same 3 scenarios for everyone on Earth. One chance daily.</p><div class="challenge-footer"><span id="dailyCta">Tap to join the global movement</span><span id="dailyTimer" style="color:var(--gold);font-weight:700;">Resets in --:--:--</span></div></div>
 
 <div class="modes"><div class="mode" id="mirrorMode" role="button" aria-label="Play Mirror Game - See yourself honestly"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">🪞</div><div class="mode-name">Mirror Game</div><div class="mode-desc" style="color:var(--gold);">See yourself honestly</div><div class="mode-unlock" id="mirrorUnlock"></div></div><div class="mode" id="agreementMode" role="button" aria-label="Play Agreement Game - Practice acceptance vs judgment"><div class="mode-icon" style="font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;">⚖️</div><div class="mode-name">Agreement Game</div><div class="mode-desc">Acceptance vs Judgment</div><div class="mode-unlock" id="agreementUnlock"></div></div></div>
 
@@ -1549,13 +1549,13 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <a class="footer-btn primary" href="https://www.levelsofself.com/post/the-7-levels-of-self-explained" target="_blank" rel="noopener">Learn the Full Framework</a>
 <a class="footer-btn" href="https://www.levelsofself.com" target="_blank" rel="noopener">LevelsOfSelf.com</a>
 </div>
-<button class="transform-btn" id="transformBtn" onclick="document.getElementById('coachingModal').classList.add('active')">
+<button class="transform-btn" id="transformBtn" onclick="if(typeof trackEvent==='function')trackEvent('coaching_modal_open');document.getElementById('coachingModal').classList.add('active')">
 <span class="transform-btn-icon">✨</span>
 <span class="transform-btn-text">Get Coaching</span>
 <span class="transform-btn-sub">1-on-1 Integration</span>
 </button>
-<div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);text-align:center;">
-<p style="font-size:12px;color:var(--muted);line-height:1.6;">Built by <span style="color:var(--gold);font-weight:600;cursor:pointer;" onclick="document.getElementById('founderModal').classList.add('active')">Arthur Palyan</span> on the framework he uses with founders, leaders, and clients worldwide.</p>
+<div style="margin-top:16px;padding-top:20px;text-align:center;">
+<p style="font-size:clamp(9px,2.5vw,11px);color:var(--muted);line-height:1.3;white-space:nowrap;text-align:center;margin:0;padding:0;">Built by <span style="color:var(--gold);font-weight:600;cursor:pointer;text-decoration:underline;" onclick="document.getElementById('founderModal').classList.add('active')">Arthur Palyan</span> on the framework he uses with founders, leaders, and clients worldwide.</p>
 </div>
 </div>
 </div>
@@ -1608,12 +1608,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);font-weight:600;margin:16px 0 10px;">What you save:</div>
 <div style="background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,107,53,0.05));border:1px solid var(--gold);border-radius:10px;padding:14px;">
 <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;text-align:center;">
-<div style="flex:1;min-width:80px;"><div style="font-size:20px;">💰</div><div style="font-size:12px;color:var(--text);font-weight:600;">Money</div><div style="font-size:11px;color:var(--muted);">$200/hr therapy<br>$50K+ bad decisions</div></div>
-<div style="flex:1;min-width:80px;"><div style="font-size:20px;">⏰</div><div style="font-size:12px;color:var(--text);font-weight:600;">Time</div><div style="font-size:11px;color:var(--muted);">Years repeating<br>the same patterns</div></div>
+<div style="flex:1;min-width:80px;"><div style="font-size:20px;">💰</div><div style="font-size:12px;color:var(--text);font-weight:600;">Money</div><div style="font-size:11px;color:var(--muted);">Therapy, impulse buying,<br>bad relationships</div></div>
+<div style="flex:1;min-width:80px;"><div style="font-size:20px;">⏰</div><div style="font-size:12px;color:var(--text);font-weight:600;">Time</div><div style="font-size:11px;color:var(--muted);">Stuck in the same<br>patterns for years</div></div>
 <div style="flex:1;min-width:80px;"><div style="font-size:20px;">⚡</div><div style="font-size:12px;color:var(--text);font-weight:600;">Energy</div><div style="font-size:11px;color:var(--muted);">Drained by anxiety<br>& overthinking</div></div>
 </div>
 </div>
-<div style="margin-top:14px;font-size:12px;color:var(--muted);text-align:center;font-style:italic;">6,000 scenarios. 16 themes. Your patterns revealed in under 2 minutes.</div>
+<div style="margin-top:14px;font-size:12px;color:var(--muted);text-align:center;font-style:italic;">6,854 scenarios. 16 themes. Your patterns revealed in under 2 minutes.</div>
 </div></div>
 
 <!-- 1. GETTING STARTED -->
@@ -1909,19 +1909,23 @@ She lives inside the game and reads your actual gameplay patterns: what you reco
 
 <!-- JOIN OUR TEAM FAQ -->
 <div class="qa-item"><div class="qa-question">🤝 How can I partner with you?</div><div class="qa-answer">
-<strong style="color:var(--gold);">We're looking for coaches, translators, affiliates, and connectors.</strong><br><br>
+<strong style="color:var(--gold);">Work with an Award-Winning Life Coach.</strong><br>
+<span style="font-size:13px;color:var(--muted);">I'm looking for coaches, translators, affiliates, and connectors.</span><br>
+<span style="font-size:12px;color:var(--text-secondary);">Google <strong>"Arthur Palyan"</strong> or <strong>"Level Up Levels of Self"</strong> to see results.</span><br><br>
 <div style="background:var(--card);border-radius:10px;padding:12px;margin-bottom:12px;">
-<strong>Four Ways to Partner:</strong><br>
 <span style="font-size:13px;color:var(--muted);">
-• <strong>COACHES</strong> Teach the 7 Levels framework. Work remotely. 80% revenue share.<br>
-• <strong>TRANSLATORS</strong> Bring the game to your language. We handle tech and marketing.<br>
-• <strong>AFFILIATES</strong> Refer clients. Earn $450 per coaching session referred.<br>
-• <strong>CONNECTORS</strong> Know rehab centers, HR departments, or wellness programs? 10% finder's fee on institutional contracts.
+• <strong>COACHES</strong> Teach the 7 Levels of Self framework. Help people break patterns. Work remotely.<br>
+• <strong>TRANSLATORS</strong> Bring the game to Spanish, French, Portuguese, Tagalog, Hindi, Arabic, or other languages. I handle tech, marketing, and advertising.<br>
+• <strong>AFFILIATES</strong> Refer clients or coaches. No coaching required.<br>
+• <strong>CONNECTORS</strong> Know someone in education, corporate, rehab, government, or investment? One introduction can change everything.
 </span>
 </div>
-<div style="font-size:12px;color:var(--green);margin-bottom:8px;">✅ No experience required • ✅ No setup cost • ✅ Work from anywhere</div>
-<em style="color:var(--muted);font-size:12px;">Created by Arthur Palyan, Best Life Coach California 2025</em><br><br>
-<button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('teamModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:10px;color:#000;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Apply Now</button>
+<div style="background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(120,75,160,0.1));border:1px solid var(--purple);border-radius:10px;padding:10px;margin-bottom:12px;text-align:center;">
+<span style="font-size:12px;color:var(--purple);font-weight:600;">Now booking Corporate Sponsorships · Educational Conferences · Federal Grants</span>
+</div>
+<div style="font-size:12px;color:var(--green);margin-bottom:8px;">✅ No experience required · ✅ No setup cost · ✅ Work from ANYWHERE in the world</div>
+<em style="color:var(--muted);font-size:12px;">Created by Arthur Palyan, Best Life Coach California 2025. As seen on AP News, Bloomberg, Yahoo Finance, and 200+ outlets.</em><br><br>
+<button onclick="document.getElementById('qaModal').classList.remove('active');document.getElementById('teamModal').classList.add('active');" style="padding:12px 24px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:10px;color:#000;font-size:14px;font-weight:700;cursor:pointer;width:100%;">Message Arthur →</button>
 </div></div>
 
 <!-- REWARD SHOP FAQ -->
@@ -1951,21 +1955,13 @@ Curious what's ahead? Buy 10-day full access to higher levels:<br>
 
 <!-- WORKSHOP -->
 <div class="qa-item"><div class="qa-question">💑 Workshops & Retreats</div><div class="qa-answer">
-<div style="background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));border:1px solid var(--pink);border-radius:12px;padding:16px;margin-bottom:12px;">
-<div style="font-size:16px;font-weight:700;color:var(--pink);margin-bottom:4px;">Valentine's Couples Workshop</div>
-<div style="font-size:13px;color:var(--text);margin-bottom:8px;">February 12-14, 2026 · Holiday Inn LAX</div>
-<div style="font-size:12px;color:var(--muted);margin-bottom:12px;">10am-8pm daily · 3 days of breakthrough work</div>
-<div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-<span style="font-size:13px;">Foundation</span>
-<span style="color:var(--green);font-weight:700;">$895/couple</span>
-</div>
-<div style="display:flex;justify-content:space-between;">
-<span style="font-size:13px;">Immersion</span>
-<span style="color:var(--gold);font-weight:700;">$1,895/couple</span>
-</div>
+<div style="background:linear-gradient(135deg,rgba(255,60,172,0.1),rgba(120,75,160,0.1));border:1px solid var(--pink);border-radius:12px;padding:16px;margin-bottom:12px;text-align:center;">
+<div style="font-size:20px;margin-bottom:8px;">🌴</div>
+<div style="font-size:16px;font-weight:700;color:var(--pink);margin-bottom:4px;">Live Events Coming Soon</div>
+<div style="font-size:13px;color:var(--muted);line-height:1.6;">Multi-day workshops and retreats for deeper breakthrough work. Message Arthur to get on the list.</div>
 </div>
 <em style="color:var(--muted);font-size:12px;">Use your coins to unlock workshop discounts! 500 coins = 20% off.</em><br><br>
-<a href="https://www.levelsofself.com/book-online" target="_blank" style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;">View All Events</a>
+<a href="https://wa.me/+18184399770?text=Hi%20Arthur%2C%20I%27m%20interested%20in%20upcoming%20workshops%20and%20retreats." target="_blank" style="display:inline-block;padding:12px 24px;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;">Get on the List →</a>
 </div></div>
 
 <!-- FREE MASTERMIND -->
@@ -2034,6 +2030,15 @@ This game helps people see themselves without judgment. It's <strong>free</stron
 <strong>🖨️ Print</strong><br>
 <span style="font-size:11px;color:var(--muted);">Save Your Progress</span><br>
 <button onclick="printProgress()" style="padding:8px 16px;background:linear-gradient(135deg,var(--cyan),var(--blue));border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;margin-top:6px;">Print</button>
+</div>
+</div>
+<div style="border-top:1px solid var(--border);padding-top:12px;">
+<strong>💾 Backup & Restore</strong><br>
+<span style="font-size:11px;color:var(--muted);">Never lose your progress. Export your data to a file, then import it on any device.</span><br>
+<div style="display:flex;gap:8px;justify-content:center;margin-top:8px;">
+<button onclick="exportData()" style="padding:8px 16px;background:linear-gradient(135deg,var(--green),#00B85D);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;">📥 Export</button>
+<button onclick="document.getElementById('importFileInput').click()" style="padding:8px 16px;background:linear-gradient(135deg,var(--orange),var(--pink));border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;">📤 Import</button>
+<input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="importData(event)">
 </div>
 </div>
 <div style="border-top:1px solid var(--border);padding-top:12px;">
@@ -2763,10 +2768,11 @@ Earn coins every game you play. Redeem for real rewards!
 <div class="modal-content coaching-modal-content" style="max-width:480px;">
 <button class="modal-close-x" onclick="document.getElementById('teamModal').classList.remove('active')">✕</button>
 <div style="text-align:center;margin-bottom:24px;">
-<span style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);background:rgba(255,208,0,0.15);padding:6px 16px;border-radius:20px;margin-bottom:12px;">🤝 Partner With Us</span>
-<h2 style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px;">Partner with an</h2>
+<span style="display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);background:rgba(255,208,0,0.15);padding:6px 16px;border-radius:20px;margin-bottom:12px;">🤝 Partner With Me</span>
+<h2 style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px;">Work with an</h2>
 <h2 style="font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;">Award-Winning Life Coach</h2>
-<p style="font-size:14px;color:var(--muted);line-height:1.6;">I'm looking for coaches, translators, and affiliates to partner with on this incredible free self-awareness game.</p>
+<p style="font-size:14px;color:var(--muted);line-height:1.6;">I'm looking for coaches, translators, affiliates, and connectors.</p>
+<p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">Google <strong>"Arthur Palyan"</strong> or <strong>"Level Up Levels of Self"</strong> to see results.</p>
 </div>
 
 <!-- Coaches Role -->
@@ -2788,12 +2794,27 @@ Earn coins every game you play. Redeem for real rewards!
 </div>
 
 <!-- Affiliates Role -->
-<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;">
+<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;">
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
 <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--green),#00B85D);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">💰</div>
 <div style="font-size:17px;font-weight:700;color:var(--text);">AFFILIATES</div>
 </div>
-<p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Refer clients or coaches. Earn on every session. No coaching required.</p>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Refer clients or coaches. No coaching required.</p>
+</div>
+
+<!-- Connectors Role -->
+<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+<div style="width:44px;height:44px;background:linear-gradient(135deg,var(--orange),var(--gold));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">🔗</div>
+<div style="font-size:17px;font-weight:700;color:var(--text);">CONNECTORS</div>
+</div>
+<p style="font-size:13px;color:var(--text-secondary);line-height:1.6;">Know someone in education, corporate, rehab, government, or investment? One introduction can change everything.</p>
+</div>
+
+<!-- Now Booking -->
+<div style="background:linear-gradient(135deg,rgba(255,208,0,0.15),rgba(255,107,53,0.1));border:1px solid var(--gold);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center;">
+<p style="font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Now Booking</p>
+<p style="font-size:13px;color:var(--text);line-height:1.6;">Corporate Sponsorships · Educational Conferences (Board of Education, Board of Psychology, The Bar) · Federal Grants</p>
 </div>
 
 <!-- Selling Points -->
@@ -2814,12 +2835,12 @@ Earn coins every game you play. Redeem for real rewards!
 <!-- Links as Buttons -->
 <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:20px;">
 <a href="https://apps.apple.com/app/id6757724858" target="_blank" style="padding:10px 16px;background:var(--card);border:1px solid var(--pink);border-radius:8px;font-size:13px;color:var(--text);text-decoration:none;font-weight:600;transition:all 0.2s;">App Store</a>
+<a href="https://t.me/LevelsOfSelfBot/game" target="_blank" style="padding:10px 16px;background:var(--card);border:1px solid var(--blue);border-radius:8px;font-size:13px;color:var(--text);text-decoration:none;font-weight:600;transition:all 0.2s;">Telegram</a>
 <a href="https://100levelup.com" target="_blank" style="padding:10px 16px;background:var(--card);border:1px solid var(--pink);border-radius:8px;font-size:13px;color:var(--text);text-decoration:none;font-weight:600;transition:all 0.2s;">100levelup.com</a>
-<a href="https://LevelsOfSelf.com" target="_blank" style="padding:10px 16px;background:var(--card);border:1px solid var(--pink);border-radius:8px;font-size:13px;color:var(--text);text-decoration:none;font-weight:600;transition:all 0.2s;">LevelsOfSelf.com</a>
 </div>
 
 <!-- CTA Button -->
-<a href="https://calendly.com/levelsofself/zoom" target="_blank" style="display:block;width:100%;padding:16px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:12px;color:#000;font-size:16px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 4px 20px rgba(255,208,0,0.4);">Apply Now →</a>
+<a href="https://calendly.com/levelsofself/zoom" target="_blank" style="display:block;width:100%;padding:16px;background:linear-gradient(135deg,var(--gold),var(--orange));border:none;border-radius:12px;color:#000;font-size:16px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 4px 20px rgba(255,208,0,0.4);">Schedule A Meeting →</a>
 </div>
 </div>
 
@@ -3456,6 +3477,63 @@ function printProgress(){
   },100);
 }
 
+// ========== DATA EXPORT / IMPORT ==========
+function exportData(){
+  let exportObj={
+    version:'12.0.0',
+    exportDate:new Date().toISOString(),
+    source:'100levelup.com',
+    data:JSON.parse(JSON.stringify(data))
+  };
+  let blob=new Blob([JSON.stringify(exportObj,null,2)],{type:'application/json'});
+  let url=URL.createObjectURL(blob);
+  let a=document.createElement('a');
+  a.href=url;
+  let dateStr=new Date().toISOString().slice(0,10);
+  a.download='levelup-backup-'+dateStr+'.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('📥 Backup saved! Keep this file safe.');
+}
+
+function importData(event){
+  let file=event.target.files[0];
+  if(!file){return;}
+  let reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      let imported=JSON.parse(e.target.result);
+      let importedData=imported.data||imported;
+      // Validate it looks like real Level Up data
+      if(typeof importedData.xp==='undefined'&&typeof importedData.games==='undefined'){
+        showToast('⚠️ This file doesn\'t look like a Level Up backup.');
+        return;
+      }
+      // Confirm before overwriting
+      let games=importedData.games||0;
+      let level=importedData.level||1;
+      let insights=(importedData.insightsCollection||[]).length;
+      if(!confirm('Import this backup?\n\nLevel: '+level+'\nGames: '+games+'\nInsights: '+insights+'\n\nThis will replace your current progress.')){
+        return;
+      }
+      // Merge imported data over current data
+      Object.keys(importedData).forEach(key=>{
+        data[key]=importedData[key];
+      });
+      save();
+      showToast('✅ Progress restored! Reloading...');
+      setTimeout(()=>location.reload(),1000);
+    }catch(err){
+      showToast('⚠️ Could not read this file. Make sure it\'s a Level Up backup.');
+    }
+  };
+  reader.readAsText(file);
+  // Reset input so same file can be selected again
+  event.target.value='';
+}
+
 // Print Deep Insight - Coaching-focused analysis
 function printDeepInsight(){
   let container=document.getElementById('printContainer');
@@ -4014,7 +4092,7 @@ function createShareImage() {
     // Subtext
     ctx.fillStyle = '#888888';
     ctx.font = '36px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.fillText('Free self-awareness game • 6,000 scenarios', 540, 700);
+    ctx.fillText('Free self-awareness game • 6,854 scenarios', 540, 700);
     
     // URL
     ctx.fillStyle = '#FF3CAC';
@@ -4032,7 +4110,7 @@ function shareToFacebook() {
 }
 
 function shareToTwitter() {
-  const text = encodeURIComponent('Everyone sees your pattern. Except you. 🎮\n\nFree self-awareness game with 6,000 scenarios.\n\n100levelup.com');
+  const text = encodeURIComponent('Everyone sees your pattern. Except you. 🎮\n\nFree self-awareness game with 6,854 scenarios.\n\n100levelup.com');
   window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank', 'width=600,height=400');
 }
 
@@ -5038,24 +5116,7 @@ document.getElementById('statInsights').textContent=data.insightsCollection.leng
 setTimeout(()=>insightsStat.classList.remove('new-insight'),600);
 }}
 
-function updatePlayerCount(){
-  let hour=new Date().getHours();
-  let day=new Date().getDay();
-  // Base: 2,500-4,000 concurrent for global app in 175 countries
-  let baseCount=2500+Math.floor(data.games/5)*100;
-  // Peak hours (9am-11pm local) see 2x traffic
-  let timeMultiplier=hour>=9&&hour<=23?2:0.8;
-  // Weekends see 30% more traffic
-  let weekendBonus=(day===0||day===6)?1.3:1;
-  // Random variance ±200
-  let variance=Math.floor(Math.random()*400)-200;
-  let count=Math.floor((baseCount*timeMultiplier*weekendBonus)+variance);
-  // Range: 1,800 - 12,000 concurrent players
-  count=Math.max(1847,Math.min(12847,count));
-  document.getElementById('playerCountNum').textContent=count.toLocaleString();
-}
 function updateHome(){
-  updatePlayerCount();
   updateXPBar();checkDailyLogin();checkStreakWarning();checkCoachingBridge();checkMilestones();checkWeeklySummary();
   
   // 1. Welcome message based on streak/games
@@ -6158,6 +6219,7 @@ function shareNative(){selectSound();if(navigator.share){navigator.share({title:
 
 // Share with Lily - sends gameplay summary to Telegram Lily
 function shareWithLily(){
+  if(typeof trackEvent==='function')trackEvent('share_with_lily');
   selectSound();
   
   // Get analysis data
@@ -6607,6 +6669,7 @@ function determineEntryPattern() {
 
 // Hook button starts entry flow and intro music
 document.getElementById('hookBtn').onclick = function() {
+  if(typeof trackEvent==='function')trackEvent('hook_start');
   // Start intro music on user interaction
   if(!musicOn) {
     document.getElementById('introMusic').play().then(() => {
@@ -6620,6 +6683,7 @@ document.getElementById('hookBtn').onclick = function() {
 // Start game button after reveal
 // Start game button goes directly to home - respect user's music choice
 document.getElementById('startGameBtn').onclick = function() {
+  if(typeof trackEvent==='function')trackEvent('hook_complete');
   data.seenIntro = true;
   save();
   // Stop intro music
@@ -6737,6 +6801,7 @@ function dismissCoachingBridge() {
 // Entry flow hookBtn handler is defined above - this line removed to prevent override
 
 function startMirrorGame(lf){
+  if(typeof trackEvent==='function')trackEvent('game_start',{mode:'mirror',level:lf||'all'});
   // Clean up any lingering onboarding elements
   if(currentTooltip){currentTooltip.remove();currentTooltip=null;}
   document.querySelectorAll('.onboard-tooltip').forEach(el=>el.remove());
@@ -6959,6 +7024,7 @@ function timeUp(){
 document.getElementById('nextBtn').onclick=function(){document.getElementById('feedbackModal').classList.remove('active');game.idx++;if(game.idx>=game.scenarios.length)endGame();else{if(game.mode==='mirror')showMirrorScenario();else if(game.mode==='agreement')showAgreementScenario();else if(game.mode==='decision')showDecisionScenario();else if(game.mode==='mixed')showMixedScenario();}};
 
 function endGame(){
+  if(typeof trackEvent==='function')trackEvent('game_complete',{mode:game.mode,score:game.answers.filter(a=>a.recognized||a.isAcceptance||a.correct).length,total:game.answers.length,games:data.games+1});
   // End game processing
   if(game.timer)clearInterval(game.timer);data.games++;
   
@@ -7795,10 +7861,10 @@ function coachingBridge(answers){
 }
 
 // ========== LANGUAGE SYSTEM ==========
-let currentLang = localStorage.getItem('levelup_lang') || 'en';
+var currentLang = localStorage.getItem('levelup_lang') || 'en';
 
 // ── Dutch (Nederlands) UI Translation Dictionary ──
-const TRANSLATIONS = {
+var TRANSLATIONS = {
   nl: {
     // ─── Hook / Intro Screens ───
     'See the patterns': 'Zie de patronen',
@@ -8245,7 +8311,7 @@ const TRANSLATIONS = {
 
 // Translate a string - returns translation if available, otherwise original English
 function t(str) {
-  if (currentLang === 'en' || !TRANSLATIONS[currentLang]) return str;
+  if (!TRANSLATIONS || currentLang === 'en' || !TRANSLATIONS[currentLang]) return str;
   return TRANSLATIONS[currentLang][str] || str;
 }
 
@@ -8323,8 +8389,8 @@ function applyTranslations() {
   // Worldwide Challenge
   let dailyCard = document.getElementById('dailyCard');
   if (dailyCard) {
-    let badge = dailyCard.querySelector('.badge');
-    if (badge) { let dot = badge.querySelector('.badge-dot'); badge.textContent = ''; if(dot) badge.appendChild(dot); badge.appendChild(document.createTextNode(tr['TRENDING GLOBALLY'] || 'TRENDING GLOBALLY')); }
+    let badge = dailyCard.querySelector('.player-count');
+    if (badge) { let dot = badge.querySelector('.player-dot'); badge.textContent = ''; if(dot) badge.appendChild(dot); badge.appendChild(document.createTextNode(tr['TRENDING GLOBALLY'] || 'TRENDING GLOBALLY')); }
     let h2 = dailyCard.querySelector('h2');
     if (h2) h2.textContent = tr['Worldwide Challenge'] || h2.textContent;
     let p = dailyCard.querySelector('p');
@@ -8681,6 +8747,7 @@ function showPatternLink() {
 // Lily can analyze patterns and provide warm, insightful responses
 
 function openLily() {
+  if(typeof trackEvent==='function')trackEvent('lily_open');
   let lilyModal = document.getElementById('lilyModal');
   if (!lilyModal) {
     lilyModal = document.createElement('div');
@@ -9227,6 +9294,61 @@ function skipOnboarding() {
   console.log('Total sessions:', engagement.totalSessions);
   console.log('Total time:', Math.round(engagement.totalTimeMs / 60000) + ' minutes');
 })();
+
+// ========== LIGHTWEIGHT ANALYTICS ==========
+// Sends anonymous events to VPS for funnel visibility
+(function(){
+  const ANALYTICS_URL='https://api.100levelup.com/api/analytics';
+  const SESSION_ID=Math.random().toString(36).slice(2)+Date.now().toString(36);
+  let eventQueue=[];
+  let flushTimer=null;
+
+  window.trackEvent=function(event,props){
+    eventQueue.push({
+      e:event,
+      p:props||{},
+      t:Date.now(),
+      s:SESSION_ID,
+      l:data?data.level:0,
+      g:data?data.games:0
+    });
+    // Batch send every 5 seconds or when queue hits 10
+    if(eventQueue.length>=10){flushEvents();}
+    else if(!flushTimer){flushTimer=setTimeout(flushEvents,5000);}
+  };
+
+  function flushEvents(){
+    if(flushTimer){clearTimeout(flushTimer);flushTimer=null;}
+    if(eventQueue.length===0)return;
+    let batch=eventQueue.splice(0);
+    try{
+      if(navigator.sendBeacon){
+        navigator.sendBeacon(ANALYTICS_URL,JSON.stringify({events:batch}));
+      }else{
+        fetch(ANALYTICS_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({events:batch}),keepalive:true}).catch(()=>{});
+      }
+    }catch(e){}
+  }
+
+  // Flush on page exit
+  document.addEventListener('visibilitychange',function(){if(document.hidden)flushEvents();});
+  window.addEventListener('pagehide',flushEvents);
+
+  // Auto-track page load
+  window.trackEvent('page_load',{ref:document.referrer||'direct',url:location.href});
+
+  // Track outbound link clicks (WhatsApp, Calendly, paylinks)
+  document.addEventListener('click',function(e){
+    let link=e.target.closest('a[href]');
+    if(link&&link.href){
+      let href=link.href;
+      if(href.includes('wa.me'))window.trackEvent('click_whatsapp',{coach:href.includes('18184399770')?'arthur':href.includes('34613734121')?'laurie':href.includes('19105261160')?'aurora':href.includes('37477449962')?'heghine':href.includes('19738730425')?'roger':'unknown'});
+      else if(href.includes('calendly'))window.trackEvent('click_calendly');
+      else if(href.includes('_paylink'))window.trackEvent('click_paylink',{url:href});
+      else if(href.includes('apps.apple.com'))window.trackEvent('click_appstore');
+    }
+  });
+})();
 </script>
 
 <!-- Coach Profile Overlays -->
@@ -9251,7 +9373,7 @@ function skipOnboarding() {
 </div>
 <div class="cp-divider"></div>
 <div class="cp-section-title">About Laurie</div>
-<div class="cp-bio">Laurie serves as the platform's first Dutch-speaking coach, bringing the 7 Levels of Self framework to over 30 million Dutch speakers across the Netherlands, Belgium, Suriname, and South Africa. Based in Catalonia, Spain, she also leads translation efforts to make the game's 6,000 scenarios accessible in Dutch. In addition to coaching, she is completing certifications in hypnosis, EFT tapping, and NLP, which she integrates with the 7 Levels of Self framework. Certified by founder Arthur Palyan.</div>
+<div class="cp-bio">Laurie serves as the platform's first Dutch-speaking coach, bringing the 7 Levels of Self framework to over 30 million Dutch speakers across the Netherlands, Belgium, Suriname, and South Africa. Based in Catalonia, Spain, she also leads translation efforts to make the game's 6,854 scenarios accessible in Dutch. In addition to coaching, she is completing certifications in hypnosis, EFT tapping, and NLP, which she integrates with the 7 Levels of Self framework. Certified by founder Arthur Palyan.</div>
 <div class="cp-actions">
 <a href="https://wa.me/+34613734121?text=Hi%20Laurie,%20I've%20been%20playing%20Level%20Up%20and%20have%20some%20questions%20about%20coaching." target="_blank" style="background:#25D366;" onclick="event.stopPropagation()">💬 WhatsApp</a>
 <a href="https://www.levelsofself.com/_paylink/AZusz5dC" target="_blank" style="background:linear-gradient(135deg,var(--pink),var(--purple));" onclick="event.stopPropagation()">Book Session</a>
@@ -9280,7 +9402,7 @@ function skipOnboarding() {
 </div>
 <div class="cp-divider"></div>
 <div class="cp-section-title">About Aurora</div>
-<div class="cp-bio">Aurora is the first bilingual coach certified in the 7 Levels of Self, bringing the framework to Korean speakers across the United States and South Korea. She addresses generational patterns and cultural expectations unique to the Korean community: unspoken expectations around success, sacrifice, and family duty that get passed down without question. She also assists with translating the game's 6,000 scenarios for Korean-speaking users worldwide. Certified by founder Arthur Palyan.</div>
+<div class="cp-bio">Aurora is the first bilingual coach certified in the 7 Levels of Self, bringing the framework to Korean speakers across the United States and South Korea. She addresses generational patterns and cultural expectations unique to the Korean community: unspoken expectations around success, sacrifice, and family duty that get passed down without question. She also assists with translating the game's 6,854 scenarios for Korean-speaking users worldwide. Certified by founder Arthur Palyan.</div>
 <div class="cp-actions">
 <a href="https://wa.me/+19105261160?text=Hi%20Aurora,%20I've%20been%20playing%20Level%20Up%20and%20have%20some%20questions%20about%20coaching." target="_blank" style="background:#25D366;" onclick="event.stopPropagation()">💬 WhatsApp</a>
 <a href="https://www.levelsofself.com/_paylink/AZwqmg6N" target="_blank" style="background:linear-gradient(135deg,var(--pink),var(--purple));" onclick="event.stopPropagation()">Book Session</a>
