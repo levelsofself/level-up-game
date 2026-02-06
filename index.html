@@ -10,12 +10,12 @@
   ║   ╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ║
   ║                                                                           ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
-  ║  LEVEL UP - Levels of Self | v12.2.0 LEGENDARY | February 6, 2026         ║
+  ║  LEVEL UP - Levels of Self | v12.3.0 LEGENDARY | February 6, 2026         ║
   ║  Built by Arthur Palyan | Best Life Coach California 2025                 ║
   ║  Live on Google Play & iOS App Store | 175 Countries                      ║
   ╠═══════════════════════════════════════════════════════════════════════════╣
   ║                                                                           ║
-  ║  CHANGELOG v12.2.0 (Feb 6, 2026) - MOBILE UX UPDATE                       ║
+  ║  CHANGELOG v12.3.0 (Feb 6, 2026) - POLISH UPDATE                          ║
   ║  ─────────────────────────────────────────────────────                    ║
   ║  • Share with Lily button on results screen (sends gameplay to Lily)      ║
   ║  • Value proposition added: What You Get / What You Save                  ║
@@ -127,7 +127,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
-html{background:#08060f;min-height:100%;min-height:-webkit-fill-available;scroll-behavior:smooth}
+html{background:#08060f;min-height:100%;min-height:-webkit-fill-available;scroll-behavior:smooth;overscroll-behavior:none}
 :root{
   /* ═══════════════════════════════════════════════════════════════════════
      LEGENDARY COLOR SYSTEM - Crafted for maximum visual impact
@@ -239,6 +239,7 @@ body{
   min-height:100vh;min-height:100dvh;
   color:var(--text);
   overflow-x:hidden;
+  overscroll-behavior:none;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   text-rendering:optimizeLegibility;
@@ -927,8 +928,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .scenario-cat{display:inline-block;background:var(--border);padding:5px 10px;border-radius:16px;font-size:10px;text-transform:uppercase;margin-bottom:12px;font-weight:600;letter-spacing:0.5px;transition:var(--transition-fast)}
 .scenario-text{font-size:16px;line-height:1.6}
-.scenario-text.loading{color:var(--muted);animation:textPulse 1.5s ease-in-out infinite}
-@keyframes textPulse{0%,100%{opacity:0.4}50%{opacity:1}}
+.scenario-text.loading{color:transparent;background:linear-gradient(90deg,var(--card) 25%,var(--border-subtle) 50%,var(--card) 75%);background-size:200% 100%;animation:skeletonShimmer 1.5s ease-in-out infinite;border-radius:8px;min-height:60px}
+@keyframes skeletonShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .choices{display:flex;flex-direction:column;gap:10px;animation:fadeIn 0.3s ease;min-height:280px}
 .choice{width:100%;padding:16px;background:var(--card);border:2px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;text-align:left;cursor:pointer;line-height:1.5;transition:var(--transition-fast);box-shadow:var(--shadow-sm);animation:choiceSlide 0.3s ease backwards;position:relative;overflow:hidden;min-height:60px;display:flex;align-items:center}
 .choice::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,60,172,0.08),transparent);transition:none;pointer-events:none}
@@ -1086,10 +1087,6 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
   .recognition-item,.voice-option{padding:12px 14px;font-size:13px}
   .level-compact{padding:8px 12px}
   .level-compact-name{font-size:12px}
-  .modal-content{padding:20px;margin:0;max-width:100%!important;width:100%;border-radius:16px 16px 0 0;max-height:95vh;position:fixed;bottom:0;left:0;right:0;animation:modalSlideUp 0.3s ease forwards}
-  .modal{align-items:flex-end;padding:0}
-  @keyframes modalSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-  .coaching-modal-content{border-radius:16px 16px 0 0!important;max-width:100%!important}
 }
 @media(max-width:340px){
   .stats{gap:4px}
@@ -1115,6 +1112,12 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
   .action-btns{grid-template-columns:1fr}
   .ctrl-btn{width:44px;height:44px;font-size:20px}
   .controls{gap:6px}
+  /* Full-screen bottom sheet modals on phones */
+  .modal{align-items:flex-end;padding:0}
+  .modal-content{padding:20px;padding-top:28px;margin:0;max-width:100%!important;width:100%;border-radius:16px 16px 0 0;max-height:92vh;position:relative;animation:modalSlideUp 0.3s var(--ease-out-expo) forwards}
+  .modal-content::after{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,0.2)}
+  .coaching-modal-content{border-radius:16px 16px 0 0!important;max-width:100%!important}
+  @keyframes modalSlideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
 }
 /* Mobile Large / Phablet */
 @media(min-width:481px) and (max-width:767px){
@@ -1143,7 +1146,10 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
   .challenge{padding:24px}
   .challenge h2{font-size:22px}
   .ctrl-btn{width:48px;height:48px;font-size:22px}
-  .modal-content{max-width:500px;padding:32px}
+  .modal-content{max-width:500px;padding:32px;border-radius:20px;margin:auto;position:relative;animation:modalSlide 0.4s var(--ease-out-back)}
+  .modal-content::after{display:none}
+  .modal{align-items:center;padding:20px}
+  .coaching-modal-content{border-radius:20px!important}
   .recognition-item,.voice-option{padding:18px 22px;font-size:15px}
 }
 /* iPad Portrait */
@@ -2758,7 +2764,7 @@ Earn coins every game you play. Redeem for real rewards!
 <div style="display:flex;align-items:center;justify-content:space-between;">
 <div style="font-size:20px;font-weight:800;color:var(--green);">$100</div>
 <div style="display:flex;gap:8px;">
-<a href="https://wa.me/+19738730425?text=Hi%20Roger,%20I've%20been%20playing%20Level%20Up%20and%20have%20some%20questions%20about%20coaching." target="_blank" style="padding:10px 14px;background:#25D366;border-radius:8px;color:#fff;font-size:12px;font-weight:700;text-decoration:none;">💬</a>
+<a href="https://wa.me/+18628496701?text=Hi%20Roger,%20I've%20been%20playing%20Level%20Up%20and%20have%20some%20questions%20about%20coaching." target="_blank" style="padding:10px 14px;background:#25D366;border-radius:8px;color:#fff;font-size:12px;font-weight:700;text-decoration:none;">💬</a>
 <a href="https://www.levelsofself.com/_paylink/AZwqnSCH" target="_blank" style="padding:10px 20px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;">Book</a>
 </div>
 </div>
@@ -3484,7 +3490,7 @@ function printProgress(){
 // ========== DATA EXPORT / IMPORT ==========
 function exportData(){
   let exportObj={
-    version:'12.2.0',
+    version:'12.3.0',
     exportDate:new Date().toISOString(),
     source:'100levelup.com',
     data:JSON.parse(JSON.stringify(data))
@@ -7460,6 +7466,38 @@ document.getElementById('archetypeClose').onclick=function(){document.getElement
 // Backdrop click to close modals
 document.querySelectorAll('.modal').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('active')})});
 
+// Swipe-to-dismiss on mobile bottom sheet modals
+if('ontouchstart' in window){
+  document.querySelectorAll('.modal').forEach(function(m){
+    var mc=m.querySelector('.modal-content');
+    if(!mc)return;
+    var isFeedback=m.id==='feedbackModal';
+    var startY=0,currentY=0,dragging=false;
+    mc.addEventListener('touchstart',function(e){
+      if(mc.scrollTop<2){startY=e.touches[0].clientY;dragging=true;currentY=0;mc.style.transition='none'}
+    },{passive:true});
+    mc.addEventListener('touchmove',function(e){
+      if(!dragging)return;
+      currentY=e.touches[0].clientY-startY;
+      if(currentY>0){mc.style.transform='translateY('+currentY+'px)';mc.style.opacity=Math.max(0.5,1-currentY/400)}
+      else{dragging=false;mc.style.transform='';mc.style.opacity=''}
+    },{passive:true});
+    mc.addEventListener('touchend',function(){
+      if(!dragging)return;
+      dragging=false;
+      if(currentY>120){
+        mc.style.transition='transform 0.2s ease,opacity 0.2s ease';mc.style.transform='translateY(100%)';mc.style.opacity='0';
+        setTimeout(function(){
+          m.classList.remove('active');mc.style.transform='';mc.style.opacity='';mc.style.transition='';
+          if(isFeedback){var nb=document.getElementById('nextBtn');if(nb)nb.click()}
+        },250);
+      }
+      else{mc.style.transition='transform 0.25s var(--ease-out-back),opacity 0.25s ease';mc.style.transform='';mc.style.opacity='';setTimeout(function(){mc.style.transition=''},300)}
+      currentY=0;
+    },{passive:true});
+  });
+}
+
 // Scroll-to-top buttons for long modals
 document.querySelectorAll('.modal').forEach(function(m){
   var mc=m.querySelector('.modal-content');
@@ -9365,7 +9403,7 @@ function skipOnboarding() {
     let link=e.target.closest('a[href]');
     if(link&&link.href){
       let href=link.href;
-      if(href.includes('wa.me'))window.trackEvent('click_whatsapp',{coach:href.includes('18184399770')?'arthur':href.includes('34613734121')?'laurie':href.includes('19105261160')?'aurora':href.includes('37477449962')?'heghine':href.includes('19738730425')?'roger':'unknown'});
+      if(href.includes('wa.me'))window.trackEvent('click_whatsapp',{coach:href.includes('18184399770')?'arthur':href.includes('34613734121')?'laurie':href.includes('19105261160')?'aurora':href.includes('37477449962')?'heghine':href.includes('18628496701')?'roger':'unknown'});
       else if(href.includes('calendly'))window.trackEvent('click_calendly');
       else if(href.includes('_paylink'))window.trackEvent('click_paylink',{url:href});
       else if(href.includes('apps.apple.com'))window.trackEvent('click_appstore');
@@ -9486,7 +9524,7 @@ function skipOnboarding() {
 <div class="cp-section-title">About Roger</div>
 <div class="cp-bio">Roger is a trilingual communicator with a BA in International Relations from George Washington University and an MA in Education with cognition emphasis from Universidad del Norte in Barranquilla, Colombia. After 15 years as a high school Spanish teacher and trilingual wedding officiant, Roger brings deep expertise in human connection, cross-cultural understanding, and the psychology of learning. A dedicated father and husband of 16 years, he understands the real challenges of balancing personal growth with family life. Roger brings the 7 Levels of Self framework to over 500 million Spanish speakers and 250 million Portuguese speakers worldwide. Certified by founder Arthur Palyan.</div>
 <div class="cp-actions">
-<a href="https://wa.me/+19738730425?text=Hi%20Roger,%20I've%20been%20playing%20Level%20Up%20and%20have%20some%20questions%20about%20coaching." target="_blank" style="background:#25D366;" onclick="event.stopPropagation()">💬 WhatsApp</a>
+<a href="https://wa.me/+18628496701?text=Hi%20Roger,%20I've%20been%20playing%20Level%20Up%20and%20have%20some%20questions%20about%20coaching." target="_blank" style="background:#25D366;" onclick="event.stopPropagation()">💬 WhatsApp</a>
 <a href="https://www.levelsofself.com/_paylink/AZwqnSCH" target="_blank" style="background:linear-gradient(135deg,var(--pink),var(--purple));" onclick="event.stopPropagation()">Book Session</a>
 </div>
 </div>
