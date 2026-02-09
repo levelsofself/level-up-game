@@ -429,10 +429,10 @@
 // Falls back to baseline state when API unavailable
 // ══════════════════════════════════════════════════
 
-const API_BASE = 'http://167.99.108.151:3460/family';
+const API_BASE = 'https://api.100levelup.com/family';
 // Same endpoint, no fallback needed - VPS serves the data directly
 // CORS headers required on VPS: Access-Control-Allow-Origin: *
-const API_FALLBACK = 'http://167.99.108.151:3460/family';
+const API_FALLBACK = 'https://api.100levelup.com/family';
 
 let currentData = null;
 let lastFetchTime = null;
@@ -633,7 +633,7 @@ function renderBaseline() {
     arthurBot: {
       current: null,
       queue: [
-        { task: 'Build family data API on VPS (:3460)', why: 'This dashboard needs live data' },
+        { task: 'Family data API live on VPS', why: 'Dashboard connected via HTTPS' },
         { task: 'Give Lady email + web search tools', why: 'She hunts but can\'t send outreach' },
         { task: 'Connect Calendly webhooks to Tamara', why: 'Auto-notify on bookings/cancels' },
         { task: 'Deploy thepalyans.html to GitHub Pages', why: 'Eyes from phone, anywhere' },
