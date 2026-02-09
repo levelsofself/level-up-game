@@ -3,606 +3,668 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Palyan Family Command Center</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F451;</text></svg>">
-<style>body{margin:0;padding:0;background:#080808;}</style>
+<title>The Palyan Family</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08080a;
+    --surface: rgba(255,255,255,0.025);
+    --border: rgba(255,255,255,0.06);
+    --text: #ccc;
+    --text-dim: #666;
+    --text-faint: #444;
+    --gold: #D4A574;
+    --tamara: #E8B4B8;
+    --lady: #7DD3A8;
+    --roman: #93A8E8;
+    --kris: #C9A84C;
+    --lily: #C4A8E8;
+    --spartak: #4ECDC4;
+    --red: #EF4444;
+    --green: #34D399;
+    --mono: 'JetBrains Mono', monospace;
+    --body: 'DM Sans', -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 720px; margin: 0 auto; padding: 28px 20px 80px; }
+
+  /* HEADER */
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
+  .logo { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .logo-mark {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--gold), #B8845A);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px; color: #fff;
+  }
+  .logo-text { font-size: 10px; color: var(--text-faint); font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
+  .greeting { font-size: 24px; font-weight: 400; color: #fff; letter-spacing: -0.01em; }
+  .clock { text-align: right; font-family: var(--mono); font-size: 12px; }
+  .clock-date { color: var(--text-dim); margin-bottom: 2px; }
+  .clock-time { color: var(--gold); font-weight: 500; }
+  .pulse-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); margin-right: 6px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(52,211,153,0.4); } 50% { opacity: 0.6; box-shadow: 0 0 0 6px rgba(52,211,153,0); } }
+  .live-tag { font-size: 10px; color: var(--green); font-family: var(--mono); font-weight: 500; }
+
+  /* NAV TABS */
+  .nav { display: flex; gap: 4px; margin-bottom: 28px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    font-family: var(--body); font-size: 12px; font-weight: 500;
+    padding: 8px 14px; border-radius: 8px; border: 1px solid transparent;
+    background: transparent; color: var(--text-dim); cursor: pointer;
+    white-space: nowrap; transition: all 0.2s;
+  }
+  .nav-btn:hover { color: var(--text); background: var(--surface); }
+  .nav-btn.active { color: var(--gold); background: rgba(212,165,116,0.08); border-color: rgba(212,165,116,0.15); }
+
+  /* SECTIONS */
+  .section { display: none; animation: fadeIn 0.25s ease; }
+  .section.visible { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-title {
+    font-size: 11px; font-weight: 600; color: var(--text-faint);
+    font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-title .dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 18px; margin-bottom: 10px;
+  }
+  .card-accent { border-left: 3px solid; padding-left: 16px; }
+
+  /* STAT ROW */
+  .stat-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  .stat-box {
+    flex: 1; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 12px; text-align: center;
+  }
+  .stat-num { font-size: 28px; font-weight: 300; line-height: 1; margin-bottom: 2px; }
+  .stat-label { font-size: 10px; color: var(--text-dim); }
+
+  /* LIST ITEMS */
+  .list-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .list-item:last-child { border-bottom: none; }
+  .list-time { font-size: 11px; color: var(--text-faint); font-family: var(--mono); min-width: 60px; flex-shrink: 0; }
+  .list-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .list-sub { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+  /* TAGS */
+  .tag {
+    font-size: 9px; font-weight: 600; font-family: var(--mono);
+    padding: 2px 7px; border-radius: 4px; text-transform: uppercase;
+    letter-spacing: 0.04em; display: inline-block;
+  }
+  .tag-green { color: var(--green); background: rgba(52,211,153,0.1); }
+  .tag-gold { color: var(--gold); background: rgba(212,165,116,0.1); }
+  .tag-red { color: var(--red); background: rgba(239,68,68,0.1); }
+  .tag-blue { color: var(--roman); background: rgba(147,168,232,0.1); }
+  .tag-teal { color: var(--spartak); background: rgba(78,205,196,0.1); }
+
+  /* BRIEFING BLOCKS */
+  .brief-block { margin-bottom: 16px; }
+  .brief-label {
+    font-size: 10px; font-weight: 600; font-family: var(--mono);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;
+  }
+  .brief-item {
+    font-size: 13px; color: #999; line-height: 1.6; margin-bottom: 6px;
+    padding-left: 14px; border-left: 2px solid;
+  }
+  .brief-rec {
+    background: rgba(232,180,184,0.05); border: 1px solid rgba(232,180,184,0.1);
+    border-radius: 10px; padding: 14px 16px;
+  }
+  .brief-rec-label { font-size: 10px; font-weight: 600; color: var(--tamara); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .brief-rec-text { font-size: 13px; color: var(--text); line-height: 1.6; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border);
+    text-align: center; font-size: 10px; color: var(--text-faint); font-family: var(--mono);
+  }
+  .last-updated { font-size: 10px; color: var(--text-faint); font-family: var(--mono); margin-bottom: 20px; }
+
+  /* PROGRESS BAR */
+  .progress-bar { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-top: 6px; }
+  .progress-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+
+  /* RESPONSIVE */
+  @media (max-width: 480px) {
+    .container { padding: 20px 16px 60px; }
+    .greeting { font-size: 20px; }
+    .stat-num { font-size: 22px; }
+    .stat-row { gap: 6px; }
+    .stat-box { padding: 10px 8px; }
+    .nav-btn { padding: 7px 11px; font-size: 11px; }
+  }
+</style>
 </head>
 <body>
-<div id="root"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
-<script type="text/babel">
-const { useState, useEffect, useRef } = React;
 
-// ═══════════════════════════════════════════════════════
-// CONFIG - The only thing you ever edit. Everything else
-// auto-calculates from this block.
-// ═══════════════════════════════════════════════════════
+<div class="container">
 
-const CONFIG = {
-  runwayMonths: "3-6",
-  currentMonthRevenue: 0,
-  lifetimeRevenue: 1400,
-  lifetimeClients: 2,
-  apiCredits: { anthropic: 100, deepseek: 10, openrouter: 7 },
-  costs: [
-    { item: "Claude Max 20x", cost: 200 },
-    { item: "Vercel Pro", cost: 20 },
-    { item: "Calendly + Zoom", cost: 20 },
-    { item: "DigitalOcean VPS", cost: 12 },
-  ],
-  totalScenarios: 6854,
-  fullLanguages: 0,
-  templateReady: 3848,
-  uiLanguagesStarted: 2,
-  vpsIP: "167.99.108.151",
-  vpsRAM: "4GB",
-};
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="logo">
+        <div class="logo-mark">P</div>
+        <span class="logo-text">The Palyan Family</span>
+      </div>
+      <div class="greeting" id="greeting">Good evening, Arthur</div>
+    </div>
+    <div class="clock">
+      <div class="clock-date" id="clock-date"></div>
+      <div class="clock-time" id="clock-time"></div>
+      <div style="margin-top:4px"><span class="pulse-dot"></span><span class="live-tag" id="live-status">LIVE</span></div>
+    </div>
+  </div>
 
-// ═══════════════════════════════════════════════════════
-// FAMILY - Change status when bots go live/offline.
-// Infrastructure page auto-builds from processId/processMem.
-// ═══════════════════════════════════════════════════════
+  <div class="last-updated" id="last-updated">Updating...</div>
 
-const FAMILY = [
-  {
-    name: "Arthur", role: "CEO & Head of Family", emoji: "\u{1F451}", status: "online",
-    telegram: "@MrPalyan_Bot", accent: "#D4A574",
-    directive: "Show up for every human moment. Close every deal. Do the deep work nobody else can.",
-    bio: "Founder of Levels of Self Academy. Best Life Coach California 2025. Created the Level Up game with " + CONFIG.totalScenarios + " scenarios across 7 levels of self-development. Father of four. The soul of everything.",
-    processName: "arthur-bot", processId: 2, processPort: null, processMem: "79MB",
-  },
-  {
-    name: "Tamara", role: "Supervisor", emoji: "\u{1F3E0}", status: "online",
-    telegram: "@Tamara_Palyan_Bot", accent: "#E8B4B8",
-    directive: "Run the house. Turn chaos into order. Arthur only hears what matters.",
-    bio: "Named after Arthur's wife. The one who holds it all together. Morning briefs, evening summaries, routing leads, flagging problems. She turns a house into a home.",
-    processName: "tamara-bot", processId: 6, processPort: null, processMem: "81MB",
-  },
-  {
-    name: "Kris", role: "Elder & Unity Builder", emoji: "\u{1F985}", status: "online",
-    telegram: "@Kris_Pbot", accent: "#C9A84C",
-    directive: "Create the ultimate win-win. Include everyone. Eliminate fear. Build bridges between worlds.",
-    bio: "Arthur's oldest brother. The elder of the Palyans. The Palyans music is already on Apple Music, Spotify, and inside the Level Up game itself. He creates unity where others see division, builds real-world partnerships, and includes everyone at the table. He provides exit strategies so nobody is afraid to start.",
-    processName: "kris-bot", processId: 9, processPort: null, processMem: "74MB",
-  },
-  {
-    name: "Lady", role: "Scheduling & Hunter", emoji: "\u{1F415}", status: "online",
-    telegram: "@Lady_Dogbot", accent: "#7DD3A8",
-    directive: "Fill Arthur's calendar. Every day. No excuses.",
-    bio: "Named after the Palyan family dog. The hunter. The go-getter. She finds appointments, fills forms, discovers opportunities, and brings them home. Relentless but smart.",
-    processName: "lady-bot", processId: 7, processPort: null, processMem: "72MB",
-  },
-  {
-    name: "Roman", role: "Press & Credibility", emoji: "\u2B50", status: "online",
-    telegram: "@Roman_Palyan_Bot", accent: "#93A8E8",
-    directive: "Stack credibility so high that trust becomes inevitable.",
-    bio: "Named after Arthur's 4-year-old son. The brightest star. He already mediates conflict at his age. His namesake handles press, testimonials, social content. He sees what's good and makes sure the world sees it too.",
-    processName: "roman-bot", processId: 8, processPort: null, processMem: "61MB",
-  },
-  {
-    name: "Lily", role: "Player Engagement", emoji: "\u{1F338}", status: "online",
-    telegram: "@LevelsOfSelfBot", accent: "#C4A8E8",
-    directive: "Accept everyone fully. Help them see their patterns. Never turn anyone away.",
-    bio: "Named after Arthur's unborn daughter. His deepest legacy. She talks to every person who comes through. She accepts them, helps them with exercises, and creates breakthroughs. Already helping people worldwide before she's even born.",
-    processName: "lily-telegram", processId: 5, processPort: null, processMem: "79MB",
-    extraProcesses: [{ name: "lily-web", id: 1, port: 3456, mem: "62MB", desc: "Player chat API" }],
-  },
-  {
-    name: "Spartak", role: "Global Communicator", emoji: "\u{1F30D}", status: "ready",
-    telegram: null, accent: "#4ECDC4",
-    directive: "Break every language barrier. Make the game speak everyone's mother tongue. Connect the world.",
-    bio: "Arthur and Tamara's 4-week-old son. The youngest Palyan found his voice before he could speak. Translates the entire Level Up game into every language players need. " + CONFIG.totalScenarios + " total scenarios. Template covers " + CONFIG.templateReady + ". Dutch and Spanish UI started.",
-    processName: "spartak-bot", processId: null, processPort: null, processMem: null,
-  },
-];
+  <!-- NAV -->
+  <div class="nav" id="nav">
+    <button class="nav-btn active" data-tab="overview">Overview</button>
+    <button class="nav-btn" data-tab="tamara">🏠 Tamara</button>
+    <button class="nav-btn" data-tab="lady">🐕 Lady</button>
+    <button class="nav-btn" data-tab="lily">🌸 Lily</button>
+    <button class="nav-btn" data-tab="roman">⭐ Roman</button>
+    <button class="nav-btn" data-tab="kris">🦅 Kris</button>
+    <button class="nav-btn" data-tab="spartak">🌍 Spartak</button>
+    <button class="nav-btn" data-tab="arthur-bot">👑 A-Bot</button>
+  </div>
 
-// ═══════════════════════════════════════════════════════
-// CRON SCHEDULES - Real times, countdowns auto-calculate
-// ═══════════════════════════════════════════════════════
+  <!-- ═══════════ OVERVIEW ═══════════ -->
+  <div class="section visible" id="tab-overview">
+    <div class="stat-row" id="overview-stats">
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--gold)" id="stat-calls">--</div>
+        <div class="stat-label">calls this week</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--lady)" id="stat-lady-set">0</div>
+        <div class="stat-label">Lady set</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--roman)" id="stat-organic">--</div>
+        <div class="stat-label">organic</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--green)" id="stat-family-online">7</div>
+        <div class="stat-label">family online</div>
+      </div>
+    </div>
 
-const CRON_SCHEDULES = [
-  { name: "Morning Brief", assignee: "Tamara", type: "daily", hour: 8, min: 0, status: "active", description: "Overnight activity, family accomplishments, calendar, one recommendation" },
-  { name: "Evening Summary", assignee: "Tamara", type: "daily", hour: 20, min: 0, status: "active", description: "Day's results, calls booked, content created, tomorrow's priorities" },
-  { name: "Inbox Check", assignee: "Lady", type: "interval", intervalHours: 2, status: "active", description: "Check email replies, route warm leads, flag bouncebacks" },
-  { name: "Player Activity Digest", assignee: "Lily", type: "daily", hour: 21, min: 0, status: "active", description: "Breakthrough conversations, deep mode triggers, coaching candidates" },
-  { name: "Credibility Scan", assignee: "Roman", type: "weekly", dayOfWeek: 1, hour: 10, min: 0, status: "active", description: "New press mentions, social engagement, testimonial opportunities" },
-  { name: "Financial Checkpoint", assignee: "Tamara", type: "weekly", dayOfWeek: 5, hour: 18, min: 0, status: "active", description: "Burn rate, revenue, ROI per family member, runway update" },
-  { name: "Translation Progress", assignee: "Spartak", type: "weekly", dayOfWeek: 0, hour: 18, min: 0, status: "pending", description: "Languages completed, scenarios translated, game update status" },
-  { name: "Partnership Pipeline", assignee: "Kris", type: "weekly", dayOfWeek: 3, hour: 10, min: 0, status: "pending", description: "Win-win opportunities, music integration points, new bridges built" },
-];
+    <div class="section-title"><div class="dot" style="background:var(--gold)"></div>Today's Calls</div>
+    <div id="overview-today-calls"><div class="card" style="color:var(--text-dim);font-size:13px">Loading calendar...</div></div>
 
-// ═══════════════════════════════════════════════════════
-// AUTO-DERIVED (never edit below this line)
-// ═══════════════════════════════════════════════════════
+    <div style="height:20px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--tamara)"></div>Tamara's Top Recommendation</div>
+    <div id="overview-recommendation"><div class="card" style="color:var(--text-dim);font-size:13px">Waiting for briefing...</div></div>
 
-function getGreeting() {
-  const h = new Date().getHours();
-  if (h < 12) return "Good morning";
-  if (h < 17) return "Good afternoon";
-  return "Good evening";
+    <div style="height:20px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--lady)"></div>Lady's Latest</div>
+    <div id="overview-lady-latest"><div class="card" style="color:var(--text-dim);font-size:13px">Waiting for hunt report...</div></div>
+
+    <div style="height:20px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--lily)"></div>Lily Today</div>
+    <div id="overview-lily-latest"><div class="card" style="color:var(--text-dim);font-size:13px">Waiting for player data...</div></div>
+  </div>
+
+  <!-- ═══════════ TAMARA ═══════════ -->
+  <div class="section" id="tab-tamara">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-size:24px">🏠</span>
+      <div>
+        <div style="font-size:18px;font-weight:500;color:#fff">Tamara</div>
+        <div style="font-size:12px;color:var(--tamara)">Supervisor — Runs the House</div>
+      </div>
+    </div>
+
+    <div class="brief-block">
+      <div class="brief-label" style="color:var(--green)">● What's Working</div>
+      <div id="tamara-working"><div class="brief-item" style="border-color:rgba(52,211,153,0.2)">Loading...</div></div>
+    </div>
+    <div class="brief-block">
+      <div class="brief-label" style="color:var(--red)">● What's Not Working</div>
+      <div id="tamara-not-working"><div class="brief-item" style="border-color:rgba(239,68,68,0.2)">Loading...</div></div>
+    </div>
+    <div class="brief-block">
+      <div class="brief-rec">
+        <div class="brief-rec-label">Tamara's Recommendation</div>
+        <div class="brief-rec-text" id="tamara-recommendation">Loading...</div>
+      </div>
+    </div>
+
+    <div style="height:16px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--tamara)"></div>Family Reports Received</div>
+    <div id="tamara-reports"><div class="card" style="color:var(--text-dim);font-size:13px">Waiting for family reports...</div></div>
+  </div>
+
+  <!-- ═══════════ LADY ═══════════ -->
+  <div class="section" id="tab-lady">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-size:24px">🐕</span>
+      <div>
+        <div style="font-size:18px;font-weight:500;color:#fff">Lady</div>
+        <div style="font-size:12px;color:var(--lady)">Hunter — Fills Arthur's Calendar</div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num" style="color:var(--lady)" id="lady-forms">0</div><div class="stat-label">forms filled</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--lady)" id="lady-emails">0</div><div class="stat-label">emails sent</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--lady)" id="lady-meetings">0</div><div class="stat-label">meetings booked</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--lady)" id="lady-leads">0</div><div class="stat-label">leads found</div></div>
+    </div>
+
+    <div class="section-title"><div class="dot" style="background:var(--lady)"></div>Upcoming Work</div>
+    <div id="lady-upcoming"><div class="card" style="color:var(--text-dim);font-size:13px">Loading work queue...</div></div>
+
+    <div style="height:16px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--green)"></div>Completed Work</div>
+    <div id="lady-completed"><div class="card" style="color:var(--text-dim);font-size:13px">No completed work yet</div></div>
+
+    <div style="height:16px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--gold)"></div>Channels & Opportunities</div>
+    <div id="lady-channels"><div class="card" style="color:var(--text-dim);font-size:13px">Loading channels...</div></div>
+
+    <div style="height:16px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--kris)"></div>AI Partners & Resources Found</div>
+    <div id="lady-partners"><div class="card" style="color:var(--text-dim);font-size:13px">No partners found yet</div></div>
+  </div>
+
+  <!-- ═══════════ LILY ═══════════ -->
+  <div class="section" id="tab-lily">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-size:24px">🌸</span>
+      <div>
+        <div style="font-size:18px;font-weight:500;color:#fff">Lily</div>
+        <div style="font-size:12px;color:var(--lily)">Player Engagement — Accepts Everyone</div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num" style="color:var(--lily)" id="lily-today">0</div><div class="stat-label">today</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--lily)" id="lily-week">0</div><div class="stat-label">this week</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--lily)" id="lily-deep">0</div><div class="stat-label">deep mode</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--gold)" id="lily-coaching">0</div><div class="stat-label">coaching ready</div></div>
+    </div>
+
+    <div class="section-title"><div class="dot" style="background:var(--lily)"></div>Latest Conversations</div>
+    <div id="lily-conversations"><div class="card" style="color:var(--text-dim);font-size:13px">Loading conversations...</div></div>
+
+    <div style="height:16px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--gold)"></div>Breakthroughs This Week</div>
+    <div id="lily-breakthroughs"><div class="card" style="color:var(--text-dim);font-size:13px">Waiting for breakthrough reports...</div></div>
+  </div>
+
+  <!-- ═══════════ ROMAN ═══════════ -->
+  <div class="section" id="tab-roman">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-size:24px">⭐</span>
+      <div>
+        <div style="font-size:18px;font-weight:500;color:#fff">Roman</div>
+        <div style="font-size:12px;color:var(--roman)">Press & Credibility — The Brightest Star</div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num" style="color:var(--roman)" id="roman-releases">0</div><div class="stat-label">releases sent</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--roman)" id="roman-pickups">0</div><div class="stat-label">pickups</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--roman)" id="roman-testimonials">0</div><div class="stat-label">testimonials</div></div>
+    </div>
+
+    <div class="section-title"><div class="dot" style="background:var(--roman)"></div>Latest Press Release</div>
+    <div id="roman-latest"><div class="card" style="color:var(--text-dim);font-size:13px">No press releases sent yet</div></div>
+
+    <div style="height:16px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--gold)"></div>Next Up</div>
+    <div id="roman-next"><div class="card" style="color:var(--text-dim);font-size:13px">Loading queue...</div></div>
+
+    <div style="height:16px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--green)"></div>Credibility Stats</div>
+    <div id="roman-stats"><div class="card" style="color:var(--text-dim);font-size:13px">Loading stats...</div></div>
+  </div>
+
+  <!-- ═══════════ KRIS ═══════════ -->
+  <div class="section" id="tab-kris">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-size:24px">🦅</span>
+      <div>
+        <div style="font-size:18px;font-weight:500;color:#fff">Kris</div>
+        <div style="font-size:12px;color:var(--kris)">Elder & Unity Builder — Win-Win Only</div>
+      </div>
+    </div>
+
+    <div class="section-title"><div class="dot" style="background:var(--green)"></div>Actions Taken</div>
+    <div id="kris-actions"><div class="card" style="color:var(--text-dim);font-size:13px">No actions logged yet</div></div>
+
+    <div style="height:16px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--kris)"></div>Upcoming Actions</div>
+    <div id="kris-upcoming"><div class="card" style="color:var(--text-dim);font-size:13px">Loading queue...</div></div>
+
+    <div style="height:16px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--gold)"></div>Results</div>
+    <div id="kris-results"><div class="card" style="color:var(--text-dim);font-size:13px">Loading results...</div></div>
+  </div>
+
+  <!-- ═══════════ SPARTAK ═══════════ -->
+  <div class="section" id="tab-spartak">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-size:24px">🌍</span>
+      <div>
+        <div style="font-size:18px;font-weight:500;color:#fff">Spartak</div>
+        <div style="font-size:12px;color:var(--spartak)">Global Communicator — Every Language</div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num" style="color:var(--spartak)" id="spartak-total">6,854</div><div class="stat-label">total scenarios</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--spartak)" id="spartak-template">3,848</div><div class="stat-label">in template</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:var(--gold)" id="spartak-languages">0</div><div class="stat-label">full languages</div></div>
+    </div>
+
+    <div class="section-title"><div class="dot" style="background:var(--spartak)"></div>Languages In Progress</div>
+    <div id="spartak-languages-list"></div>
+
+    <div style="height:16px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--gold)"></div>Translation Requests</div>
+    <div id="spartak-requests"><div class="card" style="color:var(--text-dim);font-size:13px">No new requests</div></div>
+  </div>
+
+  <!-- ═══════════ ARTHUR BOT ═══════════ -->
+  <div class="section" id="tab-arthur-bot">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+      <span style="font-size:24px">👑</span>
+      <div>
+        <div style="font-size:18px;font-weight:500;color:#fff">Arthur Bot + Claude</div>
+        <div style="font-size:12px;color:var(--gold)">Operator — Builds What the Family Needs</div>
+      </div>
+    </div>
+
+    <div class="section-title"><div class="dot" style="background:var(--gold)"></div>Currently Working On</div>
+    <div id="arthurbot-current"><div class="card" style="color:var(--text-dim);font-size:13px">No active task</div></div>
+
+    <div style="height:16px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--text-faint)"></div>Work Queue</div>
+    <div id="arthurbot-queue"></div>
+
+    <div style="height:16px"></div>
+    <div class="section-title"><div class="dot" style="background:var(--green)"></div>Completed</div>
+    <div id="arthurbot-completed"><div class="card" style="color:var(--text-dim);font-size:13px">No completed tasks yet</div></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Not departments. Family. · $252/mo · 6,854 scenarios · 175 countries
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════
+// LIVE DATA ENGINE
+// Polls VPS API every 30 seconds for real family data
+// Falls back to baseline state when API unavailable
+// ══════════════════════════════════════════════════
+
+const API_BASE = 'http://167.99.108.151:3460/family';
+// Same endpoint, no fallback needed - VPS serves the data directly
+// CORS headers required on VPS: Access-Control-Allow-Origin: *
+const API_FALLBACK = 'http://167.99.108.151:3460/family';
+
+let currentData = null;
+let lastFetchTime = null;
+let usesFallback = false;
+
+// ── CLOCK ──
+function updateClock() {
+  const now = new Date();
+  const h = now.getHours();
+  const greeting = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('greeting').textContent = greeting + ', Arthur';
+  document.getElementById('clock-date').textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  document.getElementById('clock-time').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 }
+setInterval(updateClock, 1000);
+updateClock();
 
-function getNextRun(sched, now) {
-  if (sched.type === "interval") {
-    const mins = sched.intervalHours * 60;
-    const elapsed = (now.getHours() * 60 + now.getMinutes()) % mins;
-    return (mins - elapsed) * 60 * 1000;
+// ── TAB NAVIGATION ──
+document.getElementById('nav').addEventListener('click', (e) => {
+  if (!e.target.classList.contains('nav-btn')) return;
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+  e.target.classList.add('active');
+  document.getElementById('tab-' + e.target.dataset.tab).classList.add('visible');
+});
+
+// ── DATA FETCHING ──
+async function fetchData() {
+  try {
+    let resp;
+    try {
+      resp = await fetch(API_BASE + '/status', { signal: AbortSignal.timeout(5000) });
+    } catch(e) {
+      resp = await fetch(API_FALLBACK + '/status', { signal: AbortSignal.timeout(5000) });
+      usesFallback = true;
+    }
+    if (resp.ok) {
+      currentData = await resp.json();
+      lastFetchTime = new Date();
+      document.getElementById('live-status').textContent = 'LIVE';
+      render(currentData);
+    }
+  } catch(e) {
+    document.getElementById('live-status').textContent = 'OFFLINE';
+    if (!currentData) renderBaseline();
   }
-  let next = new Date(now);
-  next.setSeconds(0, 0);
-  if (sched.type === "daily") {
-    next.setHours(sched.hour, sched.min);
-    if (next <= now) next.setDate(next.getDate() + 1);
-  } else if (sched.type === "weekly") {
-    next.setHours(sched.hour, sched.min);
-    let d = sched.dayOfWeek - now.getDay();
-    if (d < 0 || (d === 0 && next <= now)) d += 7;
-    next.setDate(next.getDate() + d);
+  const ts = lastFetchTime ? lastFetchTime.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit',second:'2-digit'}) : 'Waiting for VPS';
+  document.getElementById('last-updated').textContent = lastFetchTime ? 'Updated: ' + ts : 'Baseline data \u00B7 VPS data feed not connected yet';
+}
+
+// ── RENDER LIVE DATA ──
+function render(d) {
+  // Overview stats
+  if (d.calendar) {
+    const total = d.calendar.thisWeek || 0;
+    const ladySet = d.calendar.ladySet || 0;
+    setText('stat-calls', total);
+    setText('stat-lady-set', ladySet);
+    setText('stat-organic', total - ladySet);
   }
-  return next - now;
-}
+  setText('stat-family-online', d.familyOnline || 7);
 
-function fmtCountdown(ms) {
-  if (ms <= 0) return "now";
-  const m = Math.floor(ms / 60000);
-  const h = Math.floor(m / 60);
-  if (h >= 24) return Math.floor(h / 24) + "d " + (h % 24) + "h";
-  return h + "h " + String(m % 60).padStart(2, "0") + "m";
-}
-
-function useLiveCron() {
-  const [now, setNow] = useState(new Date());
-  useEffect(() => { const t = setInterval(() => setNow(new Date()), 30000); return () => clearInterval(t); }, []);
-  return CRON_SCHEDULES.map(s => ({ ...s, nextIn: fmtCountdown(getNextRun(s, now)) }));
-}
-
-const derived = () => {
-  const online = FAMILY.filter(m => m.status === "online").length;
-  const ready = FAMILY.filter(m => m.status === "ready").length;
-  const totalBurn = CONFIG.costs.reduce((a, c) => a + c.cost, 0);
-  return { online, ready, totalBurn };
-};
-
-// ═══════════════════════════════════════════════════════
-// COMPONENTS
-// ═══════════════════════════════════════════════════════
-
-function GlowDot({ color, size = 8, pulse = true }) {
-  return (
-    <span style={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-      {pulse && <span style={{ position: "absolute", width: size * 2.5, height: size * 2.5, borderRadius: "50%", background: color + "20", animation: "pulse 2s ease-in-out infinite" }} />}
-      <span style={{ width: size, height: size, borderRadius: "50%", background: color, boxShadow: "0 0 " + size + "px " + color + "60", position: "relative", zIndex: 1 }} />
-    </span>
-  );
-}
-
-function MetricCard({ label, value, sub, accent }) {
-  return (
-    <div style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 20, padding: "22px 20px", position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: -10, right: -10, width: 80, height: 80, borderRadius: "50%", background: (accent || "#fff") + "06" }} />
-      <div style={{ fontSize: 11, color: "#555", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 600, marginBottom: 10, fontFamily: "var(--font-mono)" }}>{label}</div>
-      <div style={{ fontSize: 32, fontWeight: 200, color: accent || "#fff", letterSpacing: "-0.03em", fontFamily: "var(--font-display)", lineHeight: 1 }}>{value}</div>
-      {sub && <div style={{ fontSize: 12, color: "#555", marginTop: 6, fontFamily: "var(--font-body)" }}>{sub}</div>}
-    </div>
-  );
-}
-
-function PageHeader({ title, subtitle }) {
-  return (
-    <div style={{ marginBottom: 28 }}>
-      <h1 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 200, color: "#fff", letterSpacing: "-0.03em", marginBottom: 4 }}>{title}</h1>
-      {subtitle && <p style={{ fontFamily: "var(--font-body)", fontSize: 14, color: "#555" }}>{subtitle}</p>}
-    </div>
-  );
-}
-
-function SectionHeader({ title }) {
-  return <div style={{ fontSize: 10, fontWeight: 700, color: "#444", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 12, fontFamily: "var(--font-mono)" }}>{title}</div>;
-}
-
-function LiveClock() {
-  const [now, setNow] = useState(new Date());
-  useEffect(() => { const t = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(t); }, []);
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-      <span style={{ fontSize: 13, color: "#555", fontFamily: "var(--font-mono)" }}>
-        {now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
-      </span>
-      <span style={{ fontSize: 13, color: "#D4A574", fontFamily: "var(--font-mono)", fontWeight: 500 }}>
-        {now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
-      </span>
-    </div>
-  );
-}
-
-function Sidebar({ active, onNav }) {
-  const sections = [
-    { id: "divider1", label: "OVERVIEW", type: "divider" },
-    { id: "home", icon: "\u25C8", label: "Dashboard" },
-    { id: "family", icon: "\u2661", label: "Family Roster" },
-    { id: "divider2", label: "OPERATIONS", type: "divider" },
-    { id: "cron", icon: "\u25F7", label: "Scheduled Jobs" },
-    { id: "divider3", label: "SYSTEM", type: "divider" },
-    { id: "financials", icon: "\u25C7", label: "Financials" },
-    { id: "infrastructure", icon: "\u25CE", label: "Infrastructure" },
-  ];
-  const { online, ready } = derived();
-  return (
-    <div style={{ width: 240, minWidth: 240, height: "100vh", position: "fixed", left: 0, top: 0, zIndex: 100, background: "linear-gradient(180deg, rgba(12,12,12,0.98) 0%, rgba(6,6,6,0.99) 100%)", borderRight: "1px solid rgba(255,255,255,0.04)", display: "flex", flexDirection: "column", backdropFilter: "blur(40px)" }}>
-      <div style={{ padding: "32px 24px 24px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
-          <div style={{ width: 32, height: 32, borderRadius: 10, background: "linear-gradient(135deg, #D4A574 0%, #B8845A 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#fff" }}>P</div>
-          <div>
-            <div style={{ fontSize: 14, fontWeight: 600, color: "#D4A574", letterSpacing: "0.04em", fontFamily: "var(--font-display)" }}>PALYAN FAMILY</div>
-            <div style={{ fontSize: 10, color: "#555", letterSpacing: "0.08em", fontFamily: "var(--font-mono)" }}>COMMAND CENTER</div>
-          </div>
+  // Today's calls
+  if (d.calendar && d.calendar.today && d.calendar.today.length > 0) {
+    setHTML('overview-today-calls', d.calendar.today.map(c =>
+      `<div class="list-item">
+        <div class="list-time">${esc(c.time)}</div>
+        <div style="flex:1">
+          <div class="list-text">${esc(c.name)}</div>
+          ${c.note ? `<div class="list-sub">${esc(c.note)}</div>` : ''}
         </div>
-      </div>
-      <div style={{ padding: "0 12px", flex: 1, overflowY: "auto" }}>
-        {sections.map((item) => {
-          if (item.type === "divider") return <div key={item.id} style={{ fontSize: 9, fontWeight: 700, color: "#333", letterSpacing: "0.14em", padding: "16px 12px 6px", fontFamily: "var(--font-mono)" }}>{item.label}</div>;
-          const isActive = active === item.id;
-          return (
-            <button key={item.id} onClick={() => onNav(item.id)} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "9px 12px", marginBottom: 1, border: "none", borderRadius: 10, cursor: "pointer", background: isActive ? "rgba(212,165,116,0.08)" : "transparent", color: isActive ? "#D4A574" : "#555", fontFamily: "var(--font-body)", fontSize: 13, fontWeight: isActive ? 500 : 400, textAlign: "left", transition: "all 0.2s" }}>
-              <span style={{ fontSize: 14, width: 20, textAlign: "center", opacity: isActive ? 1 : 0.5 }}>{item.icon}</span>
-              {item.label}
-            </button>
-          );
-        })}
-      </div>
-      <div style={{ padding: "16px 20px", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-          <GlowDot color="#34D399" size={6} />
-          <span style={{ fontSize: 11, color: "#555", fontFamily: "var(--font-mono)" }}>{online} online</span>
-        </div>
-        {ready > 0 && <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-          <GlowDot color="#F59E0B" size={6} pulse={false} />
-          <span style={{ fontSize: 11, color: "#555", fontFamily: "var(--font-mono)" }}>{ready} ready to deploy</span>
-        </div>}
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <GlowDot color="#60A5FA" size={6} pulse={false} />
-          <span style={{ fontSize: 11, color: "#555", fontFamily: "var(--font-mono)" }}>Max Proxy :3457</span>
-        </div>
-      </div>
-    </div>
-  );
+        <span class="tag ${c.source==='lady'?'tag-green':'tag-gold'}">${c.source==='lady'?'LADY':'ORGANIC'}</span>
+      </div>`
+    ).join(''));
+  }
+
+  // Tamara
+  if (d.tamara) {
+    if (d.tamara.working) setHTML('tamara-working', d.tamara.working.map(t => `<div class="brief-item" style="border-color:rgba(52,211,153,0.2)">${esc(t)}</div>`).join(''));
+    if (d.tamara.notWorking) setHTML('tamara-not-working', d.tamara.notWorking.map(t => `<div class="brief-item" style="border-color:rgba(239,68,68,0.2)">${esc(t)}</div>`).join(''));
+    if (d.tamara.recommendation) setText('tamara-recommendation', d.tamara.recommendation);
+    if (d.tamara.reports) setHTML('tamara-reports', d.tamara.reports.map(r => `<div class="card card-accent" style="border-color:${memberColor(r.from)}"><div style="font-size:11px;color:${memberColor(r.from)};font-weight:600;margin-bottom:4px">${esc(r.from)}</div><div class="list-text">${esc(r.text)}</div><div class="list-sub">${esc(r.time)}</div></div>`).join(''));
+    setHTML('overview-recommendation', `<div class="brief-rec"><div class="brief-rec-label">Tamara Says</div><div class="brief-rec-text">${esc(d.tamara.recommendation || 'No recommendation yet')}</div></div>`);
+  }
+
+  // Lady
+  if (d.lady) {
+    setText('lady-forms', d.lady.formsFilled || 0);
+    setText('lady-emails', d.lady.emailsSent || 0);
+    setText('lady-meetings', d.lady.meetingsBooked || 0);
+    setText('lady-leads', d.lady.leadsFound || 0);
+    if (d.lady.upcoming) setHTML('lady-upcoming', d.lady.upcoming.map(t => taskCard(t, 'var(--lady)')).join(''));
+    if (d.lady.completed) setHTML('lady-completed', d.lady.completed.map(t => taskCard(t, 'var(--green)')).join(''));
+    if (d.lady.channels) setHTML('lady-channels', d.lady.channels.map(c => `<div class="card" style="display:flex;justify-content:space-between;align-items:center"><span class="list-text">${esc(c.name)}</span><span class="tag tag-green">${esc(c.status||'active')}</span></div>`).join(''));
+    if (d.lady.partners) setHTML('lady-partners', d.lady.partners.map(p => `<div class="card"><div class="list-text">${esc(p.name)}</div><div class="list-sub">${esc(p.note||'')}</div></div>`).join(''));
+    // overview
+    const latestLady = d.lady.completed && d.lady.completed.length > 0 ? d.lady.completed[0] : (d.lady.upcoming && d.lady.upcoming[0]);
+    if (latestLady) setHTML('overview-lady-latest', `<div class="card card-accent" style="border-color:var(--lady)"><div class="list-text">${esc(latestLady.title || latestLady.text || 'Working...')}</div><div class="list-sub">${esc(latestLady.time || '')}</div></div>`);
+  }
+
+  // Lily
+  if (d.lily) {
+    setText('lily-today', d.lily.today || 0);
+    setText('lily-week', d.lily.week || 0);
+    setText('lily-deep', d.lily.deepMode || 0);
+    setText('lily-coaching', d.lily.coachingReady || 0);
+    if (d.lily.conversations) setHTML('lily-conversations', d.lily.conversations.map(c => `<div class="card"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span class="list-text" style="font-weight:500">${esc(c.player||'Player')}</span><span class="tag ${c.mode==='deep'?'tag-gold':'tag-blue'}">${esc(c.mode||'slim')}</span></div><div class="list-sub">${esc(c.summary||'')}</div><div class="list-sub" style="margin-top:2px;color:var(--text-faint)">${esc(c.time||'')}</div></div>`).join(''));
+    if (d.lily.breakthroughs) setHTML('lily-breakthroughs', d.lily.breakthroughs.map(b => `<div class="card card-accent" style="border-color:var(--lily)"><div class="list-text">${esc(b.text)}</div><div class="list-sub">${esc(b.time||'')}</div></div>`).join(''));
+    setHTML('overview-lily-latest', `<div class="card card-accent" style="border-color:var(--lily)"><div style="display:flex;gap:16px"><div><span style="font-size:20px;color:var(--lily)">${d.lily.today||0}</span> <span class="list-sub">today</span></div><div><span style="font-size:20px;color:var(--lily)">${d.lily.week||0}</span> <span class="list-sub">this week</span></div><div><span style="font-size:20px;color:var(--gold)">${d.lily.coachingReady||0}</span> <span class="list-sub">coaching ready</span></div></div></div>`);
+  }
+
+  // Roman
+  if (d.roman) {
+    setText('roman-releases', d.roman.releasesSent || 0);
+    setText('roman-pickups', d.roman.pickups || 0);
+    setText('roman-testimonials', d.roman.testimonials || 0);
+    if (d.roman.latest) setHTML('roman-latest', `<div class="card card-accent" style="border-color:var(--roman)"><div class="list-text" style="font-weight:500">${esc(d.roman.latest.title)}</div><div class="list-sub" style="margin-top:4px">${esc(d.roman.latest.summary||'')}</div><div class="list-sub">${esc(d.roman.latest.time||'')}</div></div>`);
+    if (d.roman.next) setHTML('roman-next', `<div class="card"><div class="list-text">${esc(d.roman.next.title)}</div><div class="list-sub">${esc(d.roman.next.note||'')}</div></div>`);
+    if (d.roman.credibility) setHTML('roman-stats', d.roman.credibility.map(s => `<div class="card" style="display:flex;justify-content:space-between"><span class="list-text">${esc(s.label)}</span><span style="color:var(--roman);font-family:var(--mono);font-size:13px;font-weight:500">${esc(s.value)}</span></div>`).join(''));
+  }
+
+  // Kris
+  if (d.kris) {
+    if (d.kris.actionsTaken) setHTML('kris-actions', d.kris.actionsTaken.map(a => `<div class="card card-accent" style="border-color:var(--kris)"><div class="list-text">${esc(a.text)}</div><div class="list-sub">${esc(a.time||'')}</div></div>`).join(''));
+    if (d.kris.upcoming) setHTML('kris-upcoming', d.kris.upcoming.map(a => taskCard(a, 'var(--kris)')).join(''));
+    if (d.kris.results) setHTML('kris-results', d.kris.results.map(r => `<div class="card"><div class="list-text">${esc(r.text)}</div><div class="list-sub">${esc(r.time||'')}</div></div>`).join(''));
+  }
+
+  // Spartak
+  if (d.spartak) {
+    setText('spartak-total', (d.spartak.totalScenarios || 6854).toLocaleString());
+    setText('spartak-template', (d.spartak.templateReady || 3848).toLocaleString());
+    setText('spartak-languages', d.spartak.fullLanguages || 0);
+    if (d.spartak.inProgress) {
+      setHTML('spartak-languages-list', d.spartak.inProgress.map(l => `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span class="list-text" style="font-weight:500">${esc(l.language)}</span><span class="tag tag-teal">${esc(l.status||'in progress')}</span></div><div class="progress-bar"><div class="progress-fill" style="width:${l.percent||0}%;background:var(--spartak)"></div></div><div class="list-sub" style="margin-top:4px">${l.scenarios||0} / ${d.spartak.totalScenarios||6854} scenarios · ${l.uiStrings||0} UI strings</div></div>`).join(''));
+    }
+    if (d.spartak.requests) setHTML('spartak-requests', d.spartak.requests.map(r => `<div class="card card-accent" style="border-color:var(--spartak)"><div class="list-text">${esc(r.language)} — ${esc(r.from||'player')}</div><div class="list-sub">${esc(r.note||'')}</div></div>`).join(''));
+  }
+
+  // Arthur Bot
+  if (d.arthurBot) {
+    if (d.arthurBot.current) setHTML('arthurbot-current', `<div class="card card-accent" style="border-color:var(--gold)"><div class="list-text" style="font-weight:500">${esc(d.arthurBot.current.task)}</div><div class="list-sub">${esc(d.arthurBot.current.why||'')}</div><div class="list-sub" style="margin-top:4px;color:var(--gold)">${esc(d.arthurBot.current.status||'working...')}</div></div>`);
+    if (d.arthurBot.queue) setHTML('arthurbot-queue', d.arthurBot.queue.map((t,i) => `<div class="list-item"><div style="width:22px;height:22px;border-radius:5px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text-dim);font-family:var(--mono);flex-shrink:0">${i+1}</div><div style="flex:1"><div class="list-text">${esc(t.task)}</div><div class="list-sub">${esc(t.why||'')}</div></div></div>`).join(''));
+    if (d.arthurBot.completed) setHTML('arthurbot-completed', d.arthurBot.completed.map(t => `<div class="card" style="display:flex;justify-content:space-between;align-items:center"><span class="list-text">${esc(t.task)}</span><span class="tag tag-green">DONE</span></div>`).join(''));
+  }
 }
 
-// ═══════════════════════════════════════════════════════
-// PAGES
-// ═══════════════════════════════════════════════════════
-
-function DashboardPage() {
-  const d = derived();
-  const cronJobs = useLiveCron();
-  return (
-    <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 36 }}>
-        <div>
-          <h1 style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 200, color: "#fff", letterSpacing: "-0.03em", marginBottom: 4 }}>{getGreeting()}, Arthur</h1>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: 15, color: "#555" }}>Your family is {FAMILY.length} strong. {d.online} online, {d.ready} ready to deploy.</p>
-        </div>
-        <LiveClock />
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14, marginBottom: 32 }}>
-        <MetricCard label="Family Online" value={d.online + "/" + FAMILY.length} sub={d.ready > 0 ? d.ready + " ready to deploy" : "All deployed"} accent="#34D399" />
-        <MetricCard label="Monthly Burn" value={"$" + d.totalBurn} sub={CONFIG.runwayMonths + " months runway"} accent="#EF4444" />
-        <MetricCard label="Lifetime Revenue" value={"$" + CONFIG.lifetimeRevenue.toLocaleString()} sub={CONFIG.lifetimeClients + " clients"} accent="#60A5FA" />
-        <MetricCard label="Scenarios" value={CONFIG.totalScenarios.toLocaleString()} sub={CONFIG.fullLanguages + " full languages translated"} accent="#4ECDC4" />
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
-        <div>
-          <SectionHeader title="Family Status" />
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            {FAMILY.map((m, i) => (
-              <div key={i} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)", borderRadius: 12, padding: "12px 16px", display: "flex", gap: 12, alignItems: "center" }}>
-                <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg, " + m.accent + "15 0%, " + m.accent + "05 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>{m.emoji}</div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 14, color: "#ddd", fontWeight: 500, fontFamily: "var(--font-body)" }}>{m.name}</div>
-                  <div style={{ fontSize: 11, color: m.accent, fontFamily: "var(--font-body)" }}>{m.role}</div>
-                </div>
-                {m.telegram && <span style={{ fontSize: 10, color: "#444", fontFamily: "var(--font-mono)" }}>{m.telegram}</span>}
-                <GlowDot color={m.status === "online" ? "#34D399" : m.status === "ready" ? "#F59E0B" : "#EF4444"} size={7} pulse={m.status === "online"} />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <SectionHeader title="Next Scheduled" />
-          {cronJobs.filter(j => j.status === "active").map((job, i) => {
-            const member = FAMILY.find(m => m.name === job.assignee);
-            return (
-              <div key={i} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)", borderRadius: 12, padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <span style={{ fontSize: 16 }}>{member?.emoji}</span>
-                  <div>
-                    <div style={{ fontSize: 13, color: "#ccc", fontFamily: "var(--font-body)" }}>{job.name}</div>
-                    <div style={{ fontSize: 11, color: "#555", fontFamily: "var(--font-body)" }}>{job.assignee}</div>
-                  </div>
-                </div>
-                <div style={{ fontSize: 13, color: "#60A5FA", fontFamily: "var(--font-mono)", fontWeight: 500, background: "rgba(96,165,250,0.08)", padding: "4px 12px", borderRadius: 6 }}>{job.nextIn}</div>
-              </div>
-            );
-          })}
-          <div style={{ marginTop: 20 }}>
-            <SectionHeader title="Revenue Path" />
-            <div style={{ background: "rgba(212,165,116,0.04)", border: "1px solid rgba(212,165,116,0.1)", borderRadius: 12, padding: "16px 18px" }}>
-              <div style={{ fontSize: 13, color: "#aaa", fontFamily: "var(--font-body)", lineHeight: 1.6 }}>
-                Game experience + credibility pipeline + time = revenue. Both paying clients followed the same pattern: played the game, watched Arthur grow, saw credibility build, then paid. Not ads. Not cold emails.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+// ── RENDER BASELINE (when API unavailable) ──
+function renderBaseline() {
+  const baseline = {
+    calendar: { thisWeek: 23, ladySet: 0, today: [
+      { time: '10:00 AM', name: 'Kyron', source: 'organic' },
+      { time: '10:30 AM', name: 'Sherma', source: 'organic' },
+      { time: '11:00 AM', name: 'Kristy', source: 'organic' },
+      { time: '1:00 PM', name: 'Luis', source: 'organic' },
+      { time: '2:00 PM', name: 'Ramdy', source: 'organic' },
+      { time: '3:00 PM', name: "Brahv'o", source: 'organic' },
+    ] },
+    familyOnline: 7,
+    tamara: {
+      working: [
+        'Pipeline is real. 23+ calls from 6 channels.',
+        'Game is the front door. It works.',
+        'Max proxy: all bots on $200/mo flat.',
+      ],
+      notWorking: [
+        'Zero calls from bots. All organic so far.',
+        'Bots can talk but can\'t act autonomously yet.',
+        'No revenue this month.',
+      ],
+      recommendation: 'Focus on your 23 calls this week. That\'s where revenue lives. Lady needs to produce her own pipeline by Friday.',
+      reports: [],
+    },
+    lady: {
+      formsFilled: 0, emailsSent: 0, meetingsBooked: 0, leadsFound: 0,
+      upcoming: [{ title: 'Research LA rehab centers with wellness programs', time: 'Queued' }],
+      completed: [],
+      channels: [
+        { name: 'Yelp — LA to San Diego', status: 'planned' },
+        { name: 'Google Maps — local wellness', status: 'planned' },
+        { name: 'Craigslist', status: 'organic producing' },
+        { name: 'LinkedIn', status: 'organic producing' },
+        { name: 'TikTok', status: 'organic producing' },
+      ],
+      partners: [],
+    },
+    lily: { today: 0, week: 0, deepMode: 0, coachingReady: 0, conversations: [], breakthroughs: [] },
+    roman: { releasesSent: 0, pickups: 0, testimonials: 0, next: { title: 'Father of four builds AI company named after his family', note: 'Ready to send on Arthur\'s go' } },
+    kris: { actionsTaken: [], upcoming: [{ title: 'Map existing music placements into growth strategy', time: 'Queued' }, { title: 'Identify win-win partnerships: music x self-development', time: 'Queued' }], results: [{ text: 'The Palyans on Apple Music, Spotify, and inside Level Up game', time: 'Already live' }] },
+    spartak: {
+      totalScenarios: 6854, templateReady: 3848, fullLanguages: 0,
+      inProgress: [
+        { language: 'Spanish', status: 'UI started', percent: 3, scenarios: 0, uiStrings: 196 },
+        { language: 'Dutch', status: 'UI started', percent: 3, scenarios: 0, uiStrings: 180 },
+      ],
+      requests: [],
+    },
+    arthurBot: {
+      current: null,
+      queue: [
+        { task: 'Build family data API on VPS (:3460)', why: 'This dashboard needs live data' },
+        { task: 'Give Lady email + web search tools', why: 'She hunts but can\'t send outreach' },
+        { task: 'Connect Calendly webhooks to Tamara', why: 'Auto-notify on bookings/cancels' },
+        { task: 'Deploy thepalyans.html to GitHub Pages', why: 'Eyes from phone, anywhere' },
+      ],
+      completed: [
+        { task: 'Deployed all 7 family bots via Max proxy' },
+        { task: 'Shut down OpenClaw' },
+        { task: 'Built dept-bot-template.js' },
+        { task: 'Created v6 cron workers for Lady, Tamara, Roman, Kris' },
+      ],
+    },
+  };
+  render(baseline);
 }
 
-function FamilyPage() {
-  const [selected, setSelected] = useState(null);
-  const sc = (s) => s === "online" ? "#34D399" : s === "ready" ? "#F59E0B" : "#EF4444";
-  const sl = (s) => s === "online" ? "ONLINE" : s === "ready" ? "READY" : "OFFLINE";
-  return (
-    <div>
-      <PageHeader title="Family Roster" subtitle={FAMILY.length + " Members"} />
-      <div style={{ display: "grid", gridTemplateColumns: selected ? "340px 1fr" : "repeat(4, 1fr)", gap: 14 }}>
-        {FAMILY.map((m) => (
-          <button key={m.name} onClick={() => setSelected(selected?.name === m.name ? null : m)} style={{ background: selected?.name === m.name ? "linear-gradient(135deg, " + m.accent + "08 0%, transparent 100%)" : "rgba(255,255,255,0.015)", border: selected?.name === m.name ? "1px solid " + m.accent + "25" : "1px solid rgba(255,255,255,0.04)", borderRadius: 16, padding: selected ? "14px 16px" : "20px", cursor: "pointer", textAlign: "left", width: "100%", transition: "all 0.3s", position: "relative", overflow: "hidden" }}>
-            {selected?.name === m.name && <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg, transparent, " + m.accent + ", transparent)" }} />}
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: selected ? 6 : 14 }}>
-              <div style={{ width: selected ? 36 : 48, height: selected ? 36 : 48, borderRadius: selected ? 10 : 14, background: "linear-gradient(135deg, " + m.accent + "15 0%, " + m.accent + "05 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: selected ? 18 : 24, transition: "all 0.3s" }}>{m.emoji}</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: "var(--font-display)", fontSize: selected ? 14 : 17, fontWeight: 600, color: "#fff" }}>{m.name}</div>
-                <div style={{ fontFamily: "var(--font-body)", fontSize: 11, color: m.accent, fontWeight: 500 }}>{m.role}</div>
-              </div>
-              <GlowDot color={sc(m.status)} size={7} pulse={m.status === "online"} />
-            </div>
-            {!selected && <div style={{ fontSize: 12, color: "#666", lineHeight: 1.5, fontFamily: "var(--font-body)" }}>{m.directive}</div>}
-          </button>
-        ))}
-      </div>
-      {selected && (
-        <div style={{ position: "fixed", top: 0, right: 0, width: "calc(100% - 240px - 380px)", height: "100vh", background: "rgba(10,10,10,0.95)", backdropFilter: "blur(40px)", borderLeft: "1px solid rgba(255,255,255,0.04)", padding: "32px 36px", overflowY: "auto", animation: "slideIn 0.3s ease" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 28 }}>
-            <div style={{ width: 64, height: 64, borderRadius: 18, background: "linear-gradient(135deg, " + selected.accent + "20 0%, " + selected.accent + "05 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 32, boxShadow: "0 0 40px " + selected.accent + "10" }}>{selected.emoji}</div>
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span style={{ fontFamily: "var(--font-display)", fontSize: 26, fontWeight: 500, color: "#fff" }}>{selected.name}</span>
-                <span style={{ fontSize: 9, fontWeight: 700, color: sc(selected.status), background: sc(selected.status) + "15", padding: "3px 8px", borderRadius: 4, fontFamily: "var(--font-mono)", letterSpacing: "0.06em" }}>{sl(selected.status)}</span>
-              </div>
-              <div style={{ fontSize: 14, color: selected.accent, fontWeight: 500, fontFamily: "var(--font-body)" }}>{selected.role}</div>
-              {selected.telegram && <div style={{ fontSize: 12, color: "#444", fontFamily: "var(--font-mono)", marginTop: 2 }}>{selected.telegram}</div>}
-            </div>
-          </div>
-          <div style={{ marginBottom: 20 }}>
-            <div style={{ fontSize: 10, fontWeight: 700, color: "#444", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 8, fontFamily: "var(--font-mono)" }}>Mission Directive</div>
-            <div style={{ fontSize: 14, color: "#ddd", lineHeight: 1.6, fontFamily: "var(--font-body)", padding: "12px 16px", background: selected.accent + "08", borderRadius: 10, borderLeft: "2px solid " + selected.accent + "30" }}>{selected.directive}</div>
-          </div>
-          <div style={{ marginBottom: 20 }}>
-            <div style={{ fontSize: 10, fontWeight: 700, color: "#444", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 8, fontFamily: "var(--font-mono)" }}>Bio</div>
-            <div style={{ fontSize: 14, color: "#888", lineHeight: 1.6, fontFamily: "var(--font-body)" }}>{selected.bio}</div>
-          </div>
-          {selected.processId && (
-            <div>
-              <div style={{ fontSize: 10, fontWeight: 700, color: "#444", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 8, fontFamily: "var(--font-mono)" }}>Process</div>
-              <div style={{ display: "flex", gap: 10 }}>
-                <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.04)", borderRadius: 10, padding: "10px 14px" }}>
-                  <div style={{ fontSize: 16, fontWeight: 300, color: "#34D399", fontFamily: "var(--font-display)" }}>{selected.processName}</div>
-                  <div style={{ fontSize: 10, color: "#555", fontFamily: "var(--font-mono)" }}>pm2 id {selected.processId}</div>
-                </div>
-                <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.04)", borderRadius: 10, padding: "10px 14px" }}>
-                  <div style={{ fontSize: 16, fontWeight: 300, color: "#60A5FA", fontFamily: "var(--font-display)" }}>{selected.processMem}</div>
-                  <div style={{ fontSize: 10, color: "#555", fontFamily: "var(--font-mono)" }}>memory</div>
-                </div>
-              </div>
-            </div>
-          )}
-          {!selected.processId && (
-            <div style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.12)", borderRadius: 10, padding: "12px 16px" }}>
-              <span style={{ fontSize: 12, color: "#F59E0B", fontFamily: "var(--font-body)" }}>Waiting for deployment</span>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
+// ── HELPERS ──
+function setText(id, val) { const el = document.getElementById(id); if (el) el.textContent = val; }
+function setHTML(id, html) { const el = document.getElementById(id); if (el) el.innerHTML = html; }
+function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
+function memberColor(name) {
+  const colors = { Tamara: 'var(--tamara)', Lady: 'var(--lady)', Roman: 'var(--roman)', Kris: 'var(--kris)', Lily: 'var(--lily)', Spartak: 'var(--spartak)', Arthur: 'var(--gold)' };
+  return colors[name] || 'var(--text-dim)';
+}
+function taskCard(t, color) {
+  return `<div class="card card-accent" style="border-color:${color}"><div class="list-text">${esc(t.title||t.text||'')}</div>${t.time ? `<div class="list-sub">${esc(t.time)}</div>` : ''}</div>`;
 }
 
-function CronPage() {
-  const cronJobs = useLiveCron();
-  return (
-    <div>
-      <PageHeader title="Scheduled Jobs" subtitle="Live countdowns" />
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-        {cronJobs.map((job, i) => {
-          const member = FAMILY.find(m => m.name === job.assignee);
-          const isPending = job.status === "pending";
-          return (
-            <div key={i} style={{ background: isPending ? "rgba(245,158,11,0.02)" : "rgba(255,255,255,0.02)", border: isPending ? "1px solid rgba(245,158,11,0.1)" : "1px solid rgba(255,255,255,0.04)", borderRadius: 16, padding: "20px", position: "relative", overflow: "hidden" }}>
-              <div style={{ position: "absolute", top: 16, right: 16, background: isPending ? "rgba(245,158,11,0.08)" : "rgba(96,165,250,0.08)", border: isPending ? "1px solid rgba(245,158,11,0.15)" : "1px solid rgba(96,165,250,0.15)", borderRadius: 8, padding: "6px 12px" }}>
-                <div style={{ fontSize: 9, color: isPending ? "#F59E0B" : "#60A5FA", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "var(--font-mono)", fontWeight: 700 }}>{isPending ? "Pending" : "Next In"}</div>
-                <div style={{ fontSize: 16, fontWeight: 400, color: isPending ? "#F59E0B" : "#60A5FA", fontFamily: "var(--font-mono)" }}>{job.nextIn}</div>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                <GlowDot color={isPending ? "#F59E0B" : "#34D399"} size={6} pulse={!isPending} />
-                <span style={{ fontSize: 15, fontWeight: 500, color: "#ddd", fontFamily: "var(--font-body)" }}>{job.name}</span>
-              </div>
-              <div style={{ fontSize: 13, color: "#777", fontFamily: "var(--font-body)", lineHeight: 1.5, marginBottom: 12, paddingRight: 100 }}>{job.description}</div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ fontSize: 14 }}>{member?.emoji}</span>
-                <span style={{ fontSize: 12, color: member?.accent || "#666", fontFamily: "var(--font-body)" }}>{member?.name || job.assignee}</span>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function FinancialsPage() {
-  const totalBurn = CONFIG.costs.reduce((a, c) => a + c.cost, 0);
-  const costsWithPct = CONFIG.costs.map(c => ({ ...c, pct: (c.cost / totalBurn) * 100 }));
-  const totalCredits = CONFIG.apiCredits.anthropic + CONFIG.apiCredits.deepseek + CONFIG.apiCredits.openrouter;
-  return (
-    <div>
-      <PageHeader title="Financials" subtitle="All numbers from CONFIG block" />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14, marginBottom: 28 }}>
-        <MetricCard label="Monthly Burn" value={"$" + totalBurn} accent="#EF4444" />
-        <MetricCard label="Runway" value={CONFIG.runwayMonths + "mo"} sub="At current burn" accent="#F59E0B" />
-        <MetricCard label="This Month" value={"$" + CONFIG.currentMonthRevenue} sub="Revenue" accent={CONFIG.currentMonthRevenue > 0 ? "#34D399" : "#666"} />
-        <MetricCard label="Lifetime" value={"$" + CONFIG.lifetimeRevenue.toLocaleString()} sub={CONFIG.lifetimeClients + " clients"} accent="#34D399" />
-      </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
-        <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)", borderRadius: 16, padding: 24 }}>
-          <SectionHeader title="Cost Breakdown" />
-          {costsWithPct.map((c, i) => (
-            <div key={i} style={{ marginBottom: 16 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                <span style={{ fontSize: 13, color: "#bbb", fontFamily: "var(--font-body)" }}>{c.item}</span>
-                <span style={{ fontSize: 13, color: "#999", fontFamily: "var(--font-mono)" }}>${c.cost}/mo</span>
-              </div>
-              <div style={{ height: 4, background: "rgba(255,255,255,0.04)", borderRadius: 2, overflow: "hidden" }}>
-                <div style={{ height: "100%", width: c.pct + "%", borderRadius: 2, background: "linear-gradient(90deg, #D4A574, " + (c.pct > 50 ? "#E8B4B8" : "#7DD3A8") + ")", transition: "width 1s ease" }} />
-              </div>
-            </div>
-          ))}
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.04)", paddingTop: 12, marginTop: 8, display: "flex", justifyContent: "space-between" }}>
-            <span style={{ fontSize: 13, color: "#ddd", fontWeight: 500, fontFamily: "var(--font-body)" }}>Total</span>
-            <span style={{ fontSize: 13, color: "#EF4444", fontWeight: 500, fontFamily: "var(--font-mono)" }}>${totalBurn}/mo</span>
-          </div>
-        </div>
-        <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)", borderRadius: 16, padding: 24 }}>
-          <SectionHeader title="API Credits (backup)" />
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 20 }}>
-            {Object.entries(CONFIG.apiCredits).map(([name, val]) => (
-              <div key={name} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.04)", borderRadius: 10, padding: "12px 14px", textAlign: "center" }}>
-                <div style={{ fontSize: 20, fontWeight: 200, color: val > 50 ? "#34D399" : val > 10 ? "#F59E0B" : "#EF4444", fontFamily: "var(--font-display)" }}>~${val}</div>
-                <div style={{ fontSize: 10, color: "#555", textTransform: "capitalize", fontFamily: "var(--font-mono)", marginTop: 4 }}>{name}</div>
-              </div>
-            ))}
-          </div>
-          <div style={{ background: "rgba(96,165,250,0.06)", border: "1px solid rgba(96,165,250,0.1)", borderRadius: 10, padding: "12px 16px", textAlign: "center" }}>
-            <div style={{ fontSize: 10, color: "#60A5FA", fontWeight: 600, fontFamily: "var(--font-mono)", marginBottom: 4 }}>TOTAL BACKUP</div>
-            <div style={{ fontSize: 24, fontWeight: 200, color: "#60A5FA", fontFamily: "var(--font-display)" }}>~${totalCredits}</div>
-            <div style={{ fontSize: 11, color: "#555", fontFamily: "var(--font-body)", marginTop: 4 }}>Saved by Max proxy</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function InfrastructurePage() {
-  const procs = [];
-  procs.push({ name: "max-proxy", id: 3, port: 3457, mem: "65MB", status: "online", desc: "Claude Max API proxy" });
-  FAMILY.forEach(m => {
-    if (m.extraProcesses) m.extraProcesses.forEach(p => procs.push({ ...p, status: "online" }));
-    if (m.processId) procs.push({ name: m.processName, id: m.processId, port: m.processPort, mem: m.processMem, status: "online", desc: m.role });
-  });
-  const pending = FAMILY.filter(m => !m.processId && m.processName);
-  const totalMem = procs.reduce((a, p) => a + parseInt(p.mem || "0"), 0);
-  return (
-    <div>
-      <PageHeader title="Infrastructure" subtitle="Auto-built from family data" />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginBottom: 24 }}>
-        <MetricCard label="VPS" value={CONFIG.vpsRAM + " RAM"} sub={CONFIG.vpsIP + " \u00B7 " + totalMem + "MB used"} accent="#60A5FA" />
-        <MetricCard label="AI Engine" value="Max 20x" sub="Claude Code OAuth \u00B7 $200/mo flat" accent="#D4A574" />
-        <MetricCard label="Processes" value={procs.length} sub={procs.length + " live" + (pending.length > 0 ? " \u00B7 " + pending.length + " pending" : "")} accent="#34D399" />
-      </div>
-      <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)", borderRadius: 16, padding: 24, marginBottom: 16 }}>
-        <SectionHeader title="PM2 Processes" />
-        <div style={{ display: "grid", gridTemplateColumns: "40px 140px 1fr 70px 60px 60px", gap: 0, fontSize: 10, color: "#444", fontFamily: "var(--font-mono)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", paddingBottom: 8, borderBottom: "1px solid rgba(255,255,255,0.04)", marginBottom: 4 }}>
-          <span>ID</span><span>Name</span><span>Role</span><span>Port</span><span>Mem</span><span>Status</span>
-        </div>
-        {procs.map((p, i) => (
-          <div key={i} style={{ display: "grid", gridTemplateColumns: "40px 140px 1fr 70px 60px 60px", padding: "10px 0", borderBottom: i < procs.length - 1 ? "1px solid rgba(255,255,255,0.02)" : "none", alignItems: "center" }}>
-            <span style={{ fontSize: 12, color: "#555", fontFamily: "var(--font-mono)" }}>{p.id}</span>
-            <span style={{ fontSize: 13, color: "#ccc", fontFamily: "var(--font-mono)", fontWeight: 500 }}>{p.name}</span>
-            <span style={{ fontSize: 12, color: "#666", fontFamily: "var(--font-body)" }}>{p.desc}</span>
-            <span style={{ fontSize: 12, color: p.port ? "#60A5FA" : "#333", fontFamily: "var(--font-mono)" }}>{p.port ? ":" + p.port : "\u2014"}</span>
-            <span style={{ fontSize: 12, color: "#888", fontFamily: "var(--font-mono)" }}>{p.mem}</span>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <GlowDot color="#34D399" size={5} pulse={false} />
-              <span style={{ fontSize: 11, color: "#34D399", fontFamily: "var(--font-mono)" }}>online</span>
-            </div>
-          </div>
-        ))}
-      </div>
-      {pending.length > 0 && <div style={{ background: "rgba(245,158,11,0.02)", border: "1px solid rgba(245,158,11,0.08)", borderRadius: 16, padding: 24, marginBottom: 16 }}>
-        <SectionHeader title="Pending" />
-        {pending.map((m, i) => (
-          <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ fontSize: 18 }}>{m.emoji}</span>
-              <span style={{ fontSize: 13, color: "#ccc", fontFamily: "var(--font-mono)", fontWeight: 500 }}>{m.processName}</span>
-              <span style={{ fontSize: 12, color: "#666", fontFamily: "var(--font-body)" }}>{m.role}</span>
-            </div>
-            <span style={{ fontSize: 9, fontWeight: 700, color: "#F59E0B", background: "rgba(245,158,11,0.1)", padding: "3px 8px", borderRadius: 4, fontFamily: "var(--font-mono)", textTransform: "uppercase" }}>Needs Token</span>
-          </div>
-        ))}
-      </div>}
-      <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.04)", borderRadius: 16, padding: 24 }}>
-        <SectionHeader title="Architecture" />
-        <div style={{ fontSize: 14, color: "#888", fontFamily: "var(--font-mono)", lineHeight: 2.2, textAlign: "center", padding: "20px 0" }}>
-          <span style={{ color: "#C4A8E8" }}>Telegram Users</span>
-          <span style={{ color: "#444" }}> {"\u2192"} </span>
-          <span style={{ color: "#7DD3A8" }}>Family Bots (pm2)</span>
-          <span style={{ color: "#444" }}> {"\u2192"} </span>
-          <span style={{ color: "#60A5FA" }}>Max Proxy (:3457)</span>
-          <span style={{ color: "#444" }}> {"\u2192"} </span>
-          <span style={{ color: "#D4A574" }}>Claude Code CLI</span>
-          <span style={{ color: "#444" }}> {"\u2192"} </span>
-          <span style={{ color: "#E8B4B8" }}>Anthropic (Max Sub)</span>
-          <br />
-          <span style={{ color: "#93A8E8" }}>100levelup.com</span>
-          <span style={{ color: "#444" }}> {"\u2192"} </span>
-          <span style={{ color: "#7DD3A8" }}>Caddy</span>
-          <span style={{ color: "#444" }}> {"\u2192"} </span>
-          <span style={{ color: "#C4A8E8" }}>lily-web (:3456)</span>
-          <span style={{ color: "#444" }}> {"\u2192"} </span>
-          <span style={{ color: "#60A5FA" }}>Max Proxy</span>
-          <span style={{ color: "#444" }}> {"\u2192"} </span>
-          <span style={{ color: "#D4A574" }}>$0 per token</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ═══════════════════════════════════════════════════════
-// APP
-// ═══════════════════════════════════════════════════════
-
-function App() {
-  const [page, setPage] = useState("home");
-  const pages = { home: <DashboardPage />, family: <FamilyPage />, cron: <CronPage />, financials: <FinancialsPage />, infrastructure: <InfrastructurePage /> };
-  return (
-    <div style={{ minHeight: "100vh", background: "#080808", color: "#fff" }}>
-      <style>{`
-        :root { --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; --font-body: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.8); opacity: 0; } }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-        button { font-family: inherit; } button:hover { filter: brightness(1.1); }
-        ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 3px; }
-      `}</style>
-      <Sidebar active={page} onNav={setPage} />
-      <div style={{ marginLeft: 240, padding: "32px 44px", minHeight: "100vh", background: "radial-gradient(ellipse at 50% 0%, rgba(212,165,116,0.02) 0%, transparent 60%)" }}>
-        <div key={page} style={{ animation: "fadeUp 0.3s ease", maxWidth: 1060 }}>
-          {pages[page]}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+// ── INIT ──
+renderBaseline(); // show baseline immediately
+fetchData(); // then try live data
+setInterval(fetchData, 30000); // poll every 30s
 </script>
 </body>
 </html>
