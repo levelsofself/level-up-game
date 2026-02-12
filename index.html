@@ -350,7 +350,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .hook-screen-scrollable.active{align-items:center;min-height:min-content}
 
 .hook-screen-scrollable{justify-content:flex-start;padding-top:max(40px,env(safe-area-inset-top,20px));padding-bottom:max(60px,env(safe-area-inset-bottom,40px));overflow-y:auto;margin-top:auto;margin-bottom:auto;max-height:100%}
-@keyframes screenFadeIn{to{opacity:1;transform:translateY(0)}}
+@keyframes screenFadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 .hook-line{font-size:clamp(24px,6vw,38px);font-weight:800;line-height:1.2;margin-bottom:4px;opacity:0;transform:translateY(30px);background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;padding:0 8px}
 .hook-logo{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(280px,85vw,480px);opacity:0;transition:opacity 0.8s ease;z-index:10;pointer-events:none}
 .hook-logo img{width:100%;height:auto;border-radius:8px}
@@ -364,7 +364,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .hook-btn.show{opacity:1;transform:translateY(0)}
 .hook-btn.show::before{animation:auroraGlow 3s ease-in-out infinite}
 @keyframes auroraGlow{0%,100%{opacity:0.4;filter:blur(12px)}50%{opacity:0.7;filter:blur(16px)}}
-@keyframes btnFadeUp{to{opacity:1;transform:translateY(0)}}
+@keyframes btnFadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .hook-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 36px rgba(255,60,172,0.5)}
 .hook-btn:hover::after{left:150%;transition:left 0.5s ease-out}
 .hook-btn:hover::before{opacity:0.8}
@@ -6409,17 +6409,21 @@ const ENTRY_PATTERNS = {
 };
 
 function showHookScreen(num) {
-  // Smooth transition between screens
+  // Smooth transition between screens - old fully hidden before new appears
   let current = document.querySelector('.hook-screen.active');
   if(current) {
+    current.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
     current.style.opacity = '0';
     current.style.transform = 'translateY(-10px)';
+    current.style.pointerEvents = 'none';
     setTimeout(() => {
       current.classList.remove('active');
       current.style.opacity = '';
       current.style.transform = '';
+      current.style.pointerEvents = '';
+      current.style.transition = '';
       activateScreen(num);
-    }, 200);
+    }, 220);
   } else {
     activateScreen(num);
   }
