@@ -123,12 +123,12 @@ body.bone-ash .press-ticker-label {
   color: rgba(32,28,22,0.4) !important;
 }
 body.bone-ash .press-ticker-item img {
-  filter: none !important;
-  opacity: 0.7 !important;
+  filter: brightness(0.2) contrast(1.2) !important;
+  opacity: 0.6 !important;
 }
 body.bone-ash .press-ticker-item img:hover {
-  filter: none !important;
-  opacity: 1 !important;
+  filter: brightness(0) contrast(1.5) !important;
+  opacity: 0.85 !important;
 }
 
 /* --- HOOK MUSIC CONTROLS --- keep original dark-theme styling */
