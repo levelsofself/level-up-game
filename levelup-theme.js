@@ -1,6 +1,6 @@
-/* Level Up - Bone & Ash Theme v1.0
-   Add: <script src="levelup-theme.js"><\/script>
-   Toggle: floating button bottom-right
+/* Level Up - Light Theme v1.1
+   Add: <script src="levelup-theme.js"></script>
+   Toggle via "See Your Patterns" h1 in index.html
    THEME ONLY - no bugfixes, no music picker */
 (function(){
 'use strict';
@@ -12,7 +12,7 @@ var css=document.createElement('style');
 css.id='bone-ash-theme';
 css.textContent=`
 /* ═══════════════════════════════════════
-   BONE & ASH — Full Game Override
+   LIGHT THEME — Full Game Override
    Activate: document.body.classList.add('bone-ash')
    Deactivate: document.body.classList.remove('bone-ash')
    ═══════════════════════════════════════ */
@@ -184,41 +184,50 @@ body.bone-ash .main-sub {
   font-family: 'Libre Baskerville', serif !important;
 }
 
+/* --- HERO H1 (See Your Patterns) --- */
+body.bone-ash .hero h1 {
+  background: linear-gradient(135deg, #9b4a2c, #c44b2e) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  font-family: 'Fraunces', serif !important;
+  font-weight: 800 !important;
+}
+body.bone-ash .hero p {
+  color: #7a7068 !important;
+  font-family: 'Libre Baskerville', serif !important;
+}
+
 /* --- CHALLENGE CARD --- */
-body.bone-ash .challenge-card,
-body.bone-ash .daily-challenge {
+body.bone-ash .challenge {
   background: rgba(255,252,245,0.8) !important;
   border: 1px solid rgba(32,28,22,0.06) !important;
 }
-body.bone-ash .challenge-title {
+body.bone-ash .challenge h2 {
   color: #201c16 !important;
   font-family: 'Fraunces', serif !important;
 }
-body.bone-ash .challenge-info {
+body.bone-ash .challenge p {
   color: #7a7068 !important;
 }
-body.bone-ash .challenge-trending {
+body.bone-ash .player-count {
   color: #2e6b5a !important;
 }
-body.bone-ash .challenge-timer {
+body.bone-ash .challenge-footer {
+  color: #7a7068 !important;
+}
+body.bone-ash #dailyTimer {
   color: #9b4a2c !important;
 }
 
 /* --- GAME MODE CARDS --- */
-body.bone-ash .mode-card {
+body.bone-ash .mode {
   background: rgba(255,252,245,0.8) !important;
   border: 1px solid rgba(32,28,22,0.06) !important;
 }
-body.bone-ash .mode-card:hover,
-body.bone-ash .mode-card.active {
+body.bone-ash .mode:hover {
   border-color: #9b4a2c !important;
   box-shadow: 0 4px 20px rgba(155,74,44,0.1) !important;
-}
-body.bone-ash .mode-card.active::after {
-  background: transparent !important;
-}
-body.bone-ash .mode-icon {
-  color: #201c16 !important;
 }
 body.bone-ash .mode-name {
   color: #201c16 !important;
@@ -228,24 +237,13 @@ body.bone-ash .mode-name {
 body.bone-ash .mode-desc {
   color: #7a7068 !important;
 }
-body.bone-ash .mode-locked {
-  color: #7a7068 !important;
-}
-body.bone-ash .start-badge {
-  background: #9b4a2c !important;
-  color: #fff !important;
-  font-family: 'Manrope', sans-serif !important;
-  font-weight: 700 !important;
-}
 
 /* --- STATS / XP BAR --- */
-body.bone-ash .xp-container,
-body.bone-ash .level-bar {
+body.bone-ash .xp-container {
   background: rgba(255,252,245,0.8) !important;
   border: 1px solid rgba(32,28,22,0.06) !important;
 }
-body.bone-ash .xp-fill,
-body.bone-ash .level-fill {
+body.bone-ash .xp-fill {
   background: linear-gradient(90deg, #9b4a2c, #c44b2e) !important;
 }
 body.bone-ash .xp-level {
@@ -256,6 +254,12 @@ body.bone-ash .xp-coins {
   background: rgba(155,74,44,0.08) !important;
   border: 1px solid rgba(155,74,44,0.15) !important;
   color: #9b4a2c !important;
+}
+body.bone-ash .xp-bar {
+  background: rgba(32,28,22,0.06) !important;
+}
+body.bone-ash .xp-text {
+  color: #7a7068 !important;
 }
 body.bone-ash .stat {
   background: rgba(255,252,245,0.8) !important;
@@ -284,17 +288,6 @@ body.bone-ash .pattern-card::before,
 body.bone-ash .pattern-card::after {
   display: none !important;
 }
-body.bone-ash .pattern-archetype {
-  font-family: 'Fraunces', serif !important;
-  color: #201c16 !important;
-}
-body.bone-ash .pattern-edge {
-  color: #7a7068 !important;
-  font-family: 'Libre Baskerville', serif !important;
-}
-body.bone-ash .pattern-label {
-  color: #9b4a2c !important;
-}
 
 /* --- LEVEL MAP --- */
 body.bone-ash .section-title {
@@ -310,9 +303,6 @@ body.bone-ash .level-item {
 }
 body.bone-ash .level-item.unlocked {
   border-color: rgba(155,74,44,0.15) !important;
-}
-body.bone-ash .level-item:hover {
-  border-color: rgba(32,28,22,0.12) !important;
 }
 body.bone-ash .level-name {
   color: #201c16 !important;
@@ -335,9 +325,6 @@ body.bone-ash .game-mode {
   font-family: 'Manrope', sans-serif !important;
 }
 body.bone-ash #gameProgress {
-  color: #7a7068 !important;
-}
-body.bone-ash .music-toggle {
   color: #7a7068 !important;
 }
 body.bone-ash .quit {
@@ -467,9 +454,6 @@ body.bone-ash .action-btn {
   color: #201c16 !important;
   font-family: 'Manrope', sans-serif !important;
 }
-body.bone-ash .action-btn.breakthrough {
-  border-color: rgba(155,74,44,0.15) !important;
-}
 body.bone-ash .transform-btn {
   background: linear-gradient(135deg, #9b4a2c, #c44b2e) !important;
 }
@@ -507,12 +491,6 @@ body.bone-ash ::-webkit-scrollbar-track {
 }
 body.bone-ash ::-webkit-scrollbar-thumb {
   background: rgba(32,28,22,0.15) !important;
-}
-
-/* --- COIN DISPLAY --- */
-body.bone-ash .coin-reward {
-  background: rgba(255,252,245,0.95) !important;
-  border: 1px solid rgba(32,28,22,0.06) !important;
 }
 
 /* --- ONBOARDING --- */
@@ -560,63 +538,48 @@ body.bone-ash .app::after {
   display: none !important;
 }
 
-/* --- IOS MODAL --- */
-body.bone-ash .ios-modal {
+/* --- MUSIC PICKER (theme-aware) --- */
+body.bone-ash .music-picker {
+  background: linear-gradient(180deg, rgba(255,252,245,0.98), rgba(242,237,230,0.98)) !important;
+  border: 1px solid rgba(32,28,22,0.08) !important;
+}
+body.bone-ash .music-picker-title {
+  background: linear-gradient(135deg, #9b4a2c, #c44b2e) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+body.bone-ash .music-picker-btn {
+  background: rgba(32,28,22,0.02) !important;
+  border: 1px solid rgba(32,28,22,0.06) !important;
+}
+body.bone-ash .music-picker-btn .mp-name {
+  color: #201c16 !important;
+}
+body.bone-ash .music-picker-btn .mp-sub {
+  color: #7a7068 !important;
+}
+body.bone-ash .music-picker-close {
+  color: #7a7068 !important;
+}
+body.bone-ash .music-picker-overlay {
+  background: rgba(237,232,223,0.8) !important;
+}
+
+/* --- IOS / SHARE MODALS --- */
+body.bone-ash .ios-modal,
+body.bone-ash .share-card-modal {
   background: rgba(237,232,223,0.92) !important;
 }
 body.bone-ash .ios-add-card {
   background: #fffcf5 !important;
   border: 1px solid rgba(32,28,22,0.06) !important;
 }
-
-/* --- SHARE CARD MODAL --- */
-body.bone-ash .share-card-modal {
-  background: rgba(237,232,223,0.92) !important;
-}
 `;
 document.head.appendChild(css);
-// Create theme toggle button (floating)
-  var toggle = document.createElement('button');
-  toggle.id = 'themeToggleBtn';
-  toggle.innerHTML = '🦴';
-  toggle.title = 'Toggle Bone & Ash theme';
-  toggle.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;width:44px;height:44px;border-radius:50%;border:2px solid rgba(155,74,44,0.3);background:rgba(237,232,223,0.95);color:#9b4a2c;font-size:20px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.15);transition:all 0.3s;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)';
-  document.body.appendChild(toggle);
 
-  // Check localStorage for theme preference
-  var saved = localStorage.getItem('levelup_theme');
-  if(saved === 'bone-ash'){
-    document.body.classList.add('bone-ash');
-    toggle.innerHTML = '🌙';
-    toggle.style.background = 'rgba(25,20,40,0.95)';
-    toggle.style.color = '#ff3cac';
-    toggle.style.borderColor = 'rgba(255,60,172,0.3)';
-  }
+// Auto-activate if loaded (index.html handles toggle logic)
+document.body.classList.add('bone-ash');
 
-  toggle.addEventListener('click', function(){
-    if(document.body.classList.contains('bone-ash')){
-      // Switch to dark (original)
-      document.body.classList.remove('bone-ash');
-      toggle.innerHTML = '🦴';
-      toggle.style.background = 'rgba(237,232,223,0.95)';
-      toggle.style.color = '#9b4a2c';
-      toggle.style.borderColor = 'rgba(155,74,44,0.3)';
-      localStorage.setItem('levelup_theme', 'dark');
-      if(typeof showToast === 'function') showToast('🌙 Dark theme');
-    } else {
-      // Switch to Bone & Ash
-      document.body.classList.add('bone-ash');
-      toggle.innerHTML = '🌙';
-      toggle.style.background = 'rgba(25,20,40,0.95)';
-      toggle.style.color = '#ff3cac';
-      toggle.style.borderColor = 'rgba(255,60,172,0.3)';
-      localStorage.setItem('levelup_theme', 'bone-ash');
-      if(typeof showToast === 'function') showToast('🦴 Bone & Ash');
-    }
-  });
-
-})();
-
-
-console.log('[Bone & Ash Theme v1.0] Loaded');
+console.log('[Light Theme v1.1] Loaded');
 })();
