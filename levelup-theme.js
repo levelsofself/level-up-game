@@ -120,13 +120,15 @@ body.bone-ash .recognition-item.selected::after {
 
 /* --- PRESS TICKER --- */
 body.bone-ash .press-ticker-label {
-  color: rgba(32,28,22,0.35) !important;
+  color: rgba(32,28,22,0.4) !important;
 }
 body.bone-ash .press-ticker-item img {
-  filter: brightness(0) opacity(0.35) !important;
+  filter: none !important;
+  opacity: 0.7 !important;
 }
 body.bone-ash .press-ticker-item img:hover {
-  filter: brightness(0) opacity(0.6) !important;
+  filter: none !important;
+  opacity: 1 !important;
 }
 
 /* --- HOOK MUSIC CONTROLS --- keep original dark-theme styling */
