@@ -352,8 +352,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .hook-screen-scrollable{justify-content:flex-start;padding-top:max(40px,env(safe-area-inset-top,20px));padding-bottom:max(60px,env(safe-area-inset-bottom,40px));overflow-y:auto;margin-top:auto;margin-bottom:auto;max-height:100%}
 @keyframes screenFadeIn{to{opacity:1;transform:translateY(0)}}
 .hook-line{font-size:clamp(24px,6vw,38px);font-weight:800;line-height:1.2;margin-bottom:4px;opacity:0;transform:translateY(30px);background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;padding:0 8px}
-.hook-logo{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(200px,60vw,320px);opacity:0;transition:opacity 0.8s ease;z-index:10;pointer-events:none}
-.hook-logo img{width:100%;height:auto}
+.hook-logo{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(280px,85vw,480px);opacity:0;transition:opacity 0.8s ease;z-index:10;pointer-events:none}
+.hook-logo img{width:100%;height:auto;border-radius:8px}
 .hook-line.show{animation:lineFadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards}
 @keyframes lineFadeUp{to{opacity:1;transform:translateY(0)}}
 .hook-sub{font-size:16px;color:var(--text);line-height:1.4;margin:20px 0;opacity:0;font-weight:500;max-width:340px;white-space:normal}
@@ -1384,7 +1384,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="hook" id="hook">
 <!-- Logo Splash - positioned relative to hook overlay, not container -->
 <div class="hook-logo" id="hookLogo">
-<img src="icon-512.png" alt="Levels of Self" width="320" height="320">
+<img src="Level_Up.png" alt="Levels of Self" width="640" height="427">
 </div>
 <div class="hook-container">
 <!-- Screen 1: The Hook -->
@@ -6309,14 +6309,14 @@ function showHook(){
     // Fade in logo
     setTimeout(()=>{logo.style.opacity='1'},100);
     // Fade out logo
-    setTimeout(()=>{logo.style.opacity='0'},1500);
+    setTimeout(()=>{logo.style.opacity='0'},2200);
     // Show text after logo fades
-    setTimeout(()=>document.getElementById('line1').classList.add('show'),2000);
-    setTimeout(()=>document.getElementById('line2').classList.add('show'),2700);
-    setTimeout(()=>{let sub=document.getElementById('hookSub');sub.classList.add('show');sub.style.opacity='1'},3600);
-    setTimeout(()=>{let btn=document.getElementById('hookBtn');btn.classList.add('show');btn.style.opacity='1';btn.style.transform='translateY(0)'},4300);
-    setTimeout(()=>{let lang=document.getElementById('langToggle');if(lang)lang.style.opacity='1'},5000);
-    setTimeout(()=>{let t=document.querySelector('.hook-time');if(t){t.classList.add('show');t.style.opacity='1'}},4900);
+    setTimeout(()=>document.getElementById('line1').classList.add('show'),2800);
+    setTimeout(()=>document.getElementById('line2').classList.add('show'),3500);
+    setTimeout(()=>{let sub=document.getElementById('hookSub');sub.classList.add('show');sub.style.opacity='1'},4400);
+    setTimeout(()=>{let btn=document.getElementById('hookBtn');btn.classList.add('show');btn.style.opacity='1';btn.style.transform='translateY(0)'},5100);
+    setTimeout(()=>{let lang=document.getElementById('langToggle');if(lang)lang.style.opacity='1'},5800);
+    setTimeout(()=>{let t=document.querySelector('.hook-time');if(t){t.classList.add('show');t.style.opacity='1'}},5700);
   }
   
   // If image already loaded (cached), show immediately
