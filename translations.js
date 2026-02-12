@@ -1,21 +1,3 @@
-/**
- * LEVEL UP - TRANSLATIONS
- * ========================
- * All game translations live here. DO NOT edit index.html for translations.
- * 
- * HOW TO ADD A NEW LANGUAGE:
- * 1. Add a new block to the TRANSLATIONS object (copy nl or es as template)
- * 2. Add a language option button in index.html lang dropdown
- * 3. The game picks it up automatically
- * 
- * CURRENT LANGUAGES:
- * - nl (Dutch/Nederlands) — Translated by Laurie
- * - es (Spanish/Español) — Translated by Roger Walter
- * 
- * Files on VPS: /root/family-data/translations.js
- * Spreadsheet: /root/family-data/LevelUp_Translation_Template.xlsx
- */
-
 // ========== LANGUAGE SYSTEM ==========
 var currentLang = localStorage.getItem('levelup_lang') || 'en';
 
@@ -497,24 +479,15 @@ var TRANSLATIONS = {
     "It's a sign you're solving the problem at the wrong level.": '문제를 잘못된 수준에서 해결하고 있다는 신호일 뿐이에요.',
     'Tap each level to learn more:': '각 레벨을 탭해 더 알아보세요:',
     'Individual': '개인',
-    'Self for yourself: your feelings, your life, your beliefs, your needs, your wants. Before you can show up for anyone else, you have to show up for yourself. This means having non-negotiables, things you do for yourself every day, no matter what. It\'s not selfish. It\'s required. If this level isn\'t solid, everything above it is unstable.': '자신을 위한 자아',
     'Family': '가정',
-    'Self for family: the family you created or your closest family. This level is about how you show up in your most intimate relationships, where patterns are most visible and most painful. This is where childhood wounds echo loudest.': '당신이 만든 가정 또는 가까운 가족',
     'Group': '그룹',
-    'Self for group: extended family members, friends, relatives, coworkers, and groups you belong to. If you\'ve created your own family, your parents and siblings now live here. The question: Are you being yourself, or performing a version of yourself to fit in, or hiding entirely? The first 3 levels represent 90% of everyday life.': '확장 가족, 친구, 동료',
     'Community': '커뮤니티',
-    'Self for community: your town, city, or neighborhood. Activities, events, and organizations you participate in. Where you transition from private identity to public presence.': '활동과 이벤트',
     'Society': '사회',
-    'Self for society: your country, its systems, and institutions. How you navigate and are shaped by the larger structures: education, healthcare, politics, economy, media. Most people are unconsciously shaped by this level without realizing it.': '국가 & 시스템',
     'World': '세계',
-    'Self for world: the global stage. International dynamics, cultural exchange, humanitarian concerns, and your relationship with humanity beyond your borders.': '글로벌 무대',
     'Generation': '세대',
-    'Self for generation: the people who came before you, and those who will come after. Generational patterns, inherited trauma, and the legacy you are building or breaking.': '당신 이전과 이후의 세대들',
     'The game shows you which level your pattern lives on, so you can finally change it.': '이 게임은 당신의 패턴이 어느 수준에 있는지 보여주며, 앞으로 발전할 수 있도록 도와줍니다.',
     'Back': '뒤로',
     'See Your Patterns': '패턴 보기',
-
-    // ─── Game UI (basic) ───
     'The game that reveals<br>what\'s really running your life.': '당신의 삶을 진정으로 이끄는 것이 무엇인지<br>밝혀주는 게임.',
     'English': '영어'
   }
@@ -784,3 +757,4 @@ document.addEventListener('click', function(e) {
     dd.classList.remove('open');
   }
 });
+
