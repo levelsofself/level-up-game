@@ -591,10 +591,8 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 .ctrl-btn:nth-child(3){animation-delay:0.15s}
 .ctrl-btn:nth-child(4){animation-delay:0.2s}
 .ctrl-btn:nth-child(5){animation-delay:0.25s}
-.ctrl-btn{width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition-fast);position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.ctrl-btn::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(255,60,172,0.15),transparent 70%);opacity:0;transition:var(--transition-normal);pointer-events:none}
+.ctrl-btn{width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition-fast);position:relative;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .ctrl-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
-.ctrl-btn:hover::before{opacity:1}
 .ctrl-btn:active{transform:scale(0.95)}
 .ctrl-btn.on{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;border:none}
 .ctrl-btn.qa-btn{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border:none;box-shadow:0 2px 8px rgba(120,75,160,0.4)}
@@ -1519,7 +1517,7 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 <div class="onboard-overlay" id="onboardOverlay"></div>
 <div class="app" id="main-content">
 <div class="home" id="home">
-<div class="header"><div class="logo" role="banner" id="logoRateBtn" title="⭐ Rate Level Up">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="musicBtn" aria-label="Toggle Music">🎵</button><button class="ctrl-btn heart-btn" id="aiBtn" aria-label="Deep Insight Analysis">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn" aria-label="Help and FAQ">❓</button><button class="ctrl-btn" id="lilyBtn" onclick="openLily()" aria-label="Lily - Self-Awareness Coach" title="Lily - Self-Awareness Coach" style="background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff;border:none;padding:0;overflow:hidden;"><img src="Lily_Bot.jpg" alt="Lily" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></button><button class="ctrl-btn founder-btn" id="founderBtn" aria-label="Meet the Founder">👤</button></div></div>
+<div class="header"><div class="logo" role="banner" id="logoRateBtn" title="⭐ Rate Level Up">LEVEL UP</div><div class="controls"><button class="ctrl-btn" id="musicBtn" aria-label="Toggle Music">🎵</button><button class="ctrl-btn heart-btn" id="aiBtn" aria-label="Deep Insight Analysis">❤️</button><button class="ctrl-btn qa-btn" id="qaBtn" aria-label="Help and FAQ">❓</button><button class="ctrl-btn" id="lilyBtn" onclick="openLily()" aria-label="Lily - Self-Awareness Coach" title="Lily - Self-Awareness Coach" style="background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff;border:none;padding:0;overflow:hidden;"><img src="Lily_Bot.jpg" alt="Lily" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;pointer-events:none;"></button><button class="ctrl-btn founder-btn" id="founderBtn" aria-label="Meet the Founder">👤</button></div></div>
 
 <div class="login-bonus" id="loginBonus"><div class="login-title">🎁 Daily Login Bonus!</div><div class="login-sub">Tap to claim <span id="loginReward">+20 XP</span></div></div>
 <div class="streak-warning" id="streakWarning"><div class="streak-warning-text">⚠️ Play today or lose your <span id="streakCount">0</span>-day streak!</div></div>
@@ -9632,7 +9630,7 @@ function skipOnboarding() {
   /* Rebind buttons to new functions */
   var mb=document.getElementById('musicBtn');if(mb)mb.onclick=toggleMusic;
   var gm=document.getElementById('gameMusicToggle');if(gm)gm.onclick=toggleMusic;
-  var hm=document.getElementById('hookMusicToggle');if(hm)hm.onclick=function(){toggleHookMusic()};
+  var hm=document.getElementById('hookMusicToggle');if(hm){hm.onclick=toggleHookMusic;hm.removeAttribute('onclick');}
 })();
 
 /* Toggle Bone & Ash theme via See Your Patterns */
