@@ -926,6 +926,37 @@ body.bone-ash .share-btn-secondary:hover {
 }
 
 /* --- HOOK RESULT SECTION (YOUR PATTERN area) --- */
+body.bone-ash .reveal-label-top {
+  color: #9b4a2c !important;
+}
+body.bone-ash .pattern-card-share {
+  background: linear-gradient(165deg, #f7f3ed 0%, #ede8df 100%) !important;
+  box-shadow: 0 12px 60px rgba(155,74,44,0.12), 0 0 0 1px rgba(32,28,22,0.06) !important;
+}
+body.bone-ash .card-glow {
+  background: radial-gradient(circle, rgba(155,74,44,0.08) 0%, rgba(196,75,46,0.04) 40%, transparent 70%) !important;
+}
+body.bone-ash .pattern-icon-share {
+  filter: none !important;
+}
+body.bone-ash .pattern-name-share {
+  background: linear-gradient(135deg, #9b4a2c, #c44b2e) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+body.bone-ash .pattern-tagline-share {
+  color: #5a5048 !important;
+}
+body.bone-ash .card-divider {
+  background: linear-gradient(90deg, transparent, #9b4a2c, transparent) !important;
+}
+body.bone-ash .footer-question {
+  color: #7a7068 !important;
+}
+body.bone-ash .footer-url {
+  color: #9b4a2c !important;
+}
 body.bone-ash .hook-result-label {
   color: #9b4a2c !important;
 }
