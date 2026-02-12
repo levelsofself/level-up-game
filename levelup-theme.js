@@ -129,22 +129,57 @@ body.bone-ash .press-ticker-item img:hover {
   filter: brightness(0) opacity(0.6) !important;
 }
 
-/* --- HOOK MUSIC CONTROLS --- */
-body.bone-ash .hook-music-btn {
-  background: rgba(255,252,245,0.8) !important;
-  border: 1px solid rgba(32,28,22,0.08) !important;
+/* --- HOOK MUSIC CONTROLS --- keep original dark-theme styling */
+
+/* --- DAILY LOGIN BONUS --- */
+body.bone-ash .login-bonus {
+  background-color: rgba(255,252,245,0.95) !important;
+  background-image: linear-gradient(135deg, rgba(155,74,44,0.08), rgba(196,75,46,0.08)) !important;
+  border: 2px solid #9b4a2c !important;
+}
+body.bone-ash .login-title {
+  color: #9b4a2c !important;
+  text-shadow: none !important;
+}
+body.bone-ash .login-sub {
   color: #7a7068 !important;
 }
-body.bone-ash .hook-music-btn.on {
-  background: #9b4a2c !important;
-  color: #fff !important;
-  border: none !important;
+body.bone-ash .login-bonus:hover .login-sub {
+  color: #201c16 !important;
 }
-body.bone-ash .hook-music-btn.spotify {
-  color: #1DB954 !important;
+
+/* --- STREAK WARNING --- */
+body.bone-ash .streak-warning {
+  background-color: rgba(255,252,245,0.95) !important;
+  background-image: linear-gradient(135deg, rgba(196,75,46,0.08), rgba(155,74,44,0.08)) !important;
+  border: 2px solid #c44b2e !important;
 }
-body.bone-ash .hook-music-btn.apple {
-  color: #FC3C44 !important;
+body.bone-ash .streak-warning-text {
+  color: #c44b2e !important;
+}
+
+/* --- CONTROL BUTTONS - larger hit targets --- */
+body.bone-ash .ctrl-btn {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+/* --- COIN REWARD --- */
+body.bone-ash .coin-reward {
+  background: rgba(255,252,245,0.8) !important;
+  border: 2px solid rgba(32,28,22,0.06) !important;
+}
+body.bone-ash .coin-reward:hover {
+  border-color: #9b4a2c !important;
+  box-shadow: 0 4px 20px rgba(155,74,44,0.15) !important;
+}
+body.bone-ash .coin-reward.affordable {
+  border-color: #2e6b5a !important;
+  background: rgba(46,107,90,0.04) !important;
+}
+body.bone-ash .coin-reward.legendary {
+  border-color: #9b4a2c !important;
+  background: linear-gradient(135deg, rgba(155,74,44,0.06), rgba(196,75,46,0.04)) !important;
 }
 
 /* --- HOME SCREEN --- */
@@ -471,12 +506,231 @@ body.bone-ash .footer-btn.primary {
 body.bone-ash .coaching-bridge {
   background: rgba(255,252,245,0.9) !important;
   border: 1px solid rgba(32,28,22,0.06) !important;
+  box-shadow: 0 4px 20px rgba(32,28,22,0.08) !important;
 }
 body.bone-ash .coaching-bridge::before {
   background: linear-gradient(90deg, #9b4a2c, #c44b2e, #6b5a4e) !important;
 }
+body.bone-ash .coaching-bridge::after {
+  background: radial-gradient(circle, rgba(155,74,44,0.04), transparent 70%) !important;
+}
 body.bone-ash .bridge-btn.primary {
   background: linear-gradient(135deg, #9b4a2c, #c44b2e) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 20px rgba(155,74,44,0.25) !important;
+}
+body.bone-ash .bridge-btn.secondary {
+  background: rgba(32,28,22,0.03) !important;
+  color: #201c16 !important;
+  border: 1px solid rgba(32,28,22,0.1) !important;
+}
+
+/* --- TRANSFORM BTN (Get Coaching / 1-on-1) --- */
+body.bone-ash .transform-btn {
+  background: rgba(255,252,245,0.9) !important;
+  border: 2px solid #9b4a2c !important;
+}
+body.bone-ash .transform-btn::before {
+  background: linear-gradient(90deg, #9b4a2c, #c44b2e, #6b5a4e) !important;
+}
+body.bone-ash .transform-btn:hover {
+  background: rgba(155,74,44,0.08) !important;
+  box-shadow: 0 8px 30px rgba(155,74,44,0.15) !important;
+}
+body.bone-ash .transform-btn-text {
+  color: #9b4a2c !important;
+  font-family: 'Manrope', sans-serif !important;
+  font-weight: 700 !important;
+}
+body.bone-ash .transform-btn-sub {
+  color: #7a7068 !important;
+}
+body.bone-ash .transform-btn-icon {
+  color: #201c16 !important;
+}
+
+/* --- RESULTS SCREEN BUTTONS --- */
+body.bone-ash .results-btn {
+  font-family: 'Manrope', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  font-size: 13px !important;
+  color: #fff !important;
+}
+body.bone-ash #homeBtn {
+  background: #9b4a2c !important;
+  color: #fff !important;
+}
+body.bone-ash #keepPlayingBtn {
+  background: #2e6b5a !important;
+  color: #fff !important;
+}
+body.bone-ash #endlessModeBtn {
+  background: #6b5a4e !important;
+  color: #fff !important;
+}
+body.bone-ash .results-actions button {
+  box-shadow: 0 2px 12px rgba(32,28,22,0.1) !important;
+}
+body.bone-ash #resultsCoachingCta button {
+  background: linear-gradient(135deg, #9b4a2c, #c44b2e) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 12px rgba(155,74,44,0.25) !important;
+}
+body.bone-ash #resultsCoachingCta p {
+  color: #7a7068 !important;
+}
+body.bone-ash .share-platform-btn {
+  background: rgba(255,252,245,0.8) !important;
+  border: 1px solid rgba(32,28,22,0.06) !important;
+  color: #201c16 !important;
+}
+body.bone-ash .share-platform-btn:hover {
+  border-color: rgba(32,28,22,0.15) !important;
+}
+
+/* --- BUILT BY FOOTER TEXT --- */
+body.bone-ash .hero + div p,
+body.bone-ash p[style*="Built by"] {
+  color: #7a7068 !important;
+}
+
+/* --- ALL INLINE GRADIENT BUTTONS --- */
+body.bone-ash [style*="linear-gradient(135deg,var(--orange)"] {
+  background: linear-gradient(135deg, #9b4a2c, #c44b2e) !important;
+  color: #fff !important;
+}
+body.bone-ash [style*="linear-gradient(135deg,var(--pink)"] {
+  background: linear-gradient(135deg, #9b4a2c, #6b5a4e) !important;
+  color: #fff !important;
+}
+body.bone-ash [style*="linear-gradient(135deg,var(--green)"] {
+  background: #2e6b5a !important;
+  color: #fff !important;
+}
+body.bone-ash [style*="linear-gradient(135deg,var(--purple)"] {
+  background: #6b5a4e !important;
+  color: #fff !important;
+}
+body.bone-ash [style*="linear-gradient(135deg,var(--blue)"] {
+  background: #2e6b5a !important;
+  color: #fff !important;
+}
+
+/* --- COLOR VAR OVERRIDES FOR INLINE STYLES --- */
+body.bone-ash [style*="color:var(--gold)"] {
+  color: #9b4a2c !important;
+}
+body.bone-ash [style*="color:var(--pink)"] {
+  color: #9b4a2c !important;
+}
+body.bone-ash [style*="color:var(--muted)"] {
+  color: #7a7068 !important;
+}
+body.bone-ash [style*="color:var(--text)"] {
+  color: #201c16 !important;
+}
+body.bone-ash [style*="color:var(--orange)"] {
+  color: #c44b2e !important;
+}
+body.bone-ash [style*="color:var(--purple)"] {
+  color: #6b5a4e !important;
+}
+body.bone-ash [style*="color:var(--cyan)"] {
+  color: #2e6b5a !important;
+}
+body.bone-ash [style*="color:var(--blue)"] {
+  color: #2e6b5a !important;
+}
+body.bone-ash [style*="color:var(--green)"] {
+  color: #2e6b5a !important;
+}
+
+/* --- BACKGROUND VAR OVERRIDES FOR INLINE STYLES --- */
+body.bone-ash [style*="background:var(--card)"] {
+  background: rgba(255,252,245,0.8) !important;
+}
+body.bone-ash [style*="border:1px solid var(--border)"],
+body.bone-ash [style*="border-top:1px solid var(--border)"],
+body.bone-ash [style*="border-bottom:1px solid var(--border)"] {
+  border-color: rgba(32,28,22,0.06) !important;
+}
+body.bone-ash [style*="border-left:3px solid var(--pink)"] {
+  border-left-color: #9b4a2c !important;
+}
+
+/* --- DAILY WISDOM / WELCOME --- */
+body.bone-ash #welcomeMessage {
+  color: #9b4a2c !important;
+}
+body.bone-ash #dailyWisdom {
+  color: #7a7068 !important;
+  background: rgba(155,74,44,0.04) !important;
+  border-left-color: #9b4a2c !important;
+}
+
+/* --- INSIGHTS --- */
+body.bone-ash .insights-stat {
+  color: #2e6b5a !important;
+}
+
+/* --- FOUNDER MODAL --- */
+body.bone-ash #founderModal .modal-content {
+  background: linear-gradient(180deg, #fffcf5, #f5f0e8) !important;
+}
+
+/* --- COIN SHOP --- */
+body.bone-ash .coin-shop-item {
+  background: rgba(255,252,245,0.8) !important;
+  border: 1px solid rgba(32,28,22,0.06) !important;
+}
+body.bone-ash .coin-price {
+  color: #9b4a2c !important;
+}
+
+/* --- GENERAL TEXT CLEANUP --- */
+body.bone-ash h1, body.bone-ash h2, body.bone-ash h3 {
+  color: #201c16 !important;
+}
+body.bone-ash p {
+  color: #201c16 !important;
+}
+body.bone-ash strong[style*="color:var(--pink)"] {
+  color: #9b4a2c !important;
+}
+
+/* --- AGREEMENT/DECISION GAME SPECIFIC --- */
+body.bone-ash .agree-btn {
+  background: rgba(46,107,90,0.1) !important;
+  border: 2px solid #2e6b5a !important;
+  color: #2e6b5a !important;
+}
+body.bone-ash .disagree-btn {
+  background: rgba(155,74,44,0.1) !important;
+  border: 2px solid #9b4a2c !important;
+  color: #9b4a2c !important;
+}
+body.bone-ash .agree-btn.selected {
+  background: #2e6b5a !important;
+  color: #fff !important;
+}
+body.bone-ash .disagree-btn.selected {
+  background: #9b4a2c !important;
+  color: #fff !important;
+}
+
+/* --- SLIDER / RANGE --- */
+body.bone-ash input[type="range"] {
+  accent-color: #9b4a2c !important;
+}
+
+/* --- PROGRESS DOTS --- */
+body.bone-ash .h-dot {
+  background: rgba(32,28,22,0.15) !important;
+}
+body.bone-ash .h-dot.active {
+  background: #9b4a2c !important;
 }
 
 /* --- TOAST --- */
@@ -574,6 +828,127 @@ body.bone-ash .share-card-modal {
 body.bone-ash .ios-add-card {
   background: #fffcf5 !important;
   border: 1px solid rgba(32,28,22,0.06) !important;
+}
+
+/* --- SHARE CARD (Pattern Result) --- */
+body.bone-ash .share-card {
+  background: linear-gradient(165deg, #fffcf5 0%, #f5f0e8 100%) !important;
+  box-shadow: 0 8px 60px rgba(32,28,22,0.15), 0 0 0 1px rgba(32,28,22,0.06) !important;
+}
+body.bone-ash .share-card::before {
+  background: radial-gradient(circle at 30% 30%, rgba(155,74,44,0.06) 0%, transparent 50%),
+              radial-gradient(circle at 70% 70%, rgba(107,90,78,0.06) 0%, transparent 50%) !important;
+}
+body.bone-ash .share-card-logo {
+  color: #7a7068 !important;
+}
+body.bone-ash .share-card-label {
+  color: #9b4a2c !important;
+  background: rgba(155,74,44,0.1) !important;
+}
+body.bone-ash .share-card-icon {
+  filter: none !important;
+}
+body.bone-ash .share-card-name {
+  background: linear-gradient(135deg, #9b4a2c, #c44b2e, #6b5a4e) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+body.bone-ash .share-card-tagline {
+  color: #7a7068 !important;
+}
+body.bone-ash .share-card-stats {
+  border-top-color: rgba(32,28,22,0.08) !important;
+}
+body.bone-ash .share-card-stat-value {
+  color: #201c16 !important;
+}
+body.bone-ash .share-card-stat-label {
+  color: #7a7068 !important;
+}
+body.bone-ash .share-card-cta {
+  color: #7a7068 !important;
+}
+body.bone-ash .share-card-btn {
+  color: #201c16 !important;
+}
+body.bone-ash .share-card-btn.primary {
+  background: linear-gradient(135deg, #9b4a2c, #c44b2e) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 20px rgba(155,74,44,0.25) !important;
+}
+body.bone-ash .share-card-btn.secondary {
+  background: rgba(32,28,22,0.04) !important;
+  border: 1px solid rgba(32,28,22,0.08) !important;
+  color: #201c16 !important;
+}
+
+/* --- START PLAYING BUTTON (hook result) --- */
+body.bone-ash .start-playing-btn {
+  background: #9b4a2c !important;
+  color: #fff !important;
+  box-shadow: 0 4px 20px rgba(155,74,44,0.3) !important;
+}
+body.bone-ash .start-playing-btn::before {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
+}
+body.bone-ash .start-playing-btn:hover {
+  box-shadow: 0 6px 28px rgba(155,74,44,0.4) !important;
+}
+
+/* --- SHARE BUTTON (hook result) --- */
+body.bone-ash .share-btn {
+  background: rgba(255,252,245,0.9) !important;
+  border: 2px solid #9b4a2c !important;
+  color: #9b4a2c !important;
+  box-shadow: 0 4px 20px rgba(155,74,44,0.1) !important;
+}
+body.bone-ash .share-btn::before {
+  display: none !important;
+}
+body.bone-ash .share-btn:hover {
+  background: rgba(155,74,44,0.06) !important;
+  box-shadow: 0 8px 30px rgba(155,74,44,0.15) !important;
+}
+
+/* --- SHARE SECONDARY BUTTON --- */
+body.bone-ash .share-btn-secondary {
+  border-color: rgba(32,28,22,0.1) !important;
+  color: #7a7068 !important;
+}
+body.bone-ash .share-btn-secondary:hover {
+  border-color: #9b4a2c !important;
+  color: #201c16 !important;
+  background: rgba(155,74,44,0.04) !important;
+}
+
+/* --- HOOK RESULT SECTION (YOUR PATTERN area) --- */
+body.bone-ash .hook-result-label {
+  color: #9b4a2c !important;
+}
+body.bone-ash .hook-result-bars span {
+  background: #9b4a2c !important;
+}
+body.bone-ash .hook-result-divider {
+  background: rgba(32,28,22,0.08) !important;
+}
+
+/* --- HOOK BUTTONS (main CTA) --- */
+body.bone-ash .hook-btn {
+  background: #9b4a2c !important;
+  color: #fff !important;
+  box-shadow: 0 4px 24px rgba(155,74,44,0.3) !important;
+}
+body.bone-ash .hook-btn::before {
+  display: none !important;
+}
+body.bone-ash .hook-btn:hover {
+  box-shadow: 0 8px 36px rgba(155,74,44,0.4) !important;
+}
+body.bone-ash .hook-btn-secondary {
+  border-color: #201c16 !important;
+  color: #201c16 !important;
 }
 `;
 document.head.appendChild(css);
