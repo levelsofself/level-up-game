@@ -1,9 +1,12 @@
-// Level Up Service Worker v6.0 - Network-first for updates
-const CACHE_NAME = 'levelup-v6';
+// Level Up Service Worker v7.0 - Network-first for updates
+const CACHE_NAME = 'levelup-v7';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/scenarios.js',
+  '/translations.js',
+  '/scenario-translations-es.js',
+  '/levelup-theme.js',
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png',
@@ -71,7 +74,7 @@ self.addEventListener('fetch', event => {
     return;
   }
   
-  // Network-first for scenarios.js too (always get latest game content)
+  // Network-first for JS too (always get latest game content + translations)
   if (url.pathname.endsWith('.js')) {
     event.respondWith(
       fetch(event.request)
