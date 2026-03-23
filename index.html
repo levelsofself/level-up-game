@@ -776,7 +776,6 @@ body.hook-active .app{visibility:hidden;pointer-events:none}
 /* ========== END COACHING OFFER STYLES ========== */
 
 /* ALWAYS-ON BORDERS: Coaches = Pink, Lily = Purple */
-.coaching-modal-content img[alt="Laurie Van Werde"],
 .coaching-modal-content img[alt="Aurora Maier"],
 .coaching-modal-content img[alt="Heghine Manukyan"],
 .coaching-modal-content img[alt="Roger Walter"]{border:2px solid var(--pink)!important;box-shadow:0 0 12px rgba(255,60,172,0.3)}
@@ -1890,11 +1889,6 @@ You can accept that something <em>IS</em> without agreeing it <em>SHOULD BE</em>
 </div>
 <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Instant pattern analysis · 24/7 · Tap Lily's icon in header</div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-<span style="font-weight:600;">Head Coach (Certified)</span>
-<span style="color:var(--green);font-weight:700;">$250</span>
-</div>
-<div style="font-size:12px;color:var(--muted);margin-bottom:8px;">English · Dutch</div>
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
 <span style="font-weight:600;">Coaches</span>
 <span style="color:var(--green);font-weight:700;">$100</span>
 </div>
@@ -2759,27 +2753,6 @@ Earn coins every game you play. Redeem for real rewards!
 
 <!-- Certified Coaches Section -->
 <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--pink);font-weight:700;margin:24px 0 16px;text-align:center;">Certified Coaches</div>
-
-<!-- Laurie -->
-<div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 0 12px rgba(255,60,172,0.2);">
-<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-<img src="laurie.jpg" alt="Laurie Van Werde" onclick="document.getElementById('coachProfileLaurie').classList.add('active')" style="width:56px;height:56px;min-width:56px;min-height:56px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid var(--pink);cursor:pointer;box-shadow:0 0 12px rgba(255,60,172,0.4);" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-<div style="flex:1;min-width:0;">
-<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Laurie Van Werde <span style="font-size:10px;background:var(--gold);color:#000;padding:2px 6px;border-radius:4px;font-weight:700;vertical-align:middle;">HEAD COACH</span></div>
-<div style="display:flex;gap:4px;flex-wrap:wrap;">
-<span style="font-size:11px;background:rgba(255,255,255,0.1);border:1px solid var(--border);padding:3px 8px;border-radius:6px;color:var(--text);">🇺🇸 English</span>
-<span style="font-size:11px;background:rgba(255,255,255,0.1);border:1px solid var(--border);padding:3px 8px;border-radius:6px;color:var(--text);">🇳🇱 Dutch</span>
-</div>
-</div>
-</div>
-<div style="display:flex;align-items:center;justify-content:space-between;">
-<div style="font-size:20px;font-weight:800;color:var(--green);">$250</div>
-<div style="display:flex;gap:8px;">
-<a href="https://wa.me/+34613734121?text=Hi%20Laurie,%20I've%20been%20playing%20Level%20Up%20and%20have%20some%20questions%20about%20coaching." target="_blank" style="padding:10px 14px;background:#25D366;border-radius:8px;color:#fff;font-size:12px;font-weight:700;text-decoration:none;">💬</a>
-<a href="https://www.levelsofself.com/_paylink/AZusz5dC" target="_blank" style="padding:10px 20px;background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:8px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;">Book</a>
-</div>
-</div>
-</div>
 
 <!-- Aurora -->
 <div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 0 12px rgba(255,60,172,0.2);">
@@ -8777,7 +8750,7 @@ function skipOnboarding() {
     let link=e.target.closest('a[href]');
     if(link&&link.href){
       let href=link.href;
-      if(href.includes('wa.me'))window.trackEvent('click_whatsapp',{coach:href.includes('18184399770')?'arthur':href.includes('34613734121')?'laurie':href.includes('19105261160')?'aurora':href.includes('37477449962')?'heghine':href.includes('18628496701')?'roger':'unknown'});
+      if(href.includes('wa.me'))window.trackEvent('click_whatsapp',{coach:href.includes('18184399770')?'arthur':href.includes('19105261160')?'aurora':href.includes('37477449962')?'heghine':href.includes('18628496701')?'roger':'unknown'});
       else if(href.includes('calendly'))window.trackEvent('click_calendly');
       else if(href.includes('_paylink'))window.trackEvent('click_paylink',{url:href});
       else if(href.includes('apps.apple.com'))window.trackEvent('click_appstore');
@@ -8787,35 +8760,6 @@ function skipOnboarding() {
 </script>
 
 <!-- Coach Profile Overlays -->
-<div class="coach-profile-overlay" id="coachProfileLaurie" onclick="if(event.target===this)this.classList.remove('active')">
-<div class="coach-profile-card">
-<button class="cp-close" onclick="document.getElementById('coachProfileLaurie').classList.remove('active')">✕</button>
-<img src="laurie.jpg" alt="Laurie Van Werde" class="cp-photo">
-<div class="cp-name">Laurie Van Werde</div>
-<div class="cp-location">📍 Catalonia, Spain</div>
-<div class="cp-langs">
-<span class="cp-lang">🇺🇸 English</span>
-<span class="cp-lang">🇳🇱 Dutch</span>
-</div>
-<div class="cp-price">$250 <span>/session</span></div>
-<div class="cp-divider"></div>
-<div class="cp-section-title">Specialties</div>
-<div class="cp-specialties">
-<span class="cp-specialty">Pattern Recognition</span>
-<span class="cp-specialty">Hypnosis</span>
-<span class="cp-specialty">EFT Tapping</span>
-<span class="cp-specialty">NLP</span>
-</div>
-<div class="cp-divider"></div>
-<div class="cp-section-title">About Laurie</div>
-<div class="cp-bio">Laurie serves as the platform's first Dutch-speaking coach, bringing the 7 Levels of Self framework to over 30 million Dutch speakers across the Netherlands, Belgium, Suriname, and South Africa. Based in Catalonia, Spain, she also leads translation efforts to make the game's 6,854 scenarios accessible in Dutch. In addition to coaching, she is completing certifications in hypnosis, EFT tapping, and NLP, which she integrates with the 7 Levels of Self framework. Certified by founder Arthur Palyan.</div>
-<div class="cp-actions">
-<a href="https://wa.me/+34613734121?text=Hi%20Laurie,%20I've%20been%20playing%20Level%20Up%20and%20have%20some%20questions%20about%20coaching." target="_blank" style="background:#25D366;" onclick="event.stopPropagation()">💬 WhatsApp</a>
-<a href="https://www.levelsofself.com/_paylink/AZusz5dC" target="_blank" style="background:linear-gradient(135deg,var(--pink),var(--purple));" onclick="event.stopPropagation()">Book Session</a>
-</div>
-</div>
-</div>
-
 <div class="coach-profile-overlay" id="coachProfileAurora" onclick="if(event.target===this)this.classList.remove('active')">
 <div class="coach-profile-card">
 <button class="cp-close" onclick="document.getElementById('coachProfileAurora').classList.remove('active')">✕</button>
