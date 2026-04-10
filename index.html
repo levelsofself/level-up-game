@@ -6738,18 +6738,8 @@ function determineEntryPattern() {
 // Hook button starts entry flow and intro music
 document.getElementById('hookBtn').onclick = function() {
   if(typeof trackEvent==='function')trackEvent('hook_start');
-  // Check for saved music preference
-  var savedPref;
-  try { savedPref = localStorage.getItem('levelup_music_source'); } catch(e) { savedPref = null; }
-  if(!savedPref) {
-    // First time: show picker, then advance on choice
-    window._hookPendingAdvance = true;
-    document.getElementById('musicPickerOverlay').classList.add('show');
-  } else {
-    // Returning user: auto-execute saved preference
-    window._executePlayerChoice(savedPref);
-    showHookScreen(2);
-  }
+  // Use central music request -- shows chooser if no pref, otherwise executes saved choice
+  window.requestMusic('intro', function(){ showHookScreen(2) });
 };
 
 // Start game button after reveal
@@ -6761,17 +6751,14 @@ document.getElementById('startGameBtn').onclick = function() {
   // Stop intro music
   document.getElementById('introMusic').pause();
   document.getElementById('introMusic').currentTime = 0;
-  // Respect saved player preference for game music transition
+  // Transition to game music using saved preference
   var savedPref;
   try { savedPref = localStorage.getItem('levelup_music_source'); } catch(e) { savedPref = null; }
-  if(musicOn && hookMusicPlaying) {
-    // User had game audio playing during intro - switch to game track
-    if(!savedPref || savedPref === 'game') {
-      music.play().catch(() => {});
-    }
-    // If savedPref is spotify/apple, they already have that open externally - don't re-launch
-  } else if (!hookMusicPlaying) {
-    // User turned off music or is on external player - keep music off in-game
+  if(musicOn && hookMusicPlaying && (!savedPref || savedPref === 'game')) {
+    // Game audio user: crossfade from intro to game track
+    music.play().catch(() => {});
+  } else if (!hookMusicPlaying || (savedPref && savedPref !== 'game')) {
+    // External player or music off: don't fight with Spotify/Apple, just clean up state
     musicOn = false;
     document.getElementById('musicBtn').classList.remove('on');
   }
@@ -8876,54 +8863,111 @@ function skipOnboarding() {
 <script>
 (function(){
   var overlay=document.getElementById('musicPickerOverlay');
+  var PREF_KEY='levelup_music_source';
   function closePicker(){overlay.classList.remove('show')}
   function showPicker(){overlay.classList.add('show')}
   function syncBtns(on){['musicBtn','gameMusicToggle','hookMusicToggle'].forEach(function(id){var b=document.getElementById(id);if(!b)return;if(on){b.classList.add('on');b.classList.remove('off')}else{b.classList.remove('on');b.classList.add('off')}})}
-  function pauseAll(){var i=document.getElementById('introMusic');if(i)i.pause();if(window.music)window.music.pause();musicOn=false;hookMusicPlaying=false;syncBtns(false)}
-  function savePref(val){try{localStorage.setItem('levelup_music_source',val)}catch(e){}syncLabel(val)}
+  function pauseAllAudio(){var i=document.getElementById('introMusic');if(i)i.pause();if(window.music)window.music.pause();musicOn=false;hookMusicPlaying=false;syncBtns(false)}
+  function getPref(){try{return localStorage.getItem(PREF_KEY)}catch(e){return null}}
+  function savePref(val){try{localStorage.setItem(PREF_KEY,val)}catch(e){}syncLabel(val)}
   function syncLabel(val){var el=document.getElementById('currentPlayerLabel');if(!el)return;var names={game:'Game Audio',spotify:'Spotify',apple:'Apple Music'};el.textContent=names[val]||'Game Audio'}
-  /* Init label from saved pref on load */
-  try{var sp=localStorage.getItem('levelup_music_source');if(sp)syncLabel(sp)}catch(e){}
-  function advanceHookIfPending(){if(window._hookPendingAdvance){window._hookPendingAdvance=false;showHookScreen(2)}}
 
-  /* Global helper to execute a player choice by key */
-  window._executePlayerChoice=function(choice){
-    if(choice==='spotify'){
-      pauseAll();if(typeof openSpotify==='function')openSpotify();else window.open('https://open.spotify.com/artist/4sMgiKzENS7YxMCgc9iSHA','_blank');
-    }else if(choice==='apple'){
-      pauseAll();if(typeof openAppleMusic==='function')openAppleMusic();else window.open('https://music.apple.com/us/artist/the-palyans/1746579250','_blank');
-    }else{
-      /* game audio (default) */
-      var i=document.getElementById('introMusic');var isHook=!document.getElementById('hook').classList.contains('hidden');var t=isHook?i:(window.music||i);
-      if(t)t.play().then(function(){musicOn=true;hookMusicPlaying=true;syncBtns(true)}).catch(function(){});
+  /* Init label on load */
+  var initPref=getPref();if(initPref)syncLabel(initPref);
+
+  /* Pending callback after picker choice */
+  var _afterChoose=null;
+
+  /**
+   * Central music request function. All paths go through here.
+   * context: 'intro' | 'game' | 'toggle'
+   * afterChoose: optional callback to run after picker selection (e.g. advance hook screen)
+   */
+  window.requestMusic=function(context,afterChoose){
+    var pref=getPref();
+
+    /* No preference saved yet -> show chooser */
+    if(!pref){
+      _afterChoose=afterChoose||null;
+      window._requestMusicContext=context;
+      showPicker();
+      return;
     }
+
+    /* Preference exists -> execute based on context */
+    executeForContext(pref,context);
+    if(afterChoose)afterChoose();
   };
 
-  overlay.addEventListener('click',function(e){if(e.target===overlay){closePicker();advanceHookIfPending()}});
-  document.getElementById('mpClose').addEventListener('click',function(){closePicker();advanceHookIfPending()});
+  function executeForContext(pref,context){
+    if(pref==='game'){
+      /* Play the appropriate in-app audio */
+      var introEl=document.getElementById('introMusic');
+      var isHook=!document.getElementById('hook').classList.contains('hidden');
+      var track;
+      if(context==='intro') track=introEl;
+      else if(context==='game') track=window.music||introEl;
+      else track=isHook?introEl:(window.music||introEl);
+      if(track)track.play().then(function(){musicOn=true;hookMusicPlaying=true;syncBtns(true)}).catch(function(){});
+    }else if(pref==='spotify'||pref==='apple'){
+      /* External players: only open on explicit user action (toggle), not on auto-transitions */
+      if(context==='toggle'){
+        pauseAllAudio();
+        if(pref==='spotify'){if(typeof openSpotify==='function')openSpotify();else window.open('https://open.spotify.com/artist/4sMgiKzENS7YxMCgc9iSHA','_blank')}
+        else{if(typeof openAppleMusic==='function')openAppleMusic();else window.open('https://music.apple.com/us/artist/the-palyans/1746579250','_blank')}
+      }else if(context==='intro'){
+        /* First-time intro: open external since user just chose it */
+        pauseAllAudio();
+        if(pref==='spotify'){if(typeof openSpotify==='function')openSpotify();else window.open('https://open.spotify.com/artist/4sMgiKzENS7YxMCgc9iSHA','_blank')}
+        else{if(typeof openAppleMusic==='function')openAppleMusic();else window.open('https://music.apple.com/us/artist/the-palyans/1746579250','_blank')}
+      }
+      /* context==='game' with external: do nothing, they already have it open */
+    }
+  }
+
+  /* Picker button handlers -- save pref, execute, fire pending callback */
+  overlay.addEventListener('click',function(e){if(e.target===overlay){closePicker();if(_afterChoose){_afterChoose();_afterChoose=null}}});
+  document.getElementById('mpClose').addEventListener('click',function(){closePicker();if(_afterChoose){_afterChoose();_afterChoose=null}});
 
   document.getElementById('mpGame').addEventListener('click',function(){
+    var ctx=window._requestMusicContext||'toggle';
     closePicker();savePref('game');
-    window._executePlayerChoice('game');
+    executeForContext('game',ctx);
     showToast('🎵 Game audio on');
-    advanceHookIfPending();
+    if(_afterChoose){_afterChoose();_afterChoose=null}
   });
   document.getElementById('mpSpotify').addEventListener('click',function(){
+    var ctx=window._requestMusicContext||'toggle';
     closePicker();savePref('spotify');
-    window._executePlayerChoice('spotify');
-    advanceHookIfPending();
+    executeForContext('spotify',ctx);
+    if(_afterChoose){_afterChoose();_afterChoose=null}
   });
   document.getElementById('mpApple').addEventListener('click',function(){
+    var ctx=window._requestMusicContext||'toggle';
     closePicker();savePref('apple');
-    window._executePlayerChoice('apple');
-    advanceHookIfPending();
+    executeForContext('apple',ctx);
+    if(_afterChoose){_afterChoose();_afterChoose=null}
   });
 
-  /* Override toggleMusic - show picker if off, pause all if on */
-  toggleMusic=function(){if(musicOn){pauseAll();showToast('Music off')}else{showPicker()}};
+  /* Override toggleMusic -- the universal music on/off button */
+  toggleMusic=function(){
+    if(musicOn){pauseAllAudio();showToast('Music off')}
+    else{
+      var pref=getPref();
+      if(!pref){window._requestMusicContext='toggle';showPicker()}
+      else{executeForContext(pref,'toggle')}
+    }
+  };
   /* Override toggleHookMusic */
-  toggleHookMusic=function(){if(hookMusicPlaying||musicOn){var i=document.getElementById('introMusic');if(i)i.pause();if(window.music)window.music.pause();hookMusicPlaying=false;musicOn=false;syncBtns(false);showToast('Music off')}else{showPicker()}};
-  /* Rebind buttons to new functions */
+  toggleHookMusic=function(){
+    if(hookMusicPlaying||musicOn){var i=document.getElementById('introMusic');if(i)i.pause();if(window.music)window.music.pause();hookMusicPlaying=false;musicOn=false;syncBtns(false);showToast('Music off')}
+    else{
+      var pref=getPref();
+      if(!pref){window._requestMusicContext='toggle';showPicker()}
+      else{executeForContext(pref,'toggle')}
+    }
+  };
+  /* Rebind buttons */
   var mb=document.getElementById('musicBtn');if(mb)mb.onclick=toggleMusic;
   var gm=document.getElementById('gameMusicToggle');if(gm)gm.onclick=toggleMusic;
   var hm=document.getElementById('hookMusicToggle');if(hm)hm.onclick=function(){toggleHookMusic()};
