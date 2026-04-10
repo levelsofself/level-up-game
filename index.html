@@ -4029,22 +4029,11 @@ function openSpotify() {
   }
   showToast('Opening Spotify...');
   
-  // Detect platform and use appropriate URL
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const isAndroid = /Android/.test(navigator.userAgent);
-  
-  if (isIOS) {
-    // iOS: Use universal link that opens app if installed, App Store if not
-    window.location.href = 'spotify://';
-    setTimeout(() => { window.location.href = 'https://open.spotify.com'; }, 1500);
-  } else if (isAndroid) {
-    // Android: Intent URL for app, fallback to web
-    window.location.href = 'intent://open.spotify.com/#Intent;scheme=https;package=com.spotify.music;end';
-    setTimeout(() => { window.open('https://open.spotify.com', '_blank'); }, 1500);
-  } else {
-    // Desktop: Just open web player
-    window.open('https://open.spotify.com', '_blank');
-  }
+  // Use universal https link that opens Spotify app if installed, web if not.
+  // Never use custom schemes (spotify://) -- they navigate the WebView away in TWA/PWA.
+  // window.open keeps the game alive in the background.
+  var spotifyUrl = 'https://open.spotify.com/artist/4sMgiKzENS7YxMCgc9iSHA';
+  window.open(spotifyUrl, '_blank');
 }
 
 function openAppleMusic() {
@@ -4059,22 +4048,11 @@ function openAppleMusic() {
   }
   showToast('Opening Apple Music...');
   
-  // Detect platform and use appropriate URL
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const isAndroid = /Android/.test(navigator.userAgent);
-  
-  if (isIOS) {
-    // iOS: Direct to Apple Music app
-    window.location.href = 'music://';
-    setTimeout(() => { window.location.href = 'https://music.apple.com'; }, 1500);
-  } else if (isAndroid) {
-    // Android: Apple Music app or web
-    window.location.href = 'intent://music.apple.com/#Intent;scheme=https;package=com.apple.android.music;end';
-    setTimeout(() => { window.open('https://music.apple.com', '_blank'); }, 1500);
-  } else {
-    // Desktop: Just open web player
-    window.open('https://music.apple.com', '_blank');
-  }
+  // Use universal https link that opens Apple Music app if installed, web if not.
+  // Never use custom schemes (music://) -- they navigate the WebView away in TWA/PWA.
+  // window.open keeps the game alive in the background.
+  var appleMusicUrl = 'https://music.apple.com/us/artist/the-palyans/1120205357';
+  window.open(appleMusicUrl, '_blank');
 }
 
 // ========== SOCIAL MEDIA SHARING ==========
